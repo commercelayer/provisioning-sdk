@@ -1,3 +1,10 @@
+# [1.0.0-beta.2](https://github.com/commercelayer/provisioning-sdk/compare/v1.0.0-beta.1...v1.0.0-beta.2) (2023-10-31)
+
+
+### Bug Fixes
+
+* **doc:** fix readme ([50bf2b6](https://github.com/commercelayer/provisioning-sdk/commit/50bf2b6debd921e1ca4936ac5acc669b191116ac))
+
 # 1.0.0-beta.1 (2023-10-31)
 
 
