@@ -30,7 +30,6 @@ class CommerceLayerProvisioningClient {
 	readonly openApiSchemaVersion = OPEN_API_SCHEMA_VERSION
 
 	readonly #adapter: ResourceAdapter
-	// #organization: string
 	// #environment: ApiMode = sdkConfig.default.environment
 
 	// ##__CL_RESOURCES_DEF_START__##
@@ -68,7 +67,7 @@ class CommerceLayerProvisioningClient {
 	// get environment(): ApiMode { return this.#environment }
 
 
-	private localConfig(config: SdkConfig/* & { organization?: string } */): void {
+	private localConfig(config: SdkConfig): void {
 		
 	}
 
@@ -80,8 +79,6 @@ class CommerceLayerProvisioningClient {
 		// CommerceLayer config
 		this.localConfig(config)
 		// ResourceAdapter config
-		// To rebuild baseUrl in client in case only the domain is defined
-		// if (!config.organization) config.organization = this.currentOrganization
 		this.#adapter.config(config)
 
 		return this
@@ -94,7 +91,6 @@ class CommerceLayerProvisioningClient {
 	}
 	
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 	isApiError(error: any): error is ApiError {
 		return CommerceLayerProvisioningStatic.isApiError(error)
 	}

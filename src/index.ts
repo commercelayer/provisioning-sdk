@@ -5,7 +5,7 @@ export { default, CommerceLayerProvisioning } from './commercelayer'
 // Commerce Layer Provisioning client type
 export type { CommerceLayerProvisioningClient } from './commercelayer'
 
-// Commerce Layer static functions
+// Commerce Layer Provisioning static functions
 export { CommerceLayerProvisioningStatic } from './static'
 
 // Query filter types
