@@ -1,3 +1,10 @@
+# [1.0.0-beta.3](https://github.com/commercelayer/provisioning-sdk/compare/v1.0.0-beta.2...v1.0.0-beta.3) (2023-11-30)
+
+
+### Features
+
+* add custom user agent ([fe2050d](https://github.com/commercelayer/provisioning-sdk/commit/fe2050d4088adbdce4d8e30d6773ebf3fef28e3e))
+
 # [1.0.0-beta.2](https://github.com/commercelayer/provisioning-sdk/compare/v1.0.0-beta.1...v1.0.0-beta.2) (2023-10-31)
 
 
