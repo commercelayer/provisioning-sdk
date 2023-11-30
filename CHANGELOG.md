@@ -1,3 +1,10 @@
+# [1.0.0-beta.4](https://github.com/commercelayer/provisioning-sdk/compare/v1.0.0-beta.3...v1.0.0-beta.4) (2023-11-30)
+
+
+### Bug Fixes
+
+* release script ([006a747](https://github.com/commercelayer/provisioning-sdk/commit/006a74784c4f2fe302d4d4b0b96673df0067f8a1))
+
 # [1.0.0-beta.3](https://github.com/commercelayer/provisioning-sdk/compare/v1.0.0-beta.2...v1.0.0-beta.3) (2023-11-30)
 
 
