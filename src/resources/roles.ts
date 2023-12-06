@@ -19,7 +19,7 @@ interface Role extends Resource {
 	readonly type: RoleType
 
 	name: string
-	kind?: string | null
+	kind: string
 
 	organization?: Organization | null
 	permissions?: Permission[] | null

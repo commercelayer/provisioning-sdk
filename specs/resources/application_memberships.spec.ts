@@ -3,7 +3,7 @@
  * Source code generated automatically by SDK codegen
  **/
 
-import { CommerceLayerProvisioningClient, Membership } from '../../src'
+import { CommerceLayerProvisioningClient, ApplicationMembership } from '../../src'
 import { isEqual } from 'lodash'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
@@ -16,19 +16,20 @@ let clp: CommerceLayerProvisioningClient
 beforeAll(async () => { clp = await getClient() })
 
 
-describe('Memberships resource', () => {
+describe('ApplicationMemberships resource', () => {
 
-  const resourceType = 'memberships'
+  const resourceType = 'application_memberships'
 
 
   /* spec.create.start */
   it(resourceType + '.create', async () => {
 
     const createAttributes = {
-			user_email: randomValue('string', 'user_email'),
+			api_credential: clp.api_credentials.relationship(TestData.id),
+			membership: clp.memberships.relationship(TestData.id),
+			user: clp.users.relationship(TestData.id),
 			organization: clp.organizations.relationship(TestData.id),
 			role: clp.roles.relationship(TestData.id),
-			application_memberships: [ clp.application_memberships.relationship(TestData.id) ],
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -39,7 +40,7 @@ describe('Memberships resource', () => {
       expect(config.method).toBe('post')
       checkCommon(config, resourceType)
       checkCommonData(config, resourceType, attributes)
-      expect(clp[resourceType].isMembership(config.data.data)).toBeTruthy()
+      expect(clp[resourceType].isApplicationMembership(config.data.data)).toBeTruthy()
       return interceptRequest()
     })
 
@@ -137,7 +138,7 @@ describe('Memberships resource', () => {
   it(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(clp[resourceType].isMembership(resource)).toBeTruthy()
+    expect(clp[resourceType].isApplicationMembership(resource)).toBeTruthy()
 
     const type = clp[resourceType].type()
     expect(type).toBe(resourceType)
@@ -186,7 +187,7 @@ describe('Memberships resource', () => {
     }
     `
 
-    const res = clp[resourceType].parse(payload) as Membership
+    const res = clp[resourceType].parse(payload) as ApplicationMembership
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -195,6 +196,69 @@ describe('Memberships resource', () => {
   /* spec.parse.stop */
 
   
+
+	/* relationship.api_credential start */
+	it(resourceType + '.api_credential', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { api_credentials: CommonData.paramsFields } }
+	
+		const intId = clp.addRequestInterceptor((config) => {
+			expect(config.method).toBe('get')
+			checkCommon(config, resourceType, id, currentAccessToken, 'api_credential')
+			checkCommonParams(config, params)
+			return interceptRequest()
+		})
+	
+		await clp[resourceType].api_credential(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => clp.removeInterceptor('request', intId))
+	
+	})
+	/* relationship.api_credential stop */
+	
+
+	/* relationship.membership start */
+	it(resourceType + '.membership', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { memberships: CommonData.paramsFields } }
+	
+		const intId = clp.addRequestInterceptor((config) => {
+			expect(config.method).toBe('get')
+			checkCommon(config, resourceType, id, currentAccessToken, 'membership')
+			checkCommonParams(config, params)
+			return interceptRequest()
+		})
+	
+		await clp[resourceType].membership(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => clp.removeInterceptor('request', intId))
+	
+	})
+	/* relationship.membership stop */
+	
+
+	/* relationship.user start */
+	it(resourceType + '.user', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { users: CommonData.paramsFields } }
+	
+		const intId = clp.addRequestInterceptor((config) => {
+			expect(config.method).toBe('get')
+			checkCommon(config, resourceType, id, currentAccessToken, 'user')
+			checkCommonParams(config, params)
+			return interceptRequest()
+		})
+	
+		await clp[resourceType].user(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => clp.removeInterceptor('request', intId))
+	
+	})
+	/* relationship.user stop */
+	
 
 	/* relationship.organization start */
 	it(resourceType + '.organization', async () => {
@@ -236,48 +300,6 @@ describe('Memberships resource', () => {
 	
 	})
 	/* relationship.role stop */
-	
-
-	/* relationship.application_memberships start */
-	it(resourceType + '.application_memberships', async () => {
-	
-		const id = TestData.id
-		const params = { fields: { application_memberships: CommonData.paramsFields } }
-	
-		const intId = clp.addRequestInterceptor((config) => {
-			expect(config.method).toBe('get')
-			checkCommon(config, resourceType, id, currentAccessToken, 'application_memberships')
-			checkCommonParams(config, params)
-			return interceptRequest()
-		})
-	
-		await clp[resourceType].application_memberships(id, params, CommonData.options)
-			.catch(handleError)
-			.finally(() => clp.removeInterceptor('request', intId))
-	
-	})
-	/* relationship.application_memberships stop */
-	
-
-	/* relationship.versions start */
-	it(resourceType + '.versions', async () => {
-	
-		const id = TestData.id
-		const params = { fields: { versions: CommonData.paramsFields } }
-	
-		const intId = clp.addRequestInterceptor((config) => {
-			expect(config.method).toBe('get')
-			checkCommon(config, resourceType, id, currentAccessToken, 'versions')
-			checkCommonParams(config, params)
-			return interceptRequest()
-		})
-	
-		await clp[resourceType].versions(id, params, CommonData.options)
-			.catch(handleError)
-			.finally(() => clp.removeInterceptor('request', intId))
-	
-	})
-	/* relationship.versions stop */
 	
   
 })

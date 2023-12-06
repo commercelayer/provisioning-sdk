@@ -1,3 +1,4 @@
+
 import type { Resource, ResourceRel } from './resource'
 import type { VersionType } from './resources/versions'
 
@@ -7,6 +8,7 @@ import type { VersionType } from './resources/versions'
  * ©2023 Commerce Layer Inc.
  **/
 export { default as ApiCredentials } from './resources/api_credentials'
+export { default as ApplicationMemberships } from './resources/application_memberships'
 export { default as Memberships } from './resources/memberships'
 export { default as Organizations } from './resources/organizations'
 export { default as Permissions } from './resources/permissions'
@@ -19,6 +21,7 @@ export { default as Versions } from './resources/versions'
 export type ResourceTypeLock =
 // ##__API_RESOURCE_TYPES_START__##
 	'api_credentials'
+|	'application_memberships'
 |	'memberships'
 |	'organizations'
 |	'permissions'
@@ -31,6 +34,7 @@ export type ResourceTypeLock =
 export const resourceList = [
 // ##__API_RESOURCE_LIST_START__##
 	'api_credentials',
+	'application_memberships',
 	'memberships',
 	'organizations',
 	'permissions',
@@ -66,6 +70,7 @@ export type ListableResource = Resource & {
 export type CreatableResourceType =
 	// ##__API_RESOURCE_CREATABLE_START__##
 	'api_credentials'
+|	'application_memberships'
 |	'memberships'
 |	'organizations'
 |	'permissions'
@@ -81,6 +86,7 @@ export type CreatableResource = Resource & {
 export type UpdatableResourceType =
 	// ##__API_RESOURCE_UPDATABLE_START__##
 	'api_credentials'
+|	'application_memberships'
 |	'memberships'
 |	'organizations'
 |	'permissions'
@@ -96,6 +102,7 @@ export type UpdatableResource = Resource & {
 export type DeletableResourceType =
 	// ##__API_RESOURCE_DELETABLE_START__##
 	'api_credentials'
+|	'application_memberships'
 |	'memberships'
 	// ##__API_RESOURCE_DELETABLE_STOP__##
 

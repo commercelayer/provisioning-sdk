@@ -17,8 +17,8 @@ interface Organization extends Resource {
 	readonly type: OrganizationType
 
 	name: string
-	slug?: string | null
-	domain?: string | null
+	slug: string
+	domain: string
 	support_phone?: string | null
 	support_email?: string | null
 	logo_url?: string | null
@@ -30,9 +30,9 @@ interface Organization extends Resource {
 	discount_disabled?: boolean | null
 	account_disabled?: boolean | null
 	acceptance_disabled?: boolean | null
-	max_concurrent_promotions?: number | null
-	max_concurrent_imports?: number | null
-	associated_markets?: Record<string, any> | null
+	max_concurrent_promotions: number
+	max_concurrent_imports: number
+	associated_markets: Record<string, any>
 	region?: string | null
 
 	memberships?: Membership[] | null

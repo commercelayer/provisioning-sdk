@@ -35,6 +35,7 @@ class CommerceLayerProvisioningClient {
 	// ##__CL_RESOURCES_DEF_START__##
 	// ##__CL_RESOURCES_DEF_TEMPLATE:: ##__TAB__####__RESOURCE_TYPE__##: api.##__RESOURCE_CLASS__##
 	api_credentials: api.ApiCredentials
+	application_memberships: api.ApplicationMemberships
 	memberships: api.Memberships
 	organizations: api.Organizations
 	permissions: api.Permissions
@@ -54,6 +55,7 @@ class CommerceLayerProvisioningClient {
 		// ##__CL_RESOURCES_INIT_START__##
 		// ##__CL_RESOURCES_INIT_TEMPLATE:: ##__TAB__####__TAB__##this.##__RESOURCE_TYPE__## = new api.##__RESOURCE_CLASS__##(this.#adapter)
 		this.api_credentials = new api.ApiCredentials(this.#adapter)
+		this.application_memberships = new api.ApplicationMemberships(this.#adapter)
 		this.memberships = new api.Memberships(this.#adapter)
 		this.organizations = new api.Organizations(this.#adapter)
 		this.permissions = new api.Permissions(this.#adapter)

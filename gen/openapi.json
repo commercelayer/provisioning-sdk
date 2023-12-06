@@ -225,6 +225,291 @@
         }
       }
     },
+    "/application_memberships": {
+      "get": {
+        "operationId": "GET/application_memberships",
+        "summary": "List all application memberships",
+        "description": "List all application memberships",
+        "tags": [
+          "application_memberships"
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of application membership objects",
+            "content": {
+              "application/vnd.api+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/applicationMembershipResponseList"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "POST/application_memberships",
+        "summary": "Creates an application membership",
+        "description": "Creates an application membership",
+        "tags": [
+          "application_memberships"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/vnd.api+json": {
+              "schema": {
+                "$ref": "#/components/schemas/applicationMembershipCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "The created application membership object",
+            "content": {
+              "application/vnd.api+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/applicationMembershipResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/application_memberships/{applicationMembershipId}": {
+      "get": {
+        "operationId": "GET/application_memberships/applicationMembershipId",
+        "summary": "Retrieve an application membership",
+        "description": "Retrieve an application membership",
+        "parameters": [
+          {
+            "name": "applicationMembershipId",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "The resource's id"
+          }
+        ],
+        "tags": [
+          "application_memberships"
+        ],
+        "responses": {
+          "200": {
+            "description": "The application membership object",
+            "content": {
+              "application/vnd.api+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/applicationMembershipResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "operationId": "PATCH/application_memberships/applicationMembershipId",
+        "summary": "Updates an application membership",
+        "description": "Updates an application membership",
+        "tags": [
+          "application_memberships"
+        ],
+        "parameters": [
+          {
+            "name": "applicationMembershipId",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "The resource's id"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/vnd.api+json": {
+              "schema": {
+                "$ref": "#/components/schemas/applicationMembershipUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The updated application membership object",
+            "content": {
+              "application/vnd.api+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/applicationMembershipResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "operationId": "DELETE/application_memberships/applicationMembershipId",
+        "summary": "Delete an application membership",
+        "description": "Delete an application membership",
+        "tags": [
+          "application_memberships"
+        ],
+        "parameters": [
+          {
+            "name": "applicationMembershipId",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "The resource's id"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No content"
+          }
+        }
+      }
+    },
+    "/application_memberships/{applicationMembershipId}/api_credential": {
+      "get": {
+        "operationId": "GET/applicationMembershipId/api_credential",
+        "summary": "Related application membership",
+        "description": "Related application membership",
+        "tags": [
+          "api_credentials",
+          "has_one"
+        ],
+        "parameters": [
+          {
+            "name": "applicationMembershipId",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "The resource's id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The api_credential associated to the application membership"
+          }
+        }
+      }
+    },
+    "/application_memberships/{applicationMembershipId}/membership": {
+      "get": {
+        "operationId": "GET/applicationMembershipId/membership",
+        "summary": "Related application membership",
+        "description": "Related application membership",
+        "tags": [
+          "memberships",
+          "has_one"
+        ],
+        "parameters": [
+          {
+            "name": "applicationMembershipId",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "The resource's id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The membership associated to the application membership"
+          }
+        }
+      }
+    },
+    "/application_memberships/{applicationMembershipId}/user": {
+      "get": {
+        "operationId": "GET/applicationMembershipId/user",
+        "summary": "Related application membership",
+        "description": "Related application membership",
+        "tags": [
+          "users",
+          "has_one"
+        ],
+        "parameters": [
+          {
+            "name": "applicationMembershipId",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "The resource's id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The user associated to the application membership"
+          }
+        }
+      }
+    },
+    "/application_memberships/{applicationMembershipId}/organization": {
+      "get": {
+        "operationId": "GET/applicationMembershipId/organization",
+        "summary": "Related application membership",
+        "description": "Related application membership",
+        "tags": [
+          "organizations",
+          "has_one"
+        ],
+        "parameters": [
+          {
+            "name": "applicationMembershipId",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "The resource's id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The organization associated to the application membership"
+          }
+        }
+      }
+    },
+    "/application_memberships/{applicationMembershipId}/role": {
+      "get": {
+        "operationId": "GET/applicationMembershipId/role",
+        "summary": "Related application membership",
+        "description": "Related application membership",
+        "tags": [
+          "roles",
+          "has_one"
+        ],
+        "parameters": [
+          {
+            "name": "applicationMembershipId",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "The resource's id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The role associated to the application membership"
+          }
+        }
+      }
+    },
     "/memberships": {
       "get": {
         "operationId": "GET/memberships",
@@ -425,6 +710,33 @@
         "responses": {
           "200": {
             "description": "The role associated to the membership"
+          }
+        }
+      }
+    },
+    "/memberships/{membershipId}/application_memberships": {
+      "get": {
+        "operationId": "GET/membershipId/application_memberships",
+        "summary": "Related membership",
+        "description": "Related membership",
+        "tags": [
+          "application_memberships",
+          "has_many"
+        ],
+        "parameters": [
+          {
+            "name": "membershipId",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "The resource's id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The application_memberships associated to the membership"
           }
         }
       }
@@ -1303,15 +1615,15 @@
                   },
                   "kind": {
                     "type": "string",
-                    "description": "The API credential kind, can be one of: `sales_channel`, `integration` and `webapp`.",
-                    "example": "sales-channel",
+                    "description": "The API credential kind, can be one of: `webapp`, `sales_channel`, `integration` or the kind of app you want to fork (e.g. `orders`, `imports`, etc.).",
+                    "example": "sales_channel",
                     "nullable": false
                   },
                   "confidential": {
                     "type": "boolean",
                     "description": "Indicates if the API credential it's confidential.",
                     "example": true,
-                    "nullable": true
+                    "nullable": false
                   },
                   "redirect_uri": {
                     "type": "string",
@@ -1323,24 +1635,36 @@
                     "type": "string",
                     "description": "The API credential unique ID.",
                     "example": "xxxx-yyyy-zzzz",
-                    "nullable": true
+                    "nullable": false
                   },
                   "client_secret": {
                     "type": "string",
                     "description": "The API credential unique secret.",
                     "example": "xxxx-yyyy-zzzz",
-                    "nullable": true
+                    "nullable": false
                   },
                   "scopes": {
                     "type": "string",
                     "description": "The API credential scopes.",
                     "example": "market:all market:9 market:122 market:6 stock_location:6 stock_location:33",
-                    "nullable": true
+                    "nullable": false
                   },
                   "expires_in": {
                     "type": "integer",
                     "description": "The lifetime of the access token in seconds (min. `7200`, max. `31536000`. Default is `14400` for Sales channels and `7200` for other client types).",
                     "example": 7200,
+                    "nullable": true
+                  },
+                  "mode": {
+                    "type": "string",
+                    "description": "Indicates the environment the resource belongs to (one of `test` or `live`).",
+                    "example": "test",
+                    "nullable": false
+                  },
+                  "custom": {
+                    "type": "boolean",
+                    "description": "Indicates if the API credential is used to create a custom app (e.g. fork a hosted app).",
+                    "example": false,
                     "nullable": true
                   },
                   "created_at": {
@@ -1460,8 +1784,8 @@
                   },
                   "kind": {
                     "type": "string",
-                    "description": "The API credential kind, can be one of: `sales_channel`, `integration` and `webapp`.",
-                    "example": "sales-channel"
+                    "description": "The API credential kind, can be one of: `webapp`, `sales_channel`, `integration` or the kind of app you want to fork (e.g. `orders`, `imports`, etc.).",
+                    "example": "sales_channel"
                   },
                   "redirect_uri": {
                     "type": "string",
@@ -1472,6 +1796,11 @@
                     "type": "integer",
                     "description": "The lifetime of the access token in seconds (min. `7200`, max. `31536000`. Default is `14400` for Sales channels and `7200` for other client types).",
                     "example": 7200
+                  },
+                  "custom": {
+                    "type": "boolean",
+                    "description": "Indicates if the API credential is used to create a custom app (e.g. fork a hosted app).",
+                    "example": false
                   },
                   "reference": {
                     "type": "string",
@@ -1779,6 +2108,667 @@
           }
         }
       },
+      "applicationMembership": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "object",
+            "required": [
+              "type",
+              "attributes"
+            ],
+            "properties": {
+              "type": {
+                "type": "string",
+                "description": "The resource's type",
+                "enum": [
+                  "application_memberships"
+                ]
+              },
+              "attributes": {
+                "type": "object",
+                "properties": {
+                  "created_at": {
+                    "type": "string",
+                    "description": "Time at which the resource was created.",
+                    "example": "2018-01-01T12:00:00.000Z",
+                    "nullable": false
+                  },
+                  "updated_at": {
+                    "type": "string",
+                    "description": "Time at which the resource was last updated.",
+                    "example": "2018-01-01T12:00:00.000Z",
+                    "nullable": false
+                  },
+                  "reference": {
+                    "type": "string",
+                    "description": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
+                    "example": "ANY-EXTERNAL-REFEFERNCE",
+                    "nullable": true
+                  },
+                  "reference_origin": {
+                    "type": "string",
+                    "description": "Any identifier of the third party system that defines the reference code.",
+                    "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN",
+                    "nullable": true
+                  },
+                  "metadata": {
+                    "type": "object",
+                    "description": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
+                    "example": {
+                      "foo": "bar"
+                    },
+                    "nullable": true
+                  }
+                }
+              },
+              "relationships": {
+                "type": "object",
+                "properties": {
+                  "api_credential": {
+                    "type": "object",
+                    "properties": {
+                      "data": {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "type": "string",
+                            "description": "The resource's type",
+                            "enum": [
+                              "api_credentials"
+                            ]
+                          },
+                          "id": {
+                            "type": "string",
+                            "description": "The resource's id",
+                            "example": "XGZwpOSrWL"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "membership": {
+                    "type": "object",
+                    "properties": {
+                      "data": {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "type": "string",
+                            "description": "The resource's type",
+                            "enum": [
+                              "memberships"
+                            ]
+                          },
+                          "id": {
+                            "type": "string",
+                            "description": "The resource's id",
+                            "example": "XGZwpOSrWL"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "user": {
+                    "type": "object",
+                    "properties": {
+                      "data": {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "type": "string",
+                            "description": "The resource's type",
+                            "enum": [
+                              "users"
+                            ]
+                          },
+                          "id": {
+                            "type": "string",
+                            "description": "The resource's id",
+                            "example": "XGZwpOSrWL"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "organization": {
+                    "type": "object",
+                    "properties": {
+                      "data": {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "type": "string",
+                            "description": "The resource's type",
+                            "enum": [
+                              "organizations"
+                            ]
+                          },
+                          "id": {
+                            "type": "string",
+                            "description": "The resource's id",
+                            "example": "XGZwpOSrWL"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "role": {
+                    "type": "object",
+                    "properties": {
+                      "data": {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "type": "string",
+                            "description": "The resource's type",
+                            "enum": [
+                              "roles"
+                            ]
+                          },
+                          "id": {
+                            "type": "string",
+                            "description": "The resource's id",
+                            "example": "XGZwpOSrWL"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "applicationMembershipCreate": {
+        "required": [
+          "data"
+        ],
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "object",
+            "required": [
+              "type",
+              "attributes"
+            ],
+            "properties": {
+              "type": {
+                "type": "string",
+                "description": "The resource's type",
+                "enum": [
+                  "application_memberships"
+                ]
+              },
+              "attributes": {
+                "type": "object",
+                "properties": {
+                  "reference": {
+                    "type": "string",
+                    "description": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
+                    "example": "ANY-EXTERNAL-REFEFERNCE"
+                  },
+                  "reference_origin": {
+                    "type": "string",
+                    "description": "Any identifier of the third party system that defines the reference code.",
+                    "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
+                  },
+                  "metadata": {
+                    "type": "object",
+                    "description": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
+                    "example": {
+                      "foo": "bar"
+                    }
+                  }
+                }
+              },
+              "relationships": {
+                "type": "object",
+                "properties": {
+                  "api_credential": {
+                    "required": [
+                      "data"
+                    ],
+                    "type": "object",
+                    "properties": {
+                      "data": {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "type": "string",
+                            "description": "The resource's type",
+                            "enum": [
+                              "api_credentials"
+                            ]
+                          },
+                          "id": {
+                            "type": "string",
+                            "description": "The resource's id",
+                            "example": "XGZwpOSrWL"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "membership": {
+                    "required": [
+                      "data"
+                    ],
+                    "type": "object",
+                    "properties": {
+                      "data": {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "type": "string",
+                            "description": "The resource's type",
+                            "enum": [
+                              "memberships"
+                            ]
+                          },
+                          "id": {
+                            "type": "string",
+                            "description": "The resource's id",
+                            "example": "XGZwpOSrWL"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "user": {
+                    "required": [
+                      "data"
+                    ],
+                    "type": "object",
+                    "properties": {
+                      "data": {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "type": "string",
+                            "description": "The resource's type",
+                            "enum": [
+                              "users"
+                            ]
+                          },
+                          "id": {
+                            "type": "string",
+                            "description": "The resource's id",
+                            "example": "XGZwpOSrWL"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "organization": {
+                    "required": [
+                      "data"
+                    ],
+                    "type": "object",
+                    "properties": {
+                      "data": {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "type": "string",
+                            "description": "The resource's type",
+                            "enum": [
+                              "organizations"
+                            ]
+                          },
+                          "id": {
+                            "type": "string",
+                            "description": "The resource's id",
+                            "example": "XGZwpOSrWL"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "role": {
+                    "required": [
+                      "data"
+                    ],
+                    "type": "object",
+                    "properties": {
+                      "data": {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "type": "string",
+                            "description": "The resource's type",
+                            "enum": [
+                              "roles"
+                            ]
+                          },
+                          "id": {
+                            "type": "string",
+                            "description": "The resource's id",
+                            "example": "XGZwpOSrWL"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "required": [
+                  "api_credential",
+                  "membership",
+                  "user",
+                  "organization",
+                  "role"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "applicationMembershipUpdate": {
+        "required": [
+          "data"
+        ],
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "object",
+            "required": [
+              "type",
+              "id",
+              "attributes"
+            ],
+            "properties": {
+              "type": {
+                "type": "string",
+                "description": "The resource's type",
+                "enum": [
+                  "application_memberships"
+                ]
+              },
+              "id": {
+                "type": "string",
+                "description": "The resource's id",
+                "example": "XGZwpOSrWL"
+              },
+              "attributes": {
+                "type": "object",
+                "properties": {
+                  "reference": {
+                    "type": "string",
+                    "description": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
+                    "example": "ANY-EXTERNAL-REFEFERNCE",
+                    "nullable": true
+                  },
+                  "reference_origin": {
+                    "type": "string",
+                    "description": "Any identifier of the third party system that defines the reference code.",
+                    "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN",
+                    "nullable": true
+                  },
+                  "metadata": {
+                    "type": "object",
+                    "description": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
+                    "example": {
+                      "foo": "bar"
+                    },
+                    "nullable": true
+                  }
+                }
+              },
+              "relationships": {
+                "type": "object",
+                "properties": {
+                  "role": {
+                    "required": [
+                      "data"
+                    ],
+                    "type": "object",
+                    "properties": {
+                      "data": {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "type": "string",
+                            "description": "The resource's type",
+                            "enum": [
+                              "roles"
+                            ]
+                          },
+                          "id": {
+                            "type": "string",
+                            "description": "The resource's id",
+                            "example": "XGZwpOSrWL"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "applicationMembershipResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "The resource's id",
+                "example": "XGZwpOSrWL"
+              },
+              "type": {
+                "type": "string",
+                "description": "The resource's type",
+                "enum": [
+                  "application_memberships"
+                ]
+              },
+              "links": {
+                "type": "object",
+                "properties": {
+                  "self": {
+                    "type": "string",
+                    "description": "URL"
+                  }
+                }
+              },
+              "attributes": {
+                "$ref": "#/components/schemas/applicationMembership/properties/data/properties/attributes"
+              },
+              "relationships": {
+                "type": "object",
+                "properties": {
+                  "api_credential": {
+                    "type": "object",
+                    "properties": {
+                      "links": {
+                        "type": "object",
+                        "properties": {
+                          "self": {
+                            "type": "string",
+                            "description": "URL"
+                          },
+                          "related": {
+                            "type": "string",
+                            "description": "URL"
+                          }
+                        }
+                      },
+                      "data": {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "type": "string",
+                            "description": "The resource's type",
+                            "enum": [
+                              "api_credential"
+                            ]
+                          },
+                          "id": {
+                            "type": "string",
+                            "description": "The resource ID"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "membership": {
+                    "type": "object",
+                    "properties": {
+                      "links": {
+                        "type": "object",
+                        "properties": {
+                          "self": {
+                            "type": "string",
+                            "description": "URL"
+                          },
+                          "related": {
+                            "type": "string",
+                            "description": "URL"
+                          }
+                        }
+                      },
+                      "data": {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "type": "string",
+                            "description": "The resource's type",
+                            "enum": [
+                              "membership"
+                            ]
+                          },
+                          "id": {
+                            "type": "string",
+                            "description": "The resource ID"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "user": {
+                    "type": "object",
+                    "properties": {
+                      "links": {
+                        "type": "object",
+                        "properties": {
+                          "self": {
+                            "type": "string",
+                            "description": "URL"
+                          },
+                          "related": {
+                            "type": "string",
+                            "description": "URL"
+                          }
+                        }
+                      },
+                      "data": {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "type": "string",
+                            "description": "The resource's type",
+                            "enum": [
+                              "user"
+                            ]
+                          },
+                          "id": {
+                            "type": "string",
+                            "description": "The resource ID"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "organization": {
+                    "type": "object",
+                    "properties": {
+                      "links": {
+                        "type": "object",
+                        "properties": {
+                          "self": {
+                            "type": "string",
+                            "description": "URL"
+                          },
+                          "related": {
+                            "type": "string",
+                            "description": "URL"
+                          }
+                        }
+                      },
+                      "data": {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "type": "string",
+                            "description": "The resource's type",
+                            "enum": [
+                              "organization"
+                            ]
+                          },
+                          "id": {
+                            "type": "string",
+                            "description": "The resource ID"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "role": {
+                    "type": "object",
+                    "properties": {
+                      "links": {
+                        "type": "object",
+                        "properties": {
+                          "self": {
+                            "type": "string",
+                            "description": "URL"
+                          },
+                          "related": {
+                            "type": "string",
+                            "description": "URL"
+                          }
+                        }
+                      },
+                      "data": {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "type": "string",
+                            "description": "The resource's type",
+                            "enum": [
+                              "role"
+                            ]
+                          },
+                          "id": {
+                            "type": "string",
+                            "description": "The resource ID"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "applicationMembershipResponseList": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/applicationMembershipResponse/properties/data"
+            }
+          }
+        }
+      },
       "membership": {
         "type": "object",
         "properties": {
@@ -1803,6 +2793,18 @@
                     "type": "string",
                     "description": "The user email.",
                     "example": "commercelayer@commercelayer.io",
+                    "nullable": false
+                  },
+                  "user_first_name": {
+                    "type": "string",
+                    "description": "The user first name.",
+                    "example": "John",
+                    "nullable": false
+                  },
+                  "user_last_name": {
+                    "type": "string",
+                    "description": "The user last name.",
+                    "example": "Doe",
                     "nullable": false
                   },
                   "status": {
@@ -1885,6 +2887,28 @@
                             "description": "The resource's type",
                             "enum": [
                               "roles"
+                            ]
+                          },
+                          "id": {
+                            "type": "string",
+                            "description": "The resource's id",
+                            "example": "XGZwpOSrWL"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "application_memberships": {
+                    "type": "object",
+                    "properties": {
+                      "data": {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "type": "string",
+                            "description": "The resource's type",
+                            "enum": [
+                              "application_memberships"
                             ]
                           },
                           "id": {
@@ -2026,6 +3050,31 @@
                         }
                       }
                     }
+                  },
+                  "application_memberships": {
+                    "required": [
+                      "data"
+                    ],
+                    "type": "object",
+                    "properties": {
+                      "data": {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "type": "string",
+                            "description": "The resource's type",
+                            "enum": [
+                              "application_memberships"
+                            ]
+                          },
+                          "id": {
+                            "type": "string",
+                            "description": "The resource's id",
+                            "example": "XGZwpOSrWL"
+                          }
+                        }
+                      }
+                    }
                   }
                 },
                 "required": [
@@ -2105,6 +3154,31 @@
                             "description": "The resource's type",
                             "enum": [
                               "roles"
+                            ]
+                          },
+                          "id": {
+                            "type": "string",
+                            "description": "The resource's id",
+                            "example": "XGZwpOSrWL"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "application_memberships": {
+                    "required": [
+                      "data"
+                    ],
+                    "type": "object",
+                    "properties": {
+                      "data": {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "type": "string",
+                            "description": "The resource's type",
+                            "enum": [
+                              "application_memberships"
                             ]
                           },
                           "id": {
@@ -2223,6 +3297,40 @@
                       }
                     }
                   },
+                  "application_memberships": {
+                    "type": "object",
+                    "properties": {
+                      "links": {
+                        "type": "object",
+                        "properties": {
+                          "self": {
+                            "type": "string",
+                            "description": "URL"
+                          },
+                          "related": {
+                            "type": "string",
+                            "description": "URL"
+                          }
+                        }
+                      },
+                      "data": {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "type": "string",
+                            "description": "The resource's type",
+                            "enum": [
+                              "application_memberships"
+                            ]
+                          },
+                          "id": {
+                            "type": "string",
+                            "description": "The resource ID"
+                          }
+                        }
+                      }
+                    }
+                  },
                   "versions": {
                     "type": "object",
                     "properties": {
@@ -2304,13 +3412,13 @@
                     "type": "string",
                     "description": "The organization's slug name.",
                     "example": "the-blue-brand",
-                    "nullable": true
+                    "nullable": false
                   },
                   "domain": {
                     "type": "string",
                     "description": "The organization's domain.",
                     "example": "the-blue-brand.commercelayer.io",
-                    "nullable": true
+                    "nullable": false
                   },
                   "support_phone": {
                     "type": "string",
@@ -2382,13 +3490,13 @@
                     "type": "integer",
                     "description": "The maximum number of active concurrent promotions allowed for your organization.",
                     "example": 10,
-                    "nullable": true
+                    "nullable": false
                   },
                   "max_concurrent_imports": {
                     "type": "integer",
                     "description": "The maximum number of concurrent imports allowed for your organization.",
                     "example": 30,
-                    "nullable": true
+                    "nullable": false
                   },
                   "associated_markets": {
                     "type": "object",
@@ -2396,7 +3504,7 @@
                     "example": {
                       "foo": "bar"
                     },
-                    "nullable": true
+                    "nullable": false
                   },
                   "region": {
                     "type": "string",
@@ -3028,7 +4136,7 @@
                     "example": {
                       "foo": "bar"
                     },
-                    "nullable": true
+                    "nullable": false
                   },
                   "created_at": {
                     "type": "string",
@@ -3516,7 +4624,7 @@
                     "type": "string",
                     "description": "The kind of role, one of: `custom`, `admin`, `read_only`",
                     "example": "custom",
-                    "nullable": true
+                    "nullable": false
                   },
                   "created_at": {
                     "type": "string",
@@ -4288,31 +5396,31 @@
                   "resource_type": {
                     "type": "string",
                     "description": "The type of the versioned resource.",
-                    "example": "orders",
-                    "nullable": true
+                    "example": "roles",
+                    "nullable": false
                   },
                   "resource_id": {
                     "type": "string",
                     "description": "The versioned resource ID.",
                     "example": "PzdJhdLdYV",
-                    "nullable": true
+                    "nullable": false
                   },
                   "event": {
                     "type": "string",
                     "description": "The event which generates the version.",
                     "example": "update",
-                    "nullable": true
+                    "nullable": false
                   },
                   "changes": {
                     "type": "object",
                     "description": "The object changes payload.",
                     "example": {
-                      "status": [
-                        "draft",
-                        "placed"
+                      "name": [
+                        "previous",
+                        "new"
                       ]
                     },
-                    "nullable": true
+                    "nullable": false
                   },
                   "who": {
                     "type": "object",
@@ -4320,15 +5428,11 @@
                     "example": {
                       "application": {
                         "id": "DNOPYiZYpn",
-                        "kind": "sales_channel",
+                        "kind": "integration",
                         "public": true
-                      },
-                      "owner": {
-                        "id": "yQQrBhLBmQ",
-                        "type": "Customer"
                       }
                     },
-                    "nullable": true
+                    "nullable": false
                   },
                   "created_at": {
                     "type": "string",
@@ -4444,6 +5548,10 @@
     {
       "name": "has_one",
       "description": "relationship kind"
+    },
+    {
+      "name": "application_memberships",
+      "description": "resource type"
     },
     {
       "name": "memberships",

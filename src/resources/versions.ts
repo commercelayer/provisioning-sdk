@@ -12,11 +12,11 @@ interface Version extends Resource {
 	
 	readonly type: VersionType
 
-	resource_type?: string | null
-	resource_id?: string | null
-	event?: string | null
-	changes?: Record<string, any> | null
-	who?: Record<string, any> | null
+	resource_type: string
+	resource_id: string
+	event: string
+	changes: Record<string, any>
+	who: Record<string, any>
 	
 }
 

@@ -21,7 +21,7 @@ interface Permission extends Resource {
 	can_update: boolean
 	can_destroy: boolean
 	subject: string
-	restrictions?: Record<string, any> | null
+	restrictions: Record<string, any>
 
 	organization?: Organization | null
 	role?: Role | null
