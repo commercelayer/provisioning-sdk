@@ -435,7 +435,7 @@
         "summary": "Related application membership",
         "description": "Related application membership",
         "tags": [
-          "users",
+          "user",
           "has_one"
         ],
         "parameters": [
@@ -656,6 +656,41 @@
         "responses": {
           "204": {
             "description": "No content"
+          }
+        }
+      }
+    },
+    "/memberships/{membershipId}/resend": {
+      "post": {
+        "operationId": "POST/memberships/membershipId/resend",
+        "summary": "Resend invitation",
+        "description": "Resend invitation for the given membership",
+        "tags": [
+          "memberships"
+        ],
+        "parameters": [
+          {
+            "name": "membershipId",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "The resource's id"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/vnd.api+json": {
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Confirmation that the invitation has been sent",
+            "content": {
+            }
           }
         }
       }
@@ -889,6 +924,82 @@
                   "$ref": "#/components/schemas/organizationResponse"
                 }
               }
+            }
+          }
+        }
+      }
+    },
+    "/organizations/{organizationId}/transfer_ownership": {
+      "patch": {
+        "operationId": "PATCH/organizations/organizationId/transfer_ownership",
+        "summary": "Transfer ownership of an organization",
+        "description": "Transfers the ownership of an organization to a new owner",
+        "tags": [
+          "organizations"
+        ],
+        "parameters": [
+          {
+            "name": "organizationId",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "The resource's id"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/vnd.api+json": {
+              "schema": {
+                "required": [
+                  "data"
+                ],
+                "type": "object",
+                "properties": {
+                  "data": {
+                    "type": "object",
+                    "required": [
+                      "type",
+                      "id",
+                      "attributes"
+                    ],
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "description": "The resource's type",
+                        "enum": [
+                          "organizations"
+                        ]
+                      },
+                      "id": {
+                        "type": "string",
+                        "description": "The resource's id",
+                        "example": "XGZwpOSrWL"
+                      },
+                      "attributes": {
+                        "type": "object",
+                        "properties": {
+                          "new_owner_email": {
+                            "type": "string",
+                            "description": "The user email of the new owner of the organization.",
+                            "example": "test@commercelayer.io",
+                            "nullable": false
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "The confirmation of the transfer ownership",
+            "content": {
             }
           }
         }
@@ -2219,7 +2330,7 @@
                             "type": "string",
                             "description": "The resource's type",
                             "enum": [
-                              "users"
+                              "user"
                             ]
                           },
                           "id": {
@@ -2389,7 +2500,7 @@
                             "type": "string",
                             "description": "The resource's type",
                             "enum": [
-                              "users"
+                              "user"
                             ]
                           },
                           "id": {

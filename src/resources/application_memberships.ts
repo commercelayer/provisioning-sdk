@@ -4,7 +4,7 @@ import type { QueryParamsRetrieve } from '../query'
 
 import type { ApiCredential, ApiCredentialType } from './api_credentials'
 import type { Membership, MembershipType } from './memberships'
-import type { User, UserType } from './users'
+import type { User, UserType } from './user'
 import type { Organization, OrganizationType } from './organizations'
 import type { Role, RoleType } from './roles'
 
@@ -78,7 +78,7 @@ class ApplicationMemberships extends ApiResource<ApplicationMembership> {
 
 	async user(applicationMembershipId: string | ApplicationMembership, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<User> {
 		const _applicationMembershipId = (applicationMembershipId as ApplicationMembership).id || applicationMembershipId as string
-		return this.resources.fetch<User>({ type: 'users' }, `application_memberships/${_applicationMembershipId}/user`, params, options) as unknown as User
+		return this.resources.fetch<User>({ type: 'user' }, `application_memberships/${_applicationMembershipId}/user`, params, options) as unknown as User
 	}
 
 	async organization(applicationMembershipId: string | ApplicationMembership, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Organization> {

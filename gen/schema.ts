@@ -116,15 +116,32 @@ const operationName = (op: string, id?: string, relationship?: string): string =
 }
 
 
-const referenceResource = (ref: { '$ref': string }): string => {
+const referenceResource = (ref: { '$ref': string }): string | undefined => {
 	const r = getReference(ref) as string
-	return Inflector.camelize(r.substring(r.lastIndexOf('/') + 1))
+	return r? Inflector.camelize(r.substring(r.lastIndexOf('/') + 1)) : undefined
 }
 
 
-const referenceContent = (content: any): string => {
-	return referenceResource(content["application/vnd.api+json"].schema)
+const referenceContent = (content: any): string | undefined => {
+	// No content or no response codes
+	if (!content || ! Object.keys(content).length) return undefined
+	const schema = content["application/vnd.api+json"]?.schema
+	return schema? referenceResource(schema) : undefined
 }
+
+/*
+const checkSingletonTags = (tags: string[]): boolean => {
+	console.log(tags)
+	let singleton = false
+	if (tags.includes('singleton')) singleton = true
+	else {
+		const type = tags.find(t => !t.startsWith('has_'))
+		singleton = type? (type === Inflector.singularize(type)) : false
+	}
+	console.log(singleton)
+	return singleton
+}
+*/
 
 
 const parsePaths = (schemaPaths: any[]): PathMap => {
@@ -150,7 +167,7 @@ const parsePaths = (schemaPaths: any[]): PathMap => {
 
 			const [oKey, oValue] = o
 
-			const singleton = oValue.tags.includes('singleton')
+			const singleton = /* checkSingletonTags(oValue.tags) */ oValue.tags.includes('singleton')
 
 			const op: Operation = {
 				path: pKey,
@@ -162,9 +179,8 @@ const parsePaths = (schemaPaths: any[]): PathMap => {
 			if (id) op.id = id
 			if (oValue.requestBody) op.requestType = referenceContent(oValue.requestBody.content)
 			if (oValue.responses) {
-				if (oValue.responses['200']?.content) op.responseType = referenceContent(oValue.responses['200'].content)
-				else
-				if (oValue.responses['201']?.content) op.responseType = referenceContent(oValue.responses['201'].content)
+				const responses = Object.values(oValue.responses) as any[]
+				if (responses.length > 0) op.responseType = referenceContent(responses[0].content)
 			}
 
 
@@ -238,6 +254,9 @@ const parseComponents = (schemaComponents: any[]): ComponentMap => {
 		const cmpRef = getReference(cmp)
 		if (cmpRef) cmp = resolveReference(schemaComponents, cmpRef)
 
+		// Component type
+		// const cmpType = cmp.properties.type.enum[0]
+
 		// Check attributes reference
 		const attributesRef = getReference(cmp.properties.attributes)
 		const cmpAttributes = attributesRef ? resolveReference(schemaComponents, attributesRef) : cmp.properties.attributes
@@ -283,6 +302,7 @@ const parseComponents = (schemaComponents: any[]): ComponentMap => {
 		}
 
 		components[Inflector.camelize(cKey)] = {
+			// type: cmpType,
 			attributes,
 			relationships
 		}
@@ -307,13 +327,13 @@ type Resource = {
 	operations: OperationMap
 }
 
-
 type ResourceMap = {
 	[resource: string]: Resource
 }
 
 type Component = {
-	attributes: { [key: string]: Attribute },
+	// type: string
+	attributes: { [key: string]: Attribute }
 	relationships: { [key: string]: Relationship }
 }
 

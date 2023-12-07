@@ -27,7 +27,7 @@ describe('ApplicationMemberships resource', () => {
     const createAttributes = {
 			api_credential: clp.api_credentials.relationship(TestData.id),
 			membership: clp.memberships.relationship(TestData.id),
-			user: clp.users.relationship(TestData.id),
+			user: clp.user.relationship(TestData.id),
 			organization: clp.organizations.relationship(TestData.id),
 			role: clp.roles.relationship(TestData.id),
 		}
@@ -243,7 +243,7 @@ describe('ApplicationMemberships resource', () => {
 	it(resourceType + '.user', async () => {
 	
 		const id = TestData.id
-		const params = { fields: { users: CommonData.paramsFields } }
+		const params = { fields: { user: CommonData.paramsFields } }
 	
 		const intId = clp.addRequestInterceptor((config) => {
 			expect(config.method).toBe('get')

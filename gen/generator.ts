@@ -34,7 +34,8 @@ const templates: { [key: string]: string } = {}
 
 const global: {
 	version?: string
-} = {}
+	singletons: Record<string, string>
+} = { singletons: {} }
 
 
 
@@ -103,6 +104,13 @@ const generate = async (localSchema?: boolean) => {
 	if (existsSync(testDir)) rmSync(testDir, { recursive: true })
 	mkdirSync(testDir, { recursive: true })
 
+	
+	// Check singletons
+	Object.entries(schema.resources).forEach(([type, res]) => {
+		if (Object.values(res.operations).some(op => op.singleton)) {
+			global.singletons[type] = Object.keys(res.components)[0]
+		}
+	})
 
 	const resources: { [key: string]: ApiRes } = {}
 
@@ -624,7 +632,10 @@ const generateResource = (type: string, name: string, resource: Resource): strin
 	// Resources import
 	const impResMod: string[] = Array.from(declaredImportsModels)
 		.filter(i => !typesArray.includes(i))	// exludes resource self reference
-		.map(i => `import type { ${i}${relationshipTypes.has(i)? `, ${i}Type` : ''} } from './${snakeCase(Inflector.pluralize(i))}'`)
+		.map(i => {
+			const resFileName = snakeCase(Object.values(global.singletons).includes(i)? i : Inflector.pluralize(i))
+			return `import type { ${i}${relationshipTypes.has(i)? `, ${i}Type` : ''} } from './${resFileName}'`
+		})
 	const importStr = impResMod.join('\n') + (impResMod.length ? '\n' : '')
 	res = res.replace(/##__IMPORT_RESOURCE_MODELS__##/g, importStr)
 
@@ -753,6 +764,7 @@ const templatedComponent = (res: string, name: string, cmp: Component): { compon
 			let resName = r.type
 
 			if (resName !== 'object') {
+
 				const relStr = cudModel ? 'Rel' : ''
 				if (r.polymorphic && r.oneOf) {
 					resName = r.oneOf.map(o => `${o}${relStr}`).join(' | ')
