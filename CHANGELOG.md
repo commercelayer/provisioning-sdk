@@ -1,3 +1,11 @@
+# [1.0.0-beta.5](https://github.com/commercelayer/provisioning-sdk/compare/v1.0.0-beta.4...v1.0.0-beta.5) (2023-12-07)
+
+
+### Bug Fixes
+
+* singleton import ([9578382](https://github.com/commercelayer/provisioning-sdk/commit/9578382b671629d4891e77f39658ab66828eb357))
+* update schema ([9e569c7](https://github.com/commercelayer/provisioning-sdk/commit/9e569c7484896ea666f5f8079ee0833ed9dc87aa))
+
 # [1.0.0-beta.4](https://github.com/commercelayer/provisioning-sdk/compare/v1.0.0-beta.3...v1.0.0-beta.4) (2023-11-30)
 
 
