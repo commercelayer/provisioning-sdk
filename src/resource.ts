@@ -253,6 +253,18 @@ class ResourceAdapter {
 
 	}
 
+
+	async action(cmd: 'post' | 'patch', path: string, payload?: any, options?: ResourcesConfig): Promise<void> {
+
+		debug('action: %o %o, %O', cmd, path, options || {})
+
+		const queryParams = {}
+		if (options?.params) Object.assign(queryParams, options?.params)
+
+		await this.#client.request(cmd, path, payload, { ...options, params: queryParams })
+
+	}
+
 }
 
 

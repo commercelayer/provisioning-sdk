@@ -67,6 +67,11 @@ class Memberships extends ApiResource<Membership> {
 		await this.resources.delete((typeof id === 'string')? { id, type: Memberships.TYPE } : id, options)
 	}
 
+	async resend(membershipId: string | Membership, options?: ResourcesConfig): Promise<void> {
+		const _membershipId = (membershipId as Membership).id || membershipId as string
+		await this.resources.action('post', `memberships/${_membershipId}/resend`, {}, options)
+	}
+
 	async organization(membershipId: string | Membership, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Organization> {
 		const _membershipId = (membershipId as Membership).id || membershipId as string
 		return this.resources.fetch<Organization>({ type: 'organizations' }, `memberships/${_membershipId}/organization`, params, options) as unknown as Organization

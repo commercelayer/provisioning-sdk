@@ -1,5 +1,5 @@
 
-import apiSchema, { Resource, Operation, Component, Cardinality, Attribute } from './schema'
+import apiSchema, { Resource, Operation, Component, Cardinality, Attribute, isObjectType } from './schema'
 import { readFileSync, writeFileSync, existsSync, mkdirSync, readdirSync, rmSync } from 'fs'
 import { basename } from 'path'
 import { snakeCase } from 'lodash'
@@ -9,7 +9,8 @@ import fixSchema from './fixer'
 /**** SDK source code generator settings ****/
 const CONFIG = {
 	RELATIONSHIP_FUNCTIONS: true,
-	TRIGGER_FUNCTIONS: true
+	TRIGGER_FUNCTIONS: true,
+	ACTION_FUNCTIONS: true
 }
 /**** **** **** **** **** **** **** **** ****/
 
@@ -536,6 +537,7 @@ const generateResource = (type: string, name: string, resource: Resource): strin
 	let resModelType = 'ApiResource'
 
 	const declaredTypes: Set<string> = new Set([resModelInterface])
+	const declaredTypesDef: string[] = []
 	// const declaredEnums: ComponentEnums = {}
 	const declaredImportsModels: Set<string> = new Set()
 	const declaredImportsCommon: Set<string> = new Set(['ResourceId'])
@@ -576,7 +578,15 @@ const generateResource = (type: string, name: string, resource: Resource): strin
 					resMod.add('ListResponse')
 				}
 				operations.push(tplrOp.operation)
-			} else console.log('Unknown operation: ' + opName)
+			}
+			else
+			if (op.action && CONFIG.ACTION_FUNCTIONS) {
+				const tpla = templates['action']
+				const tplaOp = templatedOperation(resName, opName, op, tpla)
+				operations.push(tplaOp.operation)
+				tplaOp.typesDef.forEach(t => { declaredTypesDef.push(t) })
+			}
+			else console.log('Unknown operation: ' + opName)
 		}
 	})
 
@@ -607,6 +617,8 @@ const generateResource = (type: string, name: string, resource: Resource): strin
 	// Interfaces export
 	const typesArray = Array.from(declaredTypes)
 	res = res.replace(/##__EXPORT_RESOURCE_TYPES__##/g, typesArray.join(', '))
+	const typesDefArray = Array.from(declaredTypesDef)
+	res = res.replace(/##__EXPORT_RESOURCE_TYPES_DEF__##/g, (typesDefArray.length > 0)? `${typesDefArray.join('\n')}\n` : '')
 
 	// Interfaces and types definition
 	const modelInterfaces: string[] = []
@@ -647,10 +659,11 @@ const generateResource = (type: string, name: string, resource: Resource): strin
 }
 
 
-const templatedOperation = (res: string, name: string, op: Operation, tpl: string, placeholders?: Record<string, string>): { operation: string, types: string[] } => {
+const templatedOperation = (res: string, name: string, op: Operation, tpl: string, placeholders?: Record<string, string>): { operation: string, types: string[], typesDef: string[] } => {
 
 	let operation = tpl
 	const types: string[] = []
+	const typesDef: string[] = []
 
 	operation = operation.replace(/##__OPERATION_NAME__##/g, name)
 	operation = operation.replace(/##__RESOURCE_CLASS__##/g, res)
@@ -658,7 +671,11 @@ const templatedOperation = (res: string, name: string, op: Operation, tpl: strin
 	if (op.requestType) {
 		const requestType = op.requestType
 		operation = operation.replace(/##__RESOURCE_REQUEST_CLASS__##/g, requestType)
-		if (!types.includes(requestType)) types.push(requestType)
+		if (isObjectType(requestType)) {
+			const typeDef = `export type ${Inflector.camelize(op.name)}DataType = { ${Object.entries(op.requestTypeDef).map(([k, v]: [string, any]) => `${k}${v.nullable? '?' : ''}: ${v.type}`).join(', ')} }`
+			typesDef.push(typeDef)
+		}
+		else if (!types.includes(requestType)) types.push(requestType)
 	}
 	if (op.responseType) {
 		const responseType = op.responseType
@@ -680,6 +697,15 @@ const templatedOperation = (res: string, name: string, op: Operation, tpl: strin
 		operation = operation.replace(/##__TRIGGER_VALUE__##/, placeholders?.trigger_value? ` triggerValue: ${ placeholders.trigger_value},` : '')
 		operation = operation.replace(/##__TRIGGER_VALUE_TYPE__##/, placeholders?.trigger_value? 'triggerValue' : 'true')
 	}
+	else
+	if (op.action) {	// Action
+		operation = operation.replace(/##__ACTION_PATH__##/g, op.path.substring(1).replace('{' + op.id, '${_' + opIdVar))
+		operation = operation.replace(/##__RESOURCE_ID__##/g, opIdVar)
+		operation = operation.replace(/##__MODEL_RESOURCE_INTERFACE__##/g, Inflector.singularize(res))
+		operation = operation.replace(/##__ACTION_PAYLOAD_PARAM__##/g, isObjectType(op.requestType)? ` payload: ${Inflector.camelize(op.name)}DataType,` : '')
+		operation = operation.replace(/##__ACTION_PAYLOAD__##/g, isObjectType(op.requestType)? ' ...payload ' : '')
+		operation = operation.replace(/##__ACTION_COMMAND__##/g, op.type) 
+	}
 
 	if (placeholders) Object.entries(placeholders).forEach(([key, val]) => {
 		const plh = (key.startsWith('##__') && key.endsWith('__##'))? key : `##__${key.toUpperCase()}__##`
@@ -689,7 +715,7 @@ const templatedOperation = (res: string, name: string, op: Operation, tpl: strin
 	operation = operation.replace(/\n/g, '\n\t')
 
 
-	return { operation, types }
+	return { operation, types, typesDef }
 
 }
 

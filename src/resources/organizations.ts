@@ -92,6 +92,11 @@ class Organizations extends ApiResource<Organization> {
 		return this.resources.update<OrganizationUpdate, Organization>({ ...resource, type: Organizations.TYPE }, params, options)
 	}
 
+	async transfer_ownership(organizationId: string | Organization, payload: TransferOwnershipDataType, options?: ResourcesConfig): Promise<void> {
+		const _organizationId = (organizationId as Organization).id || organizationId as string
+		await this.resources.action('patch', `organizations/${_organizationId}/transfer_ownership`, { ...payload }, options)
+	}
+
 	async memberships(organizationId: string | Organization, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Membership>> {
 		const _organizationId = (organizationId as Organization).id || organizationId as string
 		return this.resources.fetch<Membership>({ type: 'memberships' }, `organizations/${_organizationId}/memberships`, params, options) as unknown as ListResponse<Membership>
@@ -105,6 +110,11 @@ class Organizations extends ApiResource<Organization> {
 	async permissions(organizationId: string | Organization, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Permission>> {
 		const _organizationId = (organizationId as Organization).id || organizationId as string
 		return this.resources.fetch<Permission>({ type: 'permissions' }, `organizations/${_organizationId}/permissions`, params, options) as unknown as ListResponse<Permission>
+	}
+
+	async api_credentials(organizationId: string | Organization, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<ApiCredential>> {
+		const _organizationId = (organizationId as Organization).id || organizationId as string
+		return this.resources.fetch<ApiCredential>({ type: 'api_credentials' }, `organizations/${_organizationId}/api_credentials`, params, options) as unknown as ListResponse<ApiCredential>
 	}
 
 
@@ -128,3 +138,4 @@ class Organizations extends ApiResource<Organization> {
 export default Organizations
 
 export type { Organization, OrganizationCreate, OrganizationUpdate, OrganizationType }
+export type TransferOwnershipDataType = { new_owner_email: string }

@@ -105,12 +105,12 @@ const parseSchema = (path: string): ApiSchema => {
 }
 
 
-const operationName = (op: string, id?: string, relationship?: string): string => {
+const operationName = (op: string, id?: string, relOrCmd?: string): string => {
 	switch (op) {
-		case 'get': return id ? (relationship || 'retrieve') : 'list'
-		case 'patch': return 'update'
+		case 'get': return id ? (relOrCmd || 'retrieve') : 'list'
+		case 'patch': return id ? (relOrCmd || 'update') : 'update'
 		case 'delete': return 'delete'
-		case 'post': return 'create'
+		case 'post': return id ? (relOrCmd || 'create') : 'create'
 		default: return op
 	}
 }
@@ -121,27 +121,29 @@ const referenceResource = (ref: { '$ref': string }): string | undefined => {
 	return r? Inflector.camelize(r.substring(r.lastIndexOf('/') + 1)) : undefined
 }
 
+const contentSchema = (content: any): any => {
+  return content["application/vnd.api+json"]?.schema
+}
 
 const referenceContent = (content: any): string | undefined => {
 	// No content or no response codes
 	if (!content || ! Object.keys(content).length) return undefined
-	const schema = content["application/vnd.api+json"]?.schema
+	const schema = contentSchema(content)
 	return schema? referenceResource(schema) : undefined
 }
 
-/*
-const checkSingletonTags = (tags: string[]): boolean => {
-	console.log(tags)
-	let singleton = false
-	if (tags.includes('singleton')) singleton = true
-	else {
-		const type = tags.find(t => !t.startsWith('has_'))
-		singleton = type? (type === Inflector.singularize(type)) : false
-	}
-	console.log(singleton)
-	return singleton
+
+const contentType = (content?: any): string | undefined => {
+	if (!content) return undefined
+	const schema = contentSchema(content)
+	if (!schema) return undefined
+	return isReference(schema)? referenceContent(content) : 'object'
 }
-*/
+
+
+export const isObjectType = (type?: string): boolean => {
+  return (type !== undefined) && ['object', 'any'].includes(type)
+}
 
 
 const parsePaths = (schemaPaths: any[]): PathMap => {
@@ -152,7 +154,7 @@ const parsePaths = (schemaPaths: any[]): PathMap => {
 
 		const [pKey, pValue] = p
 		const relIdx = pKey.indexOf('}/') + 2
-		const relationship = (relIdx > 1) ? pKey.substring(relIdx) : undefined
+		const relOrCmd = (relIdx > 1) ? pKey.substring(relIdx) : undefined
 
 		const id = pKey.substring(pKey.indexOf('{') + 1, pKey.indexOf('}'))
 		const path = pKey.replace(/\/{.*}/g, '').substring(1)
@@ -167,45 +169,50 @@ const parsePaths = (schemaPaths: any[]): PathMap => {
 
 			const [oKey, oValue] = o
 
-			const singleton = /* checkSingletonTags(oValue.tags) */ oValue.tags.includes('singleton')
-
 			const op: Operation = {
 				path: pKey,
 				type: oKey,
-				name: operationName(oKey, id, relationship),
-				singleton,
+				name: operationName(oKey, id, relOrCmd),
+				singleton: oValue.tags.includes('singleton'),
 			}
 
 			if (id) op.id = id
-			if (oValue.requestBody) op.requestType = referenceContent(oValue.requestBody.content)
+			if (oValue.requestBody) {
+        op.requestType = contentType(oValue.requestBody.content)
+        if (isObjectType(op.requestType)) op.requestTypeDef = contentSchema(oValue.requestBody.content).properties.data.properties.attributes.properties
+      }
 			if (oValue.responses) {
 				const responses = Object.values(oValue.responses) as any[]
-				if (responses.length > 0) op.responseType = referenceContent(responses[0].content)
+				if (responses.length > 0) op.responseType = contentType(responses[0].content)
 			}
 
 
-			if (relationship) {
+			if (relOrCmd) {
 
 				const tags = oValue.tags as string[]
 				const relCard = tags.find(t => t.startsWith('has_')) as string
 				if (!relCard) console.log(`Relationship without cardinality: ${op.name} [${op.path}]`)
 				const relType = tags.find(t => !t.startsWith('has_')) as string
 				if (!relType) console.log(`Relationship without type: ${op.name} [${op.path}]`)
-				if (!relCard || !relType) skip = true
 
-				if (!skip) {
-					op.relationship = {
-						name: relationship || '',
-						type: relType,
-						polymorphic: false,
-						cardinality: (relCard === 'has_many') ? Cardinality.to_many : Cardinality.to_one,
-						required: false,
-						deprecated: false
+				if (relType) {
+					if (relCard) {
+						op.relationship = {
+							name: relOrCmd || '',
+							type: relType,
+							polymorphic: false,
+							cardinality: (relCard === 'has_many') ? Cardinality.to_many : Cardinality.to_one,
+							required: false,
+							deprecated: false,
+						}
+            op.responseType = Inflector.camelize(Inflector.singularize(op.relationship.type))
+					} else {
+            op.function = operationName(oKey, id,),
+						op.action = true
 					}
-					op.responseType = Inflector.camelize(Inflector.singularize(op.relationship.type))
-				}
-			}
+				} else skip = true
 
+			}
 
 			if (skip) console.log(`Operation skipped: ${op.name} [${op.path}]`)
 			else operations[op.name] = op
@@ -219,6 +226,11 @@ const parsePaths = (schemaPaths: any[]): PathMap => {
 
 	return paths
 
+}
+
+
+const isReference = (obj: any): boolean => {
+	return (obj.$ref !== undefined)
 }
 
 
@@ -373,11 +385,15 @@ type Operation = {
 	type: string
 	id?: string
 	name: string
-	requestType?: any
-	responseType?: any
+  function?: string
+	requestType?: string
+  requestTypeDef?: any
+	responseType?: string
+  responseTypeDef?: any
 	singleton: boolean
 	relationship?: Relationship
-	trigger?: boolean
+	trigger?: boolean,
+	action?: boolean
 }
 
 

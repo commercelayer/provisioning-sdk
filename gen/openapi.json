@@ -1092,6 +1092,7 @@
         "summary": "Related organization",
         "description": "Related organization",
         "tags": [
+          "api_credentials",
           "has_many"
         ],
         "parameters": [

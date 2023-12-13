@@ -6,18 +6,18 @@ import getToken from './token'
 
 (async () => {
 
-	const organization = process.env.CL_SDK_ORGANIZATION || ''
 	const auth = await getToken('user')
 	const accessToken = auth ? auth.accessToken : ''
 
-	const cl = clProvisioning({
+	const clp = clProvisioning({
 		accessToken,
 		timeout: 5000,
 	})
 
 	try {
 
-
+		clp.memberships.resend('id')
+		clp.organizations.transfer_ownership('id', { new_owner_email: '' })
 
 	} catch (error: any) {
 		console.log(inspect(error, false, null, true))

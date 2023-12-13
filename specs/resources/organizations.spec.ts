@@ -236,5 +236,26 @@ describe('Organizations resource', () => {
 	})
 	/* relationship.permissions stop */
 	
+
+	/* relationship.api_credentials start */
+	it(resourceType + '.api_credentials', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { api_credentials: CommonData.paramsFields } }
+	
+		const intId = clp.addRequestInterceptor((config) => {
+			expect(config.method).toBe('get')
+			checkCommon(config, resourceType, id, currentAccessToken, 'api_credentials')
+			checkCommonParams(config, params)
+			return interceptRequest()
+		})
+	
+		await clp[resourceType].api_credentials(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => clp.removeInterceptor('request', intId))
+	
+	})
+	/* relationship.api_credentials stop */
+	
   
 })
