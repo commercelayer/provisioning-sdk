@@ -1,3 +1,10 @@
+# [1.0.0-beta.7](https://github.com/commercelayer/provisioning-sdk/compare/v1.0.0-beta.6...v1.0.0-beta.7) (2023-12-13)
+
+
+### Features
+
+* add auto generation of special actions ([08cd9ff](https://github.com/commercelayer/provisioning-sdk/commit/08cd9ffdae53c80d7b52f841c2da319488a9ee85))
+
 # [1.0.0-beta.6](https://github.com/commercelayer/provisioning-sdk/compare/v1.0.0-beta.5...v1.0.0-beta.6) (2023-12-12)
 
 
