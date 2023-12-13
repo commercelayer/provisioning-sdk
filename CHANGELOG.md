@@ -1,3 +1,10 @@
+# [1.0.0-beta.6](https://github.com/commercelayer/provisioning-sdk/compare/v1.0.0-beta.5...v1.0.0-beta.6) (2023-12-12)
+
+
+### Bug Fixes
+
+* fix custom user agent option ([75f5f97](https://github.com/commercelayer/provisioning-sdk/commit/75f5f97e3dade5dd43905deba81f6c4ed46ca21b))
+
 # [1.0.0-beta.5](https://github.com/commercelayer/provisioning-sdk/compare/v1.0.0-beta.4...v1.0.0-beta.5) (2023-12-07)
 
 
