@@ -1,3 +1,10 @@
+# [1.0.0-beta.10](https://github.com/commercelayer/provisioning-sdk/compare/v1.0.0-beta.9...v1.0.0-beta.10) (2023-12-20)
+
+
+### Bug Fixes
+
+* fix singleton patch with body id ([e923c9c](https://github.com/commercelayer/provisioning-sdk/commit/e923c9ce69f5b5ea43698bd1df67f26783010d1e))
+
 # [1.0.0-beta.9](https://github.com/commercelayer/provisioning-sdk/compare/v1.0.0-beta.8...v1.0.0-beta.9) (2023-12-20)
 
 
