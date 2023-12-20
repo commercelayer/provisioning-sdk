@@ -1,6 +1,12 @@
 
 
 
+	'user'
+
+	'user'
+
+
+
 
 
 
@@ -60,6 +66,12 @@ export const resourceList = [
 ] as const
 
 
+export const singletonList = [
+// ##__API_RESOURCE_SINGLETON_START__##
+	'user'
+// ##__API_RESOURCE_SINGLETON_STOP__##
+] as const
+
 
 // Retrievable resources
 export type RetrievableResourceType = ResourceTypeLock
@@ -71,9 +83,9 @@ export type RetrievableResource = Resource & {
 
 // Listable resources
 export type ListableResourceType = Exclude<ResourceTypeLock,
-	// ##__API_RESOURCE_SINGLETON_START__##
+	// ##__API_RESOURCE_NOT_LISTABLE_START__##
 	'user'
-	// ##__API_RESOURCE_SINGLETON_STOP__##
+	// ##__API_RESOURCE_NOT_LISTABLE_STOP__##
 >
 
 export type ListableResource = Resource & {
