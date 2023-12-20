@@ -551,7 +551,7 @@ const generateResource = (type: string, name: string, resource: Resource): strin
 	const qryMod = new Set<string>()
 	const resMod = new Set<string>()
 	Object.entries(resource.operations).forEach(([opName, op]) => {
-		const tpl = op.singleton ? templates['singleton'] : templates[opName]
+		const tpl = op.singleton ? ((opName === 'update')? templates['singleton_update'] : templates['singleton']) : templates[opName]
 		if (op.singleton) resModelType = 'ApiSingleton'
 		if (tpl) {
 			if (['create', 'update'].includes(opName)) qryMod.add('QueryParamsRetrieve')

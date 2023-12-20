@@ -24,7 +24,7 @@ interface ApiCredential extends Resource {
 	client_secret: string
 	scopes: string
 	expires_in?: number | null
-	mode: string
+	mode?: string | null
 	custom?: boolean | null
 
 	organization?: Organization | null
@@ -39,6 +39,7 @@ interface ApiCredentialCreate extends ResourceCreate {
 	kind: string
 	redirect_uri?: string | null
 	expires_in?: number | null
+	mode?: string | null
 	custom?: boolean | null
 
 	organization: OrganizationRel

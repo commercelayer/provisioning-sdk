@@ -139,29 +139,19 @@ class ResourceAdapter {
 	*/
 
 
-	async singleton<R extends Resource>(resource: ResourceType, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<R> {
 
-		debug('singleton: %o, %O, %O', resource, params || {}, options || {})
+	async retrieve<R extends Resource>(resource: ResourceId | ResourceType, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<R> {
 
-		const queryParams = generateQueryStringParams(params, resource)
-		if (options?.params) Object.assign(queryParams, options?.params)
+		const singleton = !('id' in resource) || !resource.id
 
-		const res = await this.#client.request('get', `${resource.type}`, undefined, { ...options, params: queryParams })
-		const r = denormalize<R>(res) as R
-
-		return r
-
-	}
-
-
-	async retrieve<R extends Resource>(resource: ResourceId, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<R> {
-
-		debug('retrieve: %o, %O, %O', resource, params || {}, options || {})
+		debug('retrieve:%s %o, %O, %O', (singleton? ' singleton,' : ''), resource, params || {}, options || {})
 
 		const queryParams = generateQueryStringParams(params, resource)
 		if (options?.params) Object.assign(queryParams, options?.params)
 
-		const res = await this.#client.request('get', `${resource.type}/${resource.id}`, undefined, { ...options, params: queryParams })
+		const path = `${resource.type}${singleton? '' : `/${resource.id}`}`
+
+		const res = await this.#client.request('get', path, undefined, { ...options, params: queryParams })
 		const r = denormalize<R>(res) as R
 
 		return r
@@ -209,13 +199,17 @@ class ResourceAdapter {
 
 	async update<U extends ResourceUpdate, R extends Resource>(resource: U & ResourceId, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<R> {
 
-		debug('update: %o, %O, %O', resource, params || {}, options || {})
+		const singleton = !('id' in resource) || !resource.id
+
+		debug('update:%s %o, %O, %O', (singleton? ' singleton,' : ''), resource, params || {}, options || {})
 
 		const queryParams = generateQueryStringParams(params, resource)
 		if (options?.params) Object.assign(queryParams, options?.params)
 
+		const path = `${resource.type}${singleton? '' : `/${resource.id}`}`
+
 		const data = normalize(resource)
-		const res = await this.#client.request('patch', `${resource.type}/${resource.id}`, data, { ...options, params: queryParams })
+		const res = await this.#client.request('patch', path, data, { ...options, params: queryParams })
 		const r = denormalize<R>(res) as R
 
 		return r
@@ -325,7 +319,7 @@ abstract class ApiResource<R extends Resource> extends ApiResourceBase<R> {
 abstract class ApiSingleton<R extends Resource> extends ApiResourceBase<R> {
 
 	async retrieve(params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<R> {
-		return this.resources.singleton<R>({ type: this.type() }, params, options)
+		return this.resources.retrieve<R>({ type: this.type() }, params, options)
 	}
 
 }

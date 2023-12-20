@@ -776,6 +776,33 @@
         }
       }
     },
+    "/memberships/{membershipId}/user": {
+      "get": {
+        "operationId": "GET/membershipId/user",
+        "summary": "Related membership",
+        "description": "Related membership",
+        "tags": [
+          "user",
+          "has_one"
+        ],
+        "parameters": [
+          {
+            "name": "membershipId",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "The resource's id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The user associated to the membership"
+          }
+        }
+      }
+    },
     "/memberships/{membershipId}/versions": {
       "get": {
         "operationId": "GET/membershipId/versions",
@@ -1771,7 +1798,7 @@
                     "type": "string",
                     "description": "Indicates the environment the resource belongs to (one of `test` or `live`).",
                     "example": "test",
-                    "nullable": false
+                    "nullable": true
                   },
                   "custom": {
                     "type": "boolean",
@@ -1908,6 +1935,11 @@
                     "type": "integer",
                     "description": "The lifetime of the access token in seconds (min. `7200`, max. `31536000`. Default is `14400` for Sales channels and `7200` for other client types).",
                     "example": 7200
+                  },
+                  "mode": {
+                    "type": "string",
+                    "description": "Indicates the environment the resource belongs to (one of `test` or `live`).",
+                    "example": "test"
                   },
                   "custom": {
                     "type": "boolean",
@@ -2240,6 +2272,17 @@
               "attributes": {
                 "type": "object",
                 "properties": {
+                  "filters": {
+                    "type": "object",
+                    "description": "Set of key-value pairs that contains restrictions and scopes of the application membership.",
+                    "example": {
+                      "market_id_in": [
+                        202,
+                        203
+                      ]
+                    },
+                    "nullable": true
+                  },
                   "created_at": {
                     "type": "string",
                     "description": "Time at which the resource was created.",
@@ -2416,6 +2459,16 @@
               "attributes": {
                 "type": "object",
                 "properties": {
+                  "filters": {
+                    "type": "object",
+                    "description": "Set of key-value pairs that contains restrictions and scopes of the application membership.",
+                    "example": {
+                      "market_id_in": [
+                        202,
+                        203
+                      ]
+                    }
+                  },
                   "reference": {
                     "type": "string",
                     "description": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
@@ -2605,6 +2658,17 @@
               "attributes": {
                 "type": "object",
                 "properties": {
+                  "filters": {
+                    "type": "object",
+                    "description": "Set of key-value pairs that contains restrictions and scopes of the application membership.",
+                    "example": {
+                      "market_id_in": [
+                        202,
+                        203
+                      ]
+                    },
+                    "nullable": true
+                  },
                   "reference": {
                     "type": "string",
                     "description": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
@@ -2929,6 +2993,12 @@
                       "active"
                     ]
                   },
+                  "owner": {
+                    "type": "boolean",
+                    "description": "Indicates if the user it's the owner of the organization.",
+                    "example": true,
+                    "nullable": false
+                  },
                   "created_at": {
                     "type": "string",
                     "description": "Time at which the resource was created.",
@@ -3021,6 +3091,28 @@
                             "description": "The resource's type",
                             "enum": [
                               "application_memberships"
+                            ]
+                          },
+                          "id": {
+                            "type": "string",
+                            "description": "The resource's id",
+                            "example": "XGZwpOSrWL"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "user": {
+                    "type": "object",
+                    "properties": {
+                      "data": {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "type": "string",
+                            "description": "The resource's type",
+                            "enum": [
+                              "user"
                             ]
                           },
                           "id": {
@@ -3443,6 +3535,40 @@
                       }
                     }
                   },
+                  "user": {
+                    "type": "object",
+                    "properties": {
+                      "links": {
+                        "type": "object",
+                        "properties": {
+                          "self": {
+                            "type": "string",
+                            "description": "URL"
+                          },
+                          "related": {
+                            "type": "string",
+                            "description": "URL"
+                          }
+                        }
+                      },
+                      "data": {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "type": "string",
+                            "description": "The resource's type",
+                            "enum": [
+                              "user"
+                            ]
+                          },
+                          "id": {
+                            "type": "string",
+                            "description": "The resource ID"
+                          }
+                        }
+                      }
+                    }
+                  },
                   "versions": {
                     "type": "object",
                     "properties": {
@@ -3623,6 +3749,12 @@
                     "description": "The region where the organization it's located, default value it's `eu-west-1`.",
                     "example": "eu-west-1",
                     "nullable": true
+                  },
+                  "can_switch_live": {
+                    "type": "boolean",
+                    "description": "Indicates if the organization can switch to live mode.",
+                    "example": false,
+                    "nullable": false
                   },
                   "created_at": {
                     "type": "string",

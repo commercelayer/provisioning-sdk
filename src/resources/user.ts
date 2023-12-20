@@ -34,8 +34,9 @@ class Users extends ApiSingleton<User> {
 
 	static readonly TYPE: UserType = 'user' as const
 
-	async retrieve(params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<User> {
-		return this.resources.singleton<User>({ type: Users.TYPE }, params, options)
+	async update(resource: UserUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<User> {
+		const res = await this.retrieve(params, options)	// JsonAPI requires id in the request body
+		return this.resources.update<UserUpdate, User>({ ...resource, id: res.id, type: Users.TYPE }, params, options)
 	}
 
 

@@ -34,6 +34,7 @@ interface Organization extends Resource {
 	max_concurrent_imports: number
 	associated_markets: Record<string, any>
 	region?: string | null
+	can_switch_live: boolean
 
 	memberships?: Membership[] | null
 	roles?: Role[] | null

@@ -22,6 +22,7 @@ interface ApplicationMembership extends Resource {
 	
 	readonly type: ApplicationMembershipType
 
+	filters?: Record<string, any> | null
 
 	api_credential?: ApiCredential | null
 	membership?: Membership | null
@@ -34,6 +35,8 @@ interface ApplicationMembership extends Resource {
 
 interface ApplicationMembershipCreate extends ResourceCreate {
 	
+	filters?: Record<string, any> | null
+
 	api_credential: ApiCredentialRel
 	membership: MembershipRel
 	user: UserRel
@@ -45,6 +48,8 @@ interface ApplicationMembershipCreate extends ResourceCreate {
 
 interface ApplicationMembershipUpdate extends ResourceUpdate {
 	
+	filters?: Record<string, any> | null
+
 	role?: RoleRel | null
 
 }

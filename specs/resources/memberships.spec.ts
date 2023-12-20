@@ -259,6 +259,27 @@ describe('Memberships resource', () => {
 	/* relationship.application_memberships stop */
 	
 
+	/* relationship.user start */
+	it(resourceType + '.user', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { user: CommonData.paramsFields } }
+	
+		const intId = clp.addRequestInterceptor((config) => {
+			expect(config.method).toBe('get')
+			checkCommon(config, resourceType, id, currentAccessToken, 'user')
+			checkCommonParams(config, params)
+			return interceptRequest()
+		})
+	
+		await clp[resourceType].user(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => clp.removeInterceptor('request', intId))
+	
+	})
+	/* relationship.user stop */
+	
+
 	/* relationship.versions start */
 	it(resourceType + '.versions', async () => {
 	

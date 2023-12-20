@@ -91,7 +91,7 @@ const parseSchema = (path: string): ApiSchema => {
 		Object.keys(apiSchema.components).forEach(c => {
 			if (!specialComponentMatcher.test(c)) components[c] = apiSchema.components[c]
 			else
-			if (snakeCase(c.replace(specialComponentMatcher, '')) === singRes) resources[p].components[c] = apiSchema.components[c]
+				if (snakeCase(c.replace(specialComponentMatcher, '')) === singRes) resources[p].components[c] = apiSchema.components[c]
 		})
 		// Sort components
 		resources[p].components = sortObjectFields(resources[p].components)
@@ -118,18 +118,18 @@ const operationName = (op: string, id?: string, relOrCmd?: string): string => {
 
 const referenceResource = (ref: { '$ref': string }): string | undefined => {
 	const r = getReference(ref) as string
-	return r? Inflector.camelize(r.substring(r.lastIndexOf('/') + 1)) : undefined
+	return r ? Inflector.camelize(r.substring(r.lastIndexOf('/') + 1)) : undefined
 }
 
 const contentSchema = (content: any): any => {
-  return content["application/vnd.api+json"]?.schema
+	return content["application/vnd.api+json"]?.schema
 }
 
 const referenceContent = (content: any): string | undefined => {
 	// No content or no response codes
-	if (!content || ! Object.keys(content).length) return undefined
+	if (!content || !Object.keys(content).length) return undefined
 	const schema = contentSchema(content)
-	return schema? referenceResource(schema) : undefined
+	return schema ? referenceResource(schema) : undefined
 }
 
 
@@ -137,12 +137,12 @@ const contentType = (content?: any): string | undefined => {
 	if (!content) return undefined
 	const schema = contentSchema(content)
 	if (!schema) return undefined
-	return isReference(schema)? referenceContent(content) : 'object'
+	return isReference(schema) ? referenceContent(content) : 'object'
 }
 
 
 export const isObjectType = (type?: string): boolean => {
-  return (type !== undefined) && ['object', 'any'].includes(type)
+	return (type !== undefined) && ['object', 'any'].includes(type)
 }
 
 
@@ -178,9 +178,9 @@ const parsePaths = (schemaPaths: any[]): PathMap => {
 
 			if (id) op.id = id
 			if (oValue.requestBody) {
-        op.requestType = contentType(oValue.requestBody.content)
-        if (isObjectType(op.requestType)) op.requestTypeDef = contentSchema(oValue.requestBody.content).properties.data.properties.attributes.properties
-      }
+				op.requestType = contentType(oValue.requestBody.content)
+				if (isObjectType(op.requestType)) op.requestTypeDef = contentSchema(oValue.requestBody.content).properties.data.properties.attributes.properties
+			}
 			if (oValue.responses) {
 				const responses = Object.values(oValue.responses) as any[]
 				if (responses.length > 0) op.responseType = contentType(responses[0].content)
@@ -205,9 +205,9 @@ const parsePaths = (schemaPaths: any[]): PathMap => {
 							required: false,
 							deprecated: false,
 						}
-            op.responseType = Inflector.camelize(Inflector.singularize(op.relationship.type))
+						op.responseType = Inflector.camelize(Inflector.singularize(op.relationship.type))
 					} else {
-            op.function = operationName(oKey, id,),
+						op.function = operationName(oKey, id),
 						op.action = true
 					}
 				} else skip = true
@@ -290,13 +290,13 @@ const parseComponents = (schemaComponents: any[]): ComponentMap => {
 				fetchable,
 				enum: aValue.enum
 			}
-	})
+		})
 
 		// Relationships
 		if (cmpRelationships) {
 			Object.entries(cmpRelationships.properties as object).forEach(r => {
 				const [rKey, rValue] = r
-				const dataObj = rValue.properties.data? rValue.properties.data : rValue
+				const dataObj = rValue.properties.data ? rValue.properties.data : rValue
 				const typeObj = dataObj.items ? dataObj.items.properties : dataObj.properties
 				const type = typeObj.type.enum[0] // typeObj.type.default || typeObj.type.example
 				let oneOf = rValue.oneOf
@@ -385,11 +385,11 @@ type Operation = {
 	type: string
 	id?: string
 	name: string
-  function?: string
+	function?: string
 	requestType?: string
-  requestTypeDef?: any
+	requestTypeDef?: any
 	responseType?: string
-  responseTypeDef?: any
+	responseTypeDef?: any
 	singleton: boolean
 	relationship?: Relationship
 	trigger?: boolean,

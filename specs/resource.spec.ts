@@ -60,7 +60,7 @@ describe('SDK:resource suite', () => {
 
 
 	it('resource.create', async () => {
-		const user_email = 'spec@sdk-test.org-role'
+		const user_email = 'spec@provisioning-sdk-test.org-role'
 		const org = (await clp.organizations.list()).first()
 		const role = (await clp.roles.list()).first()
 		if (!org || !role) return
