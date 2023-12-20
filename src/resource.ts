@@ -9,6 +9,7 @@ import type { InterceptorManager } from './interceptor'
 import { ErrorType, SdkError } from './error'
 
 import Debug from './debug'
+import { CommerceLayerProvisioningStatic } from './static'
 const debug = Debug('resource')
 
 
@@ -142,7 +143,7 @@ class ResourceAdapter {
 
 	async retrieve<R extends Resource>(resource: ResourceId | ResourceType, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<R> {
 
-		const singleton = !('id' in resource) || !resource.id
+		const singleton = !('id' in resource) || CommerceLayerProvisioningStatic.isSingleton(resource.type)
 
 		debug('retrieve:%s %o, %O, %O', (singleton? ' singleton,' : ''), resource, params || {}, options || {})
 
@@ -199,7 +200,7 @@ class ResourceAdapter {
 
 	async update<U extends ResourceUpdate, R extends Resource>(resource: U & ResourceId, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<R> {
 
-		const singleton = !('id' in resource) || !resource.id
+		const singleton = !('id' in resource) || CommerceLayerProvisioningStatic.isSingleton(resource.type)
 
 		debug('update:%s %o, %O, %O', (singleton? ' singleton,' : ''), resource, params || {}, options || {})
 
