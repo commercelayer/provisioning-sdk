@@ -91,8 +91,16 @@ class CommerceLayerProvisioningClient {
 	resources(): readonly string[] {
 		return CommerceLayerProvisioningStatic.resources()
 	}
-	
 
+	singletons(): readonly string[] {
+		return CommerceLayerProvisioningStatic.singletons()
+	}
+
+	isSingleton(resource: api.ResourceTypeLock): boolean {
+		return CommerceLayerProvisioningStatic.isSingleton(resource)
+	}
+
+	
 	isApiError(error: any): error is ApiError {
 		return CommerceLayerProvisioningStatic.isApiError(error)
 	}
