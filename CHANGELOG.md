@@ -1,3 +1,15 @@
+# [1.0.0-beta.8](https://github.com/commercelayer/provisioning-sdk/compare/v1.0.0-beta.7...v1.0.0-beta.8) (2023-12-20)
+
+
+### Bug Fixes
+
+* fix singleton spec ([5c617a8](https://github.com/commercelayer/provisioning-sdk/commit/5c617a8af5c7682a38e645cf86607214c4cbd1de))
+
+
+### Features
+
+* add singleton update ([71e0e7b](https://github.com/commercelayer/provisioning-sdk/commit/71e0e7b3a10ec3210da8363ccb5bc9986a4673a1))
+
 # [1.0.0-beta.7](https://github.com/commercelayer/provisioning-sdk/compare/v1.0.0-beta.6...v1.0.0-beta.7) (2023-12-13)
 
 
