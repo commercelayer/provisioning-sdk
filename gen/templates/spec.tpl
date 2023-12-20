@@ -74,10 +74,12 @@ describe('##__RESOURCE_CLASS__## resource', () => {
     const resData = { id: TestData.id, ...attributes}
 
     const intId = clp.addRequestInterceptor((config) => {
-      expect(config.method).toBe('patch')
-      checkCommon(config, resourceType, resData.id, currentAccessToken)
-      checkCommonData(config, resourceType, attributes, resData.id)
-      return interceptRequest()
+      if (config.method !== 'get') {
+        expect(config.method).toBe('patch')
+        checkCommon(config, resourceType, resData.id, currentAccessToken)
+        checkCommonData(config, resourceType, attributes, resData.id)
+      }
+       return interceptRequest()
     })
 
     await clp[resourceType].update(resData, params, CommonData.options)
