@@ -1,3 +1,11 @@
+# [1.0.0-beta.9](https://github.com/commercelayer/provisioning-sdk/compare/v1.0.0-beta.8...v1.0.0-beta.9) (2023-12-20)
+
+
+### Features
+
+* add singletons functions to client instance ([ca338e6](https://github.com/commercelayer/provisioning-sdk/commit/ca338e63574b1c0aa8301d2de2676b4e32e991cd))
+* add singletons list and functions ([5f5d4f1](https://github.com/commercelayer/provisioning-sdk/commit/5f5d4f1c8be9ae70db4765bc8e6f519597db7b17))
+
 # [1.0.0-beta.8](https://github.com/commercelayer/provisioning-sdk/compare/v1.0.0-beta.7...v1.0.0-beta.8) (2023-12-20)
 
 
