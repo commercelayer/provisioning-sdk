@@ -1,3 +1,10 @@
+# [1.0.0-beta.11](https://github.com/commercelayer/provisioning-sdk/compare/v1.0.0-beta.10...v1.0.0-beta.11) (2024-01-10)
+
+
+### Bug Fixes
+
+* update dependencies and fix lint errors ([8e39135](https://github.com/commercelayer/provisioning-sdk/commit/8e3913557a272b3b31d168b3c54ced26128ed7c3))
+
 # [1.0.0-beta.10](https://github.com/commercelayer/provisioning-sdk/compare/v1.0.0-beta.9...v1.0.0-beta.10) (2023-12-20)
 
 
