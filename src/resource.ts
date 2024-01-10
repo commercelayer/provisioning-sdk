@@ -1,15 +1,15 @@
 
 import ApiClient, { type ApiClientInitConfig } from './client'
-import { denormalize, normalize } from './jsonapi'
+import { denormalize, normalize, type DocWithData } from './jsonapi'
 import type { QueryParamsRetrieve, QueryParamsList, QueryFilter, QueryParams } from './query'
 import { generateQueryStringParams, isParamsList } from './query'
 import type { ResourceTypeLock } from './api'
 import config from './config'
 import type { InterceptorManager } from './interceptor'
 import { ErrorType, SdkError } from './error'
+import { CommerceLayerProvisioningStatic } from './static'
 
 import Debug from './debug'
-import { CommerceLayerProvisioningStatic } from './static'
 const debug = Debug('resource')
 
 
@@ -152,7 +152,7 @@ class ResourceAdapter {
 
 		const path = `${resource.type}${singleton? '' : `/${resource.id}`}`
 
-		const res = await this.#client.request('get', path, undefined, { ...options, params: queryParams })
+		const res: DocWithData = await this.#client.request('get', path, undefined, { ...options, params: queryParams })
 		const r = denormalize<R>(res) as R
 
 		return r
@@ -167,7 +167,7 @@ class ResourceAdapter {
 		const queryParams = generateQueryStringParams(params, resource)
 		if (options?.params) Object.assign(queryParams, options?.params)
 
-		const res = await this.#client.request('get', `${resource.type}`, undefined, { ...options, params: queryParams })
+		const res: DocWithData = await this.#client.request('get', `${resource.type}`, undefined, { ...options, params: queryParams })
 		const r = denormalize<R>(res) as R[]
 
 		const meta: ListMeta = {
@@ -190,7 +190,7 @@ class ResourceAdapter {
 		if (options?.params) Object.assign(queryParams, options?.params)
 
 		const data = normalize(resource)
-		const res = await this.#client.request('post', resource.type, data, { ...options, params: queryParams })
+		const res: DocWithData = await this.#client.request('post', resource.type, data, { ...options, params: queryParams })
 		const r = denormalize<R>(res) as R
 
 		return r
@@ -210,7 +210,7 @@ class ResourceAdapter {
 		const path = `${resource.type}${singleton? '' : `/${resource.id}`}`
 
 		const data = normalize(resource)
-		const res = await this.#client.request('patch', path, data, { ...options, params: queryParams })
+		const res: DocWithData = await this.#client.request('patch', path, data, { ...options, params: queryParams })
 		const r = denormalize<R>(res) as R
 
 		return r
@@ -231,7 +231,7 @@ class ResourceAdapter {
 		const queryParams = generateQueryStringParams(params, resource)
 		if (options?.params) Object.assign(queryParams, options?.params)
 
-		const res = await this.#client.request('get', path, undefined, { ...options, params: queryParams })
+		const res: DocWithData = await this.#client.request('get', path, undefined, { ...options, params: queryParams })
 		const r = denormalize<R>(res)
 
 		if (Array.isArray(r)) {
@@ -278,11 +278,11 @@ abstract class ApiResourceBase<R extends Resource> {
 
 	abstract type(): ResourceTypeLock
 
-	parse(resource: any): R | R[] {
+	parse(resource: string): R | R[] {
 		try {
 			const res = JSON.parse(resource)
 			if (res.data?.type !== this.type()) throw new SdkError({ message: `Invalid resource type [${res.data?.type}]`, type: ErrorType.PARSE })
-			return denormalize<R>(res)
+			return denormalize<R>(res as DocWithData)
 		} catch (error: any) {
 			if (SdkError.isSdkError(error)) throw error
 			else throw new SdkError({ message: `Payload parse error [${error.message}]`, type: ErrorType.PARSE })
