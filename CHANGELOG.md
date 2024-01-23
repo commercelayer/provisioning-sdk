@@ -1,3 +1,15 @@
+# [1.0.0-beta.12](https://github.com/commercelayer/provisioning-sdk/compare/v1.0.0-beta.11...v1.0.0-beta.12) (2024-01-23)
+
+
+### Bug Fixes
+
+* fix release script and update dependencies ([a597c75](https://github.com/commercelayer/provisioning-sdk/commit/a597c7513a16d92842f7fddf74517af1fd4a0f9c))
+
+
+### Features
+
+* update resources to schema v1.0.1 ([686e24a](https://github.com/commercelayer/provisioning-sdk/commit/686e24ae6f3c63a2a07d9e5fac8047161d7b462c))
+
 # [1.0.0-beta.11](https://github.com/commercelayer/provisioning-sdk/compare/v1.0.0-beta.10...v1.0.0-beta.11) (2024-01-10)
 
 
