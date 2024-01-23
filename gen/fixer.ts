@@ -47,3 +47,19 @@ const fixSchema = (schema: ApiSchema): ApiSchema => {
 
 
 export default fixSchema
+
+
+
+const fixHeadingEmptyLines = (lines: string[]): string[] => {
+
+	let l = 0
+	let line = ''
+
+	while ((line = lines[l]).trim() === '') lines.shift()
+
+	return lines
+
+}
+
+
+export { fixHeadingEmptyLines }

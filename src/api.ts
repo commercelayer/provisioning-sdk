@@ -1,30 +1,3 @@
-
-
-
-
-
-
-
-
-	'user'
-
-	'user'
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 import type { Resource, ResourceRel } from './resource'
 import type { VersionType } from './resources/versions'
 

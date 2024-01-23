@@ -3,7 +3,7 @@ import apiSchema, { Resource, Operation, Component, Cardinality, Attribute, isOb
 import { readFileSync, writeFileSync, existsSync, mkdirSync, readdirSync, rmSync } from 'fs'
 import { basename } from 'path'
 import { snakeCase } from 'lodash'
-import fixSchema from './fixer'
+import fixSchema, { fixHeadingEmptyLines } from './fixer'
 
 
 /**** SDK source code generator settings ****/
@@ -362,6 +362,7 @@ const updateApiResources = (resources: { [key: string]: ApiRes }): void => {
 	const rvStopIdx = findLine('##__API_RESOURCE_VERSIONABLE_STOP__##', lines).index
 	lines.splice(rvStartIdx, rvStopIdx - rvStartIdx, versionables.join('\n|'))
 
+	fixHeadingEmptyLines(lines)
 
 	writeFileSync('src/api.ts', lines.join('\n'), { encoding: 'utf-8' })
 
