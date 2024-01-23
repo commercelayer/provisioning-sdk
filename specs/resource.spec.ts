@@ -60,10 +60,10 @@ describe('SDK:resource suite', () => {
 
 
 	it('resource.create', async () => {
-		const user_email = 'spec@provisioning-sdk-test.org-role'
+		const user_email = 'spec@provisioning-sdk-test.org'
 		const org = (await clp.organizations.list()).first()
 		const role = (await clp.roles.list()).first()
-		if (!org || !role) return
+		if (!org || !role) throw new Error('Missing role or organization')
 		const ms = await clp.memberships.create({
 			user_email,
 			organization: clp.organizations.relationship(org),

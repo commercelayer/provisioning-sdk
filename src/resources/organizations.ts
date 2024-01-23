@@ -32,9 +32,9 @@ interface Organization extends Resource {
 	acceptance_disabled?: boolean | null
 	max_concurrent_promotions: number
 	max_concurrent_imports: number
-	associated_markets: Record<string, any>
 	region?: string | null
 	can_switch_live: boolean
+	subscription_totals: Record<string, any>
 
 	memberships?: Membership[] | null
 	roles?: Role[] | null

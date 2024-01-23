@@ -1,5 +1,5 @@
 /**
- * ©2023 Commerce Layer Inc.
+ * ©2024 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen
  **/
 
@@ -27,7 +27,6 @@ describe('ApplicationMemberships resource', () => {
     const createAttributes = {
 			api_credential: clp.api_credentials.relationship(TestData.id),
 			membership: clp.memberships.relationship(TestData.id),
-			user: clp.user.relationship(TestData.id),
 			organization: clp.organizations.relationship(TestData.id),
 			role: clp.roles.relationship(TestData.id),
 		}
@@ -239,27 +238,6 @@ describe('ApplicationMemberships resource', () => {
 	
 	})
 	/* relationship.membership stop */
-	
-
-	/* relationship.user start */
-	it(resourceType + '.user', async () => {
-	
-		const id = TestData.id
-		const params = { fields: { user: CommonData.paramsFields } }
-	
-		const intId = clp.addRequestInterceptor((config) => {
-			expect(config.method).toBe('get')
-			checkCommon(config, resourceType, id, currentAccessToken, 'user')
-			checkCommonParams(config, params)
-			return interceptRequest()
-		})
-	
-		await clp[resourceType].user(id, params, CommonData.options)
-			.catch(handleError)
-			.finally(() => clp.removeInterceptor('request', intId))
-	
-	})
-	/* relationship.user stop */
 	
 
 	/* relationship.organization start */

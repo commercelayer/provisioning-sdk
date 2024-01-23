@@ -5,7 +5,6 @@ import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 import type { Organization, OrganizationType } from './organizations'
 import type { Role, RoleType } from './roles'
 import type { ApplicationMembership, ApplicationMembershipType } from './application_memberships'
-import type { User } from './user'
 import type { Version } from './versions'
 
 
@@ -29,7 +28,6 @@ interface Membership extends Resource {
 	organization?: Organization | null
 	role?: Role | null
 	application_memberships?: ApplicationMembership[] | null
-	user?: User | null
 	versions?: Version[] | null
 
 }
@@ -88,11 +86,6 @@ class Memberships extends ApiResource<Membership> {
 	async application_memberships(membershipId: string | Membership, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<ApplicationMembership>> {
 		const _membershipId = (membershipId as Membership).id || membershipId as string
 		return this.resources.fetch<ApplicationMembership>({ type: 'application_memberships' }, `memberships/${_membershipId}/application_memberships`, params, options) as unknown as ListResponse<ApplicationMembership>
-	}
-
-	async user(membershipId: string | Membership, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<User> {
-		const _membershipId = (membershipId as Membership).id || membershipId as string
-		return this.resources.fetch<User>({ type: 'user' }, `memberships/${_membershipId}/user`, params, options) as unknown as User
 	}
 
 	async versions(membershipId: string | Membership, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {

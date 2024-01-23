@@ -1,6 +1,11 @@
 
 
 
+
+
+
+
+
 	'user'
 
 	'user'
@@ -26,7 +31,7 @@ import type { VersionType } from './resources/versions'
 // ##__API_RESOURCES_START__##
 // ##__API_RESOURCES_TEMPLATE:: export { default as ##__RESOURCE_CLASS__## } from './resources/##__RESOURCE_TYPE__##'
 /**
- * ©2023 Commerce Layer Inc.
+ * ©2024 Commerce Layer Inc.
  **/
 export { default as ApiCredentials } from './resources/api_credentials'
 export { default as ApplicationMemberships } from './resources/application_memberships'
