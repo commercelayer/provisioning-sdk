@@ -2,7 +2,7 @@
     "openapi": "3.0.1",
     "info": {
         "title": "Commerce Layer Provisioning API",
-        "version": "1.0.1",
+        "version": "1.0.2",
         "contact": {
             "name": "API Support",
             "url": "https://commercelayer.io",
@@ -3549,14 +3549,23 @@
                                         "example": false,
                                         "nullable": false
                                     },
-                                    "subscription_totals": {
+                                    "subscription_info": {
                                         "type": "object",
-                                        "description": "The number of current organizations, markets, memberships, and SKUs associated with the active subscription.",
+                                        "description": "Information about the current subscription such as the plan type, limits and subscription totals counter.",
                                         "example": {
-                                            "organizations": 1,
-                                            "markets": 0,
-                                            "memberships": 0,
-                                            "skus": 0
+                                            "plan_type": "growth",
+                                            "limits": {
+                                                "markets": 5,
+                                                "skus": 10000,
+                                                "organizations": 2,
+                                                "memberships": 5
+                                            },
+                                            "totals": {
+                                                "organizations": 1,
+                                                "markets": 0,
+                                                "memberships": 2,
+                                                "skus": 0
+                                            }
                                         },
                                         "nullable": false
                                     },

@@ -8,7 +8,6 @@ import { ObjectType, isResourceType } from '../src/common'
 let clp: CommerceLayerProvisioningClient
 
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 beforeAll(async () => { clp = await getClient() })
 
 
@@ -60,7 +59,8 @@ describe('SDK suite', () => {
 			type: 'roles',
 			created_at: new Date().toISOString(),
 			updated_at: new Date().toISOString(),
-			name: 'Test Role'
+			name: 'Test Role',
+			kind: 'custom'
 		}
 
 		expect(isResourceType(customer)).toBeTruthy()

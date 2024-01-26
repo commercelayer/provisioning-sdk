@@ -1,5 +1,5 @@
 import getToken from './token'
-import CommerceLayer, { CommerceLayerProvisioningClient, QueryParamsList, QueryParamsRetrieve } from '../src'
+import CommerceLayerProvisioning, { CommerceLayerProvisioningClient, QueryParamsList, QueryParamsRetrieve } from '../src'
 import dotenv from 'dotenv'
 import { inspect } from 'util'
 import axios, { AxiosRequestConfig } from 'axios'
@@ -61,7 +61,7 @@ const initClient = async (): Promise<CommerceLayerProvisioningClient> => {
 	if (token === null) throw new Error('Unable to get access token')
 	const accessToken = token.accessToken
 	currentAccessToken = accessToken
-	const client = CommerceLayer({ accessToken, domain })
+	const client = CommerceLayerProvisioning({ accessToken, domain })
 	client.config({ timeout: GLOBAL_TIMEOUT })
 	jest.setTimeout(GLOBAL_TIMEOUT)
 	return client
@@ -69,7 +69,7 @@ const initClient = async (): Promise<CommerceLayerProvisioningClient> => {
 
 const fakeClient = async (): Promise<CommerceLayerProvisioningClient> => {
 	const accessToken = 'fake-access-token'
-	const client = CommerceLayer({ accessToken, domain })
+	const client = CommerceLayerProvisioning({ accessToken, domain })
 	currentAccessToken = accessToken
 	return client
 }
