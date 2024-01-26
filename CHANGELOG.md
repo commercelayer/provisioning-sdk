@@ -1,3 +1,10 @@
+# [1.0.0-beta.14](https://github.com/commercelayer/provisioning-sdk/compare/v1.0.0-beta.13...v1.0.0-beta.14) (2024-01-26)
+
+
+### Features
+
+* update resources to schema v1.0.2 ([87dd737](https://github.com/commercelayer/provisioning-sdk/commit/87dd7370897b65e730b69c8bed3c5e4a23de94a4))
+
 # [1.0.0-beta.13](https://github.com/commercelayer/provisioning-sdk/compare/v1.0.0-beta.12...v1.0.0-beta.13) (2024-01-23)
 
 
