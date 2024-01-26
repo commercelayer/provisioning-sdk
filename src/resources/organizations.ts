@@ -34,7 +34,7 @@ interface Organization extends Resource {
 	max_concurrent_imports: number
 	region?: string | null
 	can_switch_live: boolean
-	subscription_totals: Record<string, any>
+	subscription_info: Record<string, any>
 
 	memberships?: Membership[] | null
 	roles?: Role[] | null
