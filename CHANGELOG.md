@@ -1,3 +1,10 @@
+# [1.0.0-beta.13](https://github.com/commercelayer/provisioning-sdk/compare/v1.0.0-beta.12...v1.0.0-beta.13) (2024-01-23)
+
+
+### Bug Fixes
+
+* fix heading empty lines ([a24e997](https://github.com/commercelayer/provisioning-sdk/commit/a24e9976b89387f6130d4b95930aa9b65e784113))
+
 # [1.0.0-beta.12](https://github.com/commercelayer/provisioning-sdk/compare/v1.0.0-beta.11...v1.0.0-beta.12) (2024-01-23)
 
 
