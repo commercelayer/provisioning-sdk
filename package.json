@@ -5,8 +5,14 @@
   "types": "lib/cjs/index.d.ts",
   "module": "lib/esm/index.js",
   "exports": {
-    "require": "./lib/cjs/index.js",
-    "import": "./lib/esm/index.js"
+    ".": {
+      "require": "./lib/cjs/index.js",
+      "import": "./lib/esm/index.js"
+    },
+    "./api/*": {
+      "require": "./lib/cjs/api.js",
+      "import": "./lib/esm/api.js"
+    }
   },
   "scripts": {
     "clean": "rm -rf ./.nyc_output ./node_modules/.cache ./coverage",
