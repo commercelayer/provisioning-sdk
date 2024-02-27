@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/commercelayer/provisioning-sdk/compare/v1.0.0...v1.0.1) (2024-02-27)
+
+
+### Bug Fixes
+
+* fix esm export ([50c6f7d](https://github.com/commercelayer/provisioning-sdk/commit/50c6f7d5d02b5e721b4befdadaa20e7fbf1e2718))
+
 # 1.0.0 (2024-01-26)
 
 
