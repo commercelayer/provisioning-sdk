@@ -29,9 +29,8 @@ jobs:
         run: pnpm build
       - name: Run specs
         env:
-          CL_SDK_DOMAIN: commercelayer.co
-          CL_SDK_CLIENT_ID: P1GMFxhvca4CqYtBeAKb_E4LUVEbp9bCGMP8ZiHlZo8
-          CL_SDK_CLIENT_SECRET: 3xMxL0giBfoxl02TbGrNYeYl5KCmq2TdF71P05BWQzk
+          CL_SDK_CLIENT_ID: y0C5Tvn3kZSNCI3nqrBo7wfXwqsRubjhtFLLZGpEYMU
+          CL_SDK_CLIENT_SECRET: EeE1OvBS21emCoj_zODJ3UcQrfYWB9-wcAWEdIOYeOM
         run: pnpm test
       - name: Release
         env:

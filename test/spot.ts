@@ -16,8 +16,10 @@ import getToken from './token'
 
 	try {
 
-		clp.memberships.resend('id')
-		clp.organizations.transfer_ownership('id', { new_owner_email: '' })
+		console.log(1)
+		const organizations = await clp.organizations.list()
+		console.log(2)
+		console.log(organizations)
 
 	} catch (error: any) {
 		console.log(inspect(error, false, null, true))
