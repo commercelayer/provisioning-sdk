@@ -16,9 +16,7 @@ import getToken from './token'
 
 	try {
 
-		console.log(1)
 		const organizations = await clp.organizations.list()
-		console.log(2)
 		console.log(organizations)
 
 	} catch (error: any) {
