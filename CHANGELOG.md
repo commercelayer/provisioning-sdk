@@ -1,3 +1,15 @@
+## [1.0.2](https://github.com/commercelayer/provisioning-sdk/compare/v1.0.1...v1.0.2) (2024-03-01)
+
+
+### Bug Fixes
+
+* fix api esm export ([ba275ff](https://github.com/commercelayer/provisioning-sdk/commit/ba275ffe5b8e92af9528efd41d69cd7091cc8d16))
+* fix env secrets ([04d6e39](https://github.com/commercelayer/provisioning-sdk/commit/04d6e393b2a4fbb7ea542a62090fe123883d5f52))
+* fix package exports ([17d9c4a](https://github.com/commercelayer/provisioning-sdk/commit/17d9c4ae01170dabd36bdc103a69017ecc07e136))
+* fix package exports ([ab753f0](https://github.com/commercelayer/provisioning-sdk/commit/ab753f0dc194b8d882562a03a5f3e5325815707f))
+* fix spot test ([b09a833](https://github.com/commercelayer/provisioning-sdk/commit/b09a83313798c871821943771b91ff1ddbbccb5c))
+* fix test env ([dff0a7a](https://github.com/commercelayer/provisioning-sdk/commit/dff0a7a79100581b47a973b39a033dfa7a10e104))
+
 ## [1.0.1](https://github.com/commercelayer/provisioning-sdk/compare/v1.0.0...v1.0.1) (2024-02-27)
 
 
