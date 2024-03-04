@@ -1,3 +1,10 @@
+## [1.0.3](https://github.com/commercelayer/provisioning-sdk/compare/v1.0.2...v1.0.3) (2024-03-04)
+
+
+### Bug Fixes
+
+* fix import/export config ([5ba0083](https://github.com/commercelayer/provisioning-sdk/commit/5ba008381ff8a25884d1be17e2fd82e9f97e6c2b))
+
 ## [1.0.2](https://github.com/commercelayer/provisioning-sdk/compare/v1.0.1...v1.0.2) (2024-03-01)
 
 
