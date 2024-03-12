@@ -8,13 +8,13 @@
     "clean": "rm -rf ./.nyc_output ./node_modules/.cache ./coverage",
     "build": "tsc -b tsconfig.json tsconfig.esm.json --verbose",
     "postbuild": "minimize-js -d lib",
-    "generate": "ts-node gen/generator.ts",
-    "generate-local": "ts-node gen/generator.ts -- --local",
+    "generate": "tsx gen/generator.ts",
+    "generate-local": "tsx gen/generator.ts -- --local",
     "lint": "eslint ./src --ext .ts",
     "lintspec": "eslint ./specs/resources/ --ext .spec.ts",
     "semantic-release": "semantic-release",
     "test": "jest",
-    "test-local": "ts-node test/spot.ts",
+    "test-local": "tsx test/spot.ts",
     "coverage": "jest --coverage"
   },
   "keywords": [
@@ -55,7 +55,7 @@
     "lodash": "^4.17.21",
     "minimize-js": "^1.4.0",
     "semantic-release": "^23.0.2",
-    "ts-node": "^10.9.2",
+    "tsx": "^4.7.1",
     "typescript": "^5.4.2"
   },
   "repository": "github:commercelayer/provisioning-sdk",
