@@ -1,3 +1,10 @@
+## [1.0.4](https://github.com/commercelayer/provisioning-sdk/compare/v1.0.3...v1.0.4) (2024-03-12)
+
+
+### Bug Fixes
+
+* fix circular inclusion ([4120ec7](https://github.com/commercelayer/provisioning-sdk/commit/4120ec7f63872cbbc913fd89dba3c8f90ec28c63))
+
 ## [1.0.3](https://github.com/commercelayer/provisioning-sdk/compare/v1.0.2...v1.0.3) (2024-03-04)
 
 
