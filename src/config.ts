@@ -10,7 +10,10 @@ const config = {
 	},
 	client: {
 		timeout: 15000,
-		requiredAttributes: ['accessToken'],
+		requiredAttributes: ['accessToken']
+	},
+	jsonapi: {
+		maxResourceIncluded: 2
 	}
 } as const
 
