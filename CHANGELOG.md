@@ -1,3 +1,10 @@
+## [1.0.5](https://github.com/commercelayer/provisioning-sdk/compare/v1.0.4...v1.0.5) (2024-03-12)
+
+
+### Bug Fixes
+
+* migrate from ts-node to tsx and update dependencies ([0243330](https://github.com/commercelayer/provisioning-sdk/commit/02433307746d7847132c7ac09a18282fb6621986))
+
 ## [1.0.4](https://github.com/commercelayer/provisioning-sdk/compare/v1.0.3...v1.0.4) (2024-03-12)
 
 
