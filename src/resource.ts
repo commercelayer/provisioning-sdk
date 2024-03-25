@@ -119,7 +119,7 @@ class ResourceAdapter {
 	}
 
 
-	config(config: ResourcesConfig): ResourceAdapter {
+	config(config: ResourcesConfig): this {
 
 		debug('config %o', config)
 

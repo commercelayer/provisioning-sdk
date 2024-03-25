@@ -2,7 +2,7 @@
     "openapi": "3.0.1",
     "info": {
         "title": "Commerce Layer Provisioning API",
-        "version": "1.0.2",
+        "version": "1.0.4",
         "contact": {
             "name": "API Support",
             "url": "https://commercelayer.io",
@@ -3459,6 +3459,116 @@
                                         "example": "the-blue-brand.commercelayer.io",
                                         "nullable": false
                                     },
+                                    "config": {
+                                        "type": "object",
+                                        "description": "The organization's configuration.",
+                                        "example": {
+                                            "mfe": {
+                                                "default": {
+                                                    "links": {
+                                                        "cart": "https://cart.example.com/:order_id?accessToken=:access_token",
+                                                        "checkout": "https://checkout.example.com/:order_id?accessToken=:accessToken",
+                                                        "identity": "https://example.com/login",
+                                                        "microstore": "https://example.com/microstore/?accessToken=:access_token",
+                                                        "my_account": "https://example.com/my-custom-account?accessToken=:access_token"
+                                                    },
+                                                    "checkout": {
+                                                        "thankyou_page": "https://example.com/thanks/:lang/:orderId",
+                                                        "billing_countries": [
+                                                            {
+                                                                "value": "ES",
+                                                                "label": "Espana"
+                                                            },
+                                                            {
+                                                                "value": "IT",
+                                                                "label": "Italia"
+                                                            },
+                                                            {
+                                                                "value": "US",
+                                                                "label": "Unites States of America"
+                                                            }
+                                                        ],
+                                                        "shipping_countries": [
+                                                            {
+                                                                "value": "ES",
+                                                                "label": "Espana"
+                                                            },
+                                                            {
+                                                                "value": "IT",
+                                                                "label": "Italia"
+                                                            },
+                                                            {
+                                                                "value": "US",
+                                                                "label": "Unites States of America"
+                                                            }
+                                                        ],
+                                                        "billing_states": {
+                                                            "FR": [
+                                                                {
+                                                                    "value": "PA",
+                                                                    "label": "Paris"
+                                                                },
+                                                                {
+                                                                    "value": "LY",
+                                                                    "label": "Lyon"
+                                                                },
+                                                                {
+                                                                    "value": "NI",
+                                                                    "label": "Nice"
+                                                                },
+                                                                {
+                                                                    "value": "MA",
+                                                                    "label": "Marseille"
+                                                                },
+                                                                {
+                                                                    "value": "BO",
+                                                                    "label": "Bordeaux"
+                                                                }
+                                                            ]
+                                                        },
+                                                        "shipping_states": {
+                                                            "FR": [
+                                                                {
+                                                                    "value": "PA",
+                                                                    "label": "Paris"
+                                                                },
+                                                                {
+                                                                    "value": "LY",
+                                                                    "label": "Lyon"
+                                                                },
+                                                                {
+                                                                    "value": "NI",
+                                                                    "label": "Nice"
+                                                                },
+                                                                {
+                                                                    "value": "MA",
+                                                                    "label": "Marseille"
+                                                                },
+                                                                {
+                                                                    "value": "BO",
+                                                                    "label": "Bordeaux"
+                                                                }
+                                                            ]
+                                                        },
+                                                        "default_country": "US"
+                                                    },
+                                                    "urls": {
+                                                        "privacy": "https://example.com/privacy/:lang",
+                                                        "terms": "https://example.com/terms/:lang"
+                                                    }
+                                                },
+                                                "market:id:ZKcv13rT": {
+                                                    "links": {
+                                                        "cart": "https://example.com/custom-cart/:order_id?accessToken=:access_token"
+                                                    },
+                                                    "checkout": {
+                                                        "thankyou_page": "https://example.com/thanks/:order_id"
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "nullable": true
+                                    },
                                     "support_phone": {
                                         "type": "string",
                                         "description": "The organization's support phone.",
@@ -3728,6 +3838,115 @@
                                         "description": "The organization's internal name.",
                                         "example": "The Blue Brand"
                                     },
+                                    "config": {
+                                        "type": "object",
+                                        "description": "The organization's configuration.",
+                                        "example": {
+                                            "mfe": {
+                                                "default": {
+                                                    "links": {
+                                                        "cart": "https://cart.example.com/:order_id?accessToken=:access_token",
+                                                        "checkout": "https://checkout.example.com/:order_id?accessToken=:accessToken",
+                                                        "identity": "https://example.com/login",
+                                                        "microstore": "https://example.com/microstore/?accessToken=:access_token",
+                                                        "my_account": "https://example.com/my-custom-account?accessToken=:access_token"
+                                                    },
+                                                    "checkout": {
+                                                        "thankyou_page": "https://example.com/thanks/:lang/:orderId",
+                                                        "billing_countries": [
+                                                            {
+                                                                "value": "ES",
+                                                                "label": "Espana"
+                                                            },
+                                                            {
+                                                                "value": "IT",
+                                                                "label": "Italia"
+                                                            },
+                                                            {
+                                                                "value": "US",
+                                                                "label": "Unites States of America"
+                                                            }
+                                                        ],
+                                                        "shipping_countries": [
+                                                            {
+                                                                "value": "ES",
+                                                                "label": "Espana"
+                                                            },
+                                                            {
+                                                                "value": "IT",
+                                                                "label": "Italia"
+                                                            },
+                                                            {
+                                                                "value": "US",
+                                                                "label": "Unites States of America"
+                                                            }
+                                                        ],
+                                                        "billing_states": {
+                                                            "FR": [
+                                                                {
+                                                                    "value": "PA",
+                                                                    "label": "Paris"
+                                                                },
+                                                                {
+                                                                    "value": "LY",
+                                                                    "label": "Lyon"
+                                                                },
+                                                                {
+                                                                    "value": "NI",
+                                                                    "label": "Nice"
+                                                                },
+                                                                {
+                                                                    "value": "MA",
+                                                                    "label": "Marseille"
+                                                                },
+                                                                {
+                                                                    "value": "BO",
+                                                                    "label": "Bordeaux"
+                                                                }
+                                                            ]
+                                                        },
+                                                        "shipping_states": {
+                                                            "FR": [
+                                                                {
+                                                                    "value": "PA",
+                                                                    "label": "Paris"
+                                                                },
+                                                                {
+                                                                    "value": "LY",
+                                                                    "label": "Lyon"
+                                                                },
+                                                                {
+                                                                    "value": "NI",
+                                                                    "label": "Nice"
+                                                                },
+                                                                {
+                                                                    "value": "MA",
+                                                                    "label": "Marseille"
+                                                                },
+                                                                {
+                                                                    "value": "BO",
+                                                                    "label": "Bordeaux"
+                                                                }
+                                                            ]
+                                                        },
+                                                        "default_country": "US"
+                                                    },
+                                                    "urls": {
+                                                        "privacy": "https://example.com/privacy/:lang",
+                                                        "terms": "https://example.com/terms/:lang"
+                                                    }
+                                                },
+                                                "market:id:ZKcv13rT": {
+                                                    "links": {
+                                                        "cart": "https://example.com/custom-cart/:order_id?accessToken=:access_token"
+                                                    },
+                                                    "checkout": {
+                                                        "thankyou_page": "https://example.com/thanks/:order_id"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    },
                                     "support_phone": {
                                         "type": "string",
                                         "description": "The organization's support phone.",
@@ -3852,6 +4071,116 @@
                                         "description": "The organization's internal name.",
                                         "example": "The Blue Brand",
                                         "nullable": false
+                                    },
+                                    "config": {
+                                        "type": "object",
+                                        "description": "The organization's configuration.",
+                                        "example": {
+                                            "mfe": {
+                                                "default": {
+                                                    "links": {
+                                                        "cart": "https://cart.example.com/:order_id?accessToken=:access_token",
+                                                        "checkout": "https://checkout.example.com/:order_id?accessToken=:accessToken",
+                                                        "identity": "https://example.com/login",
+                                                        "microstore": "https://example.com/microstore/?accessToken=:access_token",
+                                                        "my_account": "https://example.com/my-custom-account?accessToken=:access_token"
+                                                    },
+                                                    "checkout": {
+                                                        "thankyou_page": "https://example.com/thanks/:lang/:orderId",
+                                                        "billing_countries": [
+                                                            {
+                                                                "value": "ES",
+                                                                "label": "Espana"
+                                                            },
+                                                            {
+                                                                "value": "IT",
+                                                                "label": "Italia"
+                                                            },
+                                                            {
+                                                                "value": "US",
+                                                                "label": "Unites States of America"
+                                                            }
+                                                        ],
+                                                        "shipping_countries": [
+                                                            {
+                                                                "value": "ES",
+                                                                "label": "Espana"
+                                                            },
+                                                            {
+                                                                "value": "IT",
+                                                                "label": "Italia"
+                                                            },
+                                                            {
+                                                                "value": "US",
+                                                                "label": "Unites States of America"
+                                                            }
+                                                        ],
+                                                        "billing_states": {
+                                                            "FR": [
+                                                                {
+                                                                    "value": "PA",
+                                                                    "label": "Paris"
+                                                                },
+                                                                {
+                                                                    "value": "LY",
+                                                                    "label": "Lyon"
+                                                                },
+                                                                {
+                                                                    "value": "NI",
+                                                                    "label": "Nice"
+                                                                },
+                                                                {
+                                                                    "value": "MA",
+                                                                    "label": "Marseille"
+                                                                },
+                                                                {
+                                                                    "value": "BO",
+                                                                    "label": "Bordeaux"
+                                                                }
+                                                            ]
+                                                        },
+                                                        "shipping_states": {
+                                                            "FR": [
+                                                                {
+                                                                    "value": "PA",
+                                                                    "label": "Paris"
+                                                                },
+                                                                {
+                                                                    "value": "LY",
+                                                                    "label": "Lyon"
+                                                                },
+                                                                {
+                                                                    "value": "NI",
+                                                                    "label": "Nice"
+                                                                },
+                                                                {
+                                                                    "value": "MA",
+                                                                    "label": "Marseille"
+                                                                },
+                                                                {
+                                                                    "value": "BO",
+                                                                    "label": "Bordeaux"
+                                                                }
+                                                            ]
+                                                        },
+                                                        "default_country": "US"
+                                                    },
+                                                    "urls": {
+                                                        "privacy": "https://example.com/privacy/:lang",
+                                                        "terms": "https://example.com/terms/:lang"
+                                                    }
+                                                },
+                                                "market:id:ZKcv13rT": {
+                                                    "links": {
+                                                        "cart": "https://example.com/custom-cart/:order_id?accessToken=:access_token"
+                                                    },
+                                                    "checkout": {
+                                                        "thankyou_page": "https://example.com/thanks/:order_id"
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "nullable": true
                                     },
                                     "support_phone": {
                                         "type": "string",
@@ -5248,6 +5577,12 @@
                                         "description": "The user preferred timezone.",
                                         "example": "UTC",
                                         "nullable": true
+                                    },
+                                    "otp_required_for_login": {
+                                        "type": "boolean",
+                                        "description": "The user 2FA setting.",
+                                        "example": false,
+                                        "nullable": false
                                     },
                                     "created_at": {
                                         "type": "string",

@@ -112,7 +112,7 @@ class ApiClient {
 	}
 
 
-	config(config: ApiClientConfig): ApiClient {
+	config(config: ApiClientConfig): this {
 
 		debug('config %o', config)
 
@@ -140,7 +140,7 @@ class ApiClient {
 	}
 
 
-	userAgent(userAgent: string): ApiClient {
+	userAgent(userAgent: string): this {
 		if (userAgent) {
 			let ua = userAgent
 			if (!ua.includes('axios/')) {
@@ -153,7 +153,7 @@ class ApiClient {
 	}
 
 
-	adapter(adapter: Adapter): ApiClient {
+	adapter(adapter: Adapter): this {
 		if (adapter) this.#client.defaults.adapter = adapter
 		return this
 	}

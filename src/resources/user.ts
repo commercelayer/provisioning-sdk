@@ -16,6 +16,7 @@ interface User extends Resource {
 	first_name: string
 	last_name: string
 	time_zone?: string | null
+	otp_required_for_login: boolean
 	
 }
 

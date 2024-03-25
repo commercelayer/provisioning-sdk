@@ -19,6 +19,7 @@ interface Organization extends Resource {
 	name: string
 	slug: string
 	domain: string
+	config?: Record<string, any> | null
 	support_phone?: string | null
 	support_email?: string | null
 	logo_url?: string | null
@@ -47,6 +48,7 @@ interface Organization extends Resource {
 interface OrganizationCreate extends ResourceCreate {
 	
 	name: string
+	config?: Record<string, any> | null
 	support_phone?: string | null
 	support_email?: string | null
 	logo_url?: string | null
@@ -66,6 +68,7 @@ interface OrganizationCreate extends ResourceCreate {
 interface OrganizationUpdate extends ResourceUpdate {
 	
 	name?: string | null
+	config?: Record<string, any> | null
 	support_phone?: string | null
 	support_email?: string | null
 	logo_url?: string | null
