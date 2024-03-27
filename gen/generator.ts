@@ -639,7 +639,7 @@ const generateResource = (type: string, name: string, resource: Resource): strin
 		if (cudSuffix) tplCmp.models.forEach(t => relationshipTypes.add(t))
 	})
 	res = res.replace(/##__MODEL_INTERFACES__##/g, modelInterfaces.join('\n\n\n'))
-	res = res.replace(/##__RESOURCE_INTERFACES__##/g, resourceInterfaces.join(', '))
+	res = res.replace(/##__IMPORT_RESOURCE_INTERFACES__##/g, resourceInterfaces.join(', '))
 
 
 	// Relationships definition
