@@ -10,6 +10,7 @@ import { ErrorType, SdkError } from './error'
 import { CommerceLayerProvisioningStatic } from './static'
 
 import Debug from './debug'
+import { isResourceId } from './common'
 const debug = Debug('resource')
 
 
@@ -256,7 +257,9 @@ class ResourceAdapter {
 		const queryParams = {}
 		if (options?.params) Object.assign(queryParams, options?.params)
 
-		await this.#client.request(cmd, path, payload, { ...options, params: queryParams })
+		const data = (payload && isResourceId(payload))? normalize(payload) : payload
+
+		await this.#client.request(cmd, path, data, { ...options, params: queryParams })
 
 	}
 

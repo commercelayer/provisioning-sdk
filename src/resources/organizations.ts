@@ -142,4 +142,4 @@ class Organizations extends ApiResource<Organization> {
 export default Organizations
 
 export type { Organization, OrganizationCreate, OrganizationUpdate, OrganizationType }
-export type TransferOwnershipDataType = { new_owner_email: string }
+export type TransferOwnershipDataType = { type: 'organizations', id: string, new_owner_email: string }

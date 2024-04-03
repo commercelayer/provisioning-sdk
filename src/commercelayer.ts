@@ -66,6 +66,9 @@ class CommerceLayerProvisioningClient {
 
 	}
 
+	// ##__CL_RESOURCES_LEAZY_LOADING_START__##
+	// ##__CL_RESOURCES_LEAZY_LOADING_TEMPLATE:: ##__TAB__##get ##__RESOURCE_TYPE__##(): api.##__RESOURCE_CLASS__## { return this.###__RESOURCE_TYPE__## || (this.###__RESOURCE_TYPE__## = new api.##__RESOURCE_CLASS__##(this.#adapter)) }
+	// ##__CL_RESOURCES_LEAZY_LOADING_STOP__##
 	// get environment(): ApiMode { return this.#environment }
 
 

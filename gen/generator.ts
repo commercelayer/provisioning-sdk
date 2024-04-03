@@ -664,6 +664,19 @@ const generateResource = (type: string, name: string, resource: Resource): strin
 }
 
 
+const payloadDataType = (properties: any): any => {
+	const fields = Object.entries(properties).filter(([p, v]) => (p !== 'attributes')).map(([p, v]: [string, any]) => {
+		let type = v.type
+		if ((type === 'string') && v.enum && (v.enum.length > 0)) type = v.enum.map(t => { return `'${t}'`}).join(' | ')
+		return `${p}: ${type}`
+	}).join(', ')
+	const attributes = Object.entries(properties.attributes.properties).map(([k, v]: [string, any]) => `${k}${v.nullable? '?' : ''}: ${v.type}`).join(', ')
+
+	return `{ ${fields}, ${attributes} }`
+
+}
+
+
 const templatedOperation = (res: string, name: string, op: Operation, tpl: string, placeholders?: Record<string, string>): { operation: string, types: string[], typesDef: string[] } => {
 
 	let operation = tpl
@@ -677,7 +690,7 @@ const templatedOperation = (res: string, name: string, op: Operation, tpl: strin
 		const requestType = op.requestType
 		operation = operation.replace(/##__RESOURCE_REQUEST_CLASS__##/g, requestType)
 		if (isObjectType(requestType)) {
-			const typeDef = `export type ${Inflector.camelize(op.name)}DataType = { ${Object.entries(op.requestTypeDef).map(([k, v]: [string, any]) => `${k}${v.nullable? '?' : ''}: ${v.type}`).join(', ')} }`
+			const typeDef = `export type ${Inflector.camelize(op.name)}DataType = ${payloadDataType(op.requestTypeDef)}`
 			typesDef.push(typeDef)
 		}
 		else if (!types.includes(requestType)) types.push(requestType)

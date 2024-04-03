@@ -175,7 +175,7 @@ const parsePaths = (schemaPaths: any[]): PathMap => {
 			if (id) op.id = id
 			if (oValue.requestBody) {
 				op.requestType = contentType(oValue.requestBody.content)
-				if (isObjectType(op.requestType)) op.requestTypeDef = contentSchema(oValue.requestBody.content).properties.data.properties.attributes.properties
+				if (isObjectType(op.requestType)) op.requestTypeDef = contentSchema(oValue.requestBody.content).properties.data.properties
 			}
 			if (oValue.responses) {
 				const responses = Object.values(oValue.responses) as any[]
