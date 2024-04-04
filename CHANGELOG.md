@@ -1,3 +1,26 @@
+# [2.0.0-beta.1](https://github.com/commercelayer/provisioning-sdk/compare/v1.0.4...v2.0.0-beta.1) (2024-04-04)
+
+
+### breaking
+
+* remove axios and support to node <20 ([ab1627d](https://github.com/commercelayer/provisioning-sdk/commit/ab1627d9d7ab79ddedfd1eb4031afc05341a592a))
+
+
+### Bug Fixes
+
+* fix action payload ([832c925](https://github.com/commercelayer/provisioning-sdk/commit/832c92588ebf137f681e2a3a7e4ccd40e202210e))
+* migrate from ts-node to tsx and update dependencies ([0243330](https://github.com/commercelayer/provisioning-sdk/commit/02433307746d7847132c7ac09a18282fb6621986))
+
+
+### Features
+
+* update resources to schema v1.0.4 ([fbd74ca](https://github.com/commercelayer/provisioning-sdk/commit/fbd74caa90ae05253bf67080baa94c4210bdcd77))
+
+
+### BREAKING CHANGES
+
+* remove axios and support to node <20
+
 ## [1.0.4](https://github.com/commercelayer/provisioning-sdk/compare/v1.0.3...v1.0.4) (2024-03-12)
 
 
