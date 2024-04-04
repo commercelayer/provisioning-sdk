@@ -4,7 +4,7 @@
  **/
 
 import { CommerceLayerProvisioningClient, ApiCredential } from '../../src'
-import { isEqual } from 'lodash'
+import isEqual from 'lodash.isequal'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
 
@@ -35,15 +35,17 @@ describe('ApiCredentials resource', () => {
     const params = { fields: { [resourceType]: CommonData.paramsFields } }
     const resData = attributes
 
-    const intId = clp.addRequestInterceptor((config) => {
-      expect(config.method).toBe('post')
-      checkCommon(config, resourceType)
-      checkCommonData(config, resourceType, attributes)
-      expect(clp[resourceType].isApiCredential(config.data.data)).toBeTruthy()
+    const intId = clp.addRequestInterceptor((request) => {
+      const data = JSON.parse(String(request.options.body))
+      expect(request.options.method).toBe('POST')
+      checkCommon(request, resourceType)
+      checkCommonData(data, resourceType, attributes)
+      expect(clp[resourceType].isApiCredential(data.data)).toBeTruthy()
       return interceptRequest()
     })
 
     await clp[resourceType].create(resData, params, CommonData.options)
+      .then((res: ApiCredential) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => clp.removeInterceptor('request', intId))
 
@@ -57,14 +59,15 @@ describe('ApiCredentials resource', () => {
     const id = TestData.id
     const params = { fields: {[resourceType]: CommonData.paramsFields } }
 
-    const intId = clp.addRequestInterceptor((config) => {
-      expect(config.method).toBe('get')
-      checkCommon(config, resourceType, id, currentAccessToken)
-      checkCommonParams(config, params)
+    const intId = clp.addRequestInterceptor((request) => {
+      expect(request.options.method).toBe('GET')
+      checkCommon(request, resourceType, id, currentAccessToken)
+      checkCommonParams(request, params)
      return interceptRequest()
     })
 
     await clp[resourceType].retrieve(id, params, CommonData.options)
+      .then((res: ApiCredential) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => clp.removeInterceptor('request', intId))
 
@@ -79,16 +82,18 @@ describe('ApiCredentials resource', () => {
     const params = { fields: { [resourceType]: CommonData.paramsFields } }
     const resData = { id: TestData.id, ...attributes}
 
-    const intId = clp.addRequestInterceptor((config) => {
-      if (config.method !== 'get') {
-        expect(config.method).toBe('patch')
-        checkCommon(config, resourceType, resData.id, currentAccessToken)
-        checkCommonData(config, resourceType, attributes, resData.id)
+    const intId = clp.addRequestInterceptor((request) => {
+      if (request.options.method !== 'GET') {
+        const data = JSON.parse(String(request.options.body))
+        expect(request.options.method).toBe('PATCH')
+        checkCommon(request, resourceType, resData.id, currentAccessToken)
+        checkCommonData(data, resourceType, attributes, resData.id)
       }
        return interceptRequest()
     })
 
     await clp[resourceType].update(resData, params, CommonData.options)
+      .then((res: ApiCredential) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => clp.removeInterceptor('request', intId))
 
@@ -101,9 +106,9 @@ describe('ApiCredentials resource', () => {
 
     const id = TestData.id
 
-    const intId = clp.addRequestInterceptor((config) => {
-      expect(config.method).toBe('delete')
-      checkCommon(config, resourceType, id, currentAccessToken)
+    const intId = clp.addRequestInterceptor((request) => {
+      expect(request.options.method).toBe('DELETE')
+      checkCommon(request, resourceType, id, currentAccessToken)
       return interceptRequest()
     })
 
@@ -120,10 +125,10 @@ describe('ApiCredentials resource', () => {
 
     const params = CommonData.paramsList
 
-    const intId = clp.addRequestInterceptor((config) => {
-      expect(config.method).toBe('get')
-      checkCommon(config, resourceType)
-      checkCommonParamsList(config, params)
+    const intId = clp.addRequestInterceptor((request) => {
+      expect(request.options.method).toBe('GET')
+      checkCommon(request, resourceType)
+      checkCommonParamsList(request, params)
       return interceptRequest()
     })
 
@@ -204,10 +209,10 @@ describe('ApiCredentials resource', () => {
 		const id = TestData.id
 		const params = { fields: { organizations: CommonData.paramsFields } }
 	
-		const intId = clp.addRequestInterceptor((config) => {
-			expect(config.method).toBe('get')
-			checkCommon(config, resourceType, id, currentAccessToken, 'organization')
-			checkCommonParams(config, params)
+		const intId = clp.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'organization')
+			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
@@ -225,10 +230,10 @@ describe('ApiCredentials resource', () => {
 		const id = TestData.id
 		const params = { fields: { roles: CommonData.paramsFields } }
 	
-		const intId = clp.addRequestInterceptor((config) => {
-			expect(config.method).toBe('get')
-			checkCommon(config, resourceType, id, currentAccessToken, 'role')
-			checkCommonParams(config, params)
+		const intId = clp.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourceType, id, currentAccessToken, 'role')
+			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	

@@ -1,5 +1,6 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Organization, OrganizationType } from './organizations'
@@ -14,6 +15,10 @@ type RoleRel = ResourceRel & { type: RoleType }
 type OrganizationRel = ResourceRel & { type: OrganizationType }
 
 
+export type RoleSort = Pick<Role, 'id'> & ResourceSort
+// export type RoleFilter = Pick<Role, 'id'> & ResourceFilter
+
+
 interface Role extends Resource {
 	
 	readonly type: RoleType
@@ -21,11 +26,11 @@ interface Role extends Resource {
 	name: string
 	kind: string
 
-	organization?: Organization | null
-	permissions?: Permission[] | null
-	memberships?: Membership[] | null
-	api_credentials?: ApiCredential[] | null
-	versions?: Version[] | null
+	organization?: Nullable<Organization>
+	permissions?: Nullable<Permission[]>
+	memberships?: Nullable<Membership[]>
+	api_credentials?: Nullable<ApiCredential[]>
+	versions?: Nullable<Version[]>
 
 }
 
@@ -41,7 +46,7 @@ interface RoleCreate extends ResourceCreate {
 
 interface RoleUpdate extends ResourceUpdate {
 	
-	name?: string | null
+	name?: Nullable<string>
 	
 }
 
@@ -58,27 +63,27 @@ class Roles extends ApiResource<Role> {
 		return this.resources.update<RoleUpdate, Role>({ ...resource, type: Roles.TYPE }, params, options)
 	}
 
-	async organization(roleId: string | Role, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Organization> {
+	async organization(roleId: string | Role, params?: QueryParamsRetrieve<Organization>, options?: ResourcesConfig): Promise<Organization> {
 		const _roleId = (roleId as Role).id || roleId as string
 		return this.resources.fetch<Organization>({ type: 'organizations' }, `roles/${_roleId}/organization`, params, options) as unknown as Organization
 	}
 
-	async permissions(roleId: string | Role, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Permission>> {
+	async permissions(roleId: string | Role, params?: QueryParamsList<Permission>, options?: ResourcesConfig): Promise<ListResponse<Permission>> {
 		const _roleId = (roleId as Role).id || roleId as string
 		return this.resources.fetch<Permission>({ type: 'permissions' }, `roles/${_roleId}/permissions`, params, options) as unknown as ListResponse<Permission>
 	}
 
-	async memberships(roleId: string | Role, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Membership>> {
+	async memberships(roleId: string | Role, params?: QueryParamsList<Membership>, options?: ResourcesConfig): Promise<ListResponse<Membership>> {
 		const _roleId = (roleId as Role).id || roleId as string
 		return this.resources.fetch<Membership>({ type: 'memberships' }, `roles/${_roleId}/memberships`, params, options) as unknown as ListResponse<Membership>
 	}
 
-	async api_credentials(roleId: string | Role, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<ApiCredential>> {
+	async api_credentials(roleId: string | Role, params?: QueryParamsList<ApiCredential>, options?: ResourcesConfig): Promise<ListResponse<ApiCredential>> {
 		const _roleId = (roleId as Role).id || roleId as string
 		return this.resources.fetch<ApiCredential>({ type: 'api_credentials' }, `roles/${_roleId}/api_credentials`, params, options) as unknown as ListResponse<ApiCredential>
 	}
 
-	async versions(roleId: string | Role, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+	async versions(roleId: string | Role, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _roleId = (roleId as Role).id || roleId as string
 		return this.resources.fetch<Version>({ type: 'versions' }, `roles/${_roleId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
@@ -90,7 +95,11 @@ class Roles extends ApiResource<Role> {
 
 
 	relationship(id: string | ResourceId | null): RoleRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: Roles.TYPE } : { id: id.id, type: Roles.TYPE }
+		return super.relationshipOneToOne<RoleRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): RoleRel[] {
+		return super.relationshipOneToMany<RoleRel>(...ids)
 	}
 
 

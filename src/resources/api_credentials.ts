@@ -1,5 +1,6 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve } from '../query'
 
 import type { Organization, OrganizationType } from './organizations'
@@ -12,6 +13,10 @@ type OrganizationRel = ResourceRel & { type: OrganizationType }
 type RoleRel = ResourceRel & { type: RoleType }
 
 
+export type ApiCredentialSort = Pick<ApiCredential, 'id' | 'mode'> & ResourceSort
+// export type ApiCredentialFilter = Pick<ApiCredential, 'id' | 'mode'> & ResourceFilter
+
+
 interface ApiCredential extends Resource {
 	
 	readonly type: ApiCredentialType
@@ -19,16 +24,16 @@ interface ApiCredential extends Resource {
 	name: string
 	kind: string
 	confidential: boolean
-	redirect_uri?: string | null
+	redirect_uri?: Nullable<string>
 	client_id: string
 	client_secret: string
 	scopes: string
-	expires_in?: number | null
-	mode?: string | null
-	custom?: boolean | null
+	expires_in?: Nullable<number>
+	mode?: Nullable<string>
+	custom?: Nullable<boolean>
 
-	organization?: Organization | null
-	role?: Role | null
+	organization?: Nullable<Organization>
+	role?: Nullable<Role>
 
 }
 
@@ -37,24 +42,24 @@ interface ApiCredentialCreate extends ResourceCreate {
 	
 	name: string
 	kind: string
-	redirect_uri?: string | null
-	expires_in?: number | null
-	mode?: string | null
-	custom?: boolean | null
+	redirect_uri?: Nullable<string>
+	expires_in?: Nullable<number>
+	mode?: Nullable<string>
+	custom?: Nullable<boolean>
 
 	organization: OrganizationRel
-	role?: RoleRel | null
+	role?: Nullable<RoleRel>
 
 }
 
 
 interface ApiCredentialUpdate extends ResourceUpdate {
 	
-	name?: string | null
-	redirect_uri?: string | null
-	expires_in?: number | null
+	name?: Nullable<string>
+	redirect_uri?: Nullable<string>
+	expires_in?: Nullable<number>
 
-	role?: RoleRel | null
+	role?: Nullable<RoleRel>
 
 }
 
@@ -75,12 +80,12 @@ class ApiCredentials extends ApiResource<ApiCredential> {
 		await this.resources.delete((typeof id === 'string')? { id, type: ApiCredentials.TYPE } : id, options)
 	}
 
-	async organization(apiCredentialId: string | ApiCredential, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Organization> {
+	async organization(apiCredentialId: string | ApiCredential, params?: QueryParamsRetrieve<Organization>, options?: ResourcesConfig): Promise<Organization> {
 		const _apiCredentialId = (apiCredentialId as ApiCredential).id || apiCredentialId as string
 		return this.resources.fetch<Organization>({ type: 'organizations' }, `api_credentials/${_apiCredentialId}/organization`, params, options) as unknown as Organization
 	}
 
-	async role(apiCredentialId: string | ApiCredential, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Role> {
+	async role(apiCredentialId: string | ApiCredential, params?: QueryParamsRetrieve<Role>, options?: ResourcesConfig): Promise<Role> {
 		const _apiCredentialId = (apiCredentialId as ApiCredential).id || apiCredentialId as string
 		return this.resources.fetch<Role>({ type: 'roles' }, `api_credentials/${_apiCredentialId}/role`, params, options) as unknown as Role
 	}
@@ -92,7 +97,11 @@ class ApiCredentials extends ApiResource<ApiCredential> {
 
 
 	relationship(id: string | ResourceId | null): ApiCredentialRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: ApiCredentials.TYPE } : { id: id.id, type: ApiCredentials.TYPE }
+		return super.relationshipOneToOne<ApiCredentialRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): ApiCredentialRel[] {
+		return super.relationshipOneToMany<ApiCredentialRel>(...ids)
 	}
 
 

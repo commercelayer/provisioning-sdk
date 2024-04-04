@@ -1,5 +1,6 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { Organization, OrganizationType } from './organizations'
@@ -15,6 +16,10 @@ type RoleRel = ResourceRel & { type: RoleType }
 type ApplicationMembershipRel = ResourceRel & { type: ApplicationMembershipType }
 
 
+export type MembershipSort = Pick<Membership, 'id'> & ResourceSort
+// export type MembershipFilter = Pick<Membership, 'id' | 'status'> & ResourceFilter
+
+
 interface Membership extends Resource {
 	
 	readonly type: MembershipType
@@ -25,10 +30,10 @@ interface Membership extends Resource {
 	status: 'pending' | 'active'
 	owner: boolean
 
-	organization?: Organization | null
-	role?: Role | null
-	application_memberships?: ApplicationMembership[] | null
-	versions?: Version[] | null
+	organization?: Nullable<Organization>
+	role?: Nullable<Role>
+	application_memberships?: Nullable<ApplicationMembership[]>
+	versions?: Nullable<Version[]>
 
 }
 
@@ -39,15 +44,15 @@ interface MembershipCreate extends ResourceCreate {
 
 	organization: OrganizationRel
 	role: RoleRel
-	application_memberships?: ApplicationMembershipRel[] | null
+	application_memberships?: Nullable<ApplicationMembershipRel[]>
 
 }
 
 
 interface MembershipUpdate extends ResourceUpdate {
 	
-	role?: RoleRel | null
-	application_memberships?: ApplicationMembershipRel[] | null
+	role?: Nullable<RoleRel>
+	application_memberships?: Nullable<ApplicationMembershipRel[]>
 
 }
 
@@ -70,25 +75,25 @@ class Memberships extends ApiResource<Membership> {
 
 	async resend(membershipId: string | Membership, options?: ResourcesConfig): Promise<void> {
 		const _membershipId = (membershipId as Membership).id || membershipId as string
-		await this.resources.action('post', `memberships/${_membershipId}/resend`, {}, options)
+		await this.resources.action('POST', `memberships/${_membershipId}/resend`, {}, options)
 	}
 
-	async organization(membershipId: string | Membership, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Organization> {
+	async organization(membershipId: string | Membership, params?: QueryParamsRetrieve<Organization>, options?: ResourcesConfig): Promise<Organization> {
 		const _membershipId = (membershipId as Membership).id || membershipId as string
 		return this.resources.fetch<Organization>({ type: 'organizations' }, `memberships/${_membershipId}/organization`, params, options) as unknown as Organization
 	}
 
-	async role(membershipId: string | Membership, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Role> {
+	async role(membershipId: string | Membership, params?: QueryParamsRetrieve<Role>, options?: ResourcesConfig): Promise<Role> {
 		const _membershipId = (membershipId as Membership).id || membershipId as string
 		return this.resources.fetch<Role>({ type: 'roles' }, `memberships/${_membershipId}/role`, params, options) as unknown as Role
 	}
 
-	async application_memberships(membershipId: string | Membership, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<ApplicationMembership>> {
+	async application_memberships(membershipId: string | Membership, params?: QueryParamsList<ApplicationMembership>, options?: ResourcesConfig): Promise<ListResponse<ApplicationMembership>> {
 		const _membershipId = (membershipId as Membership).id || membershipId as string
 		return this.resources.fetch<ApplicationMembership>({ type: 'application_memberships' }, `memberships/${_membershipId}/application_memberships`, params, options) as unknown as ListResponse<ApplicationMembership>
 	}
 
-	async versions(membershipId: string | Membership, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<Version>> {
+	async versions(membershipId: string | Membership, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _membershipId = (membershipId as Membership).id || membershipId as string
 		return this.resources.fetch<Version>({ type: 'versions' }, `memberships/${_membershipId}/versions`, params, options) as unknown as ListResponse<Version>
 	}
@@ -100,7 +105,11 @@ class Memberships extends ApiResource<Membership> {
 
 
 	relationship(id: string | ResourceId | null): MembershipRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: Memberships.TYPE } : { id: id.id, type: Memberships.TYPE }
+		return super.relationshipOneToOne<MembershipRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): MembershipRel[] {
+		return super.relationshipOneToMany<MembershipRel>(...ids)
 	}
 
 

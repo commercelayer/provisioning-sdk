@@ -1,16 +1,17 @@
 
-import ApiClient, { type ApiClientInitConfig } from './client'
+import ApiClient, { type Method, type ApiClientInitConfig } from './client'
 import { denormalize, normalize, type DocWithData } from './jsonapi'
 import type { QueryParamsRetrieve, QueryParamsList, QueryFilter, QueryParams } from './query'
 import { generateQueryStringParams, isParamsList } from './query'
 import type { ResourceTypeLock } from './api'
 import config from './config'
-import type { InterceptorManager } from './interceptor'
-import { ErrorType, SdkError } from './error'
+import type { Nullable } from './types'
 import { CommerceLayerProvisioningStatic } from './static'
+import { isResourceId } from './common'
+
 
 import Debug from './debug'
-import { isResourceId } from './common'
+import { ErrorType, SdkError } from './error'
 const debug = Debug('resource')
 
 
@@ -33,8 +34,8 @@ interface ResourceId extends ResourceType {
 
 
 interface ResourceBase {
-	reference?: string | null
-	reference_origin?: string | null
+	reference?: Nullable<string>
+	reference_origin?: Nullable<string>
 	metadata?: Metadata
 }
 
@@ -62,6 +63,7 @@ type ListMeta = {
 	readonly recordsPerPage: number
 }
 
+
 class ListResponse<R> extends Array<R> {
 
 	readonly meta: ListMeta
@@ -86,8 +88,11 @@ class ListResponse<R> extends Array<R> {
 }
 
 
-
 export type { Metadata, ResourceType, ResourceId, Resource, ResourceCreate, ResourceUpdate, ListResponse, ListMeta, ResourceRel }
+
+export type ResourceSort = Pick<Resource, 'id' | 'reference' | 'reference_origin' | 'created_at' | 'updated_at'>
+export type ResourceFilter = Pick<Resource, 'id' | 'reference' | 'reference_origin' | 'metadata' | 'created_at' | 'updated_at'>
+
 
 
 // Resource adapters local configuration
@@ -97,6 +102,11 @@ type ResourceAdapterConfig = {
 
 type ResourcesInitConfig = ResourceAdapterConfig & ApiClientInitConfig
 type ResourcesConfig = Partial<ResourcesInitConfig>
+
+
+export const apiResourceAdapter = (config: ResourcesInitConfig): ResourceAdapter => {
+	return new ResourceAdapter(config)
+}
 
 
 class ResourceAdapter {
@@ -110,9 +120,6 @@ class ResourceAdapter {
 		this.#client = ApiClient.create(config)
 		this.localConfig(config)
 	}
-
-
-	get interceptors(): InterceptorManager { return this.#client.interceptors }
 
 
 	private localConfig(config: ResourceAdapterConfig): void {
@@ -134,11 +141,10 @@ class ResourceAdapter {
 	}
 
 
-	/*
-	get clientInstance(): ApiClient {
+
+	get client(): Readonly<ApiClient> {
 		return this.#client
 	}
-	*/
 
 
 
@@ -153,7 +159,7 @@ class ResourceAdapter {
 
 		const path = `${resource.type}${singleton? '' : `/${resource.id}`}`
 
-		const res: DocWithData = await this.#client.request('get', path, undefined, { ...options, params: queryParams })
+		const res: DocWithData = await this.#client.request('GET', path, undefined, { ...options, params: queryParams })
 		const r = denormalize<R>(res) as R
 
 		return r
@@ -168,8 +174,8 @@ class ResourceAdapter {
 		const queryParams = generateQueryStringParams(params, resource)
 		if (options?.params) Object.assign(queryParams, options?.params)
 
-		const res: DocWithData = await this.#client.request('get', `${resource.type}`, undefined, { ...options, params: queryParams })
-		const r = denormalize<R>(res) as R[]
+		const res = await this.#client.request('GET', `${resource.type}`, undefined, { ...options, params: queryParams })
+		const r = denormalize<R>(res as DocWithData) as R[]
 
 		const meta: ListMeta = {
 			pageCount: Number(res.meta?.page_count),
@@ -183,16 +189,16 @@ class ResourceAdapter {
 	}
 
 
-	async create<C extends ResourceCreate, R extends Resource>(resource: C & ResourceType, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<R> {
+	async create<C extends ResourceCreate, R extends Resource>(resource: C & ResourceType, params?: QueryParamsRetrieve<R>, options?: ResourcesConfig): Promise<R> {
 
 		debug('create: %o, %O, %O', resource, params || {}, options || {})
 
-		const queryParams = generateQueryStringParams(params, resource)
+		const queryParams = generateQueryStringParams<R>(params, resource)
 		if (options?.params) Object.assign(queryParams, options?.params)
 
 		const data = normalize(resource)
-		const res: DocWithData = await this.#client.request('post', resource.type, data, { ...options, params: queryParams })
-		const r = denormalize<R>(res) as R
+		const res = await this.#client.request('POST', resource.type, data, { ...options, params: queryParams })
+		const r = denormalize<R>(res as DocWithData) as R
 
 		return r
 
@@ -211,8 +217,8 @@ class ResourceAdapter {
 		const path = `${resource.type}${singleton? '' : `/${resource.id}`}`
 
 		const data = normalize(resource)
-		const res: DocWithData = await this.#client.request('patch', path, data, { ...options, params: queryParams })
-		const r = denormalize<R>(res) as R
+		const res = await this.#client.request('PATCH', path, data, { ...options, params: queryParams })
+		const r = denormalize<R>(res as DocWithData) as R
 
 		return r
 
@@ -221,22 +227,22 @@ class ResourceAdapter {
 
 	async delete(resource: ResourceId, options?: ResourcesConfig): Promise<void> {
 		debug('delete: %o, %O', resource, options || {})
-		await this.#client.request('delete', `${resource.type}/${resource.id}`, undefined, options)
+		await this.#client.request('DELETE', `${resource.type}/${resource.id}`, undefined, options)
 	}
 
 
-	async fetch<R extends Resource>(resource: string | ResourceType, path: string, params?: QueryParams, options?: ResourcesConfig): Promise<R | ListResponse<R>> {
+	async fetch<R extends Resource>(resource: string | ResourceType, path: string, params?: QueryParams<R>, options?: ResourcesConfig): Promise<R | ListResponse<R>> {
 
 		debug('fetch: %o, %O, %O', path, params || {}, options || {})
 
-		const queryParams = generateQueryStringParams(params, resource)
+		const queryParams = generateQueryStringParams<R>(params, resource)
 		if (options?.params) Object.assign(queryParams, options?.params)
 
-		const res: DocWithData = await this.#client.request('get', path, undefined, { ...options, params: queryParams })
-		const r = denormalize<R>(res)
+		const res = await this.#client.request('GET', path, undefined, { ...options, params: queryParams })
+		const r = denormalize<R>(res as DocWithData)
 
 		if (Array.isArray(r)) {
-			const p = params as QueryParamsList
+			const p = params as QueryParamsList<R>
 			const meta: ListMeta = {
 				pageCount: Number(res.meta?.page_count),
 				recordCount: Number(res.meta?.record_count),
@@ -250,7 +256,7 @@ class ResourceAdapter {
 	}
 
 
-	async action(cmd: 'post' | 'patch', path: string, payload?: any, options?: ResourcesConfig): Promise<void> {
+	async action(cmd: Extract<Method, 'POST' | 'PATCH'>, path: string, payload?: any, options?: ResourcesConfig): Promise<void> {
 
 		debug('action: %o %o, %O', cmd, path, options || {})
 
@@ -278,6 +284,14 @@ abstract class ApiResourceBase<R extends Resource> {
 	}
 
 	abstract relationship(id: string | ResourceId | null): ResourceRel
+
+	protected relationshipOneToOne<RR extends ResourceRel>(id: string | ResourceId | null): RR {
+		return (((id === null) || (typeof id === 'string')) ? { id, type: this.type() } : { id: id.id, type: this.type() }) as RR
+	}
+
+	protected relationshipOneToMany<RR extends ResourceRel>(...ids: string[]): RR[] {
+		return (((ids === null) || (ids.length === 0) || (ids[0] === null))? [ { id: null, type: this.type() } ] : ids.map(id => { return { id, type: this.type() } })) as RR[]
+	}
 
 	abstract type(): ResourceTypeLock
 

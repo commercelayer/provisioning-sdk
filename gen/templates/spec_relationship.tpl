@@ -4,10 +4,10 @@ it(resourceType + '.##__OPERATION_NAME__##', async () => {
 	const id = TestData.id
 	const params = { fields: { ##__RELATIONSHIP_TYPE__##: CommonData.paramsFields } }
 
-	const intId = clp.addRequestInterceptor((config) => {
-		expect(config.method).toBe('get')
-		checkCommon(config, resourceType, id, currentAccessToken, '##__OPERATION_NAME__##')
-		checkCommonParams(config, params)
+	const intId = clp.addRequestInterceptor((request) => {
+		expect(request.options.method).toBe('GET')
+		checkCommon(request, resourceType, id, currentAccessToken, '##__OPERATION_NAME__##')
+		checkCommonParams(request, params)
 		return interceptRequest()
 	})
 

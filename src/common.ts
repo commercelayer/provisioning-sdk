@@ -12,6 +12,3 @@ const isResourceType = (resource: any): resource is ResourceType => {
 
 
 export { isResourceId, isResourceType }
-
-
-export type ObjectType = Record<string, any>

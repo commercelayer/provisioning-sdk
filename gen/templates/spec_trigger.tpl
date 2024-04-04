@@ -8,10 +8,10 @@ it(resourceType + '.##__OPERATION_NAME__##', async () => {
 	const attributes = { [triggerAttr]: triggerValue }
     const id = TestData.id
 
-	const intId = clp.addRequestInterceptor((config) => {
-		expect(config.method).toBe('patch')
-		checkCommon(config, resourceType, id, currentAccessToken)
-		checkCommonData(config, resourceType, attributes, id)
+	const intId = clp.addRequestInterceptor((request) => {
+		expect(request.options.method).toBe('PATCH')
+		checkCommon(request, resourceType, id, currentAccessToken)
+		checkCommonData(request, resourceType, attributes, id)
 		return interceptRequest()
 	})
 

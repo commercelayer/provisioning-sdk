@@ -5,7 +5,6 @@ import getToken from './token'
 
 const requestInterceptor = (request: RequestObj): RequestObj => {
 	console.log('INSIDE REQUEST INTERCEPTOR')
-	// console.log(request)
 	return request
 }
 

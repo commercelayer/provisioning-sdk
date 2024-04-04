@@ -3,7 +3,7 @@ import { CommerceLayerProvisioningClient } from '../src'
 import { getClient, TestData } from '../test/common'
 import { normalize, denormalize } from '../src/jsonapi'
 import { ResourceTypeLock } from '../src/api'
-import { isEqual } from 'lodash'
+import isEqual from 'lodash.isequal'
 
 
 let clp: CommerceLayerProvisioningClient
