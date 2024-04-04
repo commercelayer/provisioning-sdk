@@ -1,4 +1,4 @@
-import { provisioning } from '@commercelayer/js-auth'
+import { AuthenticateOptions, authenticate } from '@commercelayer/js-auth'
 import dotenv from 'dotenv'
 
 dotenv.config()
@@ -45,12 +45,12 @@ export default async (type: TokenType): Promise<AccessToken> => {
 
 const getAccessToken = async (auth: AuthData): Promise<AccessToken> => {
 
-	const credentials: any = {
+	const credentials: AuthenticateOptions<'client_credentials'> = {
 		clientId: auth.clientId,
 		clientSecret: auth.clientSecret,
-		domain: auth.domain
+		domain: auth.domain || undefined
 	}
 
-	return provisioning.authentication(credentials)
+	return authenticate('client_credentials', credentials)
 
 }

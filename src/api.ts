@@ -1,5 +1,6 @@
 import type { Resource, ResourceRel } from './resource'
 import type { VersionType } from './resources/versions'
+import type * as models from './model'
 
 // ##__API_RESOURCES_START__##
 // ##__API_RESOURCES_TEMPLATE:: export { default as ##__RESOURCE_CLASS__## } from './resources/##__RESOURCE_TYPE__##'
@@ -127,4 +128,33 @@ export type VersionableResourceType =
 export type VersionableResource = Resource & {
 	type: VersionableResourceType,
 	versions?: Array<ResourceRel & { type: VersionType }> | null
+}
+
+
+
+export type ResourceFields = {
+	// ##__API_RESOURCE_FIELDS_START__##
+	api_credentials: models.ApiCredential,
+	application_memberships: models.ApplicationMembership,
+	memberships: models.Membership,
+	organizations: models.Organization,
+	permissions: models.Permission,
+	roles: models.Role,
+	user: models.User,
+	versions: models.Version
+	// ##__API_RESOURCE_FIELDS_STOP__##
+}
+
+
+export type ResourceSortFields = {
+	// ##__API_RESOURCE_SORTABLE_FIELDS_START__##
+	api_credentials: models.ApiCredentialSort,
+	application_memberships: models.ApplicationMembershipSort,
+	memberships: models.MembershipSort,
+	organizations: models.OrganizationSort,
+	permissions: models.PermissionSort,
+	roles: models.RoleSort,
+	user: models.UserSort,
+	versions: models.VersionSort
+	// ##__API_RESOURCE_SORTABLE_FIELDS_STOP__##
 }

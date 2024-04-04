@@ -1,5 +1,6 @@
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel } from '../resource'
+import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve } from '../query'
 
 import type { ApiCredential, ApiCredentialType } from './api_credentials'
@@ -16,23 +17,27 @@ type OrganizationRel = ResourceRel & { type: OrganizationType }
 type RoleRel = ResourceRel & { type: RoleType }
 
 
+export type ApplicationMembershipSort = Pick<ApplicationMembership, 'id'> & ResourceSort
+// export type ApplicationMembershipFilter = Pick<ApplicationMembership, 'id'> & ResourceFilter
+
+
 interface ApplicationMembership extends Resource {
 	
 	readonly type: ApplicationMembershipType
 
-	filters?: Record<string, any> | null
+	filters?: Nullable<Record<string, any>>
 
-	api_credential?: ApiCredential | null
-	membership?: Membership | null
-	organization?: Organization | null
-	role?: Role | null
+	api_credential?: Nullable<ApiCredential>
+	membership?: Nullable<Membership>
+	organization?: Nullable<Organization>
+	role?: Nullable<Role>
 
 }
 
 
 interface ApplicationMembershipCreate extends ResourceCreate {
 	
-	filters?: Record<string, any> | null
+	filters?: Nullable<Record<string, any>>
 
 	api_credential: ApiCredentialRel
 	membership: MembershipRel
@@ -44,9 +49,9 @@ interface ApplicationMembershipCreate extends ResourceCreate {
 
 interface ApplicationMembershipUpdate extends ResourceUpdate {
 	
-	filters?: Record<string, any> | null
+	filters?: Nullable<Record<string, any>>
 
-	role?: RoleRel | null
+	role?: Nullable<RoleRel>
 
 }
 
@@ -67,22 +72,22 @@ class ApplicationMemberships extends ApiResource<ApplicationMembership> {
 		await this.resources.delete((typeof id === 'string')? { id, type: ApplicationMemberships.TYPE } : id, options)
 	}
 
-	async api_credential(applicationMembershipId: string | ApplicationMembership, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ApiCredential> {
+	async api_credential(applicationMembershipId: string | ApplicationMembership, params?: QueryParamsRetrieve<ApiCredential>, options?: ResourcesConfig): Promise<ApiCredential> {
 		const _applicationMembershipId = (applicationMembershipId as ApplicationMembership).id || applicationMembershipId as string
 		return this.resources.fetch<ApiCredential>({ type: 'api_credentials' }, `application_memberships/${_applicationMembershipId}/api_credential`, params, options) as unknown as ApiCredential
 	}
 
-	async membership(applicationMembershipId: string | ApplicationMembership, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Membership> {
+	async membership(applicationMembershipId: string | ApplicationMembership, params?: QueryParamsRetrieve<Membership>, options?: ResourcesConfig): Promise<Membership> {
 		const _applicationMembershipId = (applicationMembershipId as ApplicationMembership).id || applicationMembershipId as string
 		return this.resources.fetch<Membership>({ type: 'memberships' }, `application_memberships/${_applicationMembershipId}/membership`, params, options) as unknown as Membership
 	}
 
-	async organization(applicationMembershipId: string | ApplicationMembership, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Organization> {
+	async organization(applicationMembershipId: string | ApplicationMembership, params?: QueryParamsRetrieve<Organization>, options?: ResourcesConfig): Promise<Organization> {
 		const _applicationMembershipId = (applicationMembershipId as ApplicationMembership).id || applicationMembershipId as string
 		return this.resources.fetch<Organization>({ type: 'organizations' }, `application_memberships/${_applicationMembershipId}/organization`, params, options) as unknown as Organization
 	}
 
-	async role(applicationMembershipId: string | ApplicationMembership, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Role> {
+	async role(applicationMembershipId: string | ApplicationMembership, params?: QueryParamsRetrieve<Role>, options?: ResourcesConfig): Promise<Role> {
 		const _applicationMembershipId = (applicationMembershipId as ApplicationMembership).id || applicationMembershipId as string
 		return this.resources.fetch<Role>({ type: 'roles' }, `application_memberships/${_applicationMembershipId}/role`, params, options) as unknown as Role
 	}
@@ -94,7 +99,11 @@ class ApplicationMemberships extends ApiResource<ApplicationMembership> {
 
 
 	relationship(id: string | ResourceId | null): ApplicationMembershipRel {
-		return ((id === null) || (typeof id === 'string')) ? { id, type: ApplicationMemberships.TYPE } : { id: id.id, type: ApplicationMemberships.TYPE }
+		return super.relationshipOneToOne<ApplicationMembershipRel>(id)
+	}
+
+	relationshipToMany(...ids: string[]): ApplicationMembershipRel[] {
+		return super.relationshipOneToMany<ApplicationMembershipRel>(...ids)
 	}
 
 

@@ -37,7 +37,7 @@ describe('SDK:error suite', () => {
 			clp.config({ domain: 'fake.domain.xx', accessToken: 'fake-access-token' })
 			await clp.roles.list({ pageSize: 1})
 		} catch (error) {
-			expect(error.type).toEqual(ErrorType.RESPONSE)
+			expect(error.type).toEqual(ErrorType.CLIENT)
 		}
 	})
 

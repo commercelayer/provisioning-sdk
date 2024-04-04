@@ -24,11 +24,11 @@ describe('Test headers', () => {
 			}
 		}
 
-		const intId = clp.addRequestInterceptor((config) => {
-			expect(config.headers).toBeDefined()
-			if (config.headers) {
-				expect(config.headers['test-header']).toBe(testHeaderValue)
-				expect(config.headers['Content-Type']).toBe('application/vnd.api+json')
+		const intId = clp.addRequestInterceptor((request) => {
+			expect(request.options.headers).toBeDefined()
+			if (request.options.headers) {
+				expect(request.options.headers['test-header']).toBe(testHeaderValue)
+				expect(request.options.headers['Content-Type']).toBe('application/vnd.api+json')
 			}
 			return interceptRequest()
 		})
