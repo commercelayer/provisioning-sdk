@@ -8,10 +8,10 @@ import config from './config'
 import type { Nullable } from './types'
 import { CommerceLayerProvisioningStatic } from './static'
 import { isResourceId } from './common'
+import { ErrorType, SdkError } from './error'
 
 
 import Debug from './debug'
-import { ErrorType, SdkError } from './error'
 const debug = Debug('resource')
 
 
