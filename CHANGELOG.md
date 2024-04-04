@@ -1,3 +1,10 @@
+# [2.0.0-beta.2](https://github.com/commercelayer/provisioning-sdk/compare/v2.0.0-beta.1...v2.0.0-beta.2) (2024-04-04)
+
+
+### Bug Fixes
+
+* fix types export ([2f9d2fa](https://github.com/commercelayer/provisioning-sdk/commit/2f9d2fa44419f65e216987d62d32ff3bb4c2836e))
+
 # [2.0.0-beta.1](https://github.com/commercelayer/provisioning-sdk/compare/v1.0.4...v2.0.0-beta.1) (2024-04-04)
 
 
