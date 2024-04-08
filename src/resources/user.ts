@@ -17,10 +17,29 @@ interface User extends Resource {
 	
 	readonly type: UserType
 
+	/** 
+	 * The user email..
+	 * @example ```"user@commercelayer.io"```
+	 */
 	email: string
+	/** 
+	 * The user first name..
+	 * @example ```"John"```
+	 */
 	first_name: string
+	/** 
+	 * The user last name..
+	 * @example ```"Doe"```
+	 */
 	last_name: string
+	/** 
+	 * The user preferred timezone..
+	 * @example ```"UTC"```
+	 */
 	time_zone?: Nullable<string>
+	/** 
+	 * The user 2FA setting..
+	 */
 	otp_required_for_login: boolean
 	
 }
@@ -28,9 +47,25 @@ interface User extends Resource {
 
 interface UserUpdate extends ResourceUpdate {
 	
+	/** 
+	 * The user email..
+	 * @example ```"user@commercelayer.io"```
+	 */
 	email?: Nullable<string>
+	/** 
+	 * The user first name..
+	 * @example ```"John"```
+	 */
 	first_name?: Nullable<string>
+	/** 
+	 * The user last name..
+	 * @example ```"Doe"```
+	 */
 	last_name?: Nullable<string>
+	/** 
+	 * The user preferred timezone..
+	 * @example ```"UTC"```
+	 */
 	time_zone?: Nullable<string>
 	
 }

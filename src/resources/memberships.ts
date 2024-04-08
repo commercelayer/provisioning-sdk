@@ -16,7 +16,7 @@ type RoleRel = ResourceRel & { type: RoleType }
 type ApplicationMembershipRel = ResourceRel & { type: ApplicationMembershipType }
 
 
-export type MembershipSort = Pick<Membership, 'id'> & ResourceSort
+export type MembershipSort = Pick<Membership, 'id' | 'status'> & ResourceSort
 // export type MembershipFilter = Pick<Membership, 'id' | 'status'> & ResourceFilter
 
 
@@ -24,10 +24,30 @@ interface Membership extends Resource {
 	
 	readonly type: MembershipType
 
+	/** 
+	 * The user email..
+	 * @example ```"commercelayer@commercelayer.io"```
+	 */
 	user_email: string
+	/** 
+	 * The user first name..
+	 * @example ```"John"```
+	 */
 	user_first_name: string
+	/** 
+	 * The user last name..
+	 * @example ```"Doe"```
+	 */
 	user_last_name: string
+	/** 
+	 * The memberships status. One of `pending` (default), `active`..
+	 * @example ```"pending"```
+	 */
 	status: 'pending' | 'active'
+	/** 
+	 * Indicates if the user it's the owner of the organization..
+	 * @example ```"true"```
+	 */
 	owner: boolean
 
 	organization?: Nullable<Organization>
@@ -40,6 +60,10 @@ interface Membership extends Resource {
 
 interface MembershipCreate extends ResourceCreate {
 	
+	/** 
+	 * The user email..
+	 * @example ```"commercelayer@commercelayer.io"```
+	 */
 	user_email: string
 
 	organization: OrganizationRel

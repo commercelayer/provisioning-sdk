@@ -17,10 +17,30 @@ interface Version extends Resource {
 	
 	readonly type: VersionType
 
+	/** 
+	 * The type of the versioned resource..
+	 * @example ```"roles"```
+	 */
 	resource_type: string
+	/** 
+	 * The versioned resource ID..
+	 * @example ```"PzdJhdLdYV"```
+	 */
 	resource_id: string
+	/** 
+	 * The event which generates the version..
+	 * @example ```"update"```
+	 */
 	event: string
+	/** 
+	 * The object changes payload..
+	 * @example ```"[object Object]"```
+	 */
 	changes: Record<string, any>
+	/** 
+	 * Information about who triggered the change, only showed when it's from a JWT token..
+	 * @example ```"[object Object]"```
+	 */
 	who: Record<string, any>
 	
 }

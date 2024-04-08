@@ -25,6 +25,10 @@ interface ApplicationMembership extends Resource {
 	
 	readonly type: ApplicationMembershipType
 
+	/** 
+	 * Set of key-value pairs that contains restrictions and scopes of the application membership..
+	 * @example ```"[object Object]"```
+	 */
 	filters?: Nullable<Record<string, any>>
 
 	api_credential?: Nullable<ApiCredential>
@@ -37,6 +41,10 @@ interface ApplicationMembership extends Resource {
 
 interface ApplicationMembershipCreate extends ResourceCreate {
 	
+	/** 
+	 * Set of key-value pairs that contains restrictions and scopes of the application membership..
+	 * @example ```"[object Object]"```
+	 */
 	filters?: Nullable<Record<string, any>>
 
 	api_credential: ApiCredentialRel
@@ -49,6 +57,10 @@ interface ApplicationMembershipCreate extends ResourceCreate {
 
 interface ApplicationMembershipUpdate extends ResourceUpdate {
 	
+	/** 
+	 * Set of key-value pairs that contains restrictions and scopes of the application membership..
+	 * @example ```"[object Object]"```
+	 */
 	filters?: Nullable<Record<string, any>>
 
 	role?: Nullable<RoleRel>

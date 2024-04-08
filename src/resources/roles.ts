@@ -23,7 +23,15 @@ interface Role extends Resource {
 	
 	readonly type: RoleType
 
+	/** 
+	 * The role name..
+	 * @example ```"Custom role"```
+	 */
 	name: string
+	/** 
+	 * The kind of role, one of: `custom`, `admin`, `read_only`.
+	 * @example ```"custom"```
+	 */
 	kind: string
 
 	organization?: Nullable<Organization>
@@ -37,6 +45,10 @@ interface Role extends Resource {
 
 interface RoleCreate extends ResourceCreate {
 	
+	/** 
+	 * The role name..
+	 * @example ```"Custom role"```
+	 */
 	name: string
 
 	organization: OrganizationRel
@@ -46,6 +58,10 @@ interface RoleCreate extends ResourceCreate {
 
 interface RoleUpdate extends ResourceUpdate {
 	
+	/** 
+	 * The role name..
+	 * @example ```"Custom role"```
+	 */
 	name?: Nullable<string>
 	
 }
