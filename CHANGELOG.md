@@ -1,3 +1,10 @@
+# [2.0.0-beta.6](https://github.com/commercelayer/provisioning-sdk/compare/v2.0.0-beta.5...v2.0.0-beta.6) (2024-04-08)
+
+
+### Bug Fixes
+
+* fix plubic resources url ([a768d05](https://github.com/commercelayer/provisioning-sdk/commit/a768d050bc402ef0dc9881d98b4a99d483a5f22e))
+
 # [2.0.0-beta.5](https://github.com/commercelayer/provisioning-sdk/compare/v2.0.0-beta.4...v2.0.0-beta.5) (2024-04-08)
 
 
