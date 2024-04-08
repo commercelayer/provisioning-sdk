@@ -1,3 +1,10 @@
+# [2.0.0-beta.5](https://github.com/commercelayer/provisioning-sdk/compare/v2.0.0-beta.4...v2.0.0-beta.5) (2024-04-08)
+
+
+### Features
+
+* add resource fields examples ([6d17340](https://github.com/commercelayer/provisioning-sdk/commit/6d173404e76a4903edf69ed64df164e367049a65))
+
 # [2.0.0-beta.4](https://github.com/commercelayer/provisioning-sdk/compare/v2.0.0-beta.3...v2.0.0-beta.4) (2024-04-08)
 
 
