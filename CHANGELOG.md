@@ -1,3 +1,10 @@
+# [2.0.0-beta.3](https://github.com/commercelayer/provisioning-sdk/compare/v2.0.0-beta.2...v2.0.0-beta.3) (2024-04-04)
+
+
+### Bug Fixes
+
+* fix sortable fields ([493a40b](https://github.com/commercelayer/provisioning-sdk/commit/493a40bcf427e0e21101325a91e4482be6d0d7cb))
+
 # [2.0.0-beta.2](https://github.com/commercelayer/provisioning-sdk/compare/v2.0.0-beta.1...v2.0.0-beta.2) (2024-04-04)
 
 
