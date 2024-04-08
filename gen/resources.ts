@@ -3,7 +3,7 @@ import { resolve } from "node:path"
 
 
 const RESOURCES_LOCAL_PATH = resolve('./gen/resources.json')
-const RESOURCES_REMOTE_URL = 'https://core.commercelayer.io/api/public/resources'
+const RESOURCES_REMOTE_URL = 'https://provisioning.commercelayer.io/api/public/resources'
 
 
 const downloadResources = async (url?: string): Promise<any> => {
