@@ -1,3 +1,10 @@
+# [2.0.0-beta.12](https://github.com/commercelayer/provisioning-sdk/compare/v2.0.0-beta.11...v2.0.0-beta.12) (2024-04-09)
+
+
+### Bug Fixes
+
+* fix query filters generics ([553bef9](https://github.com/commercelayer/provisioning-sdk/commit/553bef9859c8fa6ce0e185ac825c835ad7e83d2e))
+
 # [2.0.0-beta.11](https://github.com/commercelayer/provisioning-sdk/compare/v2.0.0-beta.10...v2.0.0-beta.11) (2024-04-09)
 
 
