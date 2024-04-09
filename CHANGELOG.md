@@ -1,3 +1,10 @@
+# [2.0.0-beta.13](https://github.com/commercelayer/provisioning-sdk/compare/v2.0.0-beta.12...v2.0.0-beta.13) (2024-04-09)
+
+
+### Bug Fixes
+
+* fix ListResponse type ([e6e6057](https://github.com/commercelayer/provisioning-sdk/commit/e6e605760f581d70a173ec29e6a7f6bd0bf0481d))
+
 # [2.0.0-beta.12](https://github.com/commercelayer/provisioning-sdk/compare/v2.0.0-beta.11...v2.0.0-beta.12) (2024-04-09)
 
 
