@@ -1,3 +1,10 @@
+# [2.0.0-beta.7](https://github.com/commercelayer/provisioning-sdk/compare/v2.0.0-beta.6...v2.0.0-beta.7) (2024-04-09)
+
+
+### Bug Fixes
+
+* fix fetch response type ([34d5f4a](https://github.com/commercelayer/provisioning-sdk/commit/34d5f4a5910d94983dbf817974b9a5e2dd13018a))
+
 # [2.0.0-beta.6](https://github.com/commercelayer/provisioning-sdk/compare/v2.0.0-beta.5...v2.0.0-beta.6) (2024-04-08)
 
 
