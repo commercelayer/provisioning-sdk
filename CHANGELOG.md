@@ -1,3 +1,10 @@
+# [2.0.0-beta.11](https://github.com/commercelayer/provisioning-sdk/compare/v2.0.0-beta.10...v2.0.0-beta.11) (2024-04-09)
+
+
+### Bug Fixes
+
+* fix query generics ([b6d656d](https://github.com/commercelayer/provisioning-sdk/commit/b6d656d155bff7c1b4200ba7dbd9f22d741399bf))
+
 # [2.0.0-beta.10](https://github.com/commercelayer/provisioning-sdk/compare/v2.0.0-beta.9...v2.0.0-beta.10) (2024-04-09)
 
 
