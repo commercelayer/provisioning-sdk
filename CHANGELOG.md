@@ -1,3 +1,10 @@
+# [2.0.0-beta.8](https://github.com/commercelayer/provisioning-sdk/compare/v2.0.0-beta.7...v2.0.0-beta.8) (2024-04-09)
+
+
+### Bug Fixes
+
+* fix query params export ([616cda4](https://github.com/commercelayer/provisioning-sdk/commit/616cda43b0937877083a1ae043fee031cf46c870))
+
 # [2.0.0-beta.7](https://github.com/commercelayer/provisioning-sdk/compare/v2.0.0-beta.6...v2.0.0-beta.7) (2024-04-09)
 
 
