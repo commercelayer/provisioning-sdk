@@ -1,3 +1,10 @@
+# [2.0.0-beta.10](https://github.com/commercelayer/provisioning-sdk/compare/v2.0.0-beta.9...v2.0.0-beta.10) (2024-04-09)
+
+
+### Bug Fixes
+
+* fix package exports ([17b6e8b](https://github.com/commercelayer/provisioning-sdk/commit/17b6e8ba2520bc5a50fae69e228680f0c28a5ccc))
+
 # [2.0.0-beta.9](https://github.com/commercelayer/provisioning-sdk/compare/v2.0.0-beta.8...v2.0.0-beta.9) (2024-04-09)
 
 
