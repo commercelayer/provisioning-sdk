@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import type { Nullable } from '../types'
 import { ApiSingleton } from '../resource'
 import type { Resource, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ResourceSort, /* ResourceFilter */ } from '../resource'
@@ -75,7 +76,7 @@ class Users extends ApiSingleton<User> {
 
 	static readonly TYPE: UserType = 'user' as const
 
-	async update(resource: UserUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<User> {
+	async update(resource: UserUpdate, params?: QueryParamsRetrieve<User>, options?: ResourcesConfig): Promise<User> {
 		const res = await this.retrieve(params, options)	// JsonAPI requires id in the request body
 		return this.resources.update<UserUpdate, User>({ ...resource, id: res.id, type: Users.TYPE }, params, options)
 	}

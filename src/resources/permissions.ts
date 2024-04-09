@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
@@ -108,11 +109,11 @@ class Permissions extends ApiResource<Permission> {
 
 	static readonly TYPE: PermissionType = 'permissions' as const
 
-	async create(resource: PermissionCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Permission> {
+	async create(resource: PermissionCreate, params?: QueryParamsRetrieve<Permission>, options?: ResourcesConfig): Promise<Permission> {
 		return this.resources.create<PermissionCreate, Permission>({ ...resource, type: Permissions.TYPE }, params, options)
 	}
 
-	async update(resource: PermissionUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Permission> {
+	async update(resource: PermissionUpdate, params?: QueryParamsRetrieve<Permission>, options?: ResourcesConfig): Promise<Permission> {
 		return this.resources.update<PermissionUpdate, Permission>({ ...resource, type: Permissions.TYPE }, params, options)
 	}
 

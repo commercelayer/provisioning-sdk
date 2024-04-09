@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
@@ -271,11 +272,11 @@ class Organizations extends ApiResource<Organization> {
 
 	static readonly TYPE: OrganizationType = 'organizations' as const
 
-	async create(resource: OrganizationCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Organization> {
+	async create(resource: OrganizationCreate, params?: QueryParamsRetrieve<Organization>, options?: ResourcesConfig): Promise<Organization> {
 		return this.resources.create<OrganizationCreate, Organization>({ ...resource, type: Organizations.TYPE }, params, options)
 	}
 
-	async update(resource: OrganizationUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Organization> {
+	async update(resource: OrganizationUpdate, params?: QueryParamsRetrieve<Organization>, options?: ResourcesConfig): Promise<Organization> {
 		return this.resources.update<OrganizationUpdate, Organization>({ ...resource, type: Organizations.TYPE }, params, options)
 	}
 
