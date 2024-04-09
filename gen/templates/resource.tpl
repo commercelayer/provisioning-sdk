@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import type { Nullable } from '../types'
 import { ##__RESOURCE_MODEL_TYPE__## } from '../resource'
 import type { ##__IMPORT_RESOURCE_INTERFACES__##, ##__IMPORT_RESOURCE_COMMON__##, ResourceRel##__RESPONSE_MODELS__##, ResourceSort, /* ResourceFilter */ } from '../resource'
