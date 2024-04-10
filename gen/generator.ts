@@ -696,7 +696,7 @@ const generateResource = (type: string, name: string, resource: Resource): strin
 	res = res.replace(/##__IMPORT_RESOURCE_COMMON__##/, Array.from(declaredImportsCommon).join(', '))
 	res = res.replace(/##__MODEL_SORTABLE_INTERFACE__##/, (resModelType === 'ApiSingleton') ? '' : `, ${resModelInterface}Sort`)
 
-	const importQueryModels = (qryMod.size > 0)? `import type { ${Array.from(qryMod).sort().reverse().join(', ')} } from '../query'` : ''
+	const importQueryModels = (qryMod.size > 0) ? `import type { ${Array.from(qryMod).sort().reverse().join(', ')} } from '../query'` : ''
 	res = res.replace(/##__IMPORT_QUERY_MODELS__##/, importQueryModels)
 
 
@@ -720,6 +720,7 @@ const generateResource = (type: string, name: string, resource: Resource): strin
 	const relationshipTypes: Set<string> = new Set()
 	const sortableFields: string[] = []
 	const filterableFields: string[] = []
+	let nullables = false
 
 	typesArray.forEach(t => {
 		const cudSuffix = getCUDSuffix(t)
@@ -733,6 +734,7 @@ const generateResource = (type: string, name: string, resource: Resource): strin
 			sortableFields.push('id', ...Object.values(component.attributes).filter(f => (f.sortable && !RESOURCE_COMMON_FIELDS.includes(f.name))).map(f => f.name))
 			filterableFields.push('id', ...Object.values(component.attributes).filter(f => (f.filterable && !RESOURCE_COMMON_FIELDS.includes(f.name))).map(f => f.name))
 		}
+		nullables ||= tplCmp.nullables
 	})
 	res = res.replace(/##__MODEL_INTERFACES__##/g, modelInterfaces.join('\n\n\n'))
 	res = res.replace(/##__IMPORT_RESOURCE_INTERFACES__##/g, resourceInterfaces.join(', '))
@@ -756,6 +758,10 @@ const generateResource = (type: string, name: string, resource: Resource): strin
 	res = res.replace(/##__IMPORT_RESOURCE_MODELS__##/g, importStr)
 
 	// Enum types definitions
+
+	// Nullable type import
+	console.log(type + ' - ' + nullables)
+	if (!nullables) res = res.replace(/import type { Nullable/, '// import type { Nullable')
 
 
 	return res
@@ -876,7 +882,7 @@ const nullable = (type: string): string => {
 
 type ComponentEnums = { [key: string]: string }
 
-const templatedComponent = (res: string, name: string, cmp: Component): { component: string, models: string[], enums: ComponentEnums } => {
+const templatedComponent = (res: string, name: string, cmp: Component): { component: string, models: string[], enums: ComponentEnums, nullables: boolean } => {
 
 	const cudModel = isCUDModel(name)
 
@@ -886,6 +892,7 @@ const templatedComponent = (res: string, name: string, cmp: Component): { compon
 	// Attributes
 	const attributes = Object.values(cmp.attributes)
 	const fields: string[] = []
+	let nullables = false
 	attributes.forEach(a => {
 		if (!RESOURCE_COMMON_FIELDS.includes(a.name)) {
 			if (cudModel || a.fetchable) {
@@ -893,6 +900,7 @@ const templatedComponent = (res: string, name: string, cmp: Component): { compon
 				if (a.enum) enums[a.name] = attrType
 				if (a.description || a.example) fields.push(`/** ${a.description? `\n\t * ${a.description}.` : ''}${a.example? `\n\t * @example \`\`\`"${a.example}"\`\`\``: ''}\n\t */`)
 				fields.push(`${a.name}${a.required ? '' : '?'}: ${a.required ? attrType : nullable(attrType)}`)
+				nullables ||= (!a.required && !RESOURCE_COMMON_FIELDS.includes(a.name))
 			}
 		}
 	})
@@ -947,7 +955,7 @@ const templatedComponent = (res: string, name: string, cmp: Component): { compon
 	component = component.replace(/##__RESOURCE_MODEL_RELATIONSHIPS__##/g, relsStr)
 
 
-	return { component, models, enums }
+	return { component, models, enums, nullables }
 
 }
 
