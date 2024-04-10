@@ -1,3 +1,11 @@
+# [2.0.0-beta.14](https://github.com/commercelayer/provisioning-sdk/compare/v2.0.0-beta.13...v2.0.0-beta.14) (2024-04-10)
+
+
+### Bug Fixes
+
+* fix generator for Nullable type ([fc7507a](https://github.com/commercelayer/provisioning-sdk/commit/fc7507a1fea6e1bd875694cd16005b9d05ff9d6e))
+* fix Nullable type import ([ec89120](https://github.com/commercelayer/provisioning-sdk/commit/ec8912018c7094d8c5900dcd93e39d15702ea6de))
+
 # [2.0.0-beta.13](https://github.com/commercelayer/provisioning-sdk/compare/v2.0.0-beta.12...v2.0.0-beta.13) (2024-04-09)
 
 
