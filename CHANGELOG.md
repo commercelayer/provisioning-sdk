@@ -1,3 +1,10 @@
+# [2.0.0-beta.15](https://github.com/commercelayer/provisioning-sdk/compare/v2.0.0-beta.14...v2.0.0-beta.15) (2024-04-10)
+
+
+### Bug Fixes
+
+* update public resources url ([a10cf8e](https://github.com/commercelayer/provisioning-sdk/commit/a10cf8e1346554fe0b00a50be7cc718399d3025c))
+
 # [2.0.0-beta.14](https://github.com/commercelayer/provisioning-sdk/compare/v2.0.0-beta.13...v2.0.0-beta.14) (2024-04-10)
 
 
