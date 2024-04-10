@@ -18,7 +18,7 @@ type RoleRel = ResourceRel & { type: RoleType }
 
 
 export type ApplicationMembershipSort = Pick<ApplicationMembership, 'id'> & ResourceSort
-// export type ApplicationMembershipFilter = Pick<ApplicationMembership, 'id'> & ResourceFilter
+// export type ApplicationMembershipFilter = Pick<ApplicationMembership, 'id' | 'filters'> & ResourceFilter
 
 
 interface ApplicationMembership extends Resource {

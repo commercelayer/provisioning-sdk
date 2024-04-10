@@ -14,7 +14,7 @@ type RoleRel = ResourceRel & { type: RoleType }
 
 
 export type ApiCredentialSort = Pick<ApiCredential, 'id' | 'mode'> & ResourceSort
-// export type ApiCredentialFilter = Pick<ApiCredential, 'id' | 'mode'> & ResourceFilter
+// export type ApiCredentialFilter = Pick<ApiCredential, 'id' | 'name' | 'kind' | 'confidential' | 'redirect_uri' | 'client_id' | 'scopes' | 'expires_in' | 'mode' | 'custom'> & ResourceFilter
 
 
 interface ApiCredential extends Resource {

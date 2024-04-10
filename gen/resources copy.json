@@ -43,6 +43,7 @@
         "attributes": {
             "fields": {
                 "status": {
+                    "sortable": true,
                     "filterable": true
                 }
             },

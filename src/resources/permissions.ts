@@ -14,7 +14,7 @@ type RoleRel = ResourceRel & { type: RoleType }
 
 
 export type PermissionSort = Pick<Permission, 'id'> & ResourceSort
-// export type PermissionFilter = Pick<Permission, 'id'> & ResourceFilter
+// export type PermissionFilter = Pick<Permission, 'id' | 'can_create' | 'can_read' | 'can_update' | 'can_destroy' | 'subject' | 'restrictions'> & ResourceFilter
 
 
 interface Permission extends Resource {

@@ -16,7 +16,7 @@ type OrganizationRel = ResourceRel & { type: OrganizationType }
 
 
 export type RoleSort = Pick<Role, 'id'> & ResourceSort
-// export type RoleFilter = Pick<Role, 'id'> & ResourceFilter
+// export type RoleFilter = Pick<Role, 'id' | 'name' | 'kind'> & ResourceFilter
 
 
 interface Role extends Resource {

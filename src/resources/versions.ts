@@ -10,7 +10,7 @@ type VersionRel = ResourceRel & { type: VersionType }
 
 
 export type VersionSort = Pick<Version, 'id'> & ResourceSort
-// export type VersionFilter = Pick<Version, 'id'> & ResourceFilter
+// export type VersionFilter = Pick<Version, 'id' | 'resource_type' | 'resource_id'> & ResourceFilter
 
 
 interface Version extends Resource {

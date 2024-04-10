@@ -14,7 +14,7 @@ type OrganizationRel = ResourceRel & { type: OrganizationType }
 
 
 export type OrganizationSort = Pick<Organization, 'id'> & ResourceSort
-// export type OrganizationFilter = Pick<Organization, 'id'> & ResourceFilter
+// export type OrganizationFilter = Pick<Organization, 'id' | 'name' | 'slug' | 'domain' | 'support_phone' | 'support_email' | 'logo_url' | 'favicon_url' | 'primary_color' | 'contrast_color' | 'discount_disabled' | 'account_disabled' | 'acceptance_disabled' | 'max_concurrent_promotions' | 'max_concurrent_imports' | 'region'> & ResourceFilter
 
 
 interface Organization extends Resource {

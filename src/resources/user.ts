@@ -9,8 +9,8 @@ type UserType = 'user'
 type UserRel = ResourceRel & { type: UserType }
 
 
-export type UserSort = Pick<User, 'id'> & ResourceSort
-// export type UserFilter = Pick<User, 'id'> & ResourceFilter
+export type UserSort = Pick<User, 'id' | 'email' | 'first_name' | 'last_name'> & ResourceSort
+// export type UserFilter = Pick<User, 'id' | 'email' | 'first_name' | 'last_name' | 'time_zone'> & ResourceFilter
 
 
 interface User extends Resource {
