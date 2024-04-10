@@ -939,6 +939,7 @@ const templatedComponent = (res: string, name: string, cmp: Component): { compon
 			}
 
 			rels.push(`${r.name}${r.required ? '' : '?'}: ${r.required ? resName : nullable(resName)}`)
+			nullables ||= !r.required
 
 		}
 	})
@@ -953,7 +954,6 @@ const templatedComponent = (res: string, name: string, cmp: Component): { compon
 	const relsStr = rels.join('\n\t') + (rels.length ? '\n' : '')
 	component = component.replace(/##__RESOURCE_MODEL_FIELDS__##/g, fieldsStr)
 	component = component.replace(/##__RESOURCE_MODEL_RELATIONSHIPS__##/g, relsStr)
-
 
 	return { component, models, enums, nullables }
 

@@ -1,4 +1,4 @@
-// import type { Nullable } from '../types'
+import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
