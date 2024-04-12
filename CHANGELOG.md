@@ -1,3 +1,10 @@
+# [2.0.0-beta.17](https://github.com/commercelayer/provisioning-sdk/compare/v2.0.0-beta.16...v2.0.0-beta.17) (2024-04-12)
+
+
+### Bug Fixes
+
+* fix schema parser and source code generator ([1fde5e0](https://github.com/commercelayer/provisioning-sdk/commit/1fde5e0a2284684cbf7d9583701e1eca0c6086c4))
+
 # [2.0.0-beta.16](https://github.com/commercelayer/provisioning-sdk/compare/v2.0.0-beta.15...v2.0.0-beta.16) (2024-04-10)
 
 
