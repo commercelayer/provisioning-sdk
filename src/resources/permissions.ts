@@ -14,18 +14,37 @@ type RoleRel = ResourceRel & { type: RoleType }
 
 
 export type PermissionSort = Pick<Permission, 'id'> & ResourceSort
-// export type PermissionFilter = Pick<Permission, 'id'> & ResourceFilter
+// export type PermissionFilter = Pick<Permission, 'id' | 'can_create' | 'can_read' | 'can_update' | 'can_destroy' | 'subject' | 'restrictions'> & ResourceFilter
 
 
 interface Permission extends Resource {
 	
 	readonly type: PermissionType
 
+	/** 
+	 * Determines if the permission have access to create rights..
+	 */
 	can_create: boolean
+	/** 
+	 * Determines if the permission have access to read rights..
+	 */
 	can_read: boolean
+	/** 
+	 * Determines if the permission have access to update rights..
+	 */
 	can_update: boolean
+	/** 
+	 * Determines if the permission have access to destroy rights..
+	 */
 	can_destroy: boolean
+	/** 
+	 * The resource where this permission is applied..
+	 */
 	subject: string
+	/** 
+	 * An object that contains additional restrictions..
+	 * @example ```"{"foo":"bar"}"```
+	 */
 	restrictions: Record<string, any>
 
 	organization?: Nullable<Organization>
@@ -37,10 +56,25 @@ interface Permission extends Resource {
 
 interface PermissionCreate extends ResourceCreate {
 	
+	/** 
+	 * Determines if the permission have access to create rights..
+	 */
 	can_create: boolean
+	/** 
+	 * Determines if the permission have access to read rights..
+	 */
 	can_read: boolean
+	/** 
+	 * Determines if the permission have access to update rights..
+	 */
 	can_update: boolean
+	/** 
+	 * Determines if the permission have access to destroy rights..
+	 */
 	can_destroy: boolean
+	/** 
+	 * The resource where this permission is applied..
+	 */
 	subject: string
 
 	role: RoleRel
@@ -50,9 +84,21 @@ interface PermissionCreate extends ResourceCreate {
 
 interface PermissionUpdate extends ResourceUpdate {
 	
+	/** 
+	 * Determines if the permission have access to create rights..
+	 */
 	can_create?: Nullable<boolean>
+	/** 
+	 * Determines if the permission have access to read rights..
+	 */
 	can_read?: Nullable<boolean>
+	/** 
+	 * Determines if the permission have access to update rights..
+	 */
 	can_update?: Nullable<boolean>
+	/** 
+	 * Determines if the permission have access to destroy rights..
+	 */
 	can_destroy?: Nullable<boolean>
 	
 }
@@ -62,11 +108,11 @@ class Permissions extends ApiResource<Permission> {
 
 	static readonly TYPE: PermissionType = 'permissions' as const
 
-	async create(resource: PermissionCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Permission> {
+	async create(resource: PermissionCreate, params?: QueryParamsRetrieve<Permission>, options?: ResourcesConfig): Promise<Permission> {
 		return this.resources.create<PermissionCreate, Permission>({ ...resource, type: Permissions.TYPE }, params, options)
 	}
 
-	async update(resource: PermissionUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Permission> {
+	async update(resource: PermissionUpdate, params?: QueryParamsRetrieve<Permission>, options?: ResourcesConfig): Promise<Permission> {
 		return this.resources.update<PermissionUpdate, Permission>({ ...resource, type: Permissions.TYPE }, params, options)
 	}
 

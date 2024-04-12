@@ -16,14 +16,22 @@ type OrganizationRel = ResourceRel & { type: OrganizationType }
 
 
 export type RoleSort = Pick<Role, 'id'> & ResourceSort
-// export type RoleFilter = Pick<Role, 'id'> & ResourceFilter
+// export type RoleFilter = Pick<Role, 'id' | 'name' | 'kind'> & ResourceFilter
 
 
 interface Role extends Resource {
 	
 	readonly type: RoleType
 
+	/** 
+	 * The role name..
+	 * @example ```"Custom role"```
+	 */
 	name: string
+	/** 
+	 * The kind of role, one of: `custom`, `admin`, `read_only`.
+	 * @example ```"custom"```
+	 */
 	kind: string
 
 	organization?: Nullable<Organization>
@@ -37,6 +45,10 @@ interface Role extends Resource {
 
 interface RoleCreate extends ResourceCreate {
 	
+	/** 
+	 * The role name..
+	 * @example ```"Custom role"```
+	 */
 	name: string
 
 	organization: OrganizationRel
@@ -46,6 +58,10 @@ interface RoleCreate extends ResourceCreate {
 
 interface RoleUpdate extends ResourceUpdate {
 	
+	/** 
+	 * The role name..
+	 * @example ```"Custom role"```
+	 */
 	name?: Nullable<string>
 	
 }
@@ -55,11 +71,11 @@ class Roles extends ApiResource<Role> {
 
 	static readonly TYPE: RoleType = 'roles' as const
 
-	async create(resource: RoleCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Role> {
+	async create(resource: RoleCreate, params?: QueryParamsRetrieve<Role>, options?: ResourcesConfig): Promise<Role> {
 		return this.resources.create<RoleCreate, Role>({ ...resource, type: Roles.TYPE }, params, options)
 	}
 
-	async update(resource: RoleUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Role> {
+	async update(resource: RoleUpdate, params?: QueryParamsRetrieve<Role>, options?: ResourcesConfig): Promise<Role> {
 		return this.resources.update<RoleUpdate, Role>({ ...resource, type: Roles.TYPE }, params, options)
 	}
 

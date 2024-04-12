@@ -16,18 +16,38 @@ type RoleRel = ResourceRel & { type: RoleType }
 type ApplicationMembershipRel = ResourceRel & { type: ApplicationMembershipType }
 
 
-export type MembershipSort = Pick<Membership, 'id'> & ResourceSort
-// export type MembershipFilter = Pick<Membership, 'id' | 'status'> & ResourceFilter
+export type MembershipSort = Pick<Membership, 'id' | 'status'> & ResourceSort
+// export type MembershipFilter = Pick<Membership, 'id' | 'user_email' | 'status' | 'owner'> & ResourceFilter
 
 
 interface Membership extends Resource {
 	
 	readonly type: MembershipType
 
+	/** 
+	 * The user email..
+	 * @example ```"commercelayer@commercelayer.io"```
+	 */
 	user_email: string
+	/** 
+	 * The user first name..
+	 * @example ```"John"```
+	 */
 	user_first_name: string
+	/** 
+	 * The user last name..
+	 * @example ```"Doe"```
+	 */
 	user_last_name: string
+	/** 
+	 * The memberships status. One of `pending` (default), `active`..
+	 * @example ```"pending"```
+	 */
 	status: 'pending' | 'active'
+	/** 
+	 * Indicates if the user it's the owner of the organization..
+	 * @example ```"true"```
+	 */
 	owner: boolean
 
 	organization?: Nullable<Organization>
@@ -40,6 +60,10 @@ interface Membership extends Resource {
 
 interface MembershipCreate extends ResourceCreate {
 	
+	/** 
+	 * The user email..
+	 * @example ```"commercelayer@commercelayer.io"```
+	 */
 	user_email: string
 
 	organization: OrganizationRel
@@ -61,11 +85,11 @@ class Memberships extends ApiResource<Membership> {
 
 	static readonly TYPE: MembershipType = 'memberships' as const
 
-	async create(resource: MembershipCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Membership> {
+	async create(resource: MembershipCreate, params?: QueryParamsRetrieve<Membership>, options?: ResourcesConfig): Promise<Membership> {
 		return this.resources.create<MembershipCreate, Membership>({ ...resource, type: Memberships.TYPE }, params, options)
 	}
 
-	async update(resource: MembershipUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<Membership> {
+	async update(resource: MembershipUpdate, params?: QueryParamsRetrieve<Membership>, options?: ResourcesConfig): Promise<Membership> {
 		return this.resources.update<MembershipUpdate, Membership>({ ...resource, type: Memberships.TYPE }, params, options)
 	}
 

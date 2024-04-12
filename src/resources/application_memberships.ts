@@ -18,13 +18,17 @@ type RoleRel = ResourceRel & { type: RoleType }
 
 
 export type ApplicationMembershipSort = Pick<ApplicationMembership, 'id'> & ResourceSort
-// export type ApplicationMembershipFilter = Pick<ApplicationMembership, 'id'> & ResourceFilter
+// export type ApplicationMembershipFilter = Pick<ApplicationMembership, 'id' | 'filters'> & ResourceFilter
 
 
 interface ApplicationMembership extends Resource {
 	
 	readonly type: ApplicationMembershipType
 
+	/** 
+	 * Set of key-value pairs that contains restrictions and scopes of the application membership..
+	 * @example ```"{"market_id_in":[202,203]}"```
+	 */
 	filters?: Nullable<Record<string, any>>
 
 	api_credential?: Nullable<ApiCredential>
@@ -37,6 +41,10 @@ interface ApplicationMembership extends Resource {
 
 interface ApplicationMembershipCreate extends ResourceCreate {
 	
+	/** 
+	 * Set of key-value pairs that contains restrictions and scopes of the application membership..
+	 * @example ```"{"market_id_in":[202,203]}"```
+	 */
 	filters?: Nullable<Record<string, any>>
 
 	api_credential: ApiCredentialRel
@@ -49,6 +57,10 @@ interface ApplicationMembershipCreate extends ResourceCreate {
 
 interface ApplicationMembershipUpdate extends ResourceUpdate {
 	
+	/** 
+	 * Set of key-value pairs that contains restrictions and scopes of the application membership..
+	 * @example ```"{"market_id_in":[202,203]}"```
+	 */
 	filters?: Nullable<Record<string, any>>
 
 	role?: Nullable<RoleRel>
@@ -60,11 +72,11 @@ class ApplicationMemberships extends ApiResource<ApplicationMembership> {
 
 	static readonly TYPE: ApplicationMembershipType = 'application_memberships' as const
 
-	async create(resource: ApplicationMembershipCreate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ApplicationMembership> {
+	async create(resource: ApplicationMembershipCreate, params?: QueryParamsRetrieve<ApplicationMembership>, options?: ResourcesConfig): Promise<ApplicationMembership> {
 		return this.resources.create<ApplicationMembershipCreate, ApplicationMembership>({ ...resource, type: ApplicationMemberships.TYPE }, params, options)
 	}
 
-	async update(resource: ApplicationMembershipUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<ApplicationMembership> {
+	async update(resource: ApplicationMembershipUpdate, params?: QueryParamsRetrieve<ApplicationMembership>, options?: ResourcesConfig): Promise<ApplicationMembership> {
 		return this.resources.update<ApplicationMembershipUpdate, ApplicationMembership>({ ...resource, type: ApplicationMemberships.TYPE }, params, options)
 	}
 

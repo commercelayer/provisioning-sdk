@@ -1,4 +1,4 @@
-import type { Nullable } from '../types'
+// import type { Nullable } from '../types'
 import { ApiResource } from '../resource'
 import type { Resource, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ } from '../resource'
 
@@ -10,17 +10,37 @@ type VersionRel = ResourceRel & { type: VersionType }
 
 
 export type VersionSort = Pick<Version, 'id'> & ResourceSort
-// export type VersionFilter = Pick<Version, 'id'> & ResourceFilter
+// export type VersionFilter = Pick<Version, 'id' | 'resource_type' | 'resource_id'> & ResourceFilter
 
 
 interface Version extends Resource {
 	
 	readonly type: VersionType
 
+	/** 
+	 * The type of the versioned resource..
+	 * @example ```"roles"```
+	 */
 	resource_type: string
+	/** 
+	 * The versioned resource ID..
+	 * @example ```"PzdJhdLdYV"```
+	 */
 	resource_id: string
+	/** 
+	 * The event which generates the version..
+	 * @example ```"update"```
+	 */
 	event: string
+	/** 
+	 * The object changes payload..
+	 * @example ```"{"name":["previous","new"]}"```
+	 */
 	changes: Record<string, any>
+	/** 
+	 * Information about who triggered the change, only showed when it's from a JWT token..
+	 * @example ```"{"application":{"id":"DNOPYiZYpn","kind":"integration","public":true}}"```
+	 */
 	who: Record<string, any>
 	
 }

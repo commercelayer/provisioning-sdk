@@ -8,10 +8,10 @@ import config from './config'
 import type { Nullable } from './types'
 import { CommerceLayerProvisioningStatic } from './static'
 import { isResourceId } from './common'
+import { ErrorType, SdkError } from './error'
 
 
 import Debug from './debug'
-import { ErrorType, SdkError } from './error'
 const debug = Debug('resource')
 
 
@@ -64,7 +64,7 @@ type ListMeta = {
 }
 
 
-class ListResponse<R> extends Array<R> {
+class ListResponse<R extends Resource = Resource> extends Array<R> {
 
 	readonly meta: ListMeta
 
@@ -148,7 +148,7 @@ class ResourceAdapter {
 
 
 
-	async retrieve<R extends Resource>(resource: ResourceId | ResourceType, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<R> {
+	async retrieve<R extends Resource>(resource: ResourceId | ResourceType, params?: QueryParamsRetrieve<R>, options?: ResourcesConfig): Promise<R> {
 
 		const singleton = !('id' in resource) || CommerceLayerProvisioningStatic.isSingleton(resource.type)
 
@@ -167,7 +167,7 @@ class ResourceAdapter {
 	}
 
 
-	async list<R extends Resource>(resource: ResourceType, params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<R>> {
+	async list<R extends Resource>(resource: ResourceType, params?: QueryParamsList<R>, options?: ResourcesConfig): Promise<ListResponse<R>> {
 
 		debug('list: %o, %O, %O', resource, params || {}, options || {})
 
@@ -205,7 +205,7 @@ class ResourceAdapter {
 	}
 
 
-	async update<U extends ResourceUpdate, R extends Resource>(resource: U & ResourceId, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<R> {
+	async update<U extends ResourceUpdate, R extends Resource>(resource: U & ResourceId, params?: QueryParamsRetrieve<R>, options?: ResourcesConfig): Promise<R> {
 
 		const singleton = !('id' in resource) || CommerceLayerProvisioningStatic.isSingleton(resource.type)
 
@@ -308,7 +308,7 @@ abstract class ApiResourceBase<R extends Resource> {
 
 
 	// reference, reference_origin and metadata attributes are always updatable
-	async update(resource: ResourceUpdate, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<R> {
+	async update(resource: ResourceUpdate, params?: QueryParamsRetrieve<R>, options?: ResourcesConfig): Promise<R> {
 		return this.resources.update<ResourceUpdate, R>({ ...resource, type: this.type() }, params, options)
 	}
 
@@ -317,16 +317,16 @@ abstract class ApiResourceBase<R extends Resource> {
 
 abstract class ApiResource<R extends Resource> extends ApiResourceBase<R> {
 
-	async retrieve(id: string | ResourceId, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<R> {
+	async retrieve(id: string | ResourceId, params?: QueryParamsRetrieve<R>, options?: ResourcesConfig): Promise<R> {
 		return this.resources.retrieve<R>((typeof id === 'string') ? { type: this.type(), id } : id, params, options)
 	}
 
-	async list(params?: QueryParamsList, options?: ResourcesConfig): Promise<ListResponse<R>> {
+	async list(params?: QueryParamsList<R>, options?: ResourcesConfig): Promise<ListResponse<R>> {
 		return this.resources.list<R>({ type: this.type() }, params, options)
 	}
 
-	async count(filter?: QueryFilter | QueryParamsList, options?: ResourcesConfig): Promise<number> {
-		const params: QueryParamsList = { filters: isParamsList(filter) ? filter.filters : filter, pageNumber: 1, pageSize: 1 }
+	async count(filter?: QueryFilter | QueryParamsList<R>, options?: ResourcesConfig): Promise<number> {
+		const params: QueryParamsList<R> = { filters: isParamsList<R>(filter) ? filter.filters : filter, pageNumber: 1, pageSize: 1 }
 		const response = await this.list(params, options)
 		return Promise.resolve(response.meta.recordCount)
 	}
@@ -336,7 +336,7 @@ abstract class ApiResource<R extends Resource> extends ApiResourceBase<R> {
 
 abstract class ApiSingleton<R extends Resource> extends ApiResourceBase<R> {
 
-	async retrieve(params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<R> {
+	async retrieve(params?: QueryParamsRetrieve<R>, options?: ResourcesConfig): Promise<R> {
 		return this.resources.retrieve<R>({ type: this.type() }, params, options)
 	}
 
