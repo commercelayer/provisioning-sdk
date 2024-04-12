@@ -898,7 +898,7 @@ const templatedComponent = (res: string, name: string, cmp: Component): { compon
 			if (cudModel || a.fetchable) {
 				let attrType = fixAttributeType(a)
 				if (a.enum) enums[a.name] = attrType
-				if (a.description || a.example) fields.push(`/** ${a.description? `\n\t * ${a.description}.` : ''}${a.example? `\n\t * @example \`\`\`"${a.example}"\`\`\``: ''}\n\t */`)
+				if (a.description || a.example) fields.push(`/** ${a.description? `\n\t * ${a.description}.` : ''}${a.example? `\n\t * @example \`\`\`"${(typeof a.example === 'object')? JSON.stringify(a.example) : a.example}"\`\`\``: ''}\n\t */`)
 				fields.push(`${a.name}${a.required ? '' : '?'}: ${a.required ? attrType : nullable(attrType)}`)
 				nullables ||= (!a.required && !RESOURCE_COMMON_FIELDS.includes(a.name))
 			}

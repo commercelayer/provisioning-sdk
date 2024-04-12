@@ -34,12 +34,12 @@ interface Version extends Resource {
 	event: string
 	/** 
 	 * The object changes payload..
-	 * @example ```"[object Object]"```
+	 * @example ```"{"name":["previous","new"]}"```
 	 */
 	changes: Record<string, any>
 	/** 
 	 * Information about who triggered the change, only showed when it's from a JWT token..
-	 * @example ```"[object Object]"```
+	 * @example ```"{"application":{"id":"DNOPYiZYpn","kind":"integration","public":true}}"```
 	 */
 	who: Record<string, any>
 	
