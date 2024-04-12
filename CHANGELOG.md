@@ -1,3 +1,11 @@
+# [2.0.0-rc.2](https://github.com/commercelayer/provisioning-sdk/compare/v2.0.0-rc.1...v2.0.0-rc.2) (2024-04-12)
+
+
+### Bug Fixes
+
+* fix jsonapi import types ([98a862b](https://github.com/commercelayer/provisioning-sdk/commit/98a862bbd721b724aeb3afa526769ef50a639e7a))
+* fix release config ([95f70c5](https://github.com/commercelayer/provisioning-sdk/commit/95f70c58701169dc0449654a4d166999c166638c))
+
 # [2.0.0-rc.1](https://github.com/commercelayer/provisioning-sdk/compare/v1.0.5...v2.0.0-rc.1) (2024-04-12)
 
 
