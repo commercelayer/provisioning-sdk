@@ -1,11 +1,7 @@
 import { readFileSync, writeFileSync } from 'fs'
-import { snakeCase } from 'lodash'
-import axios from 'axios'
 import { resolve } from 'path'
 import { sortObjectFields } from '../src/util'
-
-
-const Inflector = require('inflector-js')
+import Inflector from './inflector'
 
 
 const SCHEMA_LOCAL_PATH = resolve('./gen/openapi.json')
@@ -27,8 +23,8 @@ const downloadSchema = async (url?: string): Promise<SchemaInfo> => {
 
 	console.log(`Downloading OpenAPI schema ... [${schemaUrl}]`)
 
-	const response = await axios.get(schemaUrl)
-	const schema = await response.data
+	const response = await fetch(schemaUrl)
+	const schema = await response.json()
 
 	if (schema) writeFileSync(schemaOutPath, JSON.stringify(schema, null, 4))
 	else console.log('OpenAPI schema is empty!')
@@ -87,7 +83,7 @@ const parseSchema = (path: string): ApiSchema => {
 		Object.keys(apiSchema.components).forEach(c => {
 			if (!specialComponentMatcher.test(c)) components[c] = apiSchema.components[c]
 			else
-				if (snakeCase(c.replace(specialComponentMatcher, '')) === singRes) resources[p].components[c] = apiSchema.components[c]
+				if (Inflector.snakeCase(c.replace(specialComponentMatcher, '')) === singRes) resources[p].components[c] = apiSchema.components[c]
 		})
 		// Sort components
 		resources[p].components = sortObjectFields(resources[p].components)
@@ -165,17 +161,19 @@ const parsePaths = (schemaPaths: any[]): PathMap => {
 
 			const [oKey, oValue] = o
 
+			const singleton = oValue.tags.includes('singleton')
+
 			const op: Operation = {
 				path: pKey,
 				type: oKey,
 				name: operationName(oKey, id, relOrCmd),
-				singleton: oValue.tags.includes('singleton'),
+				singleton,
 			}
 
 			if (id) op.id = id
 			if (oValue.requestBody) {
 				op.requestType = contentType(oValue.requestBody.content)
-				if (isObjectType(op.requestType)) op.requestTypeDef = contentSchema(oValue.requestBody.content).properties.data.properties.attributes.properties
+				if (isObjectType(op.requestType)) op.requestTypeDef = contentSchema(oValue.requestBody.content).properties.data.properties
 			}
 			if (oValue.responses) {
 				const responses = Object.values(oValue.responses) as any[]
@@ -209,6 +207,7 @@ const parsePaths = (schemaPaths: any[]): PathMap => {
 				} else skip = true
 
 			}
+
 
 			if (skip) console.log(`Operation skipped: ${op.name} [${op.path}]`)
 			else operations[op.name] = op
@@ -278,13 +277,15 @@ const parseComponents = (schemaComponents: any[]): ComponentMap => {
 		// Attributes
 		Object.entries(cmpAttributes.properties as object).forEach(a => {
 			const [aKey, aValue] = a
-			const fetchable = (aValue.nullable !== undefined)
+			const fetchable = (aValue.nullable !== undefined) || aValue.readOnly
 			attributes[aKey] = {
 				name: aKey,
 				type: (aValue.type === 'array') ? `${aValue.items.type}[]` : aValue.type,
 				required: requiredAttributes.includes(aKey) || (fetchable && !aValue.nullable && !cKey.match(/(Create|Update)$/)),
 				fetchable,
-				enum: aValue.enum
+				enum: aValue.enum,
+				description: aValue.description,
+				example: aValue.example
 			}
 		})
 
@@ -354,7 +355,11 @@ type Attribute = {
 	name: string
 	required: boolean
 	fetchable: boolean
+	sortable?: boolean
+	filterable?: boolean
 	enum: string[]
+	description?: string
+	example?: string
 }
 
 enum Cardinality {

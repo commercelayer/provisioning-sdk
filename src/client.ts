@@ -1,12 +1,9 @@
-
-import axios from 'axios'
-import type { AxiosAdapter, CreateAxiosDefaults, AxiosInstance, AxiosProxyConfig, Method } from 'axios'
 import { SdkError, handleError } from './error'
 import type { InterceptorManager } from './interceptor'
 import config from './config'
-import type { Agent as HttpAgent } from 'http'
-import type { Agent as HttpsAgent } from 'https'
-// import { packageInfo } from './util'
+import type { FetchResponse, FetchRequestOptions, FetchClientOptions, Fetch } from './fetch'
+import { fetchURL } from './fetch'
+
 
 import Debug from './debug'
 const debug = Debug('client')
@@ -18,34 +15,30 @@ const baseURL = (domain?: string): string => {
 }
 
 
-type ProxyConfig = AxiosProxyConfig | false
-type Adapter = AxiosAdapter
-
 type RequestParams = Record<string, string | number | boolean>
 type RequestHeaders = Record<string, string>
 
-// Subset of AxiosRequestConfig
+
 type RequestConfig = {
 	timeout?: number
 	params?: RequestParams
-	httpAgent?: HttpAgent
-	httpsAgent?: HttpsAgent
-	proxy?: ProxyConfig
 	headers?: RequestHeaders
+	userAgent?: string
+	fetch?: Fetch
 }
 
-type RequestConfigExtra = {
-	adapter?: Adapter
-	userAgent?: string
-}
 
 type ApiConfig = {
 	domain?: string,
 	accessToken: string
 }
 
-type ApiClientInitConfig = ApiConfig & RequestConfig & RequestConfigExtra
+type ApiClientInitConfig = ApiConfig & RequestConfig
 type ApiClientConfig = Partial<ApiClientInitConfig>
+
+
+export type Method = 'GET' | 'DELETE' | 'POST' | 'PUT' | 'PATCH'
+
 
 
 class ApiClient {
@@ -56,31 +49,29 @@ class ApiClient {
 		return new ApiClient(options)
 	}
 
-	baseUrl: string
-	#accessToken: string
-	readonly #client: AxiosInstance
 
-	public interceptors: InterceptorManager
+	#baseUrl: string
+	#accessToken: string
+	readonly #clientConfig: RequestConfig
+	readonly #interceptors: InterceptorManager
+
 
 	private constructor(options: ApiClientInitConfig) {
 
 		debug('new client instance %O', options)
 
-		this.baseUrl = baseURL(options.domain)
+		this.#baseUrl = baseURL(options.domain)
 		this.#accessToken = options.accessToken
 
-		const axiosConfig: RequestConfig = {
+		const fetchConfig: RequestConfig = {
 			timeout: options.timeout || config.client.timeout,
-			proxy: options.proxy,
-			httpAgent: options.httpAgent,
-			httpsAgent: options.httpsAgent
 		}
 
 		// Set custom headers
 		const customHeaders = this.customHeaders(options.headers)
 
 		// Set headers
-		const headers: any = {
+		const headers: RequestHeaders = {
 			...customHeaders,
 			'Accept': 'application/vnd.api+json',
 			'Content-Type': 'application/vnd.api+json',
@@ -88,52 +79,56 @@ class ApiClient {
 		}
 
 		// Set User-Agent
-		let userAgent = options.userAgent // || `SDK-provisioning axios/${axios.VERSION}`
-		if (userAgent) {
-			if (!userAgent.includes('axios/')) userAgent += ` axios/${axios.VERSION}`
-			headers['User-Agent'] = userAgent
-		}
+		const userAgent = options.userAgent
+		if (userAgent) headers['User-Agent'] = userAgent
 
-		const axiosOptions: CreateAxiosDefaults = {
-			baseURL: this.baseUrl,
-			timeout: config.client.timeout,
-			headers,
-			...axiosConfig
-		}
+		fetchConfig.headers = headers
 
-		if (options.adapter) axiosOptions.adapter = options.adapter
+		this.#clientConfig = fetchConfig
 
-		debug('axios options: %O', axiosOptions)
+		debug('fetch config: %O', fetchConfig)
 
-		this.#client = axios.create(axiosOptions)
-
-		this.interceptors = this.#client.interceptors
+		// Interceptors
+		this.#interceptors = {}
 
 	}
+
+
+	get interceptors(): InterceptorManager { return this.#interceptors }
+
+	get requestHeaders(): RequestHeaders {
+		if (!this.#clientConfig.headers) this.#clientConfig.headers = {}
+		return this.#clientConfig.headers
+	}
+
+
+	/*
+	set requestHeaders(headers: RequestHeaders) {
+		this.#clientConfig.headers = { ...this.#clientConfig.headers, ...headers }
+	}
+	*/
 
 
 	config(config: ApiClientConfig): this {
 
 		debug('config %o', config)
 
-		const def = this.#client.defaults
+		const def = this.#clientConfig
+		if (!def.headers) def.headers = {}
 
-		// Axios config
+		// Client config
 		if (config.timeout) def.timeout = config.timeout
-		if (config.proxy) def.proxy = config.proxy
-		if (config.httpAgent) def.httpAgent = config.httpAgent
-		if (config.httpsAgent) def.httpsAgent = config.httpsAgent
 
-		if (config.adapter) this.adapter(config.adapter)
 		if (config.userAgent) this.userAgent(config.userAgent)
-
+		if (config.fetch) this.#clientConfig.fetch = config.fetch
 
 		// API Client config
+		if (config.domain) this.#baseUrl = baseURL(config.domain)
 		if (config.accessToken) {
 			this.#accessToken = config.accessToken
-			def.headers.common.Authorization = 'Bearer ' + this.#accessToken;
+			def.headers.Authorization = 'Bearer ' + this.#accessToken
 		}
-		if (config.headers) def.headers.common = this.customHeaders(config.headers)
+		if (config.headers) def.headers = { ...def.headers, ...this.customHeaders(config.headers) }
 
 		return this
 
@@ -141,50 +136,49 @@ class ApiClient {
 
 
 	userAgent(userAgent: string): this {
-		if (userAgent) {
-			let ua = userAgent
-			if (!ua.includes('axios/')) {
-				// const axiosVer = packageInfo(['dependencies.axios'], { nestedName: true })
-				if (axios.VERSION) ua += ` axios/${axios.VERSION}`
-			}
-			this.#client.defaults.headers['User-Agent'] = ua
-		}
+		if (userAgent) this.requestHeaders['User-Agent'] = userAgent
 		return this
 	}
 
 
-	adapter(adapter: Adapter): this {
-		if (adapter) this.#client.defaults.adapter = adapter
-		return this
-	}
-
-
-	async request(method: Method, path: string, body?: any, options?: ApiClientConfig): Promise<any> {
+	async request(method: Method, path: string, body?: any, options?: ApiClientConfig): Promise<FetchResponse> {
 
 		debug('request %s %s, %O, %O', method, path, body || {}, options || {})
 
-		// Ignored params alerts (in debug mode)
-		if (options?.adapter) debug('Adapter ignored in request config')
+		// Ignored params (in debug mode)
 		if (options?.userAgent) debug('User-Agent header ignored in request config')
 
-		const data = body ? { data: body } : undefined
-		const url = path
+		// URL
+		const baseUrl = options?.domain ? baseURL(options.domain) : this.#baseUrl
+		const url = new URL(`${baseUrl}/${path}`)
 
-		// Runtime request parameters
+		// Body
+		const bodyData = body ? JSON.stringify({ data: body }) : undefined
+
+		// Headers
+		const headers = { ...this.requestHeaders, ...this.customHeaders(options?.headers) }
+
+		// Access token
 		const accessToken = options?.accessToken || this.#accessToken
-
-		const headers = this.customHeaders(options?.headers)
 		if (accessToken) headers.Authorization = 'Bearer ' + accessToken
 
-		const requestParams = { method, url, data, ...options, headers }
+		const requestOptions: FetchRequestOptions = { method, body: bodyData, headers }
 
-		debug('request params: %O', requestParams)
+		// Timeout
+		const timeout = options?.timeout || this.#clientConfig.timeout
+		if (timeout) requestOptions.signal = AbortSignal.timeout(timeout)
+
+		if (options?.params) Object.entries(options?.params).forEach(([name, value]) => { url.searchParams.append(name, String(value)) })
+
+		const clientOptions: FetchClientOptions = {
+			interceptors: this.interceptors,
+			fetch: options?.fetch || this.#clientConfig.fetch
+		}
 
 		// const start = Date.now()
-		return this.#client.request(requestParams)
-			.then(response => response.data)
+		return await fetchURL(url, requestOptions, clientOptions)
 			.catch((error: Error) => handleError(error))
-		// .finally(() => console.log(`<<-- ${method} ${path} ${Date.now() - start}`))
+		// .finally(() => { console.log(`<<-- ${method} ${path} ${Date.now() - start}`) })
 
 	}
 

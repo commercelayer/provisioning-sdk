@@ -4,7 +4,7 @@
  **/
 
 import { CommerceLayerProvisioningClient, User } from '../../src'
-import { isEqual } from 'lodash'
+import isEqual from 'lodash.isequal'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
 
@@ -28,16 +28,18 @@ describe('Users resource', () => {
     const params = { fields: { [resourceType]: CommonData.paramsFields } }
     const resData = { id: TestData.id, ...attributes}
 
-    const intId = clp.addRequestInterceptor((config) => {
-      if (config.method !== 'get') {
-        expect(config.method).toBe('patch')
-        checkCommon(config, resourceType, resData.id, currentAccessToken)
-        checkCommonData(config, resourceType, attributes, resData.id)
+    const intId = clp.addRequestInterceptor((request) => {
+      if (request.options.method !== 'GET') {
+        const data = JSON.parse(String(request.options.body))
+        expect(request.options.method).toBe('PATCH')
+        checkCommon(request, resourceType, resData.id, currentAccessToken)
+        checkCommonData(data, resourceType, attributes, resData.id)
       }
        return interceptRequest()
     })
 
     await clp[resourceType].update(resData, params, CommonData.options)
+      .then((res: User) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => clp.removeInterceptor('request', intId))
 
@@ -50,10 +52,10 @@ describe('Users resource', () => {
 
     const params = { fields: { [resourceType]: CommonData.paramsFields } }
 
-    const intId = clp.addRequestInterceptor((config) => {
-      expect(config.method).toBe('get')
-      checkCommon(config, resourceType)
-      checkCommonParams(config, params)
+    const intId = clp.addRequestInterceptor((request) => {
+      expect(request.options.method).toBe('GET')
+      checkCommon(request, resourceType)
+      checkCommonParams(request, params)
       return interceptRequest()
     })
 
