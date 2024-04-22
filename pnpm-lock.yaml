@@ -21,8 +21,8 @@ importers:
         specifier: 1.4.5
         version: 1.4.5(eslint@8.57.0)(typescript@5.4.5)
       '@commercelayer/js-auth':
-        specifier: ^6.1.1
-        version: 6.1.1
+        specifier: ^6.2.0
+        version: 6.2.0
       '@semantic-release/changelog':
         specifier: ^6.0.3
         version: 6.0.3(semantic-release@23.0.8(typescript@5.4.5))
@@ -697,8 +697,8 @@ packages:
       eslint: '>=8.0'
       typescript: '>=5.0'
 
-  '@commercelayer/js-auth@6.1.1':
-    resolution: {integrity: sha512-7W2Y4Gc3RLYx4s6wmQjrQXirPTruXFcSB0xmeTNcgzbQ3WRMlDr5WcS76voWXJz5mIRoGsoM3L8BtjKpx6hFrA==}
+  '@commercelayer/js-auth@6.2.0':
+    resolution: {integrity: sha512-6pI4ZoPdKk9dOJZgwP6M1ixhdLpkjt0wkCZkd3Ujq646nybmaCyYX4RGBxzFocckHhfY5weZrNnAfchCVBeOhg==}
     engines: {node: '>=18.0.0'}
 
   '@esbuild/aix-ppc64@0.19.12':
@@ -4559,7 +4559,7 @@ snapshots:
       - eslint-import-resolver-webpack
       - supports-color
 
-  '@commercelayer/js-auth@6.1.1': {}
+  '@commercelayer/js-auth@6.2.0': {}
 
   '@esbuild/aix-ppc64@0.19.12':
     optional: true
