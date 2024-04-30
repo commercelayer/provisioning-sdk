@@ -1,3 +1,10 @@
+## [2.0.1](https://github.com/commercelayer/provisioning-sdk/compare/v2.0.0...v2.0.1) (2024-04-30)
+
+
+### Bug Fixes
+
+* export config types ([218af6a](https://github.com/commercelayer/provisioning-sdk/commit/218af6a1a6be1a6683df1a24bc0b10532a6421df))
+
 # [2.0.0](https://github.com/commercelayer/provisioning-sdk/compare/v1.1.0...v2.0.0) (2024-04-22)
 
 
