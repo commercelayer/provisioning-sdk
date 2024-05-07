@@ -1,3 +1,10 @@
+## [2.0.2](https://github.com/commercelayer/provisioning-sdk/compare/v2.0.1...v2.0.2) (2024-05-07)
+
+
+### Bug Fixes
+
+* fix rate limit headers ([8b786e9](https://github.com/commercelayer/provisioning-sdk/commit/8b786e9e796c796417bba6f9cc76ba5d4c7a087c))
+
 ## [2.0.1](https://github.com/commercelayer/provisioning-sdk/compare/v2.0.0...v2.0.1) (2024-04-30)
 
 
