@@ -254,10 +254,10 @@ Many resources have relationships with other resources and instead of including 
 
 ```javascript
 // Fetch 1-to-1 related resource: billing address of an order
-const org = clp.memberships.organization('xYZkjABcde')
+const org = await clp.memberships.organization('xYZkjABcde')
 
 // Fetch 1-to-N related resources: orders associated to a customer
-const perms = clp.roles.permissions('XyzKjAbCDe', { fields: ['can_create', 'can_update'] })
+const perms = await clp.roles.permissions('XyzKjAbCDe', { fields: ['can_create', 'can_update'] })
 ```
 
 In general:
@@ -280,7 +280,7 @@ resources.
 
 ```javascript
 // Get the total number of sales_channel credentials
-const credentials = clp.api_credentials.count({ filters: { kind_eq: 'sales_channel' } })
+const credentials = await clp.api_credentials.count({ filters: { kind_eq: 'sales_channel' } })
 
 ```
 
