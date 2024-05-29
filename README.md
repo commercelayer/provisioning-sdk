@@ -16,9 +16,12 @@ A JavaScript Library wrapper that makes it quick and easy to interact with the [
 - [Installation](#installation)
 - [Authentication](#authentication)
 - [Import](#import)
+- [Options](#options)
 - [SDK usage](#sdk-usage)
 - [Overriding credentials](#overriding-credentials)
 - [Handling validation errors](#handling-validation-errors)
+- [Using interceptors](#using-interceptors)
+- [Refreshing access token](#refreshing-access-token)
 - [Contributors guide](#contributors-guide)
 - [Need help?](#need-help)
 - [License](#license)
@@ -45,7 +48,7 @@ yarn add @commercelayer/provisioning-sdk
 
 All requests to Commerce Layer API must be authenticated with an [OAuth2](https://oauth.net/2) bearer token. Hence, before starting to use this SDK you need to get a valid access token. Kindly check [our documentation](https://docs.commercelayer.io/provisioning/authentication) for more information about the available authorization flows.
 
-> Feel free to use [Commerce Layer Provisioning Auth](https://github.com/commercelayer/commercelayer-js-auth), a JavaScript library that helps you wrap our authentication API.
+> Feel free to use [Commerce Layer JS Auth](https://github.com/commercelayer/commercelayer-js-auth), a JavaScript library that helps you wrap our authentication API.
 
 ### Import
 
@@ -54,14 +57,44 @@ You can use the ES6 default import with the SDK like so:
 ```javascript
 import CommerceLayerProvisioning from '@commercelayer/provisioning-sdk'
 
-const clp = CommerceLayerProvisioning({
+const cl = CommerceLayer({
   accessToken: 'your-access-token'
 })
 ```
 
+### Options
+
+When instantiating a new SDK client you can pass some options to initialize it:
+
+```javascript
+{
+  accessToken: string         // A valid API access token
+  timeout?: number            // A custom request timout (<= 15 secs [default])
+  headers?: RequestHeaders    // Custom request headers
+  userAgent?: string          // Custom user-agent useful in certaing contexts but often not allowed by browsers
+  fetch?: Fetch               // A specific fetch implementation 
+  refreshToken?: RefreshToken // A function responsible for token refresh
+}
+```
+
+Same options can be changed after SDK initialization or passed at runtime while executing an API call:
+
+```javascript
+  const options = { ... }
+
+  // Instantiate the client using desired options
+  const clp = CommerceLayer(options)
+
+  // Change configuration after client cteation
+  clp.config(options)
+
+  // Use runtime configuration without persisting settings
+  clp.customers.organizations({}, options)
+```
+
 ## SDK usage
 
-The JavaScript SDK is a wrapper around Commerce Layer Provisioning API which means you would still be making API requests but with a different syntax. For now, we don't have comprehensive SDK documentation for every single resource our API supports, hence you will need to rely on our comprehensive [Provisioning API Reference](https://docs.commercelayer.io/provisioning/v/api-reference-p) as you go about using this SDK. So for example, if you want to create a role, take a look at the [Role object](https://docs.commercelayer.io/provisioning/v/api-reference-p/role/object) or the [Create a role](https://docs.commercelayer.io/provisioning/v/api-reference-p/roles/create) documentation to see the required attributes and/or relationships. The same goes for every other supported resource.
+The JavaScript Provisioning SDK is a wrapper around Commerce Layer Provisioning API which means you would still be making API requests but with a different syntax. For now, we don't have comprehensive SDK documentation for every single resource our API supports, hence you will need to rely on our comprehensive [Provisioning API Reference](https://docs.commercelayer.io/provisioning/v/api-reference-p) as you go about using this SDK. So for example, if you want to create a role, take a look at the [Role object](https://docs.commercelayer.io/provisioning/v/api-reference-p/role/object) or the [Create a role](https://docs.commercelayer.io/provisioning/v/api-reference-p/roles/create) documentation to see the required attributes and/or relationships. The same goes for every other supported resource.
 
 The code snippets below show how to use the SDK when performing the standard CRUD operations provided by our REST API. Kindly check our [Provisioning API reference](https://docs.commercelayer.io/provisioning/v/api-reference-p) for the complete list of available **resources** and their **attributes**.
 
@@ -367,7 +400,77 @@ Commerce Layer Provisioning API returns specific errors (with extra information)
 
 ```
 
-ℹ️ Check our API reference for more information about the [errors](https://docs.commercelayer.io/provisioning/handling-errors) returned by the API.
+ℹ️ Check our API reference for more information about the [errors](https://docs.commercelayer.io/developers/handling-errors) returned by the API.
+
+## Using interceptors
+
+You can use interceptors to intercept SDK messages and modify them on the fly before the request is sent to the API or before the response is parsed and returned by the client. You can also access the error object before it is thrown by the SDK.
+
+Interceptors are special functions that are able to handle SDK messages and return a (eventually) modified version of them for use by the client.
+
+```javascript
+  const requestInterceptor = (request: RequestObj): RequestObj => {
+    console.log(request)
+    return request
+  }
+
+  const responseInterceptor = (response: ResponseObj): ResponseObj => {
+    console.log(response)
+    return response
+  }
+
+  const errorInterceptor = (error: ErrorObj): ErrorObj => {
+    console.log(error)
+    return error
+  }
+```
+
+Here an example of how to use them:
+
+```javascript
+  // Add the interceptors (only one or all if needed)
+  clp.addRequestInterceptor(requestInterceptor)
+  clp.addResponseInterceptor(responseInterceptor, errorInterceptor)
+
+  const organizations = await clp.organizations.list()
+
+  // Remove interceptors
+  // Tt is possible to remove only a specific interceptor: cl.removeInterceptor('request')
+  cl.removeInterceptors()
+```
+
+#### Raw Response Reader
+
+The *RawResponseReader* is a special interceptor that allows to catch the original message coming frome the API before it is parsed and translated in SDK objects.
+
+```javascript
+  // Add a RawResponseReader capable of capturing also response headers
+  const rrr = clp.addRawResponseReader({ headers: true })
+  
+  const organizations = await clp.organizations.list()
+
+  cl.removeRawResponseReader()
+
+  console.log(rrr.rawResponse)
+  console.log(rrr.headers)
+```
+
+## Refreshing access token
+
+It is possible that you are using an access token that is about to expire especially if it has been used for many API calls.
+In this case you can define a special function that takes care of refreshing the token when a call fails because it has expired.
+
+```javascript
+  async function myRefreshTokenFunction(espiredToken: string): Promise<string> {
+    // Get a new access token using for example our js-auth library
+    return (await getAccessToken()).accessToken
+  }
+
+  cl.config({ refreshToken: myRefreshTokenFunction })
+
+  // If needed you can later retrieve the new access token
+  const newToken = cl.currentAccessToken
+```
 
 ## Contributors guide
 
