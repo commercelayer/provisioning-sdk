@@ -10,7 +10,7 @@ let tempId: string
 
 
 beforeAll(async () => {
-	clp = await getClient(true)
+	clp = await getClient({})
 	memberships = await clp.memberships.list({ pageSize: 1})
 })
 
