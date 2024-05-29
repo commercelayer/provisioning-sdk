@@ -51,7 +51,7 @@ describe('Test headers', () => {
 		expect(reader.headers).not.toBeUndefined()
 		expect(reader.headers?.['x-ratelimit-limit']).not.toBeUndefined()
 
-		clp.removeRawResponseReader(reader)
+		clp.removeRawResponseReader()
 
 	})
 
