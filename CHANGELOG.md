@@ -1,3 +1,10 @@
+## [2.0.3](https://github.com/commercelayer/provisioning-sdk/compare/v2.0.2...v2.0.3) (2024-06-20)
+
+
+### Bug Fixes
+
+* fix error parsing response body with code 204 ([3ae1cdd](https://github.com/commercelayer/provisioning-sdk/commit/3ae1cdda49d5b02a2f30ea10e93bdde198622e75))
+
 ## [2.0.2](https://github.com/commercelayer/provisioning-sdk/compare/v2.0.1...v2.0.2) (2024-05-07)
 
 
