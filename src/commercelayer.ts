@@ -69,7 +69,9 @@ class CommerceLayerProvisioningClient {
 	get user(): api.Users { return this.#user || (this.#user = new api.Users(this.#adapter)) }
 	get versions(): api.Versions { return this.#versions || (this.#versions = new api.Versions(this.#adapter)) }
 	// ##__CL_RESOURCES_LEAZY_LOADING_STOP__##
-	// get environment(): ApiMode { return this.#environment }
+
+	
+	get currentAccessToken(): string { return this.#adapter?.client?.currentAccessToken }
 	private get interceptors(): InterceptorManager { return this.#adapter.client.interceptors }
 
 
@@ -124,6 +126,11 @@ class CommerceLayerProvisioningClient {
 		this.interceptors[type] = undefined
 	}
 
+	removeInterceptors(): void {
+		this.removeInterceptor('request')
+		this.removeInterceptor('response')
+		this.removeRawResponseReader()
+	}
 
 	addRawResponseReader(options?: { headers: boolean }): RawResponseReader {
 
@@ -152,7 +159,7 @@ class CommerceLayerProvisioningClient {
 
 	}
 
-	removeRawResponseReader(reader: number | RawResponseReader = 1): void {
+	removeRawResponseReader(/* reader: number | RawResponseReader */): void {
 		/*
 		const id = (typeof reader === 'number') ? reader : reader?.id
 		if (id && (id >= 0)) this.removeInterceptor('response', id)

@@ -1,7 +1,7 @@
 
-import { CommerceLayerProvisioningClient, CommerceLayerProvisioningStatic } from '../src'
+import { CommerceLayerProvisioning, CommerceLayerProvisioningClient, CommerceLayerProvisioningStatic } from '../src'
 import { getClient } from '../test/common'
-import { RawResponseReader } from '../src/interceptor'
+import getAccessToken from '../test/token'
 
 
 let clp: CommerceLayerProvisioningClient
@@ -32,7 +32,7 @@ describe('SDK:commercelayer suite', () => {
 		jest.setTimeout(10000)
 		const headers = true
 
-		const cli = await getClient(true)
+		const cli = await getClient({})
 
 		const reader = cli.addRawResponseReader({ headers })
 		expect(reader).not.toBeUndefined()
@@ -43,11 +43,40 @@ describe('SDK:commercelayer suite', () => {
 		if (headers) expect(reader.headers).not.toBeUndefined()
 		else expect(reader.headers).toBeUndefined()
 
-		cli.removeRawResponseReader(reader.id as number)
-		cli.removeRawResponseReader(reader)
-		cli.removeRawResponseReader(0)
-		cli.removeRawResponseReader({ id: 1, ok: true } as RawResponseReader)
+		cli.removeRawResponseReader()
 
+		clp = await getClient()
+
+	})
+
+
+	it('commercelayer.refreshToken', async () => {
+
+		let refreshed = false
+
+		async function refreshToken(old: string): Promise<string> {
+			const token = (await getAccessToken('user')).accessToken
+			refreshed = true
+			return token
+		}
+
+		const domain = process.env.CL_SDK_DOMAIN as string
+		const expiredToken = process.env.CL_SDK_ACCESS_TOKEN_EXPIRED as string
+
+		const cli = CommerceLayerProvisioning({
+			domain,
+			accessToken: expiredToken,
+			refreshToken
+		})
+
+		expect(cli.currentAccessToken).toBe(expiredToken)
+
+		await cli.memberships.list({ pageSize: 1 })
+
+		expect(refreshed).toBeTruthy()
+		expect(cli.currentAccessToken).toBeDefined()
+		expect(cli.currentAccessToken).not.toBe(expiredToken)
+		
 		clp = await getClient()
 
 	})

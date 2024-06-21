@@ -26,7 +26,7 @@ const errorInterceptor = (error: ErrorObj): ErrorObj => {
 
 	const organization = process.env.CL_SDK_ORGANIZATION || ''
 	const auth = await getToken('user')
-	const accessToken = auth? auth.accessToken+'x' : ''
+	const accessToken = process.env.CL_SDK_ACCESS_TOKEN || (auth? auth.accessToken+'x' : '')
 
 	const cl = clProvisioning({
 		accessToken,

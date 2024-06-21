@@ -7,7 +7,7 @@ import { getClient, CommonData, handleError, interceptRequest } from '../test/co
 let clp: CommerceLayerProvisioningClient
 
 
-beforeAll(async () => { clp = await getClient(true) })
+beforeAll(async () => { clp = await getClient({}) })
 
 
 describe('Test headers', () => {
@@ -51,7 +51,7 @@ describe('Test headers', () => {
 		expect(reader.headers).not.toBeUndefined()
 		expect(reader.headers?.['x-ratelimit-limit']).not.toBeUndefined()
 
-		clp.removeRawResponseReader(reader)
+		clp.removeRawResponseReader()
 
 	})
 

@@ -2,31 +2,29 @@
 import clProvisioning from '../src'
 import { inspect } from 'util'
 import getToken from './token'
+import { getClient } from './common'
 // import { } from '../lib/index'
+
+
+async function refreshToken(old: string): Promise<string> {
+	const token = (await getToken('user')).accessToken
+	// if (true) throw new Error('Error refreshing test expired access token')
+	return token
+}
 
 
 (async () => {
 
-	const auth = await getToken('user')
-
 	const domain = process.env.CL_SDK_DOMAIN
-	const accessToken = auth ? auth.accessToken : ''
+	const accessToken = process.env.CL_SDK_ACCESS_TOKEN || ''
 
-	const clp = clProvisioning({
-		accessToken,
-		domain
-	})
+	const clp = await getClient({ accessToken, domain })
+	clp.config({ refreshToken })
 
 	try {
 
 		const organizations = await clp.organizations.list()
-		const org = organizations.first()
-
-		if (org) {
-			const reader = clp.addRawResponseReader()
-			await clp.organizations.transfer_ownership(org.id, { id: '123', type: 'organizations', new_owner_email: 'pierluigi@commercelayer.io'})
-			console.log(reader.rawResponse)
-		}
+		console.log(organizations)
 
 	} catch (error: any) {
 		console.log(inspect(error, false, null, true))

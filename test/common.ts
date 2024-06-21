@@ -1,5 +1,5 @@
 import getToken from './token'
-import CommerceLayerProvisioning, { CommerceLayerProvisioningClient, QueryParamsList, QueryParamsRetrieve, RequestObj } from '../src'
+import CommerceLayerProvisioning, { CommerceLayerConfig, CommerceLayerProvisioningClient, QueryParamsList, QueryParamsRetrieve, RequestObj } from '../src'
 import dotenv from 'dotenv'
 import { inspect } from 'util'
 import isEqual from 'lodash.isequal'
@@ -19,7 +19,7 @@ const INTERCEPTOR_CANCEL = 'TEST-INTERCEPTED'
 const REQUEST_TIMEOUT = 5550
 const REQUEST_OPTIONS: RequestConfig = {
 	timeout: REQUEST_TIMEOUT,
-	params: { }
+	params: {}
 } as const
 
 export const TestData = {
@@ -57,16 +57,27 @@ export const CommonData = {
 
 let currentAccessToken: string
 
-const initClient = async (): Promise<CommerceLayerProvisioningClient> => {
-	const token = await getToken('user')
-	if (token === null) throw new Error('Unable to get access token')
-	const accessToken = token.accessToken
-	currentAccessToken = accessToken
+const initClient = async (config: CommerceLayerConfig): Promise<CommerceLayerProvisioningClient> => {
+
+	let accessToken: string
+
+	if (config.accessToken) accessToken = config.accessToken
+	else {
+		const token = await getToken('user')
+		if (token === null) throw new Error('Unable to get access token')
+		accessToken = token.accessToken
+	}
+
 	const client = CommerceLayerProvisioning({ accessToken, domain })
-	client.config({ timeout: GLOBAL_TIMEOUT })
-	jest.setTimeout(GLOBAL_TIMEOUT)
+	currentAccessToken = accessToken
+
+	client.config({ timeout: config.timeout || GLOBAL_TIMEOUT })
+	try { jest.setTimeout(config.timeout || GLOBAL_TIMEOUT) } catch (err: any) { }
+
 	return client
+
 }
+
 
 const fakeClient = async (): Promise<CommerceLayerProvisioningClient> => {
 	const accessToken = 'fake-access-token'
@@ -75,8 +86,9 @@ const fakeClient = async (): Promise<CommerceLayerProvisioningClient> => {
 	return client
 }
 
-const getClient = (instance?: boolean): Promise<CommerceLayerProvisioningClient> => {
-	return instance ?  initClient() : fakeClient()
+
+const getClient = (config?: CommerceLayerConfig): Promise<CommerceLayerProvisioningClient> => {
+	return config ? initClient(config) : fakeClient()
 }
 
 const printObject = (obj: unknown): string => {
@@ -112,20 +124,20 @@ const randomValue = (type: string, name?: string): any | Array<any> => {
 
 	if (type.startsWith('boolean')) values = booleans
 	else
-	if (type.startsWith('integer') || type.startsWith('number')) values = numbers
-	else
-	if (type.startsWith('fload') || type.startsWith('decimal')) values = numbers
-	else
-	if (type.startsWith('object')) values = objects
-	else
-	if (type.startsWith('string')) values = strings
-	else values = strings
+		if (type.startsWith('integer') || type.startsWith('number')) values = numbers
+		else
+			if (type.startsWith('fload') || type.startsWith('decimal')) values = numbers
+			else
+				if (type.startsWith('object')) values = objects
+				else
+					if (type.startsWith('string')) values = strings
+					else values = strings
 
 	let value = values[Math.floor(Math.random() * (values.length - 1))]
 
 	if (type === 'string') value = `${value}_${Math.floor(Math.random() * 100)}`
 
-	if (type.endsWith('[]')) value = [ value ]
+	if (type.endsWith('[]')) value = [value]
 
 	return value
 
@@ -137,7 +149,7 @@ export { handleError, interceptRequest, randomValue }
 
 
 const checkCommon = (request: RequestObj, type: string, id?: string, token?: string, relationship?: string) => {
-	expect(request.url.pathname).toBe('/api/' + type + (id ? `/${id}` : '') + (relationship ? `/${relationship}`: ''))
+	expect(request.url.pathname).toBe('/api/' + type + (id ? `/${id}` : '') + (relationship ? `/${relationship}` : ''))
 	expect(request.options.headers).toBeDefined()
 	if (request.options.headers) expect(request.options.headers['Authorization']).toContain('Bearer ' + (token || ''))
 	expect(request.options.signal).not.toBeNull()
@@ -156,12 +168,12 @@ const checkCommonData = (data: any, type: string, attributes: any, id?: string) 
 }
 
 const checkParam = (url: string | URL, name: string, value: string | number | boolean) => {
-	const params = (url instanceof URL)? url.searchParams : new URL(url).searchParams
+	const params = (url instanceof URL) ? url.searchParams : new URL(url).searchParams
 	expect(params.has(name)).toBeTruthy()
 	expect(params.get(name)).toBe(String(value))
 }
 
-const checkCommonParamsList = (request: RequestObj, params: QueryParamsList<Resource>) =>  {
+const checkCommonParamsList = (request: RequestObj, params: QueryParamsList<Resource>) => {
 	const url = new URL(request.url)
 	if (params.pageNumber) checkParam(url, 'page[number]', params.pageNumber)
 	if (params.pageSize) checkParam(url, 'page[size]', params.pageSize)
