@@ -1,3 +1,20 @@
+# [2.1.0](https://github.com/commercelayer/provisioning-sdk/compare/v2.0.3...v2.1.0) (2024-06-21)
+
+
+### Bug Fixes
+
+* fix AbortSignal issue ([9bbc50d](https://github.com/commercelayer/provisioning-sdk/commit/9bbc50dc716a37c6892b45f93479d16657a5df2c))
+* fix env test security issue ([1ef3125](https://github.com/commercelayer/provisioning-sdk/commit/1ef312570f88a1344d7503b353e5a99fb1d85684))
+* fix headers spec and codeql action script ([0d13d12](https://github.com/commercelayer/provisioning-sdk/commit/0d13d128fc30908ad0769ee8191f5fce7640a75b))
+* fix release action ([4e21f81](https://github.com/commercelayer/provisioning-sdk/commit/4e21f81a50e7d9c1170e6ce38b2f8fcb015d0e82))
+* fix test initialization ([b02262d](https://github.com/commercelayer/provisioning-sdk/commit/b02262db13e3f664de0b026be821f1a3cd6c85b4))
+* update readme ([133789a](https://github.com/commercelayer/provisioning-sdk/commit/133789ac790ff9564aeca4a8515fbcbb7be1f610))
+
+
+### Features
+
+* add refresh token function ([18437d0](https://github.com/commercelayer/provisioning-sdk/commit/18437d0a2d6630e132537f4275176fdb470ae2a3))
+
 ## [2.0.3](https://github.com/commercelayer/provisioning-sdk/compare/v2.0.2...v2.0.3) (2024-06-20)
 
 
