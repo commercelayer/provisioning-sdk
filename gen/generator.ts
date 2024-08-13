@@ -589,7 +589,7 @@ const triggerFunctions = (type: string, name: string, resource: Resource, operat
 	const compUpdKey = Object.keys(resource.components).find(c => c.endsWith(compSuffix))
 	if (compUpdKey) {
 		const compUpd = resource.components[compUpdKey]
-		const triggers = Object.values(compUpd.attributes).filter(a => a.name.startsWith('_') )
+		const triggers = Object.values(compUpd.attributes).filter(a => a.name.startsWith('_'))
 		if (triggers.length > 0) {
 			const tplt = templates.trigger
 			for (const trigger of triggers) {
@@ -641,8 +641,9 @@ const generateResource = (type: string, name: string, resource: Resource): strin
 
 
 	// Operations
-	const qryMod = new Set<string>()
-	const resMod = new Set<string>()
+	const qryMod = new Set<string>()	// Query models (Retrieve/List)
+	const resMod = new Set<string>()	// Resource generic models (Es. ResponseList)
+	// const relMod = new Set<string>()	// Relationships models
 	Object.entries(resource.operations).forEach(([opName, op]) => {
 		const tpl = op.singleton ? ((opName === 'update')? templates['singleton_update'] : templates['singleton']) : templates[opName]
 		if (op.singleton) resModelType = 'ApiSingleton'
@@ -657,7 +658,7 @@ const generateResource = (type: string, name: string, resource: Resource): strin
 			else {
 				const tplOp = templatedOperation(resName, opName, op, tpl)
 				operations.push(tplOp.operation)
-				tplOp.types.forEach(t => { declaredTypes.add(t) })
+				tplOp.types.forEach(t => declaredTypes.add(t))
 			}
 		}
 		else {
@@ -671,6 +672,10 @@ const generateResource = (type: string, name: string, resource: Resource): strin
 						resMod.add('ListResponse')
 					}
 				operations.push(tplrOp.operation)
+				tplrOp.types.forEach(t => {	// Fix tax_calculators issue
+					// relMod.add(t)	// Add releationship type
+					declaredImportsModels.add(t)	// Add import type
+				})
 			}
 			else
 			if (op.action && CONFIG.ACTION_FUNCTIONS) {
@@ -727,7 +732,9 @@ const generateResource = (type: string, name: string, resource: Resource): strin
 		resourceInterfaces.push(`Resource${cudSuffix}`)
 		const component: Component = resource.components[t]
 		const tplCmp = templatedComponent(resName, t, component)
-		tplCmp.models.forEach(m => declaredImportsModels.add(m))
+		tplCmp.models.forEach(m => {
+			if (m !== 'Resource') declaredImportsModels.add(m)	// Fix resource_errors issue
+		})
 		modelInterfaces.push(tplCmp.component)
 		if (cudSuffix) tplCmp.models.forEach(t => relationshipTypes.add(t))
 		else {
@@ -898,8 +905,11 @@ const templatedComponent = (res: string, name: string, cmp: Component): { compon
 			if (cudModel || a.fetchable) {
 				let attrType = fixAttributeType(a)
 				if (a.enum) enums[a.name] = attrType
-				if (a.description || a.example) fields.push(`/** ${a.description? `\n\t * ${a.description}.` : ''}${a.example? `\n\t * @example \`\`\`"${(typeof a.example === 'object')? JSON.stringify(a.example) : a.example}"\`\`\``: ''}\n\t */`)
-				fields.push(`${a.name}${a.required ? '' : '?'}: ${a.required ? attrType : nullable(attrType)}`)
+				if (a.description || a.example) {
+					const desc = (a.description && !a.description.endsWith('.')) ? `${a.description}.` : a.description
+					fields.push(`/** ${desc? `\n\t * ${desc}` : ''}${a.example? `\n\t * @example \`\`\`"${(typeof a.example === 'object')? JSON.stringify(a.example) : a.example}"\`\`\``: ''}\n\t */`)
+				}
+					fields.push(`${a.name}${a.required ? '' : '?'}: ${a.required ? attrType : nullable(attrType)}`)
 				nullables ||= (!a.required && !RESOURCE_COMMON_FIELDS.includes(a.name))
 			}
 		}
@@ -954,6 +964,7 @@ const templatedComponent = (res: string, name: string, cmp: Component): { compon
 	const relsStr = rels.join('\n\t') + (rels.length ? '\n' : '')
 	component = component.replace(/##__RESOURCE_MODEL_FIELDS__##/g, fieldsStr)
 	component = component.replace(/##__RESOURCE_MODEL_RELATIONSHIPS__##/g, relsStr)
+
 
 	return { component, models, enums, nullables }
 
