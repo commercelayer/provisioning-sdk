@@ -5,6 +5,7 @@ import type { ErrorInterceptor, InterceptorType, RawResponseReader, RequestInter
 import { CommerceLayerProvisioningStatic } from './static'
 import ResourceAdapter, { type ResourcesInitConfig } from './resource'
 
+
 import Debug from './debug'
 const debug = Debug('commercelayer')
 
