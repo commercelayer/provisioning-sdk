@@ -1,3 +1,12 @@
+## [2.1.1](https://github.com/commercelayer/provisioning-sdk/compare/v2.1.0...v2.1.1) (2024-08-29)
+
+
+### Bug Fixes
+
+* fix emptyBody spec timeout ([7fb3be1](https://github.com/commercelayer/provisioning-sdk/commit/7fb3be1f13615282757938ddb92dc088009e3624))
+* fix response empty body ([1bb30d8](https://github.com/commercelayer/provisioning-sdk/commit/1bb30d8f9c08290311aca9cbe4b7dad06cf8ef32))
+* fix spec timeout ([e700cca](https://github.com/commercelayer/provisioning-sdk/commit/e700ccab1706a61a6ad1f41c81d3d68683feb24e))
+
 # [2.1.0](https://github.com/commercelayer/provisioning-sdk/compare/v2.0.3...v2.1.0) (2024-06-21)
 
 
