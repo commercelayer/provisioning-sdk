@@ -23,8 +23,9 @@ async function refreshToken(old: string): Promise<string> {
 
 	try {
 
-		const organizations = await clp.organizations.list()
-		console.log(organizations)
+		const membership = (await clp.memberships.list()).first()
+		if (membership) await clp.memberships.resend(membership)
+		else console.log('No membership')
 
 	} catch (error: any) {
 		console.log(inspect(error, false, null, true))

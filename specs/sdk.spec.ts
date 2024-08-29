@@ -1,5 +1,5 @@
 
-import { CommerceLayerProvisioningClient, Role } from '../src'
+import { CommerceLayerProvisioningClient, Membership, MembershipCreate, Role } from '../src'
 import { sleep, sortObjectFields } from '../src/util'
 import { getClient, TestData } from '../test/common'
 import { isResourceType } from '../src/common'
@@ -65,6 +65,42 @@ describe('SDK suite', () => {
 		}
 
 		expect(isResourceType(customer)).toBeTruthy()
+
+	})
+
+
+	it('response.emptyBody', async () => {
+
+		const cli = await getClient({})
+
+		const organization = (await cli.organizations.list()).first()
+		const role = (await cli.roles.list()).first()
+
+		expect(organization).toBeDefined()
+		expect(role).toBeDefined()
+
+		if (organization && role) {
+
+		const membershipCreate: MembershipCreate = {
+			user_email: String(Date.now()) + '@provisioning.org',
+			organization: cli.organizations.relationship(organization),
+			role: cli.roles.relationship(role)
+		}
+
+		let membership = await cli.memberships.create(membershipCreate)
+		expect(membership).toBeDefined()
+
+		await cli.memberships.resend(membership)
+
+		await cli.memberships.delete(membership)
+
+		await cli.memberships.retrieve(membership)
+			.catch(error => {
+				expect(cli.isApiError(error)).toBeTruthy()
+				expect(error.status).toBe(404)
+		})
+
+	}
 
 	})
 

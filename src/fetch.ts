@@ -66,8 +66,8 @@ export const fetchURL = async (url: URL, requestOptions: FetchRequestOptions, cl
     if (interceptors?.rawReader?.onFailure) await interceptors.rawReader.onFailure(response)
   }
 
-  const responseBody = (response.body && (response.status !== 204)) ? await response.json()
-    .then(json => { debug('response: %O', json); return json })
+  const responseBody = (response.body && (response.status !== 204)) ? await response.text()
+    .then(text => { debug('response: %O', text); return text?.trim()? JSON.parse(text) : text })
     .catch((err: Error) => {
       debug('error: %s', err.message)
       if (response.ok) throw new SdkError({ message: 'Error parsing API response body', type: ErrorType.PARSE })
