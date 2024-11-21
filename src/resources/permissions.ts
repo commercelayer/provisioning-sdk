@@ -22,27 +22,27 @@ interface Permission extends Resource {
 	readonly type: PermissionType
 
 	/** 
-	 * Determines if the permission have access to create rights..
+	 * Determines if the permission have access to create rights.
 	 */
 	can_create: boolean
 	/** 
-	 * Determines if the permission have access to read rights..
+	 * Determines if the permission have access to read rights.
 	 */
 	can_read: boolean
 	/** 
-	 * Determines if the permission have access to update rights..
+	 * Determines if the permission have access to update rights.
 	 */
 	can_update: boolean
 	/** 
-	 * Determines if the permission have access to destroy rights..
+	 * Determines if the permission have access to destroy rights.
 	 */
 	can_destroy: boolean
 	/** 
-	 * The resource where this permission is applied..
+	 * The resource where this permission is applied.
 	 */
 	subject: string
 	/** 
-	 * An object that contains additional restrictions..
+	 * An object that contains additional restrictions.
 	 * @example ```"{"foo":"bar"}"```
 	 */
 	restrictions: Record<string, any>
@@ -57,23 +57,23 @@ interface Permission extends Resource {
 interface PermissionCreate extends ResourceCreate {
 	
 	/** 
-	 * Determines if the permission have access to create rights..
+	 * Determines if the permission have access to create rights.
 	 */
 	can_create: boolean
 	/** 
-	 * Determines if the permission have access to read rights..
+	 * Determines if the permission have access to read rights.
 	 */
 	can_read: boolean
 	/** 
-	 * Determines if the permission have access to update rights..
+	 * Determines if the permission have access to update rights.
 	 */
 	can_update: boolean
 	/** 
-	 * Determines if the permission have access to destroy rights..
+	 * Determines if the permission have access to destroy rights.
 	 */
 	can_destroy: boolean
 	/** 
-	 * The resource where this permission is applied..
+	 * The resource where this permission is applied.
 	 */
 	subject: string
 
@@ -85,19 +85,19 @@ interface PermissionCreate extends ResourceCreate {
 interface PermissionUpdate extends ResourceUpdate {
 	
 	/** 
-	 * Determines if the permission have access to create rights..
+	 * Determines if the permission have access to create rights.
 	 */
 	can_create?: Nullable<boolean>
 	/** 
-	 * Determines if the permission have access to read rights..
+	 * Determines if the permission have access to read rights.
 	 */
 	can_read?: Nullable<boolean>
 	/** 
-	 * Determines if the permission have access to update rights..
+	 * Determines if the permission have access to update rights.
 	 */
 	can_update?: Nullable<boolean>
 	/** 
-	 * Determines if the permission have access to destroy rights..
+	 * Determines if the permission have access to destroy rights.
 	 */
 	can_destroy?: Nullable<boolean>
 	

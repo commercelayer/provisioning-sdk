@@ -25,27 +25,27 @@ interface Membership extends Resource {
 	readonly type: MembershipType
 
 	/** 
-	 * The user email..
+	 * The user email.
 	 * @example ```"commercelayer@commercelayer.io"```
 	 */
 	user_email: string
 	/** 
-	 * The user first name..
+	 * The user first name.
 	 * @example ```"John"```
 	 */
 	user_first_name: string
 	/** 
-	 * The user last name..
+	 * The user last name.
 	 * @example ```"Doe"```
 	 */
 	user_last_name: string
 	/** 
-	 * The memberships status. One of `pending` (default), `active`..
+	 * The memberships status. One of `pending` (default), `active`.
 	 * @example ```"pending"```
 	 */
 	status: 'pending' | 'active'
 	/** 
-	 * Indicates if the user it's the owner of the organization..
+	 * Indicates if the user it's the owner of the organization.
 	 * @example ```"true"```
 	 */
 	owner: boolean
@@ -61,7 +61,7 @@ interface Membership extends Resource {
 interface MembershipCreate extends ResourceCreate {
 	
 	/** 
-	 * The user email..
+	 * The user email.
 	 * @example ```"commercelayer@commercelayer.io"```
 	 */
 	user_email: string

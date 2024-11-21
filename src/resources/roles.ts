@@ -24,7 +24,7 @@ interface Role extends Resource {
 	readonly type: RoleType
 
 	/** 
-	 * The role name..
+	 * The role name.
 	 * @example ```"Custom role"```
 	 */
 	name: string
@@ -46,7 +46,7 @@ interface Role extends Resource {
 interface RoleCreate extends ResourceCreate {
 	
 	/** 
-	 * The role name..
+	 * The role name.
 	 * @example ```"Custom role"```
 	 */
 	name: string
@@ -59,7 +59,7 @@ interface RoleCreate extends ResourceCreate {
 interface RoleUpdate extends ResourceUpdate {
 	
 	/** 
-	 * The role name..
+	 * The role name.
 	 * @example ```"Custom role"```
 	 */
 	name?: Nullable<string>

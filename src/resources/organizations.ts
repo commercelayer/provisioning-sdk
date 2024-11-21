@@ -13,8 +13,8 @@ type OrganizationType = 'organizations'
 type OrganizationRel = ResourceRel & { type: OrganizationType }
 
 
-export type OrganizationSort = Pick<Organization, 'id'> & ResourceSort
-// export type OrganizationFilter = Pick<Organization, 'id' | 'name' | 'slug' | 'domain' | 'support_phone' | 'support_email' | 'logo_url' | 'favicon_url' | 'primary_color' | 'contrast_color' | 'discount_disabled' | 'account_disabled' | 'acceptance_disabled' | 'max_concurrent_promotions' | 'max_concurrent_imports' | 'region'> & ResourceFilter
+export type OrganizationSort = Pick<Organization, 'id' | 'name' | 'slug' | 'domain'> & ResourceSort
+// export type OrganizationFilter = Pick<Organization, 'id' | 'name' | 'slug' | 'domain' | 'contrast_color' | 'region'> & ResourceFilter
 
 
 interface Organization extends Resource {
@@ -22,101 +22,173 @@ interface Organization extends Resource {
 	readonly type: OrganizationType
 
 	/** 
-	 * The organization's internal name..
+	 * The organization's internal name.
 	 * @example ```"The Blue Brand"```
 	 */
 	name: string
 	/** 
-	 * The organization's slug name..
+	 * The organization's slug name.
 	 * @example ```"the-blue-brand"```
 	 */
 	slug: string
 	/** 
-	 * The organization's domain..
+	 * The organization's domain.
 	 * @example ```"the-blue-brand.commercelayer.io"```
 	 */
 	domain: string
 	/** 
-	 * The organization's configuration..
-	 * @example ```"{"mfe":{"default":{"links":{"cart":"https://cart.example.com/:order_id?accessToken=:access_token","checkout":"https://checkout.example.com/:order_id?accessToken=:accessToken","identity":"https://example.com/login","microstore":"https://example.com/microstore/?accessToken=:access_token","my_account":"https://example.com/my-custom-account?accessToken=:access_token"},"checkout":{"thankyou_page":"https://example.com/thanks/:lang/:orderId","billing_countries":[{"value":"ES","label":"Espana"},{"value":"IT","label":"Italia"},{"value":"US","label":"Unites States of America"}],"shipping_countries":[{"value":"ES","label":"Espana"},{"value":"IT","label":"Italia"},{"value":"US","label":"Unites States of America"}],"billing_states":{"FR":[{"value":"PA","label":"Paris"},{"value":"LY","label":"Lyon"},{"value":"NI","label":"Nice"},{"value":"MA","label":"Marseille"},{"value":"BO","label":"Bordeaux"}]},"shipping_states":{"FR":[{"value":"PA","label":"Paris"},{"value":"LY","label":"Lyon"},{"value":"NI","label":"Nice"},{"value":"MA","label":"Marseille"},{"value":"BO","label":"Bordeaux"}]},"default_country":"US"},"urls":{"privacy":"https://example.com/privacy/:lang","terms":"https://example.com/terms/:lang"}},"market:id:ZKcv13rT":{"links":{"cart":"https://example.com/custom-cart/:order_id?accessToken=:access_token"},"checkout":{"thankyou_page":"https://example.com/thanks/:order_id"}}}}"```
-	 */
-	config?: Nullable<Record<string, any>>
-	/** 
-	 * The organization's support phone..
+	 * The organization's support phone.
 	 * @example ```"+01 30800857"```
 	 */
 	support_phone?: Nullable<string>
 	/** 
-	 * The organization's support email..
+	 * The organization's support email.
 	 * @example ```"support@bluebrand.com"```
 	 */
 	support_email?: Nullable<string>
 	/** 
-	 * The URL to the organization's logo..
+	 * The URL to the organization's logo.
 	 * @example ```"https://bluebrand.com/img/logo.svg"```
 	 */
 	logo_url?: Nullable<string>
 	/** 
-	 * The URL to the organization's favicon..
+	 * The URL to the organization's favicon.
 	 * @example ```"https://bluebrand.com/img/favicon.ico"```
 	 */
 	favicon_url?: Nullable<string>
 	/** 
-	 * The organization's primary color. Format is HEX (starts with `#` and it's followed by six letters and/or numbers)..
+	 * The organization's primary color.
 	 * @example ```"#C8984E"```
 	 */
 	primary_color?: Nullable<string>
 	/** 
-	 * The organization's contrast color. Format is HEX (starts with `#` and it's followed by six letters and/or numbers)..
+	 * The organization's contrast color. Format is HEX (starts with `#` and is followed by six letters and/or numbers).
 	 * @example ```"#FFFFCC"```
 	 */
 	contrast_color?: Nullable<string>
 	/** 
-	 * The organization's Google Tag Manager ID..
+	 * The organization's Google Tag Manager ID.
 	 * @example ```"GTM-5FJXX6"```
 	 */
 	gtm_id?: Nullable<string>
 	/** 
-	 * The organization's Google Tag Manager ID for test..
+	 * The organization's Google Tag Manager ID for test.
 	 * @example ```"GTM-5FJXX7"```
 	 */
 	gtm_id_test?: Nullable<string>
 	/** 
-	 * Indicates if organization has discount disabled..
-	 */
-	discount_disabled?: Nullable<boolean>
-	/** 
-	 * Indicates if organization has account disabled..
-	 */
-	account_disabled?: Nullable<boolean>
-	/** 
-	 * Indicates if organization has acceptance disabled..
-	 */
-	acceptance_disabled?: Nullable<boolean>
-	/** 
-	 * The maximum number of active concurrent promotions allowed for your organization..
-	 * @example ```"10"```
-	 */
-	max_concurrent_promotions: number
-	/** 
-	 * The maximum number of concurrent imports allowed for your organization..
-	 * @example ```"30"```
-	 */
-	max_concurrent_imports: number
-	/** 
-	 * The region where the organization it's located, default value it's `eu-west-1`..
+	 * The region where the organization is located. The default value is `eu-west-1`.
 	 * @example ```"eu-west-1"```
 	 */
 	region?: Nullable<string>
 	/** 
-	 * Indicates if the organization can switch to live mode..
+	 * Indicates if the organization can switch to live mode.
 	 */
 	can_switch_live: boolean
 	/** 
-	 * Information about the current subscription such as the plan type, limits and subscription totals counter..
+	 * Information about the current subscription such as the plan type, limits, and subscription totals counter.
 	 * @example ```"{"plan_type":"growth","limits":{"markets":5,"skus":10000,"organizations":2,"memberships":5},"totals":{"organizations":1,"markets":0,"memberships":2,"skus":0}}"```
 	 */
 	subscription_info: Record<string, any>
+	/** 
+	 * The organization's configuration.
+	 * @example ```"{"mfe":{"default":{"links":{"cart":"https://cart.example.com/:order_id?accessToken=:access_token","checkout":"https://checkout.example.com/:order_id?accessToken=:access_token","identity":"https://example.com/login","microstore":"https://example.com/microstore/?accessToken=:access_token","my_account":"https://example.com/my-custom-account?accessToken=:access_token"},"checkout":{"thankyou_page":"https://example.com/thanks/:lang/:order_id","billing_countries":[{"value":"ES","label":"Espana"},{"value":"IT","label":"Italia"},{"value":"US","label":"Unites States of America"}],"shipping_countries":[{"value":"ES","label":"Espana"},{"value":"IT","label":"Italia"},{"value":"US","label":"Unites States of America"}],"billing_states":{"FR":[{"value":"PA","label":"Paris"},{"value":"LY","label":"Lyon"},{"value":"NI","label":"Nice"},{"value":"MA","label":"Marseille"},{"value":"BO","label":"Bordeaux"}]},"shipping_states":{"FR":[{"value":"PA","label":"Paris"},{"value":"LY","label":"Lyon"},{"value":"NI","label":"Nice"},{"value":"MA","label":"Marseille"},{"value":"BO","label":"Bordeaux"}]},"default_country":"US"},"urls":{"privacy":"https://example.com/privacy/:lang","terms":"https://example.com/terms/:lang"}},"market:id:ZKcv13rT":{"links":{"cart":"https://example.com/custom-cart/:order_id?accessToken=:access_token"},"checkout":{"thankyou_page":"https://example.com/thanks/:order_id"}}}}"```
+	 */
+	config?: Nullable<Record<string, any>>
+	/** 
+	 * Enables the redirect on the new Auth API.
+	 * @example ```"true"```
+	 */
+	api_auth_redirect: boolean
+	/** 
+	 * Enables the rules engine for flex promotions and price list rules.
+	 */
+	api_rules_engine: boolean
+	/** 
+	 * Indicates if the phone attribute is required for addresses, default is true.
+	 * @example ```"true"```
+	 */
+	addresses_phone_required: boolean
+	/** 
+	 * The maximum number line items allowed for a test order before disabling the autorefresh option.
+	 * @example ```"50"```
+	 */
+	orders_autorefresh_cutoff_test: number
+	/** 
+	 * The maximum number line items allowed for a live order before disabling the autorefresh option.
+	 * @example ```"500"```
+	 */
+	orders_autorefresh_cutoff_live: number
+	/** 
+	 * Enables orders number editing as a string in test (for enterprise plans only).
+	 */
+	orders_number_editable_test: boolean
+	/** 
+	 * Enables orders number editing as a string in live (for enterprise plans only).
+	 */
+	orders_number_editable_live: boolean
+	/** 
+	 * Enables to use the order number as payment reference on supported gateways.
+	 * @example ```"true"```
+	 */
+	orders_number_as_reference: boolean
+	/** 
+	 * The maximum number of SKUs allowed for bundles, default is 10.
+	 * @example ```"10"```
+	 */
+	bundles_max_items_count: number
+	/** 
+	 * The minimum length for coupon code, default is 8.
+	 * @example ```"8"```
+	 */
+	coupons_min_code_length: number
+	/** 
+	 * The maximum length for coupon code, default is 40.
+	 * @example ```"40"```
+	 */
+	coupons_max_code_length: number
+	/** 
+	 * The minimum length for gift card code, default is 8.
+	 * @example ```"8"```
+	 */
+	gift_cards_min_code_length: number
+	/** 
+	 * The maximum length for gift card code, default is 40.
+	 * @example ```"40"```
+	 */
+	gift_cards_max_code_length: number
+	/** 
+	 * The maximum number of concurrent cleanups allowed for your organization, default is 10.
+	 * @example ```"10"```
+	 */
+	cleanups_max_concurrent_count: number
+	/** 
+	 * The maximum number of concurrent exports allowed for your organization, default is 10.
+	 * @example ```"10"```
+	 */
+	exports_max_concurrent_count: number
+	/** 
+	 * The maximum number of concurrent imports allowed for your organization, default is 10.
+	 * @example ```"10"```
+	 */
+	imports_max_concurrent_count: number
+	/** 
+	 * The maximum number of active concurrent promotions allowed for your organization, default is 10.
+	 * @example ```"10"```
+	 */
+	promotions_max_concurrent_count: number
+	/** 
+	 * Enables triggering of webhooks during imports, default is false.
+	 */
+	imports_trigger_webhooks: number
+	/** 
+	 * Enables raising of API errors in case of tax calculation failure, default is false.
+	 */
+	tax_calculators_errors: boolean
+	/** 
+	 * Enables raising of API errors in case of external promotion failure, default is false.
+	 */
+	external_promotions_errors: boolean
 
 	memberships?: Nullable<Membership[]>
 	roles?: Nullable<Role[]>
@@ -129,72 +201,60 @@ interface Organization extends Resource {
 interface OrganizationCreate extends ResourceCreate {
 	
 	/** 
-	 * The organization's internal name..
+	 * The organization's internal name.
 	 * @example ```"The Blue Brand"```
 	 */
 	name: string
 	/** 
-	 * The organization's configuration..
-	 * @example ```"{"mfe":{"default":{"links":{"cart":"https://cart.example.com/:order_id?accessToken=:access_token","checkout":"https://checkout.example.com/:order_id?accessToken=:accessToken","identity":"https://example.com/login","microstore":"https://example.com/microstore/?accessToken=:access_token","my_account":"https://example.com/my-custom-account?accessToken=:access_token"},"checkout":{"thankyou_page":"https://example.com/thanks/:lang/:orderId","billing_countries":[{"value":"ES","label":"Espana"},{"value":"IT","label":"Italia"},{"value":"US","label":"Unites States of America"}],"shipping_countries":[{"value":"ES","label":"Espana"},{"value":"IT","label":"Italia"},{"value":"US","label":"Unites States of America"}],"billing_states":{"FR":[{"value":"PA","label":"Paris"},{"value":"LY","label":"Lyon"},{"value":"NI","label":"Nice"},{"value":"MA","label":"Marseille"},{"value":"BO","label":"Bordeaux"}]},"shipping_states":{"FR":[{"value":"PA","label":"Paris"},{"value":"LY","label":"Lyon"},{"value":"NI","label":"Nice"},{"value":"MA","label":"Marseille"},{"value":"BO","label":"Bordeaux"}]},"default_country":"US"},"urls":{"privacy":"https://example.com/privacy/:lang","terms":"https://example.com/terms/:lang"}},"market:id:ZKcv13rT":{"links":{"cart":"https://example.com/custom-cart/:order_id?accessToken=:access_token"},"checkout":{"thankyou_page":"https://example.com/thanks/:order_id"}}}}"```
-	 */
-	config?: Nullable<Record<string, any>>
-	/** 
-	 * The organization's support phone..
+	 * The organization's support phone.
 	 * @example ```"+01 30800857"```
 	 */
 	support_phone?: Nullable<string>
 	/** 
-	 * The organization's support email..
+	 * The organization's support email.
 	 * @example ```"support@bluebrand.com"```
 	 */
 	support_email?: Nullable<string>
 	/** 
-	 * The URL to the organization's logo..
+	 * The URL to the organization's logo.
 	 * @example ```"https://bluebrand.com/img/logo.svg"```
 	 */
 	logo_url?: Nullable<string>
 	/** 
-	 * The URL to the organization's favicon..
+	 * The URL to the organization's favicon.
 	 * @example ```"https://bluebrand.com/img/favicon.ico"```
 	 */
 	favicon_url?: Nullable<string>
 	/** 
-	 * The organization's primary color. Format is HEX (starts with `#` and it's followed by six letters and/or numbers)..
+	 * The organization's primary color.
 	 * @example ```"#C8984E"```
 	 */
 	primary_color?: Nullable<string>
 	/** 
-	 * The organization's contrast color. Format is HEX (starts with `#` and it's followed by six letters and/or numbers)..
+	 * The organization's contrast color. Format is HEX (starts with `#` and is followed by six letters and/or numbers).
 	 * @example ```"#FFFFCC"```
 	 */
 	contrast_color?: Nullable<string>
 	/** 
-	 * The organization's Google Tag Manager ID..
+	 * The organization's Google Tag Manager ID.
 	 * @example ```"GTM-5FJXX6"```
 	 */
 	gtm_id?: Nullable<string>
 	/** 
-	 * The organization's Google Tag Manager ID for test..
+	 * The organization's Google Tag Manager ID for test.
 	 * @example ```"GTM-5FJXX7"```
 	 */
 	gtm_id_test?: Nullable<string>
 	/** 
-	 * Indicates if organization has discount disabled..
-	 */
-	discount_disabled?: Nullable<boolean>
-	/** 
-	 * Indicates if organization has account disabled..
-	 */
-	account_disabled?: Nullable<boolean>
-	/** 
-	 * Indicates if organization has acceptance disabled..
-	 */
-	acceptance_disabled?: Nullable<boolean>
-	/** 
-	 * The region where the organization it's located, default value it's `eu-west-1`..
+	 * The region where the organization is located. The default value is `eu-west-1`.
 	 * @example ```"eu-west-1"```
 	 */
 	region?: Nullable<string>
+	/** 
+	 * The organization's configuration.
+	 * @example ```"{"mfe":{"default":{"links":{"cart":"https://cart.example.com/:order_id?accessToken=:access_token","checkout":"https://checkout.example.com/:order_id?accessToken=:access_token","identity":"https://example.com/login","microstore":"https://example.com/microstore/?accessToken=:access_token","my_account":"https://example.com/my-custom-account?accessToken=:access_token"},"checkout":{"thankyou_page":"https://example.com/thanks/:lang/:order_id","billing_countries":[{"value":"ES","label":"Espana"},{"value":"IT","label":"Italia"},{"value":"US","label":"Unites States of America"}],"shipping_countries":[{"value":"ES","label":"Espana"},{"value":"IT","label":"Italia"},{"value":"US","label":"Unites States of America"}],"billing_states":{"FR":[{"value":"PA","label":"Paris"},{"value":"LY","label":"Lyon"},{"value":"NI","label":"Nice"},{"value":"MA","label":"Marseille"},{"value":"BO","label":"Bordeaux"}]},"shipping_states":{"FR":[{"value":"PA","label":"Paris"},{"value":"LY","label":"Lyon"},{"value":"NI","label":"Nice"},{"value":"MA","label":"Marseille"},{"value":"BO","label":"Bordeaux"}]},"default_country":"US"},"urls":{"privacy":"https://example.com/privacy/:lang","terms":"https://example.com/terms/:lang"}},"market:id:ZKcv13rT":{"links":{"cart":"https://example.com/custom-cart/:order_id?accessToken=:access_token"},"checkout":{"thankyou_page":"https://example.com/thanks/:order_id"}}}}"```
+	 */
+	config?: Nullable<Record<string, any>>
 	
 }
 
@@ -202,67 +262,55 @@ interface OrganizationCreate extends ResourceCreate {
 interface OrganizationUpdate extends ResourceUpdate {
 	
 	/** 
-	 * The organization's internal name..
+	 * The organization's internal name.
 	 * @example ```"The Blue Brand"```
 	 */
 	name?: Nullable<string>
 	/** 
-	 * The organization's configuration..
-	 * @example ```"{"mfe":{"default":{"links":{"cart":"https://cart.example.com/:order_id?accessToken=:access_token","checkout":"https://checkout.example.com/:order_id?accessToken=:accessToken","identity":"https://example.com/login","microstore":"https://example.com/microstore/?accessToken=:access_token","my_account":"https://example.com/my-custom-account?accessToken=:access_token"},"checkout":{"thankyou_page":"https://example.com/thanks/:lang/:orderId","billing_countries":[{"value":"ES","label":"Espana"},{"value":"IT","label":"Italia"},{"value":"US","label":"Unites States of America"}],"shipping_countries":[{"value":"ES","label":"Espana"},{"value":"IT","label":"Italia"},{"value":"US","label":"Unites States of America"}],"billing_states":{"FR":[{"value":"PA","label":"Paris"},{"value":"LY","label":"Lyon"},{"value":"NI","label":"Nice"},{"value":"MA","label":"Marseille"},{"value":"BO","label":"Bordeaux"}]},"shipping_states":{"FR":[{"value":"PA","label":"Paris"},{"value":"LY","label":"Lyon"},{"value":"NI","label":"Nice"},{"value":"MA","label":"Marseille"},{"value":"BO","label":"Bordeaux"}]},"default_country":"US"},"urls":{"privacy":"https://example.com/privacy/:lang","terms":"https://example.com/terms/:lang"}},"market:id:ZKcv13rT":{"links":{"cart":"https://example.com/custom-cart/:order_id?accessToken=:access_token"},"checkout":{"thankyou_page":"https://example.com/thanks/:order_id"}}}}"```
-	 */
-	config?: Nullable<Record<string, any>>
-	/** 
-	 * The organization's support phone..
+	 * The organization's support phone.
 	 * @example ```"+01 30800857"```
 	 */
 	support_phone?: Nullable<string>
 	/** 
-	 * The organization's support email..
+	 * The organization's support email.
 	 * @example ```"support@bluebrand.com"```
 	 */
 	support_email?: Nullable<string>
 	/** 
-	 * The URL to the organization's logo..
+	 * The URL to the organization's logo.
 	 * @example ```"https://bluebrand.com/img/logo.svg"```
 	 */
 	logo_url?: Nullable<string>
 	/** 
-	 * The URL to the organization's favicon..
+	 * The URL to the organization's favicon.
 	 * @example ```"https://bluebrand.com/img/favicon.ico"```
 	 */
 	favicon_url?: Nullable<string>
 	/** 
-	 * The organization's primary color. Format is HEX (starts with `#` and it's followed by six letters and/or numbers)..
+	 * The organization's primary color.
 	 * @example ```"#C8984E"```
 	 */
 	primary_color?: Nullable<string>
 	/** 
-	 * The organization's contrast color. Format is HEX (starts with `#` and it's followed by six letters and/or numbers)..
+	 * The organization's contrast color. Format is HEX (starts with `#` and is followed by six letters and/or numbers).
 	 * @example ```"#FFFFCC"```
 	 */
 	contrast_color?: Nullable<string>
 	/** 
-	 * The organization's Google Tag Manager ID..
+	 * The organization's Google Tag Manager ID.
 	 * @example ```"GTM-5FJXX6"```
 	 */
 	gtm_id?: Nullable<string>
 	/** 
-	 * The organization's Google Tag Manager ID for test..
+	 * The organization's Google Tag Manager ID for test.
 	 * @example ```"GTM-5FJXX7"```
 	 */
 	gtm_id_test?: Nullable<string>
 	/** 
-	 * Indicates if organization has discount disabled..
+	 * The organization's configuration.
+	 * @example ```"{"mfe":{"default":{"links":{"cart":"https://cart.example.com/:order_id?accessToken=:access_token","checkout":"https://checkout.example.com/:order_id?accessToken=:access_token","identity":"https://example.com/login","microstore":"https://example.com/microstore/?accessToken=:access_token","my_account":"https://example.com/my-custom-account?accessToken=:access_token"},"checkout":{"thankyou_page":"https://example.com/thanks/:lang/:order_id","billing_countries":[{"value":"ES","label":"Espana"},{"value":"IT","label":"Italia"},{"value":"US","label":"Unites States of America"}],"shipping_countries":[{"value":"ES","label":"Espana"},{"value":"IT","label":"Italia"},{"value":"US","label":"Unites States of America"}],"billing_states":{"FR":[{"value":"PA","label":"Paris"},{"value":"LY","label":"Lyon"},{"value":"NI","label":"Nice"},{"value":"MA","label":"Marseille"},{"value":"BO","label":"Bordeaux"}]},"shipping_states":{"FR":[{"value":"PA","label":"Paris"},{"value":"LY","label":"Lyon"},{"value":"NI","label":"Nice"},{"value":"MA","label":"Marseille"},{"value":"BO","label":"Bordeaux"}]},"default_country":"US"},"urls":{"privacy":"https://example.com/privacy/:lang","terms":"https://example.com/terms/:lang"}},"market:id:ZKcv13rT":{"links":{"cart":"https://example.com/custom-cart/:order_id?accessToken=:access_token"},"checkout":{"thankyou_page":"https://example.com/thanks/:order_id"}}}}"```
 	 */
-	discount_disabled?: Nullable<boolean>
-	/** 
-	 * Indicates if organization has account disabled..
-	 */
-	account_disabled?: Nullable<boolean>
-	/** 
-	 * Indicates if organization has acceptance disabled..
-	 */
-	acceptance_disabled?: Nullable<boolean>
+	config?: Nullable<Record<string, any>>
 	
 }
 

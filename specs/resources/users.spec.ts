@@ -18,7 +18,7 @@ beforeAll(async () => { clp = await getClient() })
 
 describe('Users resource', () => {
 
-  const resourceType = 'user'
+  const resourceType = 'users'
 
 
   /* spec.update.start */

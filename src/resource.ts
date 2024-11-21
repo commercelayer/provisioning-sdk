@@ -148,7 +148,7 @@ class ResourceAdapter {
 
 
 
-	async retrieve<R extends Resource>(resource: ResourceId | ResourceType, params?: QueryParamsRetrieve<R>, options?: ResourcesConfig): Promise<R> {
+	async retrieve<R extends Resource>(resource: ResourceId | ResourceType, params?: QueryParamsRetrieve<R>, options?: ResourcesConfig, path?: string): Promise<R> {
 
 		const singleton = !('id' in resource) || CommerceLayerProvisioningStatic.isSingleton(resource.type)
 
@@ -157,9 +157,9 @@ class ResourceAdapter {
 		const queryParams = generateQueryStringParams(params, resource)
 		if (options?.params) Object.assign(queryParams, options?.params)
 
-		const path = `${resource.type}${singleton? '' : `/${resource.id}`}`
+		const retrievePath = `${path || resource.type}${singleton? '' : `/${resource.id}`}`
 
-		const res: DocWithData = await this.#client.request('GET', path, undefined, { ...options, params: queryParams })
+		const res: DocWithData = await this.#client.request('GET', retrievePath, undefined, { ...options, params: queryParams })
 		const r = denormalize<R>(res) as R
 
 		return r
@@ -295,6 +295,11 @@ abstract class ApiResourceBase<R extends Resource> {
 
 	abstract type(): ResourceTypeLock
 
+	protected path(): string {
+		return this.type()
+	}
+	
+
 	parse(resource: string): R | R[] {
 		try {
 			const res = JSON.parse(resource)
@@ -337,7 +342,7 @@ abstract class ApiResource<R extends Resource> extends ApiResourceBase<R> {
 abstract class ApiSingleton<R extends Resource> extends ApiResourceBase<R> {
 
 	async retrieve(params?: QueryParamsRetrieve<R>, options?: ResourcesConfig): Promise<R> {
-		return this.resources.retrieve<R>({ type: this.type() }, params, options)
+		return this.resources.retrieve<R>({ type: this.type() }, params, options, this.path())
 	}
 
 }

@@ -40,21 +40,6 @@ const fixRedundantComponents = (schema: ApiSchema): ApiSchema => {
 }
 
 
-const fixSchema = async (schema: ApiSchema): Promise<ApiSchema> => {
-
-	console.log('Fixing parsed schema...')
-
-	let fixedSchema = schema
-	fixedSchema = fixRedundantComponents(fixedSchema)
-	fixedSchema = await enrichSchema(fixedSchema)
-
-	console.log('Schema fixed.')
-
-	return fixedSchema
-
-}
-
-
 const enrichSchema = async (schema: ApiSchema): Promise<ApiSchema> => {
 
 	const resourcesInfo = CONFIG.LOCAL? resSchema.load() : await resSchema.download()
@@ -105,6 +90,39 @@ const fixHeadingEmptyLines = (lines: string[]): string[] => {
 	while ((line = lines[l]).trim() === '') lines.shift()
 
 	return lines
+
+}
+
+
+const fixResourcesType = (schema: ApiSchema): ApiSchema => {
+
+	const resources = {}
+
+	for (const key in schema.resources) {
+		const type = Inflector.pluralize(key)
+		if (type === key) resources[key] = schema.resources[key]
+		else resources[type] = schema.resources[key]
+	}
+
+	schema.resources = resources
+
+	return schema
+
+}
+
+
+export const fixSchema = async (schema: ApiSchema): Promise<ApiSchema> => {
+
+	console.log('Fixing parsed schema...')
+
+	let fixedSchema = schema
+	fixedSchema = fixRedundantComponents(fixedSchema)
+	fixedSchema = await enrichSchema(fixedSchema)
+	fixedSchema = fixResourcesType(fixedSchema)
+
+	console.log('Schema fixed.')
+
+	return fixedSchema
 
 }
 

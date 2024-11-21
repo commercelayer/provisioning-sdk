@@ -5,7 +5,7 @@ import type { QueryParamsRetrieve } from '../query'
 
 
 
-type UserType = 'user'
+type UserType = 'users'
 type UserRel = ResourceRel & { type: UserType }
 
 
@@ -18,27 +18,27 @@ interface User extends Resource {
 	readonly type: UserType
 
 	/** 
-	 * The user email..
+	 * The user email.
 	 * @example ```"user@commercelayer.io"```
 	 */
 	email: string
 	/** 
-	 * The user first name..
+	 * The user first name.
 	 * @example ```"John"```
 	 */
 	first_name: string
 	/** 
-	 * The user last name..
+	 * The user last name.
 	 * @example ```"Doe"```
 	 */
 	last_name: string
 	/** 
-	 * The user preferred timezone..
+	 * The user preferred timezone.
 	 * @example ```"UTC"```
 	 */
 	time_zone?: Nullable<string>
 	/** 
-	 * The user 2FA setting..
+	 * The user 2FA setting.
 	 */
 	otp_required_for_login: boolean
 	
@@ -48,22 +48,22 @@ interface User extends Resource {
 interface UserUpdate extends ResourceUpdate {
 	
 	/** 
-	 * The user email..
+	 * The user email.
 	 * @example ```"user@commercelayer.io"```
 	 */
 	email?: Nullable<string>
 	/** 
-	 * The user first name..
+	 * The user first name.
 	 * @example ```"John"```
 	 */
 	first_name?: Nullable<string>
 	/** 
-	 * The user last name..
+	 * The user last name.
 	 * @example ```"Doe"```
 	 */
 	last_name?: Nullable<string>
 	/** 
-	 * The user preferred timezone..
+	 * The user preferred timezone.
 	 * @example ```"UTC"```
 	 */
 	time_zone?: Nullable<string>
@@ -73,7 +73,7 @@ interface UserUpdate extends ResourceUpdate {
 
 class Users extends ApiSingleton<User> {
 
-	static readonly TYPE: UserType = 'user' as const
+	static readonly TYPE: UserType = 'users' as const
 
 	async update(resource: UserUpdate, params?: QueryParamsRetrieve<User>, options?: ResourcesConfig): Promise<User> {
 		const res = await this.retrieve(params, options)	// JsonAPI requires id in the request body
@@ -97,6 +97,10 @@ class Users extends ApiSingleton<User> {
 
 	type(): UserType {
 		return Users.TYPE
+	}
+
+	path(): string {
+		return 'user'
 	}
 
 }

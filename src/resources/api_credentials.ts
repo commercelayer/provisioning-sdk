@@ -22,52 +22,52 @@ interface ApiCredential extends Resource {
 	readonly type: ApiCredentialType
 
 	/** 
-	 * The API credential internal name..
+	 * The API credential internal name.
 	 * @example ```"My app"```
 	 */
 	name: string
 	/** 
-	 * The API credential kind, can be one of: `webapp`, `sales_channel`, `integration` or the kind of app you want to fork (e.g. `orders`, `imports`, etc.)..
+	 * The API credential kind, can be one of: `webapp`, `sales_channel`, `integration` or the kind of app you want to fork (e.g. `orders`, `imports`, etc.).
 	 * @example ```"sales_channel"```
 	 */
 	kind: string
 	/** 
-	 * Indicates if the API credential it's confidential..
+	 * Indicates if the API credential it's confidential.
 	 * @example ```"true"```
 	 */
 	confidential: boolean
 	/** 
-	 * The API credential redirect URI..
+	 * The API credential redirect URI.
 	 * @example ```"https://bluebrand.com/img/logo.svg"```
 	 */
 	redirect_uri?: Nullable<string>
 	/** 
-	 * The API credential unique ID..
+	 * The API credential unique ID.
 	 * @example ```"xxxx-yyyy-zzzz"```
 	 */
 	client_id: string
 	/** 
-	 * The API credential unique secret..
+	 * The API credential unique secret.
 	 * @example ```"xxxx-yyyy-zzzz"```
 	 */
 	client_secret: string
 	/** 
-	 * The API credential scopes..
+	 * The API credential scopes.
 	 * @example ```"market:all market:9 market:122 market:6 stock_location:6 stock_location:33"```
 	 */
 	scopes: string
 	/** 
-	 * The lifetime of the access token in seconds (min. `7200`, max. `31536000`. Default is `14400` for Sales channels and `7200` for other client types)..
+	 * The lifetime of the access token in seconds (min. `7200`, max. `31536000`. Default is `14400` for Sales channels and `7200` for other client types).
 	 * @example ```"7200"```
 	 */
 	expires_in?: Nullable<number>
 	/** 
-	 * Indicates the environment the resource belongs to (one of `test` or `live`)..
+	 * Indicates the environment the resource belongs to (one of `test` or `live`).
 	 * @example ```"test"```
 	 */
 	mode?: Nullable<string>
 	/** 
-	 * Indicates if the API credential is used to create a custom app (e.g. fork a hosted app)..
+	 * Indicates if the API credential is used to create a custom app (e.g. fork a hosted app).
 	 */
 	custom?: Nullable<boolean>
 
@@ -80,32 +80,32 @@ interface ApiCredential extends Resource {
 interface ApiCredentialCreate extends ResourceCreate {
 	
 	/** 
-	 * The API credential internal name..
+	 * The API credential internal name.
 	 * @example ```"My app"```
 	 */
 	name: string
 	/** 
-	 * The API credential kind, can be one of: `webapp`, `sales_channel`, `integration` or the kind of app you want to fork (e.g. `orders`, `imports`, etc.)..
+	 * The API credential kind, can be one of: `webapp`, `sales_channel`, `integration` or the kind of app you want to fork (e.g. `orders`, `imports`, etc.).
 	 * @example ```"sales_channel"```
 	 */
 	kind: string
 	/** 
-	 * The API credential redirect URI..
+	 * The API credential redirect URI.
 	 * @example ```"https://bluebrand.com/img/logo.svg"```
 	 */
 	redirect_uri?: Nullable<string>
 	/** 
-	 * The lifetime of the access token in seconds (min. `7200`, max. `31536000`. Default is `14400` for Sales channels and `7200` for other client types)..
+	 * The lifetime of the access token in seconds (min. `7200`, max. `31536000`. Default is `14400` for Sales channels and `7200` for other client types).
 	 * @example ```"7200"```
 	 */
 	expires_in?: Nullable<number>
 	/** 
-	 * Indicates the environment the resource belongs to (one of `test` or `live`)..
+	 * Indicates the environment the resource belongs to (one of `test` or `live`).
 	 * @example ```"test"```
 	 */
 	mode?: Nullable<string>
 	/** 
-	 * Indicates if the API credential is used to create a custom app (e.g. fork a hosted app)..
+	 * Indicates if the API credential is used to create a custom app (e.g. fork a hosted app).
 	 */
 	custom?: Nullable<boolean>
 
@@ -118,17 +118,17 @@ interface ApiCredentialCreate extends ResourceCreate {
 interface ApiCredentialUpdate extends ResourceUpdate {
 	
 	/** 
-	 * The API credential internal name..
+	 * The API credential internal name.
 	 * @example ```"My app"```
 	 */
 	name?: Nullable<string>
 	/** 
-	 * The API credential redirect URI..
+	 * The API credential redirect URI.
 	 * @example ```"https://bluebrand.com/img/logo.svg"```
 	 */
 	redirect_uri?: Nullable<string>
 	/** 
-	 * The lifetime of the access token in seconds (min. `7200`, max. `31536000`. Default is `14400` for Sales channels and `7200` for other client types)..
+	 * The lifetime of the access token in seconds (min. `7200`, max. `31536000`. Default is `14400` for Sales channels and `7200` for other client types).
 	 * @example ```"7200"```
 	 */
 	expires_in?: Nullable<number>

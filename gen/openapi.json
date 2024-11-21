@@ -2,7 +2,7 @@
     "openapi": "3.0.1",
     "info": {
         "title": "Commerce Layer Provisioning API",
-        "version": "1.0.4",
+        "version": "1.0.5",
         "contact": {
             "name": "API Support",
             "url": "https://commercelayer.io",
@@ -1701,7 +1701,7 @@
                                         "type": "boolean",
                                         "description": "Indicates if the API credential it's confidential.",
                                         "example": true,
-                                        "nullable": false
+                                        "readOnly": true
                                     },
                                     "redirect_uri": {
                                         "type": "string",
@@ -1713,19 +1713,19 @@
                                         "type": "string",
                                         "description": "The API credential unique ID.",
                                         "example": "xxxx-yyyy-zzzz",
-                                        "nullable": false
+                                        "readOnly": true
                                     },
                                     "client_secret": {
                                         "type": "string",
                                         "description": "The API credential unique secret.",
                                         "example": "xxxx-yyyy-zzzz",
-                                        "nullable": false
+                                        "readOnly": true
                                     },
                                     "scopes": {
                                         "type": "string",
                                         "description": "The API credential scopes.",
                                         "example": "market:all market:9 market:122 market:6 stock_location:6 stock_location:33",
-                                        "nullable": false
+                                        "readOnly": true
                                     },
                                     "expires_in": {
                                         "type": "integer",
@@ -1749,13 +1749,13 @@
                                         "type": "string",
                                         "description": "Time at which the resource was created.",
                                         "example": "2018-01-01T12:00:00.000Z",
-                                        "nullable": false
+                                        "readOnly": true
                                     },
                                     "updated_at": {
                                         "type": "string",
                                         "description": "Time at which the resource was last updated.",
                                         "example": "2018-01-01T12:00:00.000Z",
-                                        "nullable": false
+                                        "readOnly": true
                                     },
                                     "reference": {
                                         "type": "string",
@@ -2226,13 +2226,13 @@
                                         "type": "string",
                                         "description": "Time at which the resource was created.",
                                         "example": "2018-01-01T12:00:00.000Z",
-                                        "nullable": false
+                                        "readOnly": true
                                     },
                                     "updated_at": {
                                         "type": "string",
                                         "description": "Time at which the resource was last updated.",
                                         "example": "2018-01-01T12:00:00.000Z",
-                                        "nullable": false
+                                        "readOnly": true
                                     },
                                     "reference": {
                                         "type": "string",
@@ -2832,19 +2832,19 @@
                                         "type": "string",
                                         "description": "The user first name.",
                                         "example": "John",
-                                        "nullable": false
+                                        "readOnly": true
                                     },
                                     "user_last_name": {
                                         "type": "string",
                                         "description": "The user last name.",
                                         "example": "Doe",
-                                        "nullable": false
+                                        "readOnly": true
                                     },
                                     "status": {
                                         "type": "string",
                                         "description": "The memberships status. One of `pending` (default), `active`.",
                                         "example": "pending",
-                                        "nullable": false,
+                                        "readOnly": true,
                                         "enum": [
                                             "pending",
                                             "active"
@@ -2854,19 +2854,19 @@
                                         "type": "boolean",
                                         "description": "Indicates if the user it's the owner of the organization.",
                                         "example": true,
-                                        "nullable": false
+                                        "readOnly": true
                                     },
                                     "created_at": {
                                         "type": "string",
                                         "description": "Time at which the resource was created.",
                                         "example": "2018-01-01T12:00:00.000Z",
-                                        "nullable": false
+                                        "readOnly": true
                                     },
                                     "updated_at": {
                                         "type": "string",
                                         "description": "Time at which the resource was last updated.",
                                         "example": "2018-01-01T12:00:00.000Z",
-                                        "nullable": false
+                                        "readOnly": true
                                     },
                                     "reference": {
                                         "type": "string",
@@ -3451,13 +3451,93 @@
                                         "type": "string",
                                         "description": "The organization's slug name.",
                                         "example": "the-blue-brand",
-                                        "nullable": false
+                                        "readOnly": true
                                     },
                                     "domain": {
                                         "type": "string",
                                         "description": "The organization's domain.",
                                         "example": "the-blue-brand.commercelayer.io",
-                                        "nullable": false
+                                        "readOnly": true
+                                    },
+                                    "support_phone": {
+                                        "type": "string",
+                                        "description": "The organization's support phone.",
+                                        "example": "+01 30800857",
+                                        "nullable": true
+                                    },
+                                    "support_email": {
+                                        "type": "string",
+                                        "description": "The organization's support email.",
+                                        "example": "support@bluebrand.com",
+                                        "nullable": true
+                                    },
+                                    "logo_url": {
+                                        "type": "string",
+                                        "description": "The URL to the organization's logo.",
+                                        "example": "https://bluebrand.com/img/logo.svg",
+                                        "nullable": true
+                                    },
+                                    "favicon_url": {
+                                        "type": "string",
+                                        "description": "The URL to the organization's favicon.",
+                                        "example": "https://bluebrand.com/img/favicon.ico",
+                                        "nullable": true
+                                    },
+                                    "primary_color": {
+                                        "type": "string",
+                                        "description": "The organization's primary color.",
+                                        "example": "#C8984E",
+                                        "nullable": true
+                                    },
+                                    "contrast_color": {
+                                        "type": "string",
+                                        "description": "The organization's contrast color. Format is HEX (starts with `#` and is followed by six letters and/or numbers).",
+                                        "example": "#FFFFCC",
+                                        "nullable": true
+                                    },
+                                    "gtm_id": {
+                                        "type": "string",
+                                        "description": "The organization's Google Tag Manager ID.",
+                                        "example": "GTM-5FJXX6",
+                                        "nullable": true
+                                    },
+                                    "gtm_id_test": {
+                                        "type": "string",
+                                        "description": "The organization's Google Tag Manager ID for test.",
+                                        "example": "GTM-5FJXX7",
+                                        "nullable": true
+                                    },
+                                    "region": {
+                                        "type": "string",
+                                        "description": "The region where the organization is located. The default value is `eu-west-1`.",
+                                        "example": "eu-west-1",
+                                        "nullable": true
+                                    },
+                                    "can_switch_live": {
+                                        "type": "boolean",
+                                        "description": "Indicates if the organization can switch to live mode.",
+                                        "example": false,
+                                        "readOnly": true
+                                    },
+                                    "subscription_info": {
+                                        "type": "object",
+                                        "description": "Information about the current subscription such as the plan type, limits, and subscription totals counter.",
+                                        "example": {
+                                            "plan_type": "growth",
+                                            "limits": {
+                                                "markets": 5,
+                                                "skus": 10000,
+                                                "organizations": 2,
+                                                "memberships": 5
+                                            },
+                                            "totals": {
+                                                "organizations": 1,
+                                                "markets": 0,
+                                                "memberships": 2,
+                                                "skus": 0
+                                            }
+                                        },
+                                        "readOnly": true
                                     },
                                     "config": {
                                         "type": "object",
@@ -3467,13 +3547,13 @@
                                                 "default": {
                                                     "links": {
                                                         "cart": "https://cart.example.com/:order_id?accessToken=:access_token",
-                                                        "checkout": "https://checkout.example.com/:order_id?accessToken=:accessToken",
+                                                        "checkout": "https://checkout.example.com/:order_id?accessToken=:access_token",
                                                         "identity": "https://example.com/login",
                                                         "microstore": "https://example.com/microstore/?accessToken=:access_token",
                                                         "my_account": "https://example.com/my-custom-account?accessToken=:access_token"
                                                     },
                                                     "checkout": {
-                                                        "thankyou_page": "https://example.com/thanks/:lang/:orderId",
+                                                        "thankyou_page": "https://example.com/thanks/:lang/:order_id",
                                                         "billing_countries": [
                                                             {
                                                                 "value": "ES",
@@ -3569,127 +3649,137 @@
                                         },
                                         "nullable": true
                                     },
-                                    "support_phone": {
-                                        "type": "string",
-                                        "description": "The organization's support phone.",
-                                        "example": "+01 30800857",
-                                        "nullable": true
-                                    },
-                                    "support_email": {
-                                        "type": "string",
-                                        "description": "The organization's support email.",
-                                        "example": "support@bluebrand.com",
-                                        "nullable": true
-                                    },
-                                    "logo_url": {
-                                        "type": "string",
-                                        "description": "The URL to the organization's logo.",
-                                        "example": "https://bluebrand.com/img/logo.svg",
-                                        "nullable": true
-                                    },
-                                    "favicon_url": {
-                                        "type": "string",
-                                        "description": "The URL to the organization's favicon.",
-                                        "example": "https://bluebrand.com/img/favicon.ico",
-                                        "nullable": true
-                                    },
-                                    "primary_color": {
-                                        "type": "string",
-                                        "description": "The organization's primary color. Format is HEX (starts with `#` and it's followed by six letters and/or numbers).",
-                                        "example": "#C8984E",
-                                        "nullable": true
-                                    },
-                                    "contrast_color": {
-                                        "type": "string",
-                                        "description": "The organization's contrast color. Format is HEX (starts with `#` and it's followed by six letters and/or numbers).",
-                                        "example": "#FFFFCC",
-                                        "nullable": true
-                                    },
-                                    "gtm_id": {
-                                        "type": "string",
-                                        "description": "The organization's Google Tag Manager ID.",
-                                        "example": "GTM-5FJXX6",
-                                        "nullable": true
-                                    },
-                                    "gtm_id_test": {
-                                        "type": "string",
-                                        "description": "The organization's Google Tag Manager ID for test.",
-                                        "example": "GTM-5FJXX7",
-                                        "nullable": true
-                                    },
-                                    "discount_disabled": {
+                                    "api_auth_redirect": {
                                         "type": "boolean",
-                                        "description": "Indicates if organization has discount disabled.",
-                                        "example": false,
-                                        "nullable": true
+                                        "description": "Enables the redirect on the new Auth API.",
+                                        "example": true,
+                                        "readOnly": true
                                     },
-                                    "account_disabled": {
+                                    "api_rules_engine": {
                                         "type": "boolean",
-                                        "description": "Indicates if organization has account disabled.",
+                                        "description": "Enables the rules engine for flex promotions and price list rules.",
                                         "example": false,
-                                        "nullable": true
+                                        "readOnly": true
                                     },
-                                    "acceptance_disabled": {
+                                    "addresses_phone_required": {
                                         "type": "boolean",
-                                        "description": "Indicates if organization has acceptance disabled.",
-                                        "example": false,
-                                        "nullable": true
+                                        "description": "Indicates if the phone attribute is required for addresses, default is true.",
+                                        "example": true,
+                                        "readOnly": true
                                     },
-                                    "max_concurrent_promotions": {
+                                    "orders_autorefresh_cutoff_test": {
                                         "type": "integer",
-                                        "description": "The maximum number of active concurrent promotions allowed for your organization.",
+                                        "description": "The maximum number line items allowed for a test order before disabling the autorefresh option.",
+                                        "example": 50,
+                                        "readOnly": true
+                                    },
+                                    "orders_autorefresh_cutoff_live": {
+                                        "type": "integer",
+                                        "description": "The maximum number line items allowed for a live order before disabling the autorefresh option.",
+                                        "example": 500,
+                                        "readOnly": true
+                                    },
+                                    "orders_number_editable_test": {
+                                        "type": "boolean",
+                                        "description": "Enables orders number editing as a string in test (for enterprise plans only).",
+                                        "example": false,
+                                        "readOnly": true
+                                    },
+                                    "orders_number_editable_live": {
+                                        "type": "boolean",
+                                        "description": "Enables orders number editing as a string in live (for enterprise plans only).",
+                                        "example": false,
+                                        "readOnly": true
+                                    },
+                                    "orders_number_as_reference": {
+                                        "type": "boolean",
+                                        "description": "Enables to use the order number as payment reference on supported gateways.",
+                                        "example": true,
+                                        "readOnly": true
+                                    },
+                                    "bundles_max_items_count": {
+                                        "type": "integer",
+                                        "description": "The maximum number of SKUs allowed for bundles, default is 10.",
                                         "example": 10,
-                                        "nullable": false
+                                        "readOnly": true
                                     },
-                                    "max_concurrent_imports": {
+                                    "coupons_min_code_length": {
                                         "type": "integer",
-                                        "description": "The maximum number of concurrent imports allowed for your organization.",
-                                        "example": 30,
-                                        "nullable": false
+                                        "description": "The minimum length for coupon code, default is 8.",
+                                        "example": 8,
+                                        "readOnly": true
                                     },
-                                    "region": {
-                                        "type": "string",
-                                        "description": "The region where the organization it's located, default value it's `eu-west-1`.",
-                                        "example": "eu-west-1",
-                                        "nullable": true
+                                    "coupons_max_code_length": {
+                                        "type": "integer",
+                                        "description": "The maximum length for coupon code, default is 40.",
+                                        "example": 40,
+                                        "readOnly": true
                                     },
-                                    "can_switch_live": {
+                                    "gift_cards_min_code_length": {
+                                        "type": "integer",
+                                        "description": "The minimum length for gift card code, default is 8.",
+                                        "example": 8,
+                                        "readOnly": true
+                                    },
+                                    "gift_cards_max_code_length": {
+                                        "type": "integer",
+                                        "description": "The maximum length for gift card code, default is 40.",
+                                        "example": 40,
+                                        "readOnly": true
+                                    },
+                                    "cleanups_max_concurrent_count": {
+                                        "type": "integer",
+                                        "description": "The maximum number of concurrent cleanups allowed for your organization, default is 10.",
+                                        "example": 10,
+                                        "readOnly": true
+                                    },
+                                    "exports_max_concurrent_count": {
+                                        "type": "integer",
+                                        "description": "The maximum number of concurrent exports allowed for your organization, default is 10.",
+                                        "example": 10,
+                                        "readOnly": true
+                                    },
+                                    "imports_max_concurrent_count": {
+                                        "type": "integer",
+                                        "description": "The maximum number of concurrent imports allowed for your organization, default is 10.",
+                                        "example": 10,
+                                        "readOnly": true
+                                    },
+                                    "promotions_max_concurrent_count": {
+                                        "type": "integer",
+                                        "description": "The maximum number of active concurrent promotions allowed for your organization, default is 10.",
+                                        "example": 10,
+                                        "readOnly": true
+                                    },
+                                    "imports_trigger_webhooks": {
+                                        "type": "integer",
+                                        "description": "Enables triggering of webhooks during imports, default is false.",
+                                        "example": 0,
+                                        "readOnly": true
+                                    },
+                                    "tax_calculators_errors": {
                                         "type": "boolean",
-                                        "description": "Indicates if the organization can switch to live mode.",
+                                        "description": "Enables raising of API errors in case of tax calculation failure, default is false.",
                                         "example": false,
-                                        "nullable": false
+                                        "readOnly": true
                                     },
-                                    "subscription_info": {
-                                        "type": "object",
-                                        "description": "Information about the current subscription such as the plan type, limits and subscription totals counter.",
-                                        "example": {
-                                            "plan_type": "growth",
-                                            "limits": {
-                                                "markets": 5,
-                                                "skus": 10000,
-                                                "organizations": 2,
-                                                "memberships": 5
-                                            },
-                                            "totals": {
-                                                "organizations": 1,
-                                                "markets": 0,
-                                                "memberships": 2,
-                                                "skus": 0
-                                            }
-                                        },
-                                        "nullable": false
+                                    "external_promotions_errors": {
+                                        "type": "boolean",
+                                        "description": "Enables raising of API errors in case of external promotion failure, default is false.",
+                                        "example": false,
+                                        "readOnly": true
                                     },
                                     "created_at": {
                                         "type": "string",
                                         "description": "Time at which the resource was created.",
                                         "example": "2018-01-01T12:00:00.000Z",
-                                        "nullable": false
+                                        "readOnly": true
                                     },
                                     "updated_at": {
                                         "type": "string",
                                         "description": "Time at which the resource was last updated.",
                                         "example": "2018-01-01T12:00:00.000Z",
-                                        "nullable": false
+                                        "readOnly": true
                                     },
                                     "reference": {
                                         "type": "string",
@@ -3838,6 +3928,51 @@
                                         "description": "The organization's internal name.",
                                         "example": "The Blue Brand"
                                     },
+                                    "support_phone": {
+                                        "type": "string",
+                                        "description": "The organization's support phone.",
+                                        "example": "+01 30800857"
+                                    },
+                                    "support_email": {
+                                        "type": "string",
+                                        "description": "The organization's support email.",
+                                        "example": "support@bluebrand.com"
+                                    },
+                                    "logo_url": {
+                                        "type": "string",
+                                        "description": "The URL to the organization's logo.",
+                                        "example": "https://bluebrand.com/img/logo.svg"
+                                    },
+                                    "favicon_url": {
+                                        "type": "string",
+                                        "description": "The URL to the organization's favicon.",
+                                        "example": "https://bluebrand.com/img/favicon.ico"
+                                    },
+                                    "primary_color": {
+                                        "type": "string",
+                                        "description": "The organization's primary color.",
+                                        "example": "#C8984E"
+                                    },
+                                    "contrast_color": {
+                                        "type": "string",
+                                        "description": "The organization's contrast color. Format is HEX (starts with `#` and is followed by six letters and/or numbers).",
+                                        "example": "#FFFFCC"
+                                    },
+                                    "gtm_id": {
+                                        "type": "string",
+                                        "description": "The organization's Google Tag Manager ID.",
+                                        "example": "GTM-5FJXX6"
+                                    },
+                                    "gtm_id_test": {
+                                        "type": "string",
+                                        "description": "The organization's Google Tag Manager ID for test.",
+                                        "example": "GTM-5FJXX7"
+                                    },
+                                    "region": {
+                                        "type": "string",
+                                        "description": "The region where the organization is located. The default value is `eu-west-1`.",
+                                        "example": "eu-west-1"
+                                    },
                                     "config": {
                                         "type": "object",
                                         "description": "The organization's configuration.",
@@ -3846,13 +3981,13 @@
                                                 "default": {
                                                     "links": {
                                                         "cart": "https://cart.example.com/:order_id?accessToken=:access_token",
-                                                        "checkout": "https://checkout.example.com/:order_id?accessToken=:accessToken",
+                                                        "checkout": "https://checkout.example.com/:order_id?accessToken=:access_token",
                                                         "identity": "https://example.com/login",
                                                         "microstore": "https://example.com/microstore/?accessToken=:access_token",
                                                         "my_account": "https://example.com/my-custom-account?accessToken=:access_token"
                                                     },
                                                     "checkout": {
-                                                        "thankyou_page": "https://example.com/thanks/:lang/:orderId",
+                                                        "thankyou_page": "https://example.com/thanks/:lang/:order_id",
                                                         "billing_countries": [
                                                             {
                                                                 "value": "ES",
@@ -3947,66 +4082,6 @@
                                             }
                                         }
                                     },
-                                    "support_phone": {
-                                        "type": "string",
-                                        "description": "The organization's support phone.",
-                                        "example": "+01 30800857"
-                                    },
-                                    "support_email": {
-                                        "type": "string",
-                                        "description": "The organization's support email.",
-                                        "example": "support@bluebrand.com"
-                                    },
-                                    "logo_url": {
-                                        "type": "string",
-                                        "description": "The URL to the organization's logo.",
-                                        "example": "https://bluebrand.com/img/logo.svg"
-                                    },
-                                    "favicon_url": {
-                                        "type": "string",
-                                        "description": "The URL to the organization's favicon.",
-                                        "example": "https://bluebrand.com/img/favicon.ico"
-                                    },
-                                    "primary_color": {
-                                        "type": "string",
-                                        "description": "The organization's primary color. Format is HEX (starts with `#` and it's followed by six letters and/or numbers).",
-                                        "example": "#C8984E"
-                                    },
-                                    "contrast_color": {
-                                        "type": "string",
-                                        "description": "The organization's contrast color. Format is HEX (starts with `#` and it's followed by six letters and/or numbers).",
-                                        "example": "#FFFFCC"
-                                    },
-                                    "gtm_id": {
-                                        "type": "string",
-                                        "description": "The organization's Google Tag Manager ID.",
-                                        "example": "GTM-5FJXX6"
-                                    },
-                                    "gtm_id_test": {
-                                        "type": "string",
-                                        "description": "The organization's Google Tag Manager ID for test.",
-                                        "example": "GTM-5FJXX7"
-                                    },
-                                    "discount_disabled": {
-                                        "type": "boolean",
-                                        "description": "Indicates if organization has discount disabled.",
-                                        "example": false
-                                    },
-                                    "account_disabled": {
-                                        "type": "boolean",
-                                        "description": "Indicates if organization has account disabled.",
-                                        "example": false
-                                    },
-                                    "acceptance_disabled": {
-                                        "type": "boolean",
-                                        "description": "Indicates if organization has acceptance disabled.",
-                                        "example": false
-                                    },
-                                    "region": {
-                                        "type": "string",
-                                        "description": "The region where the organization it's located, default value it's `eu-west-1`.",
-                                        "example": "eu-west-1"
-                                    },
                                     "reference": {
                                         "type": "string",
                                         "description": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
@@ -4072,6 +4147,54 @@
                                         "example": "The Blue Brand",
                                         "nullable": false
                                     },
+                                    "support_phone": {
+                                        "type": "string",
+                                        "description": "The organization's support phone.",
+                                        "example": "+01 30800857",
+                                        "nullable": true
+                                    },
+                                    "support_email": {
+                                        "type": "string",
+                                        "description": "The organization's support email.",
+                                        "example": "support@bluebrand.com",
+                                        "nullable": true
+                                    },
+                                    "logo_url": {
+                                        "type": "string",
+                                        "description": "The URL to the organization's logo.",
+                                        "example": "https://bluebrand.com/img/logo.svg",
+                                        "nullable": true
+                                    },
+                                    "favicon_url": {
+                                        "type": "string",
+                                        "description": "The URL to the organization's favicon.",
+                                        "example": "https://bluebrand.com/img/favicon.ico",
+                                        "nullable": true
+                                    },
+                                    "primary_color": {
+                                        "type": "string",
+                                        "description": "The organization's primary color.",
+                                        "example": "#C8984E",
+                                        "nullable": true
+                                    },
+                                    "contrast_color": {
+                                        "type": "string",
+                                        "description": "The organization's contrast color. Format is HEX (starts with `#` and is followed by six letters and/or numbers).",
+                                        "example": "#FFFFCC",
+                                        "nullable": true
+                                    },
+                                    "gtm_id": {
+                                        "type": "string",
+                                        "description": "The organization's Google Tag Manager ID.",
+                                        "example": "GTM-5FJXX6",
+                                        "nullable": true
+                                    },
+                                    "gtm_id_test": {
+                                        "type": "string",
+                                        "description": "The organization's Google Tag Manager ID for test.",
+                                        "example": "GTM-5FJXX7",
+                                        "nullable": true
+                                    },
                                     "config": {
                                         "type": "object",
                                         "description": "The organization's configuration.",
@@ -4080,13 +4203,13 @@
                                                 "default": {
                                                     "links": {
                                                         "cart": "https://cart.example.com/:order_id?accessToken=:access_token",
-                                                        "checkout": "https://checkout.example.com/:order_id?accessToken=:accessToken",
+                                                        "checkout": "https://checkout.example.com/:order_id?accessToken=:access_token",
                                                         "identity": "https://example.com/login",
                                                         "microstore": "https://example.com/microstore/?accessToken=:access_token",
                                                         "my_account": "https://example.com/my-custom-account?accessToken=:access_token"
                                                     },
                                                     "checkout": {
-                                                        "thankyou_page": "https://example.com/thanks/:lang/:orderId",
+                                                        "thankyou_page": "https://example.com/thanks/:lang/:order_id",
                                                         "billing_countries": [
                                                             {
                                                                 "value": "ES",
@@ -4181,72 +4304,6 @@
                                             }
                                         },
                                         "nullable": true
-                                    },
-                                    "support_phone": {
-                                        "type": "string",
-                                        "description": "The organization's support phone.",
-                                        "example": "+01 30800857",
-                                        "nullable": true
-                                    },
-                                    "support_email": {
-                                        "type": "string",
-                                        "description": "The organization's support email.",
-                                        "example": "support@bluebrand.com",
-                                        "nullable": true
-                                    },
-                                    "logo_url": {
-                                        "type": "string",
-                                        "description": "The URL to the organization's logo.",
-                                        "example": "https://bluebrand.com/img/logo.svg",
-                                        "nullable": true
-                                    },
-                                    "favicon_url": {
-                                        "type": "string",
-                                        "description": "The URL to the organization's favicon.",
-                                        "example": "https://bluebrand.com/img/favicon.ico",
-                                        "nullable": true
-                                    },
-                                    "primary_color": {
-                                        "type": "string",
-                                        "description": "The organization's primary color. Format is HEX (starts with `#` and it's followed by six letters and/or numbers).",
-                                        "example": "#C8984E",
-                                        "nullable": true
-                                    },
-                                    "contrast_color": {
-                                        "type": "string",
-                                        "description": "The organization's contrast color. Format is HEX (starts with `#` and it's followed by six letters and/or numbers).",
-                                        "example": "#FFFFCC",
-                                        "nullable": true
-                                    },
-                                    "gtm_id": {
-                                        "type": "string",
-                                        "description": "The organization's Google Tag Manager ID.",
-                                        "example": "GTM-5FJXX6",
-                                        "nullable": true
-                                    },
-                                    "gtm_id_test": {
-                                        "type": "string",
-                                        "description": "The organization's Google Tag Manager ID for test.",
-                                        "example": "GTM-5FJXX7",
-                                        "nullable": true
-                                    },
-                                    "discount_disabled": {
-                                        "type": "boolean",
-                                        "description": "Indicates if organization has discount disabled.",
-                                        "example": false,
-                                        "nullable": false
-                                    },
-                                    "account_disabled": {
-                                        "type": "boolean",
-                                        "description": "Indicates if organization has account disabled.",
-                                        "example": false,
-                                        "nullable": false
-                                    },
-                                    "acceptance_disabled": {
-                                        "type": "boolean",
-                                        "description": "Indicates if organization has acceptance disabled.",
-                                        "example": false,
-                                        "nullable": false
                                     },
                                     "reference": {
                                         "type": "string",
@@ -4520,19 +4577,19 @@
                                         "example": {
                                             "foo": "bar"
                                         },
-                                        "nullable": false
+                                        "readOnly": true
                                     },
                                     "created_at": {
                                         "type": "string",
                                         "description": "Time at which the resource was created.",
                                         "example": "2018-01-01T12:00:00.000Z",
-                                        "nullable": false
+                                        "readOnly": true
                                     },
                                     "updated_at": {
                                         "type": "string",
                                         "description": "Time at which the resource was last updated.",
                                         "example": "2018-01-01T12:00:00.000Z",
-                                        "nullable": false
+                                        "readOnly": true
                                     },
                                     "reference": {
                                         "type": "string",
@@ -5007,19 +5064,19 @@
                                         "type": "string",
                                         "description": "The kind of role, one of: `custom`, `admin`, `read_only`",
                                         "example": "custom",
-                                        "nullable": false
+                                        "readOnly": true
                                     },
                                     "created_at": {
                                         "type": "string",
                                         "description": "Time at which the resource was created.",
                                         "example": "2018-01-01T12:00:00.000Z",
-                                        "nullable": false
+                                        "readOnly": true
                                     },
                                     "updated_at": {
                                         "type": "string",
                                         "description": "Time at which the resource was last updated.",
                                         "example": "2018-01-01T12:00:00.000Z",
-                                        "nullable": false
+                                        "readOnly": true
                                     },
                                     "reference": {
                                         "type": "string",
@@ -5582,19 +5639,19 @@
                                         "type": "boolean",
                                         "description": "The user 2FA setting.",
                                         "example": false,
-                                        "nullable": false
+                                        "readOnly": true
                                     },
                                     "created_at": {
                                         "type": "string",
                                         "description": "Time at which the resource was created.",
                                         "example": "2018-01-01T12:00:00.000Z",
-                                        "nullable": false
+                                        "readOnly": true
                                     },
                                     "updated_at": {
                                         "type": "string",
                                         "description": "Time at which the resource was last updated.",
                                         "example": "2018-01-01T12:00:00.000Z",
-                                        "nullable": false
+                                        "readOnly": true
                                     },
                                     "reference": {
                                         "type": "string",
@@ -5782,19 +5839,19 @@
                                         "type": "string",
                                         "description": "The type of the versioned resource.",
                                         "example": "roles",
-                                        "nullable": false
+                                        "readOnly": true
                                     },
                                     "resource_id": {
                                         "type": "string",
                                         "description": "The versioned resource ID.",
                                         "example": "PzdJhdLdYV",
-                                        "nullable": false
+                                        "readOnly": true
                                     },
                                     "event": {
                                         "type": "string",
                                         "description": "The event which generates the version.",
                                         "example": "update",
-                                        "nullable": false
+                                        "readOnly": true
                                     },
                                     "changes": {
                                         "type": "object",
@@ -5805,7 +5862,7 @@
                                                 "new"
                                             ]
                                         },
-                                        "nullable": false
+                                        "readOnly": true
                                     },
                                     "who": {
                                         "type": "object",
@@ -5817,19 +5874,19 @@
                                                 "public": true
                                             }
                                         },
-                                        "nullable": false
+                                        "readOnly": true
                                     },
                                     "created_at": {
                                         "type": "string",
                                         "description": "Time at which the resource was created.",
                                         "example": "2018-01-01T12:00:00.000Z",
-                                        "nullable": false
+                                        "readOnly": true
                                     },
                                     "updated_at": {
                                         "type": "string",
                                         "description": "Time at which the resource was last updated.",
                                         "example": "2018-01-01T12:00:00.000Z",
-                                        "nullable": false
+                                        "readOnly": true
                                     },
                                     "reference": {
                                         "type": "string",
