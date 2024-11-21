@@ -1,3 +1,15 @@
+# [2.2.0](https://github.com/commercelayer/provisioning-sdk/compare/v2.1.2...v2.2.0) (2024-11-21)
+
+
+### Bug Fixes
+
+* fix singleton specs ([0bf06a3](https://github.com/commercelayer/provisioning-sdk/commit/0bf06a3dcb132808a9d640e927b33f7cab9c21e7))
+
+
+### Features
+
+* update resources to schema 1.0.5 ([f183a9d](https://github.com/commercelayer/provisioning-sdk/commit/f183a9d5974a1835b634057db8981b4b1ee18eae))
+
 ## [2.1.2](https://github.com/commercelayer/provisioning-sdk/compare/v2.1.1...v2.1.2) (2024-10-30)
 
 
