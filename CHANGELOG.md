@@ -1,3 +1,10 @@
+## [2.1.2](https://github.com/commercelayer/provisioning-sdk/compare/v2.1.1...v2.1.2) (2024-10-30)
+
+
+### Bug Fixes
+
+* fix query filters check ([aa2222c](https://github.com/commercelayer/provisioning-sdk/commit/aa2222cbccaee01d719164154022c8ccf286587c))
+
 ## [2.1.1](https://github.com/commercelayer/provisioning-sdk/compare/v2.1.0...v2.1.1) (2024-08-29)
 
 
