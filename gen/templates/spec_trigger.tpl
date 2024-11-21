@@ -10,12 +10,12 @@ it(resourceType + '.##__OPERATION_NAME__##', async () => {
 
 	const intId = clp.addRequestInterceptor((request) => {
 		expect(request.options.method).toBe('PATCH')
-		checkCommon(request, resourceType, id, currentAccessToken)
+		checkCommon(request, resourcePath, id, currentAccessToken)
 		checkCommonData(request, resourceType, attributes, id)
 		return interceptRequest()
 	})
 
-	await clp[resourceType].##__OPERATION_NAME__##(##__TRIGGER_PARAMS__##, {}, CommonData.options)
+	await clp[resourcePath].##__OPERATION_NAME__##(##__TRIGGER_PARAMS__##, {}, CommonData.options)
 		.catch(handleError)
 		.finally(() => clp.removeInterceptor('request', intId))
 

@@ -19,6 +19,7 @@ beforeAll(async () => { clp = await getClient() })
 describe('Versions resource', () => {
 
   const resourceType = 'versions'
+  const resourcePath = 'versions'
 
 
   /* spec.retrieve.start */
@@ -29,12 +30,12 @@ describe('Versions resource', () => {
 
     const intId = clp.addRequestInterceptor((request) => {
       expect(request.options.method).toBe('GET')
-      checkCommon(request, resourceType, id, currentAccessToken)
+      checkCommon(request, resourcePath, id, currentAccessToken)
       checkCommonParams(request, params)
      return interceptRequest()
     })
 
-    await clp[resourceType].retrieve(id, params, CommonData.options)
+    await clp[resourcePath].retrieve(id, params, CommonData.options)
       .then((res: Version) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => clp.removeInterceptor('request', intId))
@@ -50,12 +51,12 @@ describe('Versions resource', () => {
 
     const intId = clp.addRequestInterceptor((request) => {
       expect(request.options.method).toBe('GET')
-      checkCommon(request, resourceType)
+      checkCommon(request, resourcePath)
       checkCommonParamsList(request, params)
       return interceptRequest()
     })
 
-    await clp[resourceType].list(params, CommonData.options)
+    await clp[resourcePath].list(params, CommonData.options)
       .catch(handleError)
       .finally(() => clp.removeInterceptor('request', intId))
     
@@ -67,9 +68,9 @@ describe('Versions resource', () => {
   it(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(clp[resourceType].isVersion(resource)).toBeTruthy()
+    expect(clp[resourcePath].isVersion(resource)).toBeTruthy()
 
-    const type = clp[resourceType].type()
+    const type = clp[resourcePath].type()
     expect(type).toBe(resourceType)
 
   })
@@ -79,10 +80,10 @@ describe('Versions resource', () => {
   /* spec.relationship.start */
   it(resourceType + '.relationship', async () => {
 
-    const relId = clp[resourceType].relationship(TestData.id)
+    const relId = clp[resourcePath].relationship(TestData.id)
     expect(isEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = clp[resourceType].relationship({ id: TestData.id, type: resourceType })
+    const relResId = clp[resourcePath].relationship({ id: TestData.id, type: resourceType })
     expect(isEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -116,7 +117,7 @@ describe('Versions resource', () => {
     }
     `
 
-    const res = clp[resourceType].parse(payload) as Version
+    const res = clp[resourcePath].parse(payload) as Version
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)

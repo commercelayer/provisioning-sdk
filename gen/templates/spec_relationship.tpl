@@ -6,12 +6,12 @@ it(resourceType + '.##__OPERATION_NAME__##', async () => {
 
 	const intId = clp.addRequestInterceptor((request) => {
 		expect(request.options.method).toBe('GET')
-		checkCommon(request, resourceType, id, currentAccessToken, '##__OPERATION_NAME__##')
+		checkCommon(request, resourcePath, id, currentAccessToken, '##__OPERATION_NAME__##')
 		checkCommonParams(request, params)
 		return interceptRequest()
 	})
 
-	await clp[resourceType].##__OPERATION_NAME__##(id, params, CommonData.options)
+	await clp[resourcePath].##__OPERATION_NAME__##(id, params, CommonData.options)
 		.catch(handleError)
 		.finally(() => clp.removeInterceptor('request', intId))
 

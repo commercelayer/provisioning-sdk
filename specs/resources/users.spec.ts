@@ -19,6 +19,7 @@ beforeAll(async () => { clp = await getClient() })
 describe('Users resource', () => {
 
   const resourceType = 'users'
+  const resourcePath = 'user'
 
 
   /* spec.update.start */
@@ -32,13 +33,13 @@ describe('Users resource', () => {
       if (request.options.method !== 'GET') {
         const data = JSON.parse(String(request.options.body))
         expect(request.options.method).toBe('PATCH')
-        checkCommon(request, resourceType, resData.id, currentAccessToken)
+        checkCommon(request, resourcePath, resData.id, currentAccessToken)
         checkCommonData(data, resourceType, attributes, resData.id)
       }
        return interceptRequest()
     })
 
-    await clp[resourceType].update(resData, params, CommonData.options)
+    await clp[resourcePath].update(resData, params, CommonData.options)
       .then((res: User) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => clp.removeInterceptor('request', intId))
@@ -54,12 +55,12 @@ describe('Users resource', () => {
 
     const intId = clp.addRequestInterceptor((request) => {
       expect(request.options.method).toBe('GET')
-      checkCommon(request, resourceType)
+      checkCommon(request, resourcePath)
       checkCommonParams(request, params)
       return interceptRequest()
     })
 
-    await clp[resourceType].retrieve(params, CommonData.options)
+    await clp[resourcePath].retrieve(params, CommonData.options)
       .catch(handleError)
       .finally(() => clp.removeInterceptor('request', intId))
     
@@ -71,9 +72,9 @@ describe('Users resource', () => {
   it(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(clp[resourceType].isUser(resource)).toBeTruthy()
+    expect(clp[resourcePath].isUser(resource)).toBeTruthy()
 
-    const type = clp[resourceType].type()
+    const type = clp[resourcePath].type()
     expect(type).toBe(resourceType)
 
   })
@@ -83,10 +84,10 @@ describe('Users resource', () => {
   /* spec.relationship.start */
   it(resourceType + '.relationship', async () => {
 
-    const relId = clp[resourceType].relationship(TestData.id)
+    const relId = clp[resourcePath].relationship(TestData.id)
     expect(isEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = clp[resourceType].relationship({ id: TestData.id, type: resourceType })
+    const relResId = clp[resourcePath].relationship({ id: TestData.id, type: resourceType })
     expect(isEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -120,7 +121,7 @@ describe('Users resource', () => {
     }
     `
 
-    const res = clp[resourceType].parse(payload) as User
+    const res = clp[resourcePath].parse(payload) as User
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)

@@ -19,6 +19,7 @@ beforeAll(async () => { clp = await getClient() })
 describe('ApplicationMemberships resource', () => {
 
   const resourceType = 'application_memberships'
+  const resourcePath = 'application_memberships'
 
 
   /* spec.create.start */
@@ -38,13 +39,13 @@ describe('ApplicationMemberships resource', () => {
     const intId = clp.addRequestInterceptor((request) => {
       const data = JSON.parse(String(request.options.body))
       expect(request.options.method).toBe('POST')
-      checkCommon(request, resourceType)
+      checkCommon(request, resourcePath)
       checkCommonData(data, resourceType, attributes)
-      expect(clp[resourceType].isApplicationMembership(data.data)).toBeTruthy()
+      expect(clp[resourcePath].isApplicationMembership(data.data)).toBeTruthy()
       return interceptRequest()
     })
 
-    await clp[resourceType].create(resData, params, CommonData.options)
+    await clp[resourcePath].create(resData, params, CommonData.options)
       .then((res: ApplicationMembership) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => clp.removeInterceptor('request', intId))
@@ -61,12 +62,12 @@ describe('ApplicationMemberships resource', () => {
 
     const intId = clp.addRequestInterceptor((request) => {
       expect(request.options.method).toBe('GET')
-      checkCommon(request, resourceType, id, currentAccessToken)
+      checkCommon(request, resourcePath, id, currentAccessToken)
       checkCommonParams(request, params)
      return interceptRequest()
     })
 
-    await clp[resourceType].retrieve(id, params, CommonData.options)
+    await clp[resourcePath].retrieve(id, params, CommonData.options)
       .then((res: ApplicationMembership) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => clp.removeInterceptor('request', intId))
@@ -86,13 +87,13 @@ describe('ApplicationMemberships resource', () => {
       if (request.options.method !== 'GET') {
         const data = JSON.parse(String(request.options.body))
         expect(request.options.method).toBe('PATCH')
-        checkCommon(request, resourceType, resData.id, currentAccessToken)
+        checkCommon(request, resourcePath, resData.id, currentAccessToken)
         checkCommonData(data, resourceType, attributes, resData.id)
       }
        return interceptRequest()
     })
 
-    await clp[resourceType].update(resData, params, CommonData.options)
+    await clp[resourcePath].update(resData, params, CommonData.options)
       .then((res: ApplicationMembership) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => clp.removeInterceptor('request', intId))
@@ -108,11 +109,11 @@ describe('ApplicationMemberships resource', () => {
 
     const intId = clp.addRequestInterceptor((request) => {
       expect(request.options.method).toBe('DELETE')
-      checkCommon(request, resourceType, id, currentAccessToken)
+      checkCommon(request, resourcePath, id, currentAccessToken)
       return interceptRequest()
     })
 
-    await clp[resourceType].delete(id, CommonData.options)
+    await clp[resourcePath].delete(id, CommonData.options)
       .catch(handleError)
       .finally(() => clp.removeInterceptor('request', intId))
 
@@ -127,12 +128,12 @@ describe('ApplicationMemberships resource', () => {
 
     const intId = clp.addRequestInterceptor((request) => {
       expect(request.options.method).toBe('GET')
-      checkCommon(request, resourceType)
+      checkCommon(request, resourcePath)
       checkCommonParamsList(request, params)
       return interceptRequest()
     })
 
-    await clp[resourceType].list(params, CommonData.options)
+    await clp[resourcePath].list(params, CommonData.options)
       .catch(handleError)
       .finally(() => clp.removeInterceptor('request', intId))
     
@@ -144,9 +145,9 @@ describe('ApplicationMemberships resource', () => {
   it(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(clp[resourceType].isApplicationMembership(resource)).toBeTruthy()
+    expect(clp[resourcePath].isApplicationMembership(resource)).toBeTruthy()
 
-    const type = clp[resourceType].type()
+    const type = clp[resourcePath].type()
     expect(type).toBe(resourceType)
 
   })
@@ -156,10 +157,10 @@ describe('ApplicationMemberships resource', () => {
   /* spec.relationship.start */
   it(resourceType + '.relationship', async () => {
 
-    const relId = clp[resourceType].relationship(TestData.id)
+    const relId = clp[resourcePath].relationship(TestData.id)
     expect(isEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = clp[resourceType].relationship({ id: TestData.id, type: resourceType })
+    const relResId = clp[resourcePath].relationship({ id: TestData.id, type: resourceType })
     expect(isEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -193,7 +194,7 @@ describe('ApplicationMemberships resource', () => {
     }
     `
 
-    const res = clp[resourceType].parse(payload) as ApplicationMembership
+    const res = clp[resourcePath].parse(payload) as ApplicationMembership
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -211,12 +212,12 @@ describe('ApplicationMemberships resource', () => {
 	
 		const intId = clp.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'api_credential')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'api_credential')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await clp[resourceType].api_credential(id, params, CommonData.options)
+		await clp[resourcePath].api_credential(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => clp.removeInterceptor('request', intId))
 	
@@ -232,12 +233,12 @@ describe('ApplicationMemberships resource', () => {
 	
 		const intId = clp.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'membership')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'membership')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await clp[resourceType].membership(id, params, CommonData.options)
+		await clp[resourcePath].membership(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => clp.removeInterceptor('request', intId))
 	
@@ -253,12 +254,12 @@ describe('ApplicationMemberships resource', () => {
 	
 		const intId = clp.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'organization')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'organization')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await clp[resourceType].organization(id, params, CommonData.options)
+		await clp[resourcePath].organization(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => clp.removeInterceptor('request', intId))
 	
@@ -274,12 +275,12 @@ describe('ApplicationMemberships resource', () => {
 	
 		const intId = clp.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'role')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'role')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await clp[resourceType].role(id, params, CommonData.options)
+		await clp[resourcePath].role(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => clp.removeInterceptor('request', intId))
 	

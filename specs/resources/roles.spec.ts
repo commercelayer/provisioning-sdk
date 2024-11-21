@@ -19,6 +19,7 @@ beforeAll(async () => { clp = await getClient() })
 describe('Roles resource', () => {
 
   const resourceType = 'roles'
+  const resourcePath = 'roles'
 
 
   /* spec.create.start */
@@ -36,13 +37,13 @@ describe('Roles resource', () => {
     const intId = clp.addRequestInterceptor((request) => {
       const data = JSON.parse(String(request.options.body))
       expect(request.options.method).toBe('POST')
-      checkCommon(request, resourceType)
+      checkCommon(request, resourcePath)
       checkCommonData(data, resourceType, attributes)
-      expect(clp[resourceType].isRole(data.data)).toBeTruthy()
+      expect(clp[resourcePath].isRole(data.data)).toBeTruthy()
       return interceptRequest()
     })
 
-    await clp[resourceType].create(resData, params, CommonData.options)
+    await clp[resourcePath].create(resData, params, CommonData.options)
       .then((res: Role) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => clp.removeInterceptor('request', intId))
@@ -59,12 +60,12 @@ describe('Roles resource', () => {
 
     const intId = clp.addRequestInterceptor((request) => {
       expect(request.options.method).toBe('GET')
-      checkCommon(request, resourceType, id, currentAccessToken)
+      checkCommon(request, resourcePath, id, currentAccessToken)
       checkCommonParams(request, params)
      return interceptRequest()
     })
 
-    await clp[resourceType].retrieve(id, params, CommonData.options)
+    await clp[resourcePath].retrieve(id, params, CommonData.options)
       .then((res: Role) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => clp.removeInterceptor('request', intId))
@@ -84,13 +85,13 @@ describe('Roles resource', () => {
       if (request.options.method !== 'GET') {
         const data = JSON.parse(String(request.options.body))
         expect(request.options.method).toBe('PATCH')
-        checkCommon(request, resourceType, resData.id, currentAccessToken)
+        checkCommon(request, resourcePath, resData.id, currentAccessToken)
         checkCommonData(data, resourceType, attributes, resData.id)
       }
        return interceptRequest()
     })
 
-    await clp[resourceType].update(resData, params, CommonData.options)
+    await clp[resourcePath].update(resData, params, CommonData.options)
       .then((res: Role) =>  expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => clp.removeInterceptor('request', intId))
@@ -106,12 +107,12 @@ describe('Roles resource', () => {
 
     const intId = clp.addRequestInterceptor((request) => {
       expect(request.options.method).toBe('GET')
-      checkCommon(request, resourceType)
+      checkCommon(request, resourcePath)
       checkCommonParamsList(request, params)
       return interceptRequest()
     })
 
-    await clp[resourceType].list(params, CommonData.options)
+    await clp[resourcePath].list(params, CommonData.options)
       .catch(handleError)
       .finally(() => clp.removeInterceptor('request', intId))
     
@@ -123,9 +124,9 @@ describe('Roles resource', () => {
   it(resourceType + '.type', async () => {
 
     const resource = { id: TestData.id, type: resourceType }
-    expect(clp[resourceType].isRole(resource)).toBeTruthy()
+    expect(clp[resourcePath].isRole(resource)).toBeTruthy()
 
-    const type = clp[resourceType].type()
+    const type = clp[resourcePath].type()
     expect(type).toBe(resourceType)
 
   })
@@ -135,10 +136,10 @@ describe('Roles resource', () => {
   /* spec.relationship.start */
   it(resourceType + '.relationship', async () => {
 
-    const relId = clp[resourceType].relationship(TestData.id)
+    const relId = clp[resourcePath].relationship(TestData.id)
     expect(isEqual(relId, { id: TestData.id, type: resourceType}))
 
-    const relResId = clp[resourceType].relationship({ id: TestData.id, type: resourceType })
+    const relResId = clp[resourcePath].relationship({ id: TestData.id, type: resourceType })
     expect(isEqual(relResId, { id: TestData.id, type: resourceType}))
 
   })
@@ -172,7 +173,7 @@ describe('Roles resource', () => {
     }
     `
 
-    const res = clp[resourceType].parse(payload) as Role
+    const res = clp[resourcePath].parse(payload) as Role
 
     expect(res.type).toBe(resourceType)
     expect(res.reference).toBe(reference)
@@ -190,12 +191,12 @@ describe('Roles resource', () => {
 	
 		const intId = clp.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'organization')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'organization')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await clp[resourceType].organization(id, params, CommonData.options)
+		await clp[resourcePath].organization(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => clp.removeInterceptor('request', intId))
 	
@@ -211,12 +212,12 @@ describe('Roles resource', () => {
 	
 		const intId = clp.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'permissions')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'permissions')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await clp[resourceType].permissions(id, params, CommonData.options)
+		await clp[resourcePath].permissions(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => clp.removeInterceptor('request', intId))
 	
@@ -232,12 +233,12 @@ describe('Roles resource', () => {
 	
 		const intId = clp.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'memberships')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'memberships')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await clp[resourceType].memberships(id, params, CommonData.options)
+		await clp[resourcePath].memberships(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => clp.removeInterceptor('request', intId))
 	
@@ -253,12 +254,12 @@ describe('Roles resource', () => {
 	
 		const intId = clp.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'api_credentials')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'api_credentials')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await clp[resourceType].api_credentials(id, params, CommonData.options)
+		await clp[resourcePath].api_credentials(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => clp.removeInterceptor('request', intId))
 	
@@ -274,12 +275,12 @@ describe('Roles resource', () => {
 	
 		const intId = clp.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
-			checkCommon(request, resourceType, id, currentAccessToken, 'versions')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'versions')
 			checkCommonParams(request, params)
 			return interceptRequest()
 		})
 	
-		await clp[resourceType].versions(id, params, CommonData.options)
+		await clp[resourcePath].versions(id, params, CommonData.options)
 			.catch(handleError)
 			.finally(() => clp.removeInterceptor('request', intId))
 	
