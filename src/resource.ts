@@ -152,12 +152,12 @@ class ResourceAdapter {
 
 		const singleton = !('id' in resource) || CommerceLayerProvisioningStatic.isSingleton(resource.type)
 
-		debug('retrieve:%s %o, %O, %O', (singleton? ' singleton,' : ''), resource, params || {}, options || {})
+		debug('retrieve:%s %o, %O, %O', (singleton ? ' singleton,' : ''), resource, params || {}, options || {})
 
 		const queryParams = generateQueryStringParams(params, resource)
 		if (options?.params) Object.assign(queryParams, options?.params)
 
-		const retrievePath = `${path || resource.type}${singleton? '' : `/${resource.id}`}`
+		const retrievePath = `${path || resource.type}${singleton ? '' : `/${resource.id}`}`
 
 		const res: DocWithData = await this.#client.request('GET', retrievePath, undefined, { ...options, params: queryParams })
 		const r = denormalize<R>(res) as R
@@ -205,19 +205,19 @@ class ResourceAdapter {
 	}
 
 
-	async update<U extends ResourceUpdate, R extends Resource>(resource: U & ResourceId, params?: QueryParamsRetrieve<R>, options?: ResourcesConfig): Promise<R> {
+	async update<U extends ResourceUpdate, R extends Resource>(resource: U & ResourceId, params?: QueryParamsRetrieve<R>, options?: ResourcesConfig, path?: string): Promise<R> {
 
 		const singleton = !('id' in resource) || CommerceLayerProvisioningStatic.isSingleton(resource.type)
 
-		debug('update:%s %o, %O, %O', (singleton? ' singleton,' : ''), resource, params || {}, options || {})
+		debug('update:%s %o, %O, %O', (singleton ? ' singleton,' : ''), resource, params || {}, options || {})
 
 		const queryParams = generateQueryStringParams(params, resource)
 		if (options?.params) Object.assign(queryParams, options?.params)
 
-		const path = `${resource.type}${singleton? '' : `/${resource.id}`}`
+		const updatePath = `${path || resource.type}${singleton ? '' : `/${resource.id}`}`
 
 		const data = normalize(resource)
-		const res = await this.#client.request('PATCH', path, data, { ...options, params: queryParams })
+		const res = await this.#client.request('PATCH', updatePath, data, { ...options, params: queryParams })
 		const r = denormalize<R>(res as DocWithData) as R
 
 		return r
@@ -263,7 +263,7 @@ class ResourceAdapter {
 		const queryParams = {}
 		if (options?.params) Object.assign(queryParams, options?.params)
 
-		const data = (payload && isResourceId(payload))? normalize(payload) : payload
+		const data = (payload && isResourceId(payload)) ? normalize(payload) : payload
 
 		await this.#client.request(cmd, path, data, { ...options, params: queryParams })
 
@@ -290,7 +290,7 @@ abstract class ApiResourceBase<R extends Resource> {
 	}
 
 	protected relationshipOneToMany<RR extends ResourceRel>(...ids: string[]): RR[] {
-		return (((ids === null) || (ids.length === 0) || (ids[0] === null))? [ { id: null, type: this.type() } ] : ids.map(id => { return { id, type: this.type() } })) as RR[]
+		return (((ids === null) || (ids.length === 0) || (ids[0] === null)) ? [{ id: null, type: this.type() }] : ids.map(id => { return { id, type: this.type() } })) as RR[]
 	}
 
 	abstract type(): ResourceTypeLock
@@ -298,7 +298,7 @@ abstract class ApiResourceBase<R extends Resource> {
 	protected path(): string {
 		return this.type()
 	}
-	
+
 
 	parse(resource: string): R | R[] {
 		try {
@@ -314,7 +314,7 @@ abstract class ApiResourceBase<R extends Resource> {
 
 	// reference, reference_origin and metadata attributes are always updatable
 	async update(resource: ResourceUpdate, params?: QueryParamsRetrieve<R>, options?: ResourcesConfig): Promise<R> {
-		return this.resources.update<ResourceUpdate, R>({ ...resource, type: this.type() }, params, options)
+		return this.resources.update<ResourceUpdate, R>({ ...resource, type: this.type() }, params, options, this.path())
 	}
 
 }

@@ -13,7 +13,7 @@ export { default as Memberships } from './resources/memberships'
 export { default as Organizations } from './resources/organizations'
 export { default as Permissions } from './resources/permissions'
 export { default as Roles } from './resources/roles'
-export { default as Users } from './resources/users'
+export { default as Users } from './resources/user'
 export { default as Versions } from './resources/versions'
 // ##__API_RESOURCES_STOP__##
 
@@ -26,7 +26,7 @@ export type ResourceTypeLock =
 |	'organizations'
 |	'permissions'
 |	'roles'
-|	'users'
+|	'user'
 |	'versions'
 // ##__API_RESOURCE_TYPES_STOP__##
 
@@ -39,7 +39,7 @@ export const resourceList: ResourceTypeLock[] = [
 	'organizations',
 	'permissions',
 	'roles',
-	'users',
+	'user',
 	'versions'
 // ##__API_RESOURCE_LIST_STOP__##
 ] as const
@@ -47,7 +47,7 @@ export const resourceList: ResourceTypeLock[] = [
 
 export const singletonList: ResourceTypeLock[] = [
 // ##__API_RESOURCE_SINGLETON_START__##
-	'users'
+	'user'
 // ##__API_RESOURCE_SINGLETON_STOP__##
 ] as const
 
@@ -63,7 +63,7 @@ export type RetrievableResource = Resource & {
 // Listable resources
 export type ListableResourceType = Exclude<ResourceTypeLock,
 	// ##__API_RESOURCE_NOT_LISTABLE_START__##
-	'users'
+	'user'
 	// ##__API_RESOURCE_NOT_LISTABLE_STOP__##
 >
 
@@ -140,7 +140,7 @@ export type ResourceFields = {
 	organizations: models.Organization,
 	permissions: models.Permission,
 	roles: models.Role,
-	users: models.User,
+	user: models.User,
 	versions: models.Version
 	// ##__API_RESOURCE_FIELDS_STOP__##
 }
@@ -154,7 +154,7 @@ export type ResourceSortFields = {
 	organizations: models.OrganizationSort,
 	permissions: models.PermissionSort,
 	roles: models.RoleSort,
-	users: models.UserSort,
+	user: models.UserSort,
 	versions: models.VersionSort
 	// ##__API_RESOURCE_SORTABLE_FIELDS_STOP__##
 }

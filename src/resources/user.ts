@@ -5,7 +5,7 @@ import type { QueryParamsRetrieve } from '../query'
 
 
 
-type UserType = 'users'
+type UserType = 'user'
 type UserRel = ResourceRel & { type: UserType }
 
 
@@ -73,11 +73,11 @@ interface UserUpdate extends ResourceUpdate {
 
 class Users extends ApiSingleton<User> {
 
-	static readonly TYPE: UserType = 'users' as const
+	static readonly TYPE: UserType = 'user' as const
 
 	async update(resource: UserUpdate, params?: QueryParamsRetrieve<User>, options?: ResourcesConfig): Promise<User> {
-		const res = await this.retrieve(params, options)	// JsonAPI requires id in the request body
-		return this.resources.update<UserUpdate, User>({ ...resource, id: res.id, type: Users.TYPE }, params, options)
+		const id = resource.id || (await this.retrieve()).id	// JsonAPI requires id in the request body
+		return this.resources.update<UserUpdate, User>({ ...resource, id, type: Users.TYPE }, params, options)
 	}
 
 

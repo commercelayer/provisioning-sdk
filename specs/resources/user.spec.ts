@@ -18,7 +18,7 @@ beforeAll(async () => { clp = await getClient() })
 
 describe('Users resource', () => {
 
-  const resourceType = 'users'
+  const resourceType = 'user'
   const resourcePath = 'user'
 
 
