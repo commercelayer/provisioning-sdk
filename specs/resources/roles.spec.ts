@@ -44,7 +44,7 @@ describe('Roles resource', () => {
     })
 
     await clp[resourcePath].create(resData, params, CommonData.options)
-      .then((res: Role) =>  expect(res).not.toBeNull())
+      .then((res: Role) => expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => clp.removeInterceptor('request', intId))
 
@@ -66,7 +66,7 @@ describe('Roles resource', () => {
     })
 
     await clp[resourcePath].retrieve(id, params, CommonData.options)
-      .then((res: Role) =>  expect(res).not.toBeNull())
+      .then((res: Role) => expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => clp.removeInterceptor('request', intId))
 
@@ -85,14 +85,15 @@ describe('Roles resource', () => {
       if (request.options.method !== 'GET') {
         const data = JSON.parse(String(request.options.body))
         expect(request.options.method).toBe('PATCH')
-        checkCommon(request, resourcePath, resData.id, currentAccessToken)
+        const id = clp.isSingleton(resourceType)? undefined : resData.id
+        checkCommon(request, resourcePath, id, currentAccessToken)
         checkCommonData(data, resourceType, attributes, resData.id)
       }
        return interceptRequest()
     })
 
     await clp[resourcePath].update(resData, params, CommonData.options)
-      .then((res: Role) =>  expect(res).not.toBeNull())
+      .then((res: Role) => expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => clp.removeInterceptor('request', intId))
 

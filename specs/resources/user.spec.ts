@@ -33,14 +33,15 @@ describe('Users resource', () => {
       if (request.options.method !== 'GET') {
         const data = JSON.parse(String(request.options.body))
         expect(request.options.method).toBe('PATCH')
-        checkCommon(request, resourcePath, resData.id, currentAccessToken)
+        const id = clp.isSingleton(resourceType)? undefined : resData.id
+        checkCommon(request, resourcePath, id, currentAccessToken)
         checkCommonData(data, resourceType, attributes, resData.id)
       }
        return interceptRequest()
     })
 
     await clp[resourcePath].update(resData, params, CommonData.options)
-      .then((res: User) =>  expect(res).not.toBeNull())
+      .then((res: User) => expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => clp.removeInterceptor('request', intId))
 

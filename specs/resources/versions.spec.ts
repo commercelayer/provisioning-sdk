@@ -36,7 +36,7 @@ describe('Versions resource', () => {
     })
 
     await clp[resourcePath].retrieve(id, params, CommonData.options)
-      .then((res: Version) =>  expect(res).not.toBeNull())
+      .then((res: Version) => expect(res).not.toBeNull())
       .catch(handleError)
       .finally(() => clp.removeInterceptor('request', intId))
 

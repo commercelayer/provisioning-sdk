@@ -19,7 +19,7 @@ const INTERCEPTOR_CANCEL = 'TEST-INTERCEPTED'
 const REQUEST_TIMEOUT = 5550
 const REQUEST_OPTIONS: RequestConfig = {
 	timeout: REQUEST_TIMEOUT,
-	params: {}
+	params: { }
 } as const
 
 export const TestData = {
@@ -60,13 +60,13 @@ let currentAccessToken: string
 const initClient = async (config: CommerceLayerConfig): Promise<CommerceLayerProvisioningClient> => {
 
 	let accessToken: string
-
 	if (config.accessToken) accessToken = config.accessToken
 	else {
 		const token = await getToken('user')
 		if (token === null) throw new Error('Unable to get access token')
 		accessToken = token.accessToken
 	}
+
 
 	const client = CommerceLayerProvisioning({ accessToken, domain })
 	currentAccessToken = accessToken
@@ -124,20 +124,20 @@ const randomValue = (type: string, name?: string): any | Array<any> => {
 
 	if (type.startsWith('boolean')) values = booleans
 	else
-		if (type.startsWith('integer') || type.startsWith('number')) values = numbers
-		else
-			if (type.startsWith('fload') || type.startsWith('decimal')) values = numbers
-			else
-				if (type.startsWith('object')) values = objects
-				else
-					if (type.startsWith('string')) values = strings
-					else values = strings
+	if (type.startsWith('integer') || type.startsWith('number')) values = numbers
+	else
+	if (type.startsWith('fload') || type.startsWith('decimal')) values = numbers
+	else
+	if (type.startsWith('object')) values = objects
+	else
+	if (type.startsWith('string')) values = strings
+	else values = strings
 
 	let value = values[Math.floor(Math.random() * (values.length - 1))]
 
 	if (type === 'string') value = `${value}_${Math.floor(Math.random() * 100)}`
 
-	if (type.endsWith('[]')) value = [value]
+	if (type.endsWith('[]')) value = [ value ]
 
 	return value
 
@@ -168,7 +168,7 @@ const checkCommonData = (data: any, type: string, attributes: any, id?: string) 
 }
 
 const checkParam = (url: string | URL, name: string, value: string | number | boolean) => {
-	const params = (url instanceof URL) ? url.searchParams : new URL(url).searchParams
+	const params = (url instanceof URL)? url.searchParams : new URL(url).searchParams
 	expect(params.has(name)).toBeTruthy()
 	expect(params.get(name)).toBe(String(value))
 }
