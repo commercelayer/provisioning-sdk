@@ -1,3 +1,11 @@
+## [2.2.1](https://github.com/commercelayer/provisioning-sdk/compare/v2.2.0...v2.2.1) (2024-12-12)
+
+
+### Bug Fixes
+
+* fix singleton update path issue ([439dc3b](https://github.com/commercelayer/provisioning-sdk/commit/439dc3b2cc824990df42d6379d42645cfa93d2c7))
+* fix singleton update spec ([9f6b2c1](https://github.com/commercelayer/provisioning-sdk/commit/9f6b2c1560096005e6a4661d4292bffcea0a2292))
+
 # [2.2.0](https://github.com/commercelayer/provisioning-sdk/compare/v2.1.2...v2.2.0) (2024-11-21)
 
 
