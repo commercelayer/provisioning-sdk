@@ -6,12 +6,13 @@ it(resourceType + '.##__OPERATION_NAME__##', async () => {
 
 	const triggerValue = ##__TRIGGER_VALUE__##
 	const attributes = { [triggerAttr]: triggerValue }
-    const id = TestData.id
+  const id = TestData.id
 
 	const intId = clp.addRequestInterceptor((request) => {
+		const data = JSON.parse(String(request.options.body))
 		expect(request.options.method).toBe('PATCH')
 		checkCommon(request, resourcePath, id, currentAccessToken)
-		checkCommonData(request, resourceType, attributes, id)
+		checkCommonData(data, resourceType, attributes, id)
 		return interceptRequest()
 	})
 

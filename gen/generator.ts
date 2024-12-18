@@ -114,7 +114,7 @@ const generate = async (localSchema?: boolean) => {
 	if (existsSync(testDir)) rmSync(testDir, { recursive: true })
 	mkdirSync(testDir, { recursive: true })
 
-	
+
 	// Check singletons
 	Object.entries(fixedSchema.resources).forEach(([type, res]) => {
 		if (Object.values(res.operations).some(op => op.singleton)) {
@@ -211,7 +211,7 @@ const updateSdkInterfaces = (resources: { [key: string]: ApiRes }): void => {
 
 	const definitions: string[] = []
 	Object.entries(resources).forEach(([type, res]) => {
-		const fieldName = res.singleton? Inflector.singularize(type) : type
+		const fieldName = res.singleton ? Inflector.singularize(type) : type
 		let def = defTpl
 		def = def.replace(/##__TAB__##/g, '\t')
 		def = def.replace(/##__RESOURCE_TYPE__##/, fieldName)
@@ -231,7 +231,7 @@ const updateSdkInterfaces = (resources: { [key: string]: ApiRes }): void => {
 
 	const initializations: string[] = []
 	if (!CONFIG.LEAZY_LOADING) Object.entries(resources).forEach(([type, res]) => {
-		const fieldName = res.singleton? Inflector.singularize(type) : type
+		const fieldName = res.singleton ? Inflector.singularize(type) : type
 		let ini = iniTpl
 		ini = ini.replace(/##__TAB__##/g, '\t')
 		ini = ini.replace(/##__RESOURCE_TYPE__##/, fieldName)
@@ -251,7 +251,7 @@ const updateSdkInterfaces = (resources: { [key: string]: ApiRes }): void => {
 
 	const leazyLoaders: string[] = []
 	if (CONFIG.LEAZY_LOADING) Object.entries(resources).forEach(([type, res]) => {
-		const fieldName = res.singleton? Inflector.singularize(type) : type
+		const fieldName = res.singleton ? Inflector.singularize(type) : type
 		let ll = llTpl
 		ll = ll.replace(/##__TAB__##/g, '\t')
 		ll = ll.replace(/##__RESOURCE_TYPE__##/g, fieldName)
@@ -535,7 +535,7 @@ const generateSpec = (type: string, name: string, resource: Resource): string =>
 
 	spec = spec.replace(/##__RESOURCE_CLASS__##/g, name)
 	spec = spec.replace(/##__RESOURCE_TYPE__##/g, type)
-	spec = spec.replace(/##__RESOURCE_PATH__##/g, singleton? Inflector.singularize(type) : type)
+	spec = spec.replace(/##__RESOURCE_PATH__##/g, singleton ? Inflector.singularize(type) : type)
 	// Clear unused placeholders
 	spec = spec.replace(/##__RELATIONSHIP_SPECS__##/g, '')
 	spec = spec.replace(/##__TRIGGER_SPECS__##/g, '')
@@ -654,7 +654,7 @@ const generateResource = (type: string, name: string, resource: Resource): strin
 	const resMod = new Set<string>()	// Resource generic models (Es. ResponseList)
 	// const relMod = new Set<string>()	// Relationships models
 	Object.entries(resource.operations).forEach(([opName, op]) => {
-		const tpl = op.singleton ? ((opName === 'update')? templates['singleton_update'] : templates['singleton']) : templates[opName]
+		const tpl = op.singleton ? ((opName === 'update') ? templates['singleton_update'] : templates['singleton']) : templates[opName]
 		if (op.singleton) resModelType = 'ApiSingleton'
 		if (tpl) {
 			if (['create', 'update'].includes(opName)) qryMod.add('QueryParamsRetrieve')
@@ -681,24 +681,24 @@ const generateResource = (type: string, name: string, resource: Resource): strin
 						resMod.add('ListResponse')
 					}
 				operations.push(tplrOp.operation)
-				tplrOp.types.forEach(t => {	// Fix tax_calculators issue
+				tplrOp.types.forEach(t => {
 					// relMod.add(t)	// Add releationship type
 					declaredImportsModels.add(t)	// Add import type
 				})
 			}
 			else
-			if (op.action && CONFIG.ACTION_FUNCTIONS) {
-				const tpla = templates['action']
-				const tplaOp = templatedOperation(resName, opName, op, tpla)
-				operations.push(tplaOp.operation)
-				tplaOp.typesDef.forEach(t => { declaredTypesDef.push(t) })
-			}
-			else console.log('Unknown operation: ' + opName)
+				if (op.action && CONFIG.ACTION_FUNCTIONS) {
+					const tpla = templates['action']
+					const tplaOp = templatedOperation(resName, opName, op, tpla)
+					operations.push(tplaOp.operation)
+					tplaOp.typesDef.forEach(t => { declaredTypesDef.push(t) })
+				}
+				else console.log('Unknown operation: ' + opName)
 		}
 	})
 
 
-const singletonResource = (resModelType === 'ApiSingleton')
+	const singletonResource = (resModelType === 'ApiSingleton')
 
 	// Trigger functions (only boolean)
 	if (CONFIG.TRIGGER_FUNCTIONS) triggerFunctions(type, resName, resource, operations)
@@ -728,7 +728,7 @@ const singletonResource = (resModelType === 'ApiSingleton')
 	const typesArray = Array.from(declaredTypes)
 	res = res.replace(/##__EXPORT_RESOURCE_TYPES__##/g, typesArray.join(', '))
 	const typesDefArray = Array.from(declaredTypesDef)
-	res = res.replace(/##__EXPORT_RESOURCE_TYPES_DEF__##/g, (typesDefArray.length > 0)? `${typesDefArray.join('\n')}\n` : '')
+	res = res.replace(/##__EXPORT_RESOURCE_TYPES_DEF__##/g, (typesDefArray.length > 0) ? `${typesDefArray.join('\n')}\n` : '')
 
 	// Interfaces and types definition
 	const modelInterfaces: string[] = []
@@ -767,18 +767,22 @@ const singletonResource = (resModelType === 'ApiSingleton')
 
 	// Resources import
 	const impResMod: string[] = Array.from(declaredImportsModels)
-		.filter(i => !typesArray.includes(i))	// exludes resource self reference
-		.map(i => `import type { ${i}${relationshipTypes.has(i) ? `, ${i}Type` : ''} } from './${Inflector.underscore(Inflector.pluralize(i))}'`)
+		.filter(i => !typesArray.includes(i))	// excludes resource self reference
+		.map(i => {
+			// Fix singleton type problem in provisioning api
+			const singletonRel = Object.values(global.singletons).includes(i)
+			const fileRel = Inflector.underscore(singletonRel? i : Inflector.pluralize(i))
+			return `import type { ${i}${relationshipTypes.has(i) ? `, ${i}Type` : ''} } from './${fileRel}'`
+		})
 	const importStr = impResMod.join('\n') + (impResMod.length ? '\n' : '')
 	res = res.replace(/##__IMPORT_RESOURCE_MODELS__##/g, importStr)
 
 	// Singleton path override
-	res = res.replace(/##__SINGLETON_PATH_OVERRIDE__##/, singletonResource? `\n\tpath(): string {\n\t\treturn '${Inflector.singularize(type)}'\n\t}\n`: '')
+	res = res.replace(/##__SINGLETON_PATH_OVERRIDE__##/, singletonResource ? `\n\tpath(): string {\n\t\treturn '${Inflector.singularize(type)}'\n\t}\n` : '')
 
 	// Enum types definitions
 
 	// Nullable type import
-	console.log(type + ' - ' + nullables)
 	if (!nullables) res = res.replace(/import type { Nullable/, '// import type { Nullable')
 
 
@@ -790,10 +794,10 @@ const singletonResource = (resModelType === 'ApiSingleton')
 const payloadDataType = (properties: any): any => {
 	const fields = Object.entries(properties).filter(([p, v]) => (p !== 'attributes')).map(([p, v]: [string, any]) => {
 		let type = v.type
-		if ((type === 'string') && v.enum && (v.enum.length > 0)) type = v.enum.map(t => { return `'${t}'`}).join(' | ')
+		if ((type === 'string') && v.enum && (v.enum.length > 0)) type = v.enum.map(t => { return `'${t}'` }).join(' | ')
 		return `${p}: ${type}`
 	}).join(', ')
-	const attributes = Object.entries(properties.attributes.properties).map(([k, v]: [string, any]) => `${k}${v.nullable? '?' : ''}: ${v.type}`).join(', ')
+	const attributes = Object.entries(properties.attributes.properties).map(([k, v]: [string, any]) => `${k}${v.nullable ? '?' : ''}: ${v.type}`).join(', ')
 
 	return `{ ${fields}, ${attributes} }`
 
@@ -832,21 +836,21 @@ const templatedOperation = (res: string, name: string, op: Operation, tpl: strin
 		operation = operation.replace(/##__MODEL_RESOURCE_INTERFACE__##/g, Inflector.singularize(res))
 	}
 	else
-	if (op.trigger) {	// Trigger
-		operation = operation.replace(/##__RESOURCE_ID__##/g, opIdVar)
-		operation = operation.replace(/##__MODEL_RESOURCE_INTERFACE__##/g, Inflector.singularize(res))
-		operation = operation.replace(/##__TRIGGER_VALUE__##/, placeholders?.trigger_value? ` triggerValue: ${ placeholders.trigger_value},` : '')
-		operation = operation.replace(/##__TRIGGER_VALUE_TYPE__##/, placeholders?.trigger_value? 'triggerValue' : 'true')
-	}
-	else
-	if (op.action) {	// Action
-		operation = operation.replace(/##__ACTION_PATH__##/g, op.path.substring(1).replace('{' + op.id, '${_' + opIdVar))
-		operation = operation.replace(/##__RESOURCE_ID__##/g, opIdVar)
-		operation = operation.replace(/##__MODEL_RESOURCE_INTERFACE__##/g, Inflector.singularize(res))
-		operation = operation.replace(/##__ACTION_PAYLOAD_PARAM__##/g, isObjectType(op.requestType)? ` payload: ${Inflector.camelize(op.name)}DataType,` : '')
-		operation = operation.replace(/##__ACTION_PAYLOAD__##/g, isObjectType(op.requestType)? ' ...payload ' : '')
-		operation = operation.replace(/##__ACTION_COMMAND__##/g, op.type.toUpperCase()) 
-	}
+		if (op.trigger) {	// Trigger
+			operation = operation.replace(/##__RESOURCE_ID__##/g, opIdVar)
+			operation = operation.replace(/##__MODEL_RESOURCE_INTERFACE__##/g, Inflector.singularize(res))
+			operation = operation.replace(/##__TRIGGER_VALUE__##/, placeholders?.trigger_value ? ` triggerValue: ${placeholders.trigger_value},` : '')
+			operation = operation.replace(/##__TRIGGER_VALUE_TYPE__##/, placeholders?.trigger_value ? 'triggerValue' : 'true')
+		}
+		else
+			if (op.action) {	// Action
+				operation = operation.replace(/##__ACTION_PATH__##/g, op.path.substring(1).replace('{' + op.id, '${_' + opIdVar))
+				operation = operation.replace(/##__RESOURCE_ID__##/g, opIdVar)
+				operation = operation.replace(/##__MODEL_RESOURCE_INTERFACE__##/g, Inflector.singularize(res))
+				operation = operation.replace(/##__ACTION_PAYLOAD_PARAM__##/g, isObjectType(op.requestType) ? ` payload: ${Inflector.camelize(op.name)}DataType,` : '')
+				operation = operation.replace(/##__ACTION_PAYLOAD__##/g, isObjectType(op.requestType) ? ' ...payload ' : '')
+				operation = operation.replace(/##__ACTION_COMMAND__##/g, op.type.toUpperCase())
+			}
 
 	if (placeholders) Object.entries(placeholders).forEach(([key, val]) => {
 		const plh = (key.startsWith('##__') && key.endsWith('__##')) ? key : `##__${key.toUpperCase()}__##`
@@ -918,9 +922,9 @@ const templatedComponent = (res: string, name: string, cmp: Component): { compon
 				if (a.enum) enums[a.name] = attrType
 				if (a.description || a.example) {
 					const desc = (a.description && !a.description.endsWith('.')) ? `${a.description}.` : a.description
-					fields.push(`/** ${desc? `\n\t * ${desc}` : ''}${a.example? `\n\t * @example \`\`\`"${(typeof a.example === 'object')? JSON.stringify(a.example) : a.example}"\`\`\``: ''}\n\t */`)
+					fields.push(`/** ${desc ? `\n\t * ${desc}` : ''}${a.example ? `\n\t * @example \`\`\`"${(typeof a.example === 'object') ? JSON.stringify(a.example) : a.example}"\`\`\`` : ''}\n\t */`)
 				}
-					fields.push(`${a.name}${a.required ? '' : '?'}: ${a.required ? attrType : nullable(attrType)}`)
+				fields.push(`${a.name}${a.required ? '' : '?'}: ${a.required ? attrType : nullable(attrType)}`)
 				nullables ||= (!a.required && !RESOURCE_COMMON_FIELDS.includes(a.name))
 			}
 		}

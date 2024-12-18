@@ -156,6 +156,7 @@ const checkCommon = (request: RequestObj, path: string, id?: string, token?: str
 }
 
 const checkCommonData = (data: any, type: string, attributes: any, id?: string) => {
+	if (type === 'identity_providers') console.log(data)
 	if (id) expect(data.data.id).toBe(id)
 	expect(data.data.type).toBe(type)
 	const relationships: { [k: string]: any } = {}

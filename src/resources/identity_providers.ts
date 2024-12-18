@@ -3,7 +3,7 @@ import { ApiResource } from '../resource'
 import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve } from '../query'
 
-import type { User } from './users'
+import type { User } from './user'
 
 
 type IdentityProviderType = 'identity_providers'
@@ -227,11 +227,11 @@ class IdentityProviders extends ApiResource<IdentityProvider> {
 		return this.resources.fetch<User>({ type: 'user' }, `identity_providers/${_identityProviderId}/user`, params, options) as unknown as User
 	}
 
-	async _disable(id: string | IdentityProvider, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<IdentityProvider> {
+	async _disable(id: string | IdentityProvider, params?: QueryParamsRetrieve<IdentityProvider>, options?: ResourcesConfig): Promise<IdentityProvider> {
 		return this.resources.update<IdentityProviderUpdate, IdentityProvider>({ id: (typeof id === 'string')? id: id.id, type: IdentityProviders.TYPE, _disable: true }, params, options)
 	}
 
-	async _enable(id: string | IdentityProvider, params?: QueryParamsRetrieve, options?: ResourcesConfig): Promise<IdentityProvider> {
+	async _enable(id: string | IdentityProvider, params?: QueryParamsRetrieve<IdentityProvider>, options?: ResourcesConfig): Promise<IdentityProvider> {
 		return this.resources.update<IdentityProviderUpdate, IdentityProvider>({ id: (typeof id === 'string')? id: id.id, type: IdentityProviders.TYPE, _enable: true }, params, options)
 	}
 
