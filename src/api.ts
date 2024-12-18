@@ -9,6 +9,7 @@ import type * as models from './model'
  **/
 export { default as ApiCredentials } from './resources/api_credentials'
 export { default as ApplicationMemberships } from './resources/application_memberships'
+export { default as IdentityProviders } from './resources/identity_providers'
 export { default as Memberships } from './resources/memberships'
 export { default as Organizations } from './resources/organizations'
 export { default as Permissions } from './resources/permissions'
@@ -22,6 +23,7 @@ export type ResourceTypeLock =
 // ##__API_RESOURCE_TYPES_START__##
 	'api_credentials'
 |	'application_memberships'
+|	'identity_providers'
 |	'memberships'
 |	'organizations'
 |	'permissions'
@@ -35,6 +37,7 @@ export const resourceList: ResourceTypeLock[] = [
 // ##__API_RESOURCE_LIST_START__##
 	'api_credentials',
 	'application_memberships',
+	'identity_providers',
 	'memberships',
 	'organizations',
 	'permissions',
@@ -77,6 +80,7 @@ export type CreatableResourceType =
 	// ##__API_RESOURCE_CREATABLE_START__##
 	'api_credentials'
 |	'application_memberships'
+|	'identity_providers'
 |	'memberships'
 |	'organizations'
 |	'permissions'
@@ -93,6 +97,7 @@ export type UpdatableResourceType =
 	// ##__API_RESOURCE_UPDATABLE_START__##
 	'api_credentials'
 |	'application_memberships'
+|	'identity_providers'
 |	'memberships'
 |	'organizations'
 |	'permissions'
@@ -109,6 +114,7 @@ export type DeletableResourceType =
 	// ##__API_RESOURCE_DELETABLE_START__##
 	'api_credentials'
 |	'application_memberships'
+|	'identity_providers'
 |	'memberships'
 	// ##__API_RESOURCE_DELETABLE_STOP__##
 
@@ -136,6 +142,7 @@ export type ResourceFields = {
 	// ##__API_RESOURCE_FIELDS_START__##
 	api_credentials: models.ApiCredential,
 	application_memberships: models.ApplicationMembership,
+	identity_providers: models.IdentityProvider,
 	memberships: models.Membership,
 	organizations: models.Organization,
 	permissions: models.Permission,
@@ -150,6 +157,7 @@ export type ResourceSortFields = {
 	// ##__API_RESOURCE_SORTABLE_FIELDS_START__##
 	api_credentials: models.ApiCredentialSort,
 	application_memberships: models.ApplicationMembershipSort,
+	identity_providers: models.IdentityProviderSort,
 	memberships: models.MembershipSort,
 	organizations: models.OrganizationSort,
 	permissions: models.PermissionSort,

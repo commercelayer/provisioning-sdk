@@ -2,7 +2,7 @@
     "openapi": "3.0.1",
     "info": {
         "title": "Commerce Layer Provisioning API",
-        "version": "1.0.5",
+        "version": "1.0.6",
         "contact": {
             "name": "API Support",
             "url": "https://commercelayer.io",
@@ -479,6 +479,183 @@
                 "responses": {
                     "200": {
                         "description": "The role associated to the application membership"
+                    }
+                }
+            }
+        },
+        "/identity_providers": {
+            "post": {
+                "operationId": "POST/identity_providers",
+                "summary": "Creates an identity provider",
+                "description": "Creates an identity provider",
+                "tags": [
+                    "identity_providers"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/vnd.api+json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/identityProviderCreate"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "The created identity provider object",
+                        "content": {
+                            "application/vnd.api+json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/identityProviderResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "operationId": "GET/identity_providers",
+                "summary": "List all identity providers",
+                "description": "List all identity providers",
+                "tags": [
+                    "identity_providers"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A list of identity provider objects",
+                        "content": {
+                            "application/vnd.api+json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/identityProviderResponseList"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/identity_providers/{identityProviderId}": {
+            "get": {
+                "operationId": "GET/identity_providers/identityProviderId",
+                "summary": "Retrieve an identity provider",
+                "description": "Retrieve an identity provider",
+                "parameters": [
+                    {
+                        "name": "identityProviderId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "tags": [
+                    "identity_providers"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The identity provider object",
+                        "content": {
+                            "application/vnd.api+json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/identityProviderResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "operationId": "PATCH/identity_providers/identityProviderId",
+                "summary": "Updates an identity provider",
+                "description": "Updates an identity provider",
+                "tags": [
+                    "identity_providers"
+                ],
+                "parameters": [
+                    {
+                        "name": "identityProviderId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/vnd.api+json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/identityProviderUpdate"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "The updated identity provider object",
+                        "content": {
+                            "application/vnd.api+json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/identityProviderResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "DELETE/identity_providers/identityProviderId",
+                "summary": "Delete an identity provider",
+                "description": "Delete an identity provider",
+                "tags": [
+                    "identity_providers"
+                ],
+                "parameters": [
+                    {
+                        "name": "identityProviderId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No content"
+                    }
+                }
+            }
+        },
+        "/identity_providers/{identityProviderId}/user": {
+            "get": {
+                "operationId": "GET/identityProviderId/user",
+                "summary": "Related identity provider",
+                "description": "Related identity provider",
+                "tags": [
+                    "user",
+                    "has_one"
+                ],
+                "parameters": [
+                    {
+                        "name": "identityProviderId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The user associated to the identity provider"
                     }
                 }
             }
@@ -1603,6 +1780,33 @@
                                 }
                             }
                         }
+                    }
+                }
+            }
+        },
+        "/user/{userId}/identity_providers": {
+            "get": {
+                "operationId": "GET/userId/identity_providers",
+                "summary": "Related user",
+                "description": "Related user",
+                "tags": [
+                    "identity_providers",
+                    "has_many"
+                ],
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The resource's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The identity_providers associated to the user"
                     }
                 }
             }
@@ -2802,6 +3006,492 @@
                     }
                 }
             },
+            "identityProvider": {
+                "type": "object",
+                "properties": {
+                    "data": {
+                        "type": "object",
+                        "required": [
+                            "type",
+                            "attributes"
+                        ],
+                        "properties": {
+                            "type": {
+                                "type": "string",
+                                "description": "The resource's type",
+                                "enum": [
+                                    "identity_providers"
+                                ]
+                            },
+                            "attributes": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "description": "The name of the Identity provider.",
+                                        "example": "Org auth0",
+                                        "nullable": false
+                                    },
+                                    "client_id": {
+                                        "type": "string",
+                                        "description": "The client ID used for the auth workflow.",
+                                        "example": "a6CDk5v1ZV99GrtOcfYVEZRnDDt",
+                                        "nullable": false
+                                    },
+                                    "client_secret": {
+                                        "type": "string",
+                                        "description": "The client secret used for the auth workflow.",
+                                        "example": "s6CD55v1ZV99ArtOcfYVEZRnDDf",
+                                        "nullable": false
+                                    },
+                                    "issuer": {
+                                        "type": "string",
+                                        "description": "The issuer used for the auth workflow.",
+                                        "example": "https://dev.auth987.com/",
+                                        "nullable": false
+                                    },
+                                    "status": {
+                                        "type": "string",
+                                        "description": "The identity provider status. One of `pending` (default), `verified` or `error`.",
+                                        "example": "pending",
+                                        "readOnly": true,
+                                        "enum": [
+                                            "pending",
+                                            "verified",
+                                            "error"
+                                        ]
+                                    },
+                                    "domains": {
+                                        "type": "string",
+                                        "description": "The list of domains in scope (comma-separated).",
+                                        "example": "dev.auth987.com,stg.auth987.com",
+                                        "nullable": false
+                                    },
+                                    "token_url": {
+                                        "type": "string",
+                                        "description": "The token URL used for the auth workflow.",
+                                        "example": "https://dev.auth987.com/oauth/token",
+                                        "nullable": false
+                                    },
+                                    "authorize_url": {
+                                        "type": "string",
+                                        "description": "The authorize URL used for the auth workflow.",
+                                        "example": "https://dev.auth987.com/authorize",
+                                        "nullable": false
+                                    },
+                                    "jwks_url": {
+                                        "type": "string",
+                                        "description": "The JWKS key store URL used for the auth workflow.",
+                                        "example": "https://dev.auth987.com/.well-known/jwks.json",
+                                        "nullable": false
+                                    },
+                                    "txt_record": {
+                                        "type": "string",
+                                        "description": "The TXT record value used to check the domain.",
+                                        "example": "cl-verification=a6CDk5v",
+                                        "readOnly": true
+                                    },
+                                    "organization": {
+                                        "type": "string",
+                                        "description": "The organization identifier for authorize params.",
+                                        "example": "org_76gsfs5gd",
+                                        "nullable": true
+                                    },
+                                    "created_at": {
+                                        "type": "string",
+                                        "description": "Time at which the resource was created.",
+                                        "example": "2018-01-01T12:00:00.000Z",
+                                        "readOnly": true
+                                    },
+                                    "updated_at": {
+                                        "type": "string",
+                                        "description": "Time at which the resource was last updated.",
+                                        "example": "2018-01-01T12:00:00.000Z",
+                                        "readOnly": true
+                                    },
+                                    "reference": {
+                                        "type": "string",
+                                        "description": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
+                                        "example": "ANY-EXTERNAL-REFEFERNCE",
+                                        "nullable": true
+                                    },
+                                    "reference_origin": {
+                                        "type": "string",
+                                        "description": "Any identifier of the third party system that defines the reference code.",
+                                        "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN",
+                                        "nullable": true
+                                    },
+                                    "metadata": {
+                                        "type": "object",
+                                        "description": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
+                                        "example": {
+                                            "foo": "bar"
+                                        },
+                                        "nullable": true
+                                    },
+                                    "disabled_at": {
+                                        "type": "string",
+                                        "description": "Time at which this resource was disabled.",
+                                        "example": "2018-01-01T12:00:00.000Z",
+                                        "readOnly": true
+                                    }
+                                }
+                            },
+                            "relationships": {
+                                "type": "object",
+                                "properties": {
+                                    "user": {
+                                        "type": "object",
+                                        "properties": {
+                                            "data": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "type": {
+                                                        "type": "string",
+                                                        "description": "The resource's type",
+                                                        "enum": [
+                                                            "user"
+                                                        ]
+                                                    },
+                                                    "id": {
+                                                        "type": "string",
+                                                        "description": "The resource's id",
+                                                        "example": "XGZwpOSrWL"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "identityProviderCreate": {
+                "required": [
+                    "data"
+                ],
+                "type": "object",
+                "properties": {
+                    "data": {
+                        "type": "object",
+                        "required": [
+                            "type",
+                            "attributes"
+                        ],
+                        "properties": {
+                            "type": {
+                                "type": "string",
+                                "description": "The resource's type",
+                                "enum": [
+                                    "identity_providers"
+                                ]
+                            },
+                            "attributes": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "description": "The name of the Identity provider.",
+                                        "example": "Org auth0"
+                                    },
+                                    "client_id": {
+                                        "type": "string",
+                                        "description": "The client ID used for the auth workflow.",
+                                        "example": "a6CDk5v1ZV99GrtOcfYVEZRnDDt"
+                                    },
+                                    "client_secret": {
+                                        "type": "string",
+                                        "description": "The client secret used for the auth workflow.",
+                                        "example": "s6CD55v1ZV99ArtOcfYVEZRnDDf"
+                                    },
+                                    "issuer": {
+                                        "type": "string",
+                                        "description": "The issuer used for the auth workflow.",
+                                        "example": "https://dev.auth987.com/"
+                                    },
+                                    "domains": {
+                                        "type": "string",
+                                        "description": "The list of domains in scope (comma-separated).",
+                                        "example": "dev.auth987.com,stg.auth987.com"
+                                    },
+                                    "token_url": {
+                                        "type": "string",
+                                        "description": "The token URL used for the auth workflow.",
+                                        "example": "https://dev.auth987.com/oauth/token"
+                                    },
+                                    "authorize_url": {
+                                        "type": "string",
+                                        "description": "The authorize URL used for the auth workflow.",
+                                        "example": "https://dev.auth987.com/authorize"
+                                    },
+                                    "jwks_url": {
+                                        "type": "string",
+                                        "description": "The JWKS key store URL used for the auth workflow.",
+                                        "example": "https://dev.auth987.com/.well-known/jwks.json"
+                                    },
+                                    "organization": {
+                                        "type": "string",
+                                        "description": "The organization identifier for authorize params.",
+                                        "example": "org_76gsfs5gd"
+                                    },
+                                    "reference": {
+                                        "type": "string",
+                                        "description": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
+                                        "example": "ANY-EXTERNAL-REFEFERNCE"
+                                    },
+                                    "reference_origin": {
+                                        "type": "string",
+                                        "description": "Any identifier of the third party system that defines the reference code.",
+                                        "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
+                                    },
+                                    "metadata": {
+                                        "type": "object",
+                                        "description": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
+                                        "example": {
+                                            "foo": "bar"
+                                        }
+                                    },
+                                    "_disable": {
+                                        "type": "boolean",
+                                        "description": "Send this attribute if you want to mark this resource as disabled.",
+                                        "example": true
+                                    },
+                                    "_enable": {
+                                        "type": "boolean",
+                                        "description": "Send this attribute if you want to mark this resource as enabled.",
+                                        "example": true
+                                    }
+                                },
+                                "required": [
+                                    "name",
+                                    "client_id",
+                                    "client_secret",
+                                    "issuer",
+                                    "domains",
+                                    "token_url",
+                                    "authorize_url",
+                                    "jwks_url"
+                                ]
+                            },
+                            "relationships": {
+                                "type": "object",
+                                "properties": {}
+                            }
+                        }
+                    }
+                }
+            },
+            "identityProviderUpdate": {
+                "required": [
+                    "data"
+                ],
+                "type": "object",
+                "properties": {
+                    "data": {
+                        "type": "object",
+                        "required": [
+                            "type",
+                            "id",
+                            "attributes"
+                        ],
+                        "properties": {
+                            "type": {
+                                "type": "string",
+                                "description": "The resource's type",
+                                "enum": [
+                                    "identity_providers"
+                                ]
+                            },
+                            "id": {
+                                "type": "string",
+                                "description": "The resource's id",
+                                "example": "XGZwpOSrWL"
+                            },
+                            "attributes": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "description": "The name of the Identity provider.",
+                                        "example": "Org auth0",
+                                        "nullable": false
+                                    },
+                                    "client_id": {
+                                        "type": "string",
+                                        "description": "The client ID used for the auth workflow.",
+                                        "example": "a6CDk5v1ZV99GrtOcfYVEZRnDDt",
+                                        "nullable": false
+                                    },
+                                    "client_secret": {
+                                        "type": "string",
+                                        "description": "The client secret used for the auth workflow.",
+                                        "example": "s6CD55v1ZV99ArtOcfYVEZRnDDf",
+                                        "nullable": false
+                                    },
+                                    "issuer": {
+                                        "type": "string",
+                                        "description": "The issuer used for the auth workflow.",
+                                        "example": "https://dev.auth987.com/",
+                                        "nullable": false
+                                    },
+                                    "domains": {
+                                        "type": "string",
+                                        "description": "The list of domains in scope (comma-separated).",
+                                        "example": "dev.auth987.com,stg.auth987.com",
+                                        "nullable": false
+                                    },
+                                    "token_url": {
+                                        "type": "string",
+                                        "description": "The token URL used for the auth workflow.",
+                                        "example": "https://dev.auth987.com/oauth/token",
+                                        "nullable": false
+                                    },
+                                    "authorize_url": {
+                                        "type": "string",
+                                        "description": "The authorize URL used for the auth workflow.",
+                                        "example": "https://dev.auth987.com/authorize",
+                                        "nullable": false
+                                    },
+                                    "jwks_url": {
+                                        "type": "string",
+                                        "description": "The JWKS key store URL used for the auth workflow.",
+                                        "example": "https://dev.auth987.com/.well-known/jwks.json",
+                                        "nullable": false
+                                    },
+                                    "organization": {
+                                        "type": "string",
+                                        "description": "The organization identifier for authorize params.",
+                                        "example": "org_76gsfs5gd",
+                                        "nullable": true
+                                    },
+                                    "reference": {
+                                        "type": "string",
+                                        "description": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
+                                        "example": "ANY-EXTERNAL-REFEFERNCE",
+                                        "nullable": true
+                                    },
+                                    "reference_origin": {
+                                        "type": "string",
+                                        "description": "Any identifier of the third party system that defines the reference code.",
+                                        "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN",
+                                        "nullable": true
+                                    },
+                                    "metadata": {
+                                        "type": "object",
+                                        "description": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
+                                        "example": {
+                                            "foo": "bar"
+                                        },
+                                        "nullable": true
+                                    },
+                                    "_disable": {
+                                        "type": "boolean",
+                                        "description": "Send this attribute if you want to mark this resource as disabled.",
+                                        "example": true,
+                                        "nullable": false
+                                    },
+                                    "_enable": {
+                                        "type": "boolean",
+                                        "description": "Send this attribute if you want to mark this resource as enabled.",
+                                        "example": true,
+                                        "nullable": false
+                                    }
+                                }
+                            },
+                            "relationships": {
+                                "type": "object",
+                                "properties": {}
+                            }
+                        }
+                    }
+                }
+            },
+            "identityProviderResponse": {
+                "type": "object",
+                "properties": {
+                    "data": {
+                        "type": "object",
+                        "properties": {
+                            "id": {
+                                "type": "string",
+                                "description": "The resource's id",
+                                "example": "XGZwpOSrWL"
+                            },
+                            "type": {
+                                "type": "string",
+                                "description": "The resource's type",
+                                "enum": [
+                                    "identity_providers"
+                                ]
+                            },
+                            "links": {
+                                "type": "object",
+                                "properties": {
+                                    "self": {
+                                        "type": "string",
+                                        "description": "URL"
+                                    }
+                                }
+                            },
+                            "attributes": {
+                                "$ref": "#/components/schemas/identityProvider/properties/data/properties/attributes"
+                            },
+                            "relationships": {
+                                "type": "object",
+                                "properties": {
+                                    "user": {
+                                        "type": "object",
+                                        "properties": {
+                                            "links": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "self": {
+                                                        "type": "string",
+                                                        "description": "URL"
+                                                    },
+                                                    "related": {
+                                                        "type": "string",
+                                                        "description": "URL"
+                                                    }
+                                                }
+                                            },
+                                            "data": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "type": {
+                                                        "type": "string",
+                                                        "description": "The resource's type",
+                                                        "enum": [
+                                                            "user"
+                                                        ]
+                                                    },
+                                                    "id": {
+                                                        "type": "string",
+                                                        "description": "The resource ID"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "identityProviderResponseList": {
+                "type": "object",
+                "properties": {
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/identityProviderResponse/properties/data"
+                        }
+                    }
+                }
+            },
             "membership": {
                 "type": "object",
                 "properties": {
@@ -3661,6 +4351,18 @@
                                         "example": false,
                                         "readOnly": true
                                     },
+                                    "api_new_auth": {
+                                        "type": "boolean",
+                                        "description": "Forces the usage of the new Authentication API.",
+                                        "example": true,
+                                        "readOnly": true
+                                    },
+                                    "api_purge_single_resource": {
+                                        "type": "boolean",
+                                        "description": "Enables the purge of cached single resources when list is purged.",
+                                        "example": false,
+                                        "readOnly": true
+                                    },
                                     "addresses_phone_required": {
                                         "type": "boolean",
                                         "description": "Indicates if the phone attribute is required for addresses, default is true.",
@@ -3745,6 +4447,12 @@
                                         "example": 10,
                                         "readOnly": true
                                     },
+                                    "imports_purge_cache": {
+                                        "type": "boolean",
+                                        "description": "Enables purging of cached resources upon succeeded imports.",
+                                        "example": true,
+                                        "readOnly": true
+                                    },
                                     "promotions_max_concurrent_count": {
                                         "type": "integer",
                                         "description": "The maximum number of active concurrent promotions allowed for your organization, default is 10.",
@@ -3755,6 +4463,18 @@
                                         "type": "integer",
                                         "description": "Enables triggering of webhooks during imports, default is false.",
                                         "example": 0,
+                                        "readOnly": true
+                                    },
+                                    "discount_engines_enabled": {
+                                        "type": "boolean",
+                                        "description": "Enables the use of an external discount engine in place of the standard one, default is false.",
+                                        "example": false,
+                                        "readOnly": true
+                                    },
+                                    "discount_engines_errors": {
+                                        "type": "boolean",
+                                        "description": "Enables raising of API errors in case of discount engine failure, default is false.",
+                                        "example": false,
                                         "readOnly": true
                                     },
                                     "tax_calculators_errors": {
@@ -5677,7 +6397,30 @@
                             },
                             "relationships": {
                                 "type": "object",
-                                "properties": {}
+                                "properties": {
+                                    "identity_providers": {
+                                        "type": "object",
+                                        "properties": {
+                                            "data": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "type": {
+                                                        "type": "string",
+                                                        "description": "The resource's type",
+                                                        "enum": [
+                                                            "identity_providers"
+                                                        ]
+                                                    },
+                                                    "id": {
+                                                        "type": "string",
+                                                        "description": "The resource's id",
+                                                        "example": "XGZwpOSrWL"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
@@ -5693,7 +6436,6 @@
                         "type": "object",
                         "required": [
                             "type",
-                            "id",
                             "attributes"
                         ],
                         "properties": {
@@ -5703,11 +6445,6 @@
                                 "enum": [
                                     "user"
                                 ]
-                            },
-                            "id": {
-                                "type": "string",
-                                "description": "The resource's id",
-                                "example": "XGZwpOSrWL"
                             },
                             "attributes": {
                                 "type": "object",
@@ -5798,7 +6535,42 @@
                             },
                             "relationships": {
                                 "type": "object",
-                                "properties": {}
+                                "properties": {
+                                    "identity_providers": {
+                                        "type": "object",
+                                        "properties": {
+                                            "links": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "self": {
+                                                        "type": "string",
+                                                        "description": "URL"
+                                                    },
+                                                    "related": {
+                                                        "type": "string",
+                                                        "description": "URL"
+                                                    }
+                                                }
+                                            },
+                                            "data": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "type": {
+                                                        "type": "string",
+                                                        "description": "The resource's type",
+                                                        "enum": [
+                                                            "identity_providers"
+                                                        ]
+                                                    },
+                                                    "id": {
+                                                        "type": "string",
+                                                        "description": "The resource ID"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
@@ -5991,6 +6763,10 @@
         },
         {
             "name": "application_memberships",
+            "description": "resource type"
+        },
+        {
+            "name": "identity_providers",
             "description": "resource type"
         },
         {

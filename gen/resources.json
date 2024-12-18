@@ -551,6 +551,303 @@
         }
     },
     {
+        "id": "identity_provider",
+        "type": "resources",
+        "attributes": {
+            "singleton": false,
+            "deprecated": false,
+            "actions": [
+                "create",
+                "list",
+                "retrieve",
+                "update",
+                "delete"
+            ],
+            "examples": {},
+            "filter_scopes": [],
+            "fields": {
+                "name": {
+                    "type": "string",
+                    "desc": "The name of the Identity provider.",
+                    "required": "required",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "Org auth0"
+                },
+                "client_id": {
+                    "type": "string",
+                    "desc": "The client ID used for the auth workflow.",
+                    "required": "required",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "a6CDk5v1ZV99GrtOcfYVEZRnDDt"
+                },
+                "client_secret": {
+                    "type": "string",
+                    "desc": "The client secret used for the auth workflow.",
+                    "required": "required",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "s6CD55v1ZV99ArtOcfYVEZRnDDf"
+                },
+                "issuer": {
+                    "type": "string",
+                    "desc": "The issuer used for the auth workflow.",
+                    "required": "required",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "https://dev.auth987.com/"
+                },
+                "status": {
+                    "type": "string",
+                    "desc": "The identity provider status. One of `pending` (default), `verified` or `error`.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "pending",
+                    "enum": [
+                        "pending",
+                        "verified",
+                        "error"
+                    ],
+                    "aasm": true
+                },
+                "domains": {
+                    "type": "string",
+                    "desc": "The list of domains in scope (comma-separated).",
+                    "required": "required",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "dev.auth987.com,stg.auth987.com"
+                },
+                "token_url": {
+                    "type": "string",
+                    "desc": "The token URL used for the auth workflow.",
+                    "required": "required",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "https://dev.auth987.com/oauth/token"
+                },
+                "authorize_url": {
+                    "type": "string",
+                    "desc": "The authorize URL used for the auth workflow.",
+                    "required": "required",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "https://dev.auth987.com/authorize"
+                },
+                "jwks_url": {
+                    "type": "string",
+                    "desc": "The JWKS key store URL used for the auth workflow.",
+                    "required": "required",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "https://dev.auth987.com/.well-known/jwks.json"
+                },
+                "txt_record": {
+                    "type": "string",
+                    "desc": "The TXT record value used to check the domain.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "cl-verification=a6CDk5v"
+                },
+                "organization": {
+                    "type": "string",
+                    "desc": "The organization identifier for authorize params.",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "org_76gsfs5gd"
+                },
+                "id": {
+                    "format": "id",
+                    "type": "string",
+                    "desc": "Unique identifier for the resource (hash).",
+                    "required": "required",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "XAyRWNUzyN"
+                },
+                "created_at": {
+                    "type": "datetime",
+                    "desc": "Time at which the resource was created.",
+                    "required": "required",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "2018-01-01T12:00:00.000Z"
+                },
+                "updated_at": {
+                    "type": "datetime",
+                    "desc": "Time at which the resource was last updated.",
+                    "required": "required",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "2018-01-01T12:00:00.000Z"
+                },
+                "reference": {
+                    "type": "string",
+                    "desc": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "ANY-EXTERNAL-REFEFERNCE"
+                },
+                "reference_origin": {
+                    "type": "string",
+                    "desc": "Any identifier of the third party system that defines the reference code.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
+                },
+                "metadata": {
+                    "type": "object",
+                    "desc": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": false,
+                    "example": {
+                        "foo": "bar"
+                    }
+                },
+                "_disable": {
+                    "type": "boolean",
+                    "trigger": true,
+                    "desc": "Send this attribute if you want to mark this resource as disabled.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true",
+                    "conditions": {
+                        "include": "CoreMixins::Concerns::Disabled"
+                    }
+                },
+                "_enable": {
+                    "type": "boolean",
+                    "trigger": true,
+                    "desc": "Send this attribute if you want to mark this resource as enabled.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true",
+                    "conditions": {
+                        "include": "CoreMixins::Concerns::Disabled"
+                    }
+                },
+                "disabled_at": {
+                    "type": "datetime",
+                    "desc": "Time at which this resource was disabled.",
+                    "required": "optional",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "2018-01-01T12:00:00.000Z",
+                    "conditions": {
+                        "include": "CoreMixins::Concerns::Disabled"
+                    }
+                }
+            },
+            "relationships": {
+                "user": {
+                    "type": "has_one",
+                    "desc": "The user associated to the identity provider.",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": true,
+                    "sortable": false,
+                    "parent_resource": "V1::IdentityProviderResource",
+                    "class_name": "User"
+                }
+            },
+            "filters": [
+                "id",
+                "name",
+                "client_id",
+                "client_secret",
+                "issuer",
+                "status",
+                "domains",
+                "token_url",
+                "authorize_url",
+                "jwks_url",
+                "txt_record",
+                "organization",
+                "created_at",
+                "updated_at",
+                "reference",
+                "reference_origin",
+                "metadata",
+                "disabled_at",
+                "q",
+                "user_id",
+                "ids",
+                "created_at_from",
+                "created_at_to",
+                "updated_at_from",
+                "updated_at_to",
+                "disabled_at_from",
+                "disabled_at_to"
+            ]
+        }
+    },
+    {
         "id": "membership",
         "type": "resources",
         "attributes": {
@@ -1270,6 +1567,29 @@
                     "type": "integer",
                     "default": false,
                     "desc": "Enables triggering of webhooks during imports, default is {IMPORTS_TRIGGER_WEBHOOKS}.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "false"
+                },
+                "discount_engines_enabled": {
+                    "type": "boolean",
+                    "default": false,
+                    "addon": true,
+                    "desc": "Enables the use of an external discount engine in place of the standard one, default is {DISCOUNT_ENGINES_ENABLED}.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "false"
+                },
+                "discount_engines_errors": {
+                    "type": "boolean",
+                    "default": false,
+                    "desc": "Enables raising of API errors in case of discount engine failure, default is {DISCOUNT_ENGINES_ERRORS}.",
                     "creatable": false,
                     "updatable": false,
                     "fetchable": true,
@@ -2027,7 +2347,7 @@
                 },
                 "status": {
                     "type": "string",
-                    "desc": "The subscription status. One of `draft` (default), `pending`, `activated`, `expired`, `canceled` or `on_error`.",
+                    "desc": "The subscription status. One of `draft` (default), `pending`, `activated`, `expired`, `canceled` or `error`.",
                     "creatable": false,
                     "updatable": false,
                     "fetchable": true,
@@ -2040,7 +2360,7 @@
                         "activated",
                         "expired",
                         "canceled",
-                        "on_error"
+                        "error"
                     ],
                     "aasm": true
                 },
@@ -2342,7 +2662,18 @@
                     }
                 }
             },
-            "relationships": {},
+            "relationships": {
+                "identity_providers": {
+                    "type": "has_many",
+                    "desc": "The identity providers associated to the user.",
+                    "creatable": false,
+                    "updatable": false,
+                    "filterable": true,
+                    "sortable": false,
+                    "parent_resource": "V1::UserResource",
+                    "class_name": "IdentityProvider"
+                }
+            },
             "filters": [
                 "id",
                 "email",
@@ -2355,6 +2686,7 @@
                 "reference_origin",
                 "metadata",
                 "q",
+                "identity_providers_id",
                 "ids",
                 "created_at_from",
                 "created_at_to",

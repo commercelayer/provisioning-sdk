@@ -105,6 +105,15 @@ interface Organization extends Resource {
 	 */
 	api_rules_engine: boolean
 	/** 
+	 * Forces the usage of the new Authentication API.
+	 * @example ```"true"```
+	 */
+	api_new_auth: boolean
+	/** 
+	 * Enables the purge of cached single resources when list is purged.
+	 */
+	api_purge_single_resource: boolean
+	/** 
 	 * Indicates if the phone attribute is required for addresses, default is true.
 	 * @example ```"true"```
 	 */
@@ -173,6 +182,11 @@ interface Organization extends Resource {
 	 */
 	imports_max_concurrent_count: number
 	/** 
+	 * Enables purging of cached resources upon succeeded imports.
+	 * @example ```"true"```
+	 */
+	imports_purge_cache: boolean
+	/** 
 	 * The maximum number of active concurrent promotions allowed for your organization, default is 10.
 	 * @example ```"10"```
 	 */
@@ -181,6 +195,14 @@ interface Organization extends Resource {
 	 * Enables triggering of webhooks during imports, default is false.
 	 */
 	imports_trigger_webhooks: number
+	/** 
+	 * Enables the use of an external discount engine in place of the standard one, default is false.
+	 */
+	discount_engines_enabled: boolean
+	/** 
+	 * Enables raising of API errors in case of discount engine failure, default is false.
+	 */
+	discount_engines_errors: boolean
 	/** 
 	 * Enables raising of API errors in case of tax calculation failure, default is false.
 	 */

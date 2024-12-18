@@ -131,5 +131,26 @@ describe('Users resource', () => {
   /* spec.parse.stop */
 
   
+
+	/* relationship.identity_providers start */
+	it(resourceType + '.identity_providers', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { identity_providers: CommonData.paramsFields } }
+	
+		const intId = clp.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'identity_providers')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await clp[resourcePath].identity_providers(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => clp.removeInterceptor('request', intId))
+	
+	})
+	/* relationship.identity_providers stop */
+	
   
 })

@@ -6,6 +6,7 @@
  **/
 export type { ApiCredential, ApiCredentialCreate, ApiCredentialUpdate, ApiCredentialSort } from './resources/api_credentials'
 export type { ApplicationMembership, ApplicationMembershipCreate, ApplicationMembershipUpdate, ApplicationMembershipSort } from './resources/application_memberships'
+export type { IdentityProvider, IdentityProviderCreate, IdentityProviderUpdate, IdentityProviderSort } from './resources/identity_providers'
 export type { Membership, MembershipCreate, MembershipUpdate, MembershipSort } from './resources/memberships'
 export type { Organization, OrganizationCreate, OrganizationUpdate, OrganizationSort } from './resources/organizations'
 export type { Permission, PermissionCreate, PermissionUpdate, PermissionSort } from './resources/permissions'

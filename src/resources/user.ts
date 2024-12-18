@@ -1,8 +1,9 @@
 import type { Nullable } from '../types'
 import { ApiSingleton } from '../resource'
-import type { Resource, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ResourceSort, /* ResourceFilter */ } from '../resource'
-import type { QueryParamsRetrieve } from '../query'
+import type { Resource, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
+import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
+import type { IdentityProvider } from './identity_providers'
 
 
 type UserType = 'user'
@@ -41,7 +42,9 @@ interface User extends Resource {
 	 * The user 2FA setting.
 	 */
 	otp_required_for_login: boolean
-	
+
+	identity_providers?: Nullable<IdentityProvider[]>
+
 }
 
 
@@ -76,8 +79,12 @@ class Users extends ApiSingleton<User> {
 	static readonly TYPE: UserType = 'user' as const
 
 	async update(resource: UserUpdate, params?: QueryParamsRetrieve<User>, options?: ResourcesConfig): Promise<User> {
-		const id = resource.id || (await this.retrieve()).id	// JsonAPI requires id in the request body
-		return this.resources.update<UserUpdate, User>({ ...resource, id, type: Users.TYPE }, params, options)
+		return this.resources.update<UserUpdate, User>({ ...resource, type: Users.TYPE }, params, options)
+	}
+
+	async identity_providers(userId: string | User, params?: QueryParamsList<IdentityProvider>, options?: ResourcesConfig): Promise<ListResponse<IdentityProvider>> {
+		const _userId = (userId as User).id || userId as string
+		return this.resources.fetch<IdentityProvider>({ type: 'identity_providers' }, `user/${_userId}/identity_providers`, params, options) as unknown as ListResponse<IdentityProvider>
 	}
 
 
