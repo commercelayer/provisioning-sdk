@@ -71,7 +71,6 @@ describe('SDK suite', () => {
 
 	it('response.emptyBody', async () => {
 
-
 		jest.setTimeout(15_000)
 
 		const cli = await getClient({})

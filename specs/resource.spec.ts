@@ -8,6 +8,8 @@ let clp: CommerceLayerProvisioningClient
 let memberships: ListResponse<Membership>
 let tempId: string
 
+const organizationSlug = process.env.CL_SDK_ORGANIZATION
+
 
 beforeAll(async () => {
 	clp = await getClient({})
@@ -61,14 +63,16 @@ describe('SDK:resource suite', () => {
 
 	it('resource.create', async () => {
 		const user_email = 'spec@provisioning-sdk-test.org'
-		const org = (await clp.organizations.list()).first()
+		const params = organizationSlug ? { filters: { slug_eq: organizationSlug } } : undefined
+		const org = (await clp.organizations.list(params)).first()
+		console.log(org)
 		const role = (await clp.roles.list()).first()
 		if (!org || !role) throw new Error('Missing role or organization')
 		const ms = await clp.memberships.create({
 			user_email,
 			organization: clp.organizations.relationship(org),
 			role: clp.roles.relationship(role)
-		})
+		}).catch(err => { console.log(err); throw err })
 		expect(ms.id).not.toBeUndefined()
 		expect(ms.user_email).toEqual(user_email)
 		tempId = ms.id
