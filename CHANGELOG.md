@@ -1,3 +1,10 @@
+## [2.3.1](https://github.com/commercelayer/provisioning-sdk/compare/v2.3.0...v2.3.1) (2024-12-19)
+
+
+### Bug Fixes
+
+* fix singleton update requires id ([4eccc03](https://github.com/commercelayer/provisioning-sdk/commit/4eccc0346b0ddb7d057c9565ee46cfdf81eba5c8))
+
 # [2.3.0](https://github.com/commercelayer/provisioning-sdk/compare/v2.2.1...v2.3.0) (2024-12-18)
 
 
