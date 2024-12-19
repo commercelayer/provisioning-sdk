@@ -4,6 +4,7 @@ import { readFileSync, writeFileSync, existsSync, mkdirSync, readdirSync, rmSync
 import { basename } from 'node:path'
 import Fixer from './fixer'
 import Inflector from './inflector'
+import { updateLicense } from './license'
 
 
 /**** SDK source code generator settings ****/
@@ -160,6 +161,8 @@ const generate = async (localSchema?: boolean) => {
 	updateSdkInterfaces(resources)
 	updateModelTypes(resources)
 	// updateApiMicroClients(resources)
+
+	updateLicense()
 
 	console.log(`SDK generation completed [${global.version}].\n`)
 
@@ -770,7 +773,7 @@ const generateResource = (type: string, name: string, resource: Resource): strin
 	const impResMod: string[] = Array.from(declaredImportsModels)
 		.filter(i => !typesArray.includes(i))	// excludes resource self reference
 		.map(i => {
-			// Fix singleton type problem in provisioning api
+			// [TEMP] Fix singleton type problem in provisioning api
 			const singletonRel = Object.values(global.singletons).includes(i)
 			const fileRel = Inflector.underscore(singletonRel? i : Inflector.pluralize(i))
 			return `import type { ${i}${relationshipTypes.has(i) ? `, ${i}Type` : ''} } from './${fileRel}'`
