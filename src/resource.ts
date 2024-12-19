@@ -56,6 +56,11 @@ interface ResourceUpdate extends ResourceBase {
 }
 
 
+interface SingletonUpdate extends ResourceBase {
+	
+}
+
+
 type ListMeta = {
 	readonly pageCount: number
 	readonly recordCount: number
@@ -88,7 +93,7 @@ class ListResponse<R extends Resource = Resource> extends Array<R> {
 }
 
 
-export type { Metadata, ResourceType, ResourceId, Resource, ResourceCreate, ResourceUpdate, ListResponse, ListMeta, ResourceRel }
+export type { Metadata, ResourceType, ResourceId, Resource, ResourceCreate, ResourceUpdate, ListResponse, ListMeta, ResourceRel, SingletonUpdate }
 
 export type ResourceSort = Pick<Resource, 'id' | 'reference' | 'reference_origin' | 'created_at' | 'updated_at'>
 export type ResourceFilter = Pick<Resource, 'id' | 'reference' | 'reference_origin' | 'metadata' | 'created_at' | 'updated_at'>
@@ -205,7 +210,7 @@ class ResourceAdapter {
 	}
 
 
-	async update<U extends ResourceUpdate, R extends Resource>(resource: U & ResourceId, params?: QueryParamsRetrieve<R>, options?: ResourcesConfig, path?: string): Promise<R> {
+	async update<U extends (ResourceUpdate | SingletonUpdate), R extends Resource>(resource: U & ResourceType, params?: QueryParamsRetrieve<R>, options?: ResourcesConfig, path?: string): Promise<R> {
 
 		const singleton = !('id' in resource) || CommerceLayerProvisioningStatic.isSingleton(resource.type)
 

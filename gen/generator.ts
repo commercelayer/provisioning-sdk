@@ -740,9 +740,10 @@ const generateResource = (type: string, name: string, resource: Resource): strin
 
 	typesArray.forEach(t => {
 		const cudSuffix = getCUDSuffix(t)
-		resourceInterfaces.push(`Resource${cudSuffix}`)
+		const resIntf = ((singletonResource && (cudSuffix === 'Update'))? 'Singleton' : 'Resource') + cudSuffix
+		resourceInterfaces.push(resIntf)
 		const component: Component = resource.components[t]
-		const tplCmp = templatedComponent(resName, t, component)
+		const tplCmp = templatedComponent(resName, t, component, singletonResource)
 		tplCmp.models.forEach(m => {
 			if (m !== 'Resource') declaredImportsModels.add(m)	// Fix resource_errors issue
 		})
@@ -904,7 +905,7 @@ const nullable = (type: string): string => {
 
 type ComponentEnums = { [key: string]: string }
 
-const templatedComponent = (res: string, name: string, cmp: Component): { component: string, models: string[], enums: ComponentEnums, nullables: boolean } => {
+const templatedComponent = (res: string, name: string, cmp: Component, singleton?: boolean): { component: string, models: string[], enums: ComponentEnums, nullables: boolean } => {
 
 	const cudModel = isCUDModel(name)
 
@@ -973,7 +974,10 @@ const templatedComponent = (res: string, name: string, cmp: Component): { compon
 	let component = (fields.length || rels.length) ? templates.model : templates.model_empty
 
 	component = component.replace(/##__RESOURCE_MODEL__##/g, name)
-	component = component.replace(/##__EXTEND_TYPE__##/g, getCUDSuffix(name))
+
+	const cudSuffix = getCUDSuffix(name)
+	const extendType = ((singleton && cudModel && (cudSuffix === 'Update'))? 'Singleton' : 'Resource') + cudSuffix
+	component = component.replace(/##__EXTEND_TYPE__##/, extendType)
 
 	const fieldsStr = (fields.length ? '\n\t' : '') + fields.join('\n\t') + (fields.length && rels.length ? '\n' : '')
 	const relsStr = rels.join('\n\t') + (rels.length ? '\n' : '')

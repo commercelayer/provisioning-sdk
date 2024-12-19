@@ -1,6 +1,6 @@
 import type { Nullable } from '../types'
 import { ApiSingleton } from '../resource'
-import type { Resource, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
+import type { Resource, SingletonUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 
 import type { IdentityProvider } from './identity_providers'
@@ -48,7 +48,7 @@ interface User extends Resource {
 }
 
 
-interface UserUpdate extends ResourceUpdate {
+interface UserUpdate extends SingletonUpdate {
 	
 	/** 
 	 * The user email.

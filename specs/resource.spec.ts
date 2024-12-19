@@ -55,9 +55,12 @@ describe('SDK:resource suite', () => {
 
 
 	it('resource.singleton', async () => {
-		const user = await clp.user.retrieve()
+		let user = await clp.user.retrieve()
 		expect(user.id).not.toBeNull()
 		expect(user.id).not.toBeUndefined()
+		const testRef = 'reference_' + Date.now()
+		user = await clp.user.update({ reference: testRef, time_zone: 'UTC' })
+		expect(user.reference).toBe(testRef)
 	})
 
 
@@ -65,7 +68,6 @@ describe('SDK:resource suite', () => {
 		const user_email = 'spec@provisioning-sdk-test.org'
 		const params = organizationSlug ? { filters: { slug_eq: organizationSlug } } : undefined
 		const org = (await clp.organizations.list(params)).first()
-		console.log(org)
 		const role = (await clp.roles.list()).first()
 		if (!org || !role) throw new Error('Missing role or organization')
 		const ms = await clp.memberships.create({
