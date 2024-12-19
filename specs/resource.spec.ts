@@ -55,6 +55,7 @@ describe('SDK:resource suite', () => {
 
 
 	it('resource.singleton', async () => {
+		// Test singleton operations without an id
 		let user = await clp.user.retrieve()
 		expect(user.id).not.toBeNull()
 		expect(user.id).not.toBeUndefined()
