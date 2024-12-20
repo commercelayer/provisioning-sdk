@@ -101,7 +101,7 @@ const generate = async (localSchema?: boolean) => {
 
 	// Remove redundant components and force usage of global resource component
 	const fixedSchema = await Fixer.fixSchema(schema)
-
+console.log(Object.keys(fixedSchema.resources))
 
 	loadTemplates()
 
@@ -234,7 +234,7 @@ const updateSdkInterfaces = (resources: { [key: string]: ApiRes }): void => {
 
 	const initializations: string[] = []
 	if (!CONFIG.LEAZY_LOADING) Object.entries(resources).forEach(([type, res]) => {
-		const fieldName = res.singleton ? Inflector.singularize(type) : type
+		const fieldName = res.singleton? Inflector.singularize(type) : type
 		let ini = iniTpl
 		ini = ini.replace(/##__TAB__##/g, '\t')
 		ini = ini.replace(/##__RESOURCE_TYPE__##/, fieldName)
@@ -254,7 +254,7 @@ const updateSdkInterfaces = (resources: { [key: string]: ApiRes }): void => {
 
 	const leazyLoaders: string[] = []
 	if (CONFIG.LEAZY_LOADING) Object.entries(resources).forEach(([type, res]) => {
-		const fieldName = res.singleton ? Inflector.singularize(type) : type
+		const fieldName = res.singleton? Inflector.singularize(type) : type
 		let ll = llTpl
 		ll = ll.replace(/##__TAB__##/g, '\t')
 		ll = ll.replace(/##__RESOURCE_TYPE__##/g, fieldName)
@@ -538,7 +538,7 @@ const generateSpec = (type: string, name: string, resource: Resource): string =>
 
 	spec = spec.replace(/##__RESOURCE_CLASS__##/g, name)
 	spec = spec.replace(/##__RESOURCE_TYPE__##/g, type)
-	spec = spec.replace(/##__RESOURCE_PATH__##/g, singleton ? Inflector.singularize(type) : type)
+	spec = spec.replace(/##__RESOURCE_PATH__##/g, singleton? Inflector.singularize(type) : type)
 	// Clear unused placeholders
 	spec = spec.replace(/##__RELATIONSHIP_SPECS__##/g, '')
 	spec = spec.replace(/##__TRIGGER_SPECS__##/g, '')
@@ -713,7 +713,7 @@ const generateResource = (type: string, name: string, resource: Resource): strin
 	res = res.replace(/##__RESPONSE_MODELS__##/g, (resMod.size > 0) ? `, ${Array.from(resMod).join(', ')}` : '')
 	res = res.replace(/##__MODEL_RESOURCE_INTERFACE__##/g, resModelInterface)
 	res = res.replace(/##__IMPORT_RESOURCE_COMMON__##/, Array.from(declaredImportsCommon).join(', '))
-	res = res.replace(/##__MODEL_SORTABLE_INTERFACE__##/, singletonResource ? '' : `, ${resModelInterface}Sort`)
+	res = res.replace(/##__MODEL_SORTABLE_INTERFACE__##/, singletonResource? '' : `, ${resModelInterface}Sort`)
 
 	const importQueryModels = (qryMod.size > 0) ? `import type { ${Array.from(qryMod).sort().reverse().join(', ')} } from '../query'` : ''
 	res = res.replace(/##__IMPORT_QUERY_MODELS__##/, importQueryModels)
@@ -773,9 +773,7 @@ const generateResource = (type: string, name: string, resource: Resource): strin
 	const impResMod: string[] = Array.from(declaredImportsModels)
 		.filter(i => !typesArray.includes(i))	// excludes resource self reference
 		.map(i => {
-			// [TEMP] Fix singleton type problem in provisioning api
-			const singletonRel = Object.values(global.singletons).includes(i)
-			const fileRel = Inflector.underscore(singletonRel? i : Inflector.pluralize(i))
+			const fileRel = Inflector.underscore(Inflector.pluralize(i))
 			return `import type { ${i}${relationshipTypes.has(i) ? `, ${i}Type` : ''} } from './${fileRel}'`
 		})
 	const importStr = impResMod.join('\n') + (impResMod.length ? '\n' : '')

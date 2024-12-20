@@ -96,13 +96,11 @@ const fixHeadingEmptyLines = (lines: string[]): string[] => {
 
 const fixResourcesType = (schema: ApiSchema): ApiSchema => {
 
-	const skippedKeys = ['user']
-
 	const resources = {}
 
 	for (const key in schema.resources) {
 		const type = Inflector.pluralize(key)
-		if ((type === key) || skippedKeys.includes(key)) resources[key] = schema.resources[key]
+		if (type === key) resources[key] = schema.resources[key]
 		else resources[type] = schema.resources[key]
 	}
 

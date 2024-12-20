@@ -11,6 +11,6 @@ export type { Membership, MembershipCreate, MembershipUpdate, MembershipSort } f
 export type { Organization, OrganizationCreate, OrganizationUpdate, OrganizationSort } from './resources/organizations'
 export type { Permission, PermissionCreate, PermissionUpdate, PermissionSort } from './resources/permissions'
 export type { Role, RoleCreate, RoleUpdate, RoleSort } from './resources/roles'
-export type { User, UserUpdate, UserSort } from './resources/user'
+export type { User, UserUpdate, UserSort } from './resources/users'
 export type { Version, VersionSort } from './resources/versions'
 // ##__MODEL_TYPES_STOP__##

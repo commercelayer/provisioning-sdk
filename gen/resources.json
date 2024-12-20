@@ -1387,6 +1387,17 @@
                     "sortable": false,
                     "example": "false"
                 },
+                "api_max_regex_length": {
+                    "type": "integer",
+                    "default": 5000,
+                    "desc": "The maximum length for the regular expressions, default is {API_MAX_REGEX_LENGTH}.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "5000"
+                },
                 "addresses_phone_required": {
                     "type": "boolean",
                     "default": true,
@@ -1552,6 +1563,17 @@
                     "sortable": false,
                     "example": "true"
                 },
+                "imports_skip_errors": {
+                    "type": "boolean",
+                    "default": false,
+                    "desc": "Disables the interruption of the import in case its errors exceeds the 10% threshold, default is {IMPORTS_SKIP_ERRORS}.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "false"
+                },
                 "promotions_max_concurrent_count": {
                     "type": "integer",
                     "default": 10,
@@ -1596,6 +1618,17 @@
                     "filterable": false,
                     "sortable": false,
                     "example": "false"
+                },
+                "tags_max_name_length": {
+                    "type": "integer",
+                    "default": 25,
+                    "desc": "The maximum length for the tag name, default is {TAGS_MAX_NAME_LENGTH}.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "25"
                 },
                 "tax_calculators_errors": {
                     "type": "boolean",
@@ -2662,18 +2695,7 @@
                     }
                 }
             },
-            "relationships": {
-                "identity_providers": {
-                    "type": "has_many",
-                    "desc": "The identity providers associated to the user.",
-                    "creatable": false,
-                    "updatable": false,
-                    "filterable": true,
-                    "sortable": false,
-                    "parent_resource": "V1::UserResource",
-                    "class_name": "IdentityProvider"
-                }
-            },
+            "relationships": {},
             "filters": [
                 "id",
                 "email",
@@ -2686,7 +2708,6 @@
                 "reference_origin",
                 "metadata",
                 "q",
-                "identity_providers_id",
                 "ids",
                 "created_at_from",
                 "created_at_to",

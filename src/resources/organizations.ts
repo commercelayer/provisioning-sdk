@@ -114,6 +114,11 @@ interface Organization extends Resource {
 	 */
 	api_purge_single_resource: boolean
 	/** 
+	 * The maximum length for the regular expressions, default is 5000.
+	 * @example ```"5000"```
+	 */
+	api_max_regex_length: number
+	/** 
 	 * Indicates if the phone attribute is required for addresses, default is true.
 	 * @example ```"true"```
 	 */
@@ -187,6 +192,10 @@ interface Organization extends Resource {
 	 */
 	imports_purge_cache: boolean
 	/** 
+	 * Disables the interruption of the import in case its errors exceeds the 10% threshold, default is false.
+	 */
+	imports_skip_errors: boolean
+	/** 
 	 * The maximum number of active concurrent promotions allowed for your organization, default is 10.
 	 * @example ```"10"```
 	 */
@@ -203,6 +212,11 @@ interface Organization extends Resource {
 	 * Enables raising of API errors in case of discount engine failure, default is false.
 	 */
 	discount_engines_errors: boolean
+	/** 
+	 * The maximum length for the tag name, default is 25.
+	 * @example ```"25"```
+	 */
+	tags_max_name_length: number
 	/** 
 	 * Enables raising of API errors in case of tax calculation failure, default is false.
 	 */

@@ -2,7 +2,7 @@
     "openapi": "3.0.1",
     "info": {
         "title": "Commerce Layer Provisioning API",
-        "version": "1.0.6",
+        "version": "1.0.7",
         "contact": {
             "name": "API Support",
             "url": "https://commercelayer.io",
@@ -639,7 +639,7 @@
                 "summary": "Related identity provider",
                 "description": "Related identity provider",
                 "tags": [
-                    "user",
+                    "users",
                     "has_one"
                 ],
                 "parameters": [
@@ -1730,7 +1730,7 @@
         },
         "/user": {
             "get": {
-                "operationId": "GET/user/userId",
+                "operationId": "GET/user",
                 "summary": "Retrieve an user",
                 "description": "Retrieve an user",
                 "parameters": [],
@@ -1752,7 +1752,7 @@
                 }
             },
             "patch": {
-                "operationId": "PATCH/user/userId",
+                "operationId": "PATCH/user",
                 "summary": "Updates an user",
                 "description": "Updates an user",
                 "tags": [
@@ -1780,33 +1780,6 @@
                                 }
                             }
                         }
-                    }
-                }
-            }
-        },
-        "/user/{userId}/identity_providers": {
-            "get": {
-                "operationId": "GET/userId/identity_providers",
-                "summary": "Related user",
-                "description": "Related user",
-                "tags": [
-                    "identity_providers",
-                    "has_many"
-                ],
-                "parameters": [
-                    {
-                        "name": "userId",
-                        "in": "path",
-                        "schema": {
-                            "type": "string"
-                        },
-                        "required": true,
-                        "description": "The resource's id"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "The identity_providers associated to the user"
                     }
                 }
             }
@@ -3150,7 +3123,7 @@
                                                         "type": "string",
                                                         "description": "The resource's type",
                                                         "enum": [
-                                                            "user"
+                                                            "users"
                                                         ]
                                                     },
                                                     "id": {
@@ -4363,6 +4336,12 @@
                                         "example": false,
                                         "readOnly": true
                                     },
+                                    "api_max_regex_length": {
+                                        "type": "integer",
+                                        "description": "The maximum length for the regular expressions, default is 5000.",
+                                        "example": 5000,
+                                        "readOnly": true
+                                    },
                                     "addresses_phone_required": {
                                         "type": "boolean",
                                         "description": "Indicates if the phone attribute is required for addresses, default is true.",
@@ -4453,6 +4432,12 @@
                                         "example": true,
                                         "readOnly": true
                                     },
+                                    "imports_skip_errors": {
+                                        "type": "boolean",
+                                        "description": "Disables the interruption of the import in case its errors exceeds the 10% threshold, default is false.",
+                                        "example": false,
+                                        "readOnly": true
+                                    },
                                     "promotions_max_concurrent_count": {
                                         "type": "integer",
                                         "description": "The maximum number of active concurrent promotions allowed for your organization, default is 10.",
@@ -4475,6 +4460,12 @@
                                         "type": "boolean",
                                         "description": "Enables raising of API errors in case of discount engine failure, default is false.",
                                         "example": false,
+                                        "readOnly": true
+                                    },
+                                    "tags_max_name_length": {
+                                        "type": "integer",
+                                        "description": "The maximum length for the tag name, default is 25.",
+                                        "example": 25,
                                         "readOnly": true
                                     },
                                     "tax_calculators_errors": {
@@ -6325,7 +6316,7 @@
                                 "type": "string",
                                 "description": "The resource's type",
                                 "enum": [
-                                    "user"
+                                    "users"
                                 ]
                             },
                             "attributes": {
@@ -6397,30 +6388,7 @@
                             },
                             "relationships": {
                                 "type": "object",
-                                "properties": {
-                                    "identity_providers": {
-                                        "type": "object",
-                                        "properties": {
-                                            "data": {
-                                                "type": "object",
-                                                "properties": {
-                                                    "type": {
-                                                        "type": "string",
-                                                        "description": "The resource's type",
-                                                        "enum": [
-                                                            "identity_providers"
-                                                        ]
-                                                    },
-                                                    "id": {
-                                                        "type": "string",
-                                                        "description": "The resource's id",
-                                                        "example": "XGZwpOSrWL"
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
+                                "properties": {}
                             }
                         }
                     }
@@ -6443,7 +6411,7 @@
                                 "type": "string",
                                 "description": "The resource's type",
                                 "enum": [
-                                    "user"
+                                    "users"
                                 ]
                             },
                             "attributes": {
@@ -6518,7 +6486,7 @@
                                 "type": "string",
                                 "description": "The resource's type",
                                 "enum": [
-                                    "user"
+                                    "users"
                                 ]
                             },
                             "links": {
@@ -6535,42 +6503,7 @@
                             },
                             "relationships": {
                                 "type": "object",
-                                "properties": {
-                                    "identity_providers": {
-                                        "type": "object",
-                                        "properties": {
-                                            "links": {
-                                                "type": "object",
-                                                "properties": {
-                                                    "self": {
-                                                        "type": "string",
-                                                        "description": "URL"
-                                                    },
-                                                    "related": {
-                                                        "type": "string",
-                                                        "description": "URL"
-                                                    }
-                                                }
-                                            },
-                                            "data": {
-                                                "type": "object",
-                                                "properties": {
-                                                    "type": {
-                                                        "type": "string",
-                                                        "description": "The resource's type",
-                                                        "enum": [
-                                                            "identity_providers"
-                                                        ]
-                                                    },
-                                                    "id": {
-                                                        "type": "string",
-                                                        "description": "The resource ID"
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
+                                "properties": {}
                             }
                         }
                     }
@@ -6790,7 +6723,7 @@
             "description": "resource type"
         },
         {
-            "name": "user",
+            "name": "users",
             "description": "resource type"
         },
         {

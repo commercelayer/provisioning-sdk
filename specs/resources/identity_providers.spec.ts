@@ -213,7 +213,7 @@ describe('IdentityProviders resource', () => {
 	it(resourceType + '.user', async () => {
 	
 		const id = TestData.id
-		const params = { fields: { user: CommonData.paramsFields } }
+		const params = { fields: { users: CommonData.paramsFields } }
 	
 		const intId = clp.addRequestInterceptor((request) => {
 			expect(request.options.method).toBe('GET')
