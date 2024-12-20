@@ -76,7 +76,7 @@ class Users extends ApiSingleton<User> {
 	static readonly TYPE: UserType = 'users' as const
 
 	async update(resource: UserUpdate, params?: QueryParamsRetrieve<User>, options?: ResourcesConfig): Promise<User> {
-		return this.resources.update<UserUpdate, User>({ ...resource, type: Users.TYPE }, params, options)
+		return this.resources.update<UserUpdate, User>({ ...resource, type: Users.TYPE }, params, options, this.path())
 	}
 
 
