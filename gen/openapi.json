@@ -2,7 +2,7 @@
     "openapi": "3.0.1",
     "info": {
         "title": "Commerce Layer Provisioning API",
-        "version": "1.0.7",
+        "version": "1.0.8",
         "contact": {
             "name": "API Support",
             "url": "https://commercelayer.io",
@@ -4324,6 +4324,18 @@
                                         "example": false,
                                         "readOnly": true
                                     },
+                                    "api_rules_engine_max_conditions_size": {
+                                        "type": "integer",
+                                        "description": "The fallback maximum number of conditions within a rules payload on a ruleable object, default is 150.",
+                                        "example": 150,
+                                        "readOnly": true
+                                    },
+                                    "api_rules_engine_max_rules_size": {
+                                        "type": "integer",
+                                        "description": "The fallback maximum number of rules within a rules payload on a ruleable object, default is 15.",
+                                        "example": 15,
+                                        "readOnly": true
+                                    },
                                     "api_new_auth": {
                                         "type": "boolean",
                                         "description": "Forces the usage of the new Authentication API.",
@@ -4444,6 +4456,30 @@
                                         "example": 10,
                                         "readOnly": true
                                     },
+                                    "promotions_max_conditions_size": {
+                                        "type": "integer",
+                                        "description": "The maximum number of conditions within a rules payload on a promotion object, default is 150.",
+                                        "example": 150,
+                                        "readOnly": true
+                                    },
+                                    "promotions_max_rules_size": {
+                                        "type": "integer",
+                                        "description": "The maximum number of rules within a rules payload on a promotion object, default is 15.",
+                                        "example": 15,
+                                        "readOnly": true
+                                    },
+                                    "price_lists_max_conditions_size": {
+                                        "type": "integer",
+                                        "description": "The maximum number of conditions within a rules payload on a price list object, default is 150.",
+                                        "example": 150,
+                                        "readOnly": true
+                                    },
+                                    "price_lists_max_rules_size": {
+                                        "type": "integer",
+                                        "description": "The maximum number of rules within a rules payload on a price list object, default is 15.",
+                                        "example": 15,
+                                        "readOnly": true
+                                    },
                                     "imports_trigger_webhooks": {
                                         "type": "integer",
                                         "description": "Enables triggering of webhooks during imports, default is false.",
@@ -4466,6 +4502,12 @@
                                         "type": "integer",
                                         "description": "The maximum length for the tag name, default is 25.",
                                         "example": 25,
+                                        "readOnly": true
+                                    },
+                                    "tags_max_allowed_number": {
+                                        "type": "integer",
+                                        "description": "The maximum allowed number of tags for each resource, default is 10.",
+                                        "example": 10,
                                         "readOnly": true
                                     },
                                     "tax_calculators_errors": {

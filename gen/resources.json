@@ -1365,6 +1365,28 @@
                     "sortable": false,
                     "example": "false"
                 },
+                "api_rules_engine_max_conditions_size": {
+                    "type": "integer",
+                    "default": 150,
+                    "desc": "The fallback maximum number of conditions within a rules payload on a ruleable object, default is {API_RULES_ENGINE_MAX_CONDITIONS_SIZE}.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "150"
+                },
+                "api_rules_engine_max_rules_size": {
+                    "type": "integer",
+                    "default": 15,
+                    "desc": "The fallback maximum number of rules within a rules payload on a ruleable object, default is {API_RULES_ENGINE_MAX_RULES_SIZE}.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "15"
+                },
                 "api_new_auth": {
                     "type": "boolean",
                     "default": true,
@@ -1584,6 +1606,50 @@
                     "filterable": false,
                     "sortable": false,
                     "example": "10"
+                },
+                "promotions_max_conditions_size": {
+                    "type": "integer",
+                    "default": 150,
+                    "desc": "The maximum number of conditions within a rules payload on a promotion object, default is {PROMOTIONS_MAX_CONDITIONS_SIZE}.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "150"
+                },
+                "promotions_max_rules_size": {
+                    "type": "integer",
+                    "default": 15,
+                    "desc": "The maximum number of rules within a rules payload on a promotion object, default is {PROMOTIONS_MAX_RULES_SIZE}.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "15"
+                },
+                "price_lists_max_conditions_size": {
+                    "type": "integer",
+                    "default": 150,
+                    "desc": "The maximum number of conditions within a rules payload on a price list object, default is {PRICE_LISTS_MAX_CONDITIONS_SIZE}.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "150"
+                },
+                "price_lists_max_rules_size": {
+                    "type": "integer",
+                    "default": 15,
+                    "desc": "The maximum number of rules within a rules payload on a price list object, default is {PRICE_LISTS_MAX_RULES_SIZE}.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "15"
                 },
                 "imports_trigger_webhooks": {
                     "type": "integer",

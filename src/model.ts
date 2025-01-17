@@ -2,7 +2,7 @@
 // ##__MODEL_TYPES_START__##
 // ##__MODEL_TYPES_TEMPLATE:: export type { ##__RESOURCE_MODELS__##, ##__RESOURCE_BASE_MODEL__##Sort } from './resources/##__RESOURCE_TYPE__##'
 /**
- * ©2024 Commerce Layer Inc.
+ * ©2025 Commerce Layer Inc.
  **/
 export type { ApiCredential, ApiCredentialCreate, ApiCredentialUpdate, ApiCredentialSort } from './resources/api_credentials'
 export type { ApplicationMembership, ApplicationMembershipCreate, ApplicationMembershipUpdate, ApplicationMembershipSort } from './resources/application_memberships'
