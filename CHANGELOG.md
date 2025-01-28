@@ -1,3 +1,10 @@
+## [2.4.1](https://github.com/commercelayer/provisioning-sdk/compare/v2.4.0...v2.4.1) (2025-01-28)
+
+
+### Bug Fixes
+
+* fix example field in attribute's description ([a007e7f](https://github.com/commercelayer/provisioning-sdk/commit/a007e7f27b6fd8344a018b0a7aafa3c6aa08d6dd))
+
 # [2.4.0](https://github.com/commercelayer/provisioning-sdk/compare/v2.3.2...v2.4.0) (2025-01-17)
 
 
