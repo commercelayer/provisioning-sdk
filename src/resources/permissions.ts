@@ -43,7 +43,7 @@ interface Permission extends Resource {
 	subject: string
 	/** 
 	 * An object that contains additional restrictions.
-	 * @example ```"{"foo":"bar"}"```
+	 * @example ```{"foo":"bar"}```
 	 */
 	restrictions: Record<string, any>
 

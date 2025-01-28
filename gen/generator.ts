@@ -924,7 +924,7 @@ const templatedComponent = (res: string, name: string, cmp: Component, singleton
 				if (a.enum) enums[a.name] = attrType
 				if (a.description || a.example) {
 					const desc = (a.description && !a.description.endsWith('.')) ? `${a.description}.` : a.description
-					fields.push(`/** ${desc ? `\n\t * ${desc}` : ''}${a.example ? `\n\t * @example \`\`\`"${(typeof a.example === 'object') ? JSON.stringify(a.example) : a.example}"\`\`\`` : ''}\n\t */`)
+					fields.push(`/** ${desc ? `\n\t * ${desc}` : ''}${a.example ? `\n\t * @example \`\`\`${(typeof a.example === 'object') ? JSON.stringify(a.example) : `"${a.example}"`}\`\`\`` : ''}\n\t */`)
 				}
 				fields.push(`${a.name}${a.required ? '' : '?'}: ${a.required ? attrType : nullable(attrType)}`)
 				nullables ||= (!a.required && !RESOURCE_COMMON_FIELDS.includes(a.name))

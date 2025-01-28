@@ -27,7 +27,7 @@ interface ApplicationMembership extends Resource {
 
 	/** 
 	 * Set of key-value pairs that contains restrictions and scopes of the application membership.
-	 * @example ```"{"market_id_in":[202,203]}"```
+	 * @example ```{"market_id_in":[202,203]}```
 	 */
 	filters?: Nullable<Record<string, any>>
 
@@ -43,7 +43,7 @@ interface ApplicationMembershipCreate extends ResourceCreate {
 	
 	/** 
 	 * Set of key-value pairs that contains restrictions and scopes of the application membership.
-	 * @example ```"{"market_id_in":[202,203]}"```
+	 * @example ```{"market_id_in":[202,203]}```
 	 */
 	filters?: Nullable<Record<string, any>>
 
@@ -59,7 +59,7 @@ interface ApplicationMembershipUpdate extends ResourceUpdate {
 	
 	/** 
 	 * Set of key-value pairs that contains restrictions and scopes of the application membership.
-	 * @example ```"{"market_id_in":[202,203]}"```
+	 * @example ```{"market_id_in":[202,203]}```
 	 */
 	filters?: Nullable<Record<string, any>>
 
