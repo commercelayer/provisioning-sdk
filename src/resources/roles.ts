@@ -63,6 +63,11 @@ interface RoleUpdate extends ResourceUpdate {
 	 * @example ```"Custom role"```
 	 */
 	name?: Nullable<string>
+	/** 
+	 * Send this attribute if you want to update the role base permissions.
+	 * @example ```"true"```
+	 */
+	_add_missing_base_permissions?: Nullable<boolean>
 	
 }
 
@@ -102,6 +107,10 @@ class Roles extends ApiResource<Role> {
 	async versions(roleId: string | Role, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {
 		const _roleId = (roleId as Role).id || roleId as string
 		return this.resources.fetch<Version>({ type: 'versions' }, `roles/${_roleId}/versions`, params, options) as unknown as ListResponse<Version>
+	}
+
+	async _add_missing_base_permissions(id: string | Role, params?: QueryParamsRetrieve<Role>, options?: ResourcesConfig): Promise<Role> {
+		return this.resources.update<RoleUpdate, Role>({ id: (typeof id === 'string')? id: id.id, type: Roles.TYPE, _add_missing_base_permissions: true }, params, options)
 	}
 
 

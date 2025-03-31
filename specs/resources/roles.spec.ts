@@ -289,4 +289,30 @@ describe('Roles resource', () => {
 	/* relationship.versions stop */
 	
   
+
+	/* trigger._add_missing_base_permissions start */
+	it(resourceType + '._add_missing_base_permissions', async () => {
+	
+		let triggerAttr = '_add_missing_base_permissions'
+		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
+	
+		const triggerValue = true
+		const attributes = { [triggerAttr]: triggerValue }
+	  const id = TestData.id
+	
+		const intId = clp.addRequestInterceptor((request) => {
+			const data = JSON.parse(String(request.options.body))
+			expect(request.options.method).toBe('PATCH')
+			checkCommon(request, resourcePath, id, currentAccessToken)
+			checkCommonData(data, resourceType, attributes, id)
+			return interceptRequest()
+		})
+	
+		await clp[resourcePath]._add_missing_base_permissions(id, {}, CommonData.options)
+			.catch(handleError)
+			.finally(() => clp.removeInterceptor('request', intId))
+	
+	})
+	/* trigger._add_missing_base_permissions stop */
+	
 })

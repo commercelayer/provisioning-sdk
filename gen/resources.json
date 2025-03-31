@@ -1239,6 +1239,7 @@
                     "sortable": false,
                     "example": {
                         "mfe": {
+                            "language": "it-IT",
                             "default": {
                                 "links": {
                                     "cart": "https://cart.example.com/:order_id?accessToken=:access_token",
@@ -1248,6 +1249,7 @@
                                     "my_account": "https://example.com/my-custom-account?accessToken=:access_token"
                                 },
                                 "checkout": {
+                                    "optional_billing_info": false,
                                     "thankyou_page": "https://example.com/thanks/:lang/:order_id",
                                     "billing_countries": [
                                         {
@@ -1486,6 +1488,17 @@
                     "sortable": false,
                     "example": "true"
                 },
+                "orders_invalid_coupon_errors": {
+                    "type": "boolean",
+                    "default": true,
+                    "desc": "Enables raising of API errors in case the provided coupon code is invalid, default is {ORDERS_INVALID_COUPON_ERRORS}.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
+                },
                 "bundles_max_items_count": {
                     "type": "integer",
                     "default": 10,
@@ -1695,6 +1708,17 @@
                     "filterable": false,
                     "sortable": false,
                     "example": "25"
+                },
+                "tags_max_allowed_number": {
+                    "type": "integer",
+                    "default": 10,
+                    "desc": "The maximum allowed number of tags for each resource, default is {TAGS_MAX_ALLOWED_NUMBER}.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "10"
                 },
                 "tax_calculators_errors": {
                     "type": "boolean",
@@ -2269,6 +2293,18 @@
                     "sortable": false,
                     "default": "custom",
                     "example": "custom"
+                },
+                "_add_missing_base_permissions": {
+                    "type": "boolean",
+                    "trigger": true,
+                    "desc": "Send this attribute if you want to update the role base permissions.",
+                    "required": "optional",
+                    "creatable": false,
+                    "updatable": true,
+                    "fetchable": false,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
                 },
                 "id": {
                     "format": "id",

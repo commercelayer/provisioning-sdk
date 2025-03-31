@@ -2,7 +2,7 @@
     "openapi": "3.0.1",
     "info": {
         "title": "Commerce Layer Provisioning API",
-        "version": "1.0.8",
+        "version": "1.0.11",
         "contact": {
             "name": "API Support",
             "url": "https://commercelayer.io",
@@ -4207,6 +4207,7 @@
                                         "description": "The organization's configuration.",
                                         "example": {
                                             "mfe": {
+                                                "language": "it-IT",
                                                 "default": {
                                                     "links": {
                                                         "cart": "https://cart.example.com/:order_id?accessToken=:access_token",
@@ -4216,6 +4217,7 @@
                                                         "my_account": "https://example.com/my-custom-account?accessToken=:access_token"
                                                     },
                                                     "checkout": {
+                                                        "optional_billing_info": false,
                                                         "thankyou_page": "https://example.com/thanks/:lang/:order_id",
                                                         "billing_countries": [
                                                             {
@@ -4387,6 +4389,12 @@
                                     "orders_number_as_reference": {
                                         "type": "boolean",
                                         "description": "Enables to use the order number as payment reference on supported gateways.",
+                                        "example": true,
+                                        "readOnly": true
+                                    },
+                                    "orders_invalid_coupon_errors": {
+                                        "type": "boolean",
+                                        "description": "Enables raising of API errors in case the provided coupon code is invalid, default is true.",
                                         "example": true,
                                         "readOnly": true
                                     },
@@ -4731,6 +4739,7 @@
                                         "description": "The organization's configuration.",
                                         "example": {
                                             "mfe": {
+                                                "language": "it-IT",
                                                 "default": {
                                                     "links": {
                                                         "cart": "https://cart.example.com/:order_id?accessToken=:access_token",
@@ -4740,6 +4749,7 @@
                                                         "my_account": "https://example.com/my-custom-account?accessToken=:access_token"
                                                     },
                                                     "checkout": {
+                                                        "optional_billing_info": false,
                                                         "thankyou_page": "https://example.com/thanks/:lang/:order_id",
                                                         "billing_countries": [
                                                             {
@@ -4953,6 +4963,7 @@
                                         "description": "The organization's configuration.",
                                         "example": {
                                             "mfe": {
+                                                "language": "it-IT",
                                                 "default": {
                                                     "links": {
                                                         "cart": "https://cart.example.com/:order_id?accessToken=:access_token",
@@ -4962,6 +4973,7 @@
                                                         "my_account": "https://example.com/my-custom-account?accessToken=:access_token"
                                                     },
                                                     "checkout": {
+                                                        "optional_billing_info": false,
                                                         "thankyou_page": "https://example.com/thanks/:lang/:order_id",
                                                         "billing_countries": [
                                                             {
@@ -6092,6 +6104,12 @@
                                         "type": "string",
                                         "description": "The role name.",
                                         "example": "Custom role",
+                                        "nullable": false
+                                    },
+                                    "_add_missing_base_permissions": {
+                                        "type": "boolean",
+                                        "description": "Send this attribute if you want to update the role base permissions.",
+                                        "example": true,
                                         "nullable": false
                                     },
                                     "reference": {
