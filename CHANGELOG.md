@@ -1,3 +1,10 @@
+## [2.5.1](https://github.com/commercelayer/provisioning-sdk/compare/v2.5.0...v2.5.1) (2025-04-07)
+
+
+### Bug Fixes
+
+* update dependencies ([12e99ce](https://github.com/commercelayer/provisioning-sdk/commit/12e99ce0fd32033197cc93055962aec36c7d2c71))
+
 # [2.5.0](https://github.com/commercelayer/provisioning-sdk/compare/v2.4.1...v2.5.0) (2025-03-31)
 
 
