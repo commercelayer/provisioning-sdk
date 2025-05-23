@@ -6,6 +6,7 @@ import type { QueryParamsRetrieve, QueryParamsList } from '../query'
 import type { Organization, OrganizationType } from './organizations'
 import type { Role, RoleType } from './roles'
 import type { ApplicationMembership, ApplicationMembershipType } from './application_memberships'
+import type { MembershipProfile, MembershipProfileType } from './membership_profiles'
 import type { Version } from './versions'
 
 
@@ -14,10 +15,11 @@ type MembershipRel = ResourceRel & { type: MembershipType }
 type OrganizationRel = ResourceRel & { type: OrganizationType }
 type RoleRel = ResourceRel & { type: RoleType }
 type ApplicationMembershipRel = ResourceRel & { type: ApplicationMembershipType }
+type MembershipProfileRel = ResourceRel & { type: MembershipProfileType }
 
 
 export type MembershipSort = Pick<Membership, 'id' | 'status'> & ResourceSort
-// export type MembershipFilter = Pick<Membership, 'id' | 'user_email' | 'status' | 'owner'> & ResourceFilter
+// export type MembershipFilter = Pick<Membership, 'id' | 'user_email' | 'status' | 'owner' | 'test_enabled'> & ResourceFilter
 
 
 interface Membership extends Resource {
@@ -49,10 +51,15 @@ interface Membership extends Resource {
 	 * @example ```"true"```
 	 */
 	owner: boolean
+	/** 
+	 * Used to enable test mode on the accessible apps.
+	 */
+	test_enabled?: Nullable<boolean>
 
 	organization?: Nullable<Organization>
 	role?: Nullable<Role>
 	application_memberships?: Nullable<ApplicationMembership[]>
+	membership_profile?: Nullable<MembershipProfile>
 	versions?: Nullable<Version[]>
 
 }
@@ -65,18 +72,29 @@ interface MembershipCreate extends ResourceCreate {
 	 * @example ```"commercelayer@commercelayer.io"```
 	 */
 	user_email: string
+	/** 
+	 * Used to enable test mode on the accessible apps.
+	 */
+	test_enabled?: Nullable<boolean>
 
 	organization: OrganizationRel
 	role: RoleRel
 	application_memberships?: Nullable<ApplicationMembershipRel[]>
+	membership_profile?: Nullable<MembershipProfileRel>
 
 }
 
 
 interface MembershipUpdate extends ResourceUpdate {
 	
+	/** 
+	 * Used to enable test mode on the accessible apps.
+	 */
+	test_enabled?: Nullable<boolean>
+
 	role?: Nullable<RoleRel>
 	application_memberships?: Nullable<ApplicationMembershipRel[]>
+	membership_profile?: Nullable<MembershipProfileRel>
 
 }
 
@@ -115,6 +133,11 @@ class Memberships extends ApiResource<Membership> {
 	async application_memberships(membershipId: string | Membership, params?: QueryParamsList<ApplicationMembership>, options?: ResourcesConfig): Promise<ListResponse<ApplicationMembership>> {
 		const _membershipId = (membershipId as Membership).id || membershipId as string
 		return this.resources.fetch<ApplicationMembership>({ type: 'application_memberships' }, `memberships/${_membershipId}/application_memberships`, params, options) as unknown as ListResponse<ApplicationMembership>
+	}
+
+	async membership_profile(membershipId: string | Membership, params?: QueryParamsRetrieve<MembershipProfile>, options?: ResourcesConfig): Promise<MembershipProfile> {
+		const _membershipId = (membershipId as Membership).id || membershipId as string
+		return this.resources.fetch<MembershipProfile>({ type: 'membership_profiles' }, `memberships/${_membershipId}/membership_profile`, params, options) as unknown as MembershipProfile
 	}
 
 	async versions(membershipId: string | Membership, params?: QueryParamsList<Version>, options?: ResourcesConfig): Promise<ListResponse<Version>> {

@@ -11,6 +11,7 @@ export { default as ApiCredentials } from './resources/api_credentials'
 export { default as ApplicationMemberships } from './resources/application_memberships'
 export { default as IdentityProviders } from './resources/identity_providers'
 export { default as Memberships } from './resources/memberships'
+export { default as MembershipProfiles } from './resources/membership_profiles'
 export { default as Organizations } from './resources/organizations'
 export { default as Permissions } from './resources/permissions'
 export { default as Roles } from './resources/roles'
@@ -25,6 +26,7 @@ export type ResourceTypeLock =
 |	'application_memberships'
 |	'identity_providers'
 |	'memberships'
+|	'membership_profiles'
 |	'organizations'
 |	'permissions'
 |	'roles'
@@ -39,6 +41,7 @@ export const resourceList: ResourceTypeLock[] = [
 	'application_memberships',
 	'identity_providers',
 	'memberships',
+	'membership_profiles',
 	'organizations',
 	'permissions',
 	'roles',
@@ -82,6 +85,7 @@ export type CreatableResourceType =
 |	'application_memberships'
 |	'identity_providers'
 |	'memberships'
+|	'membership_profiles'
 |	'organizations'
 |	'permissions'
 |	'roles'
@@ -99,6 +103,7 @@ export type UpdatableResourceType =
 |	'application_memberships'
 |	'identity_providers'
 |	'memberships'
+|	'membership_profiles'
 |	'organizations'
 |	'permissions'
 |	'roles'
@@ -116,6 +121,7 @@ export type DeletableResourceType =
 |	'application_memberships'
 |	'identity_providers'
 |	'memberships'
+|	'membership_profiles'
 	// ##__API_RESOURCE_DELETABLE_STOP__##
 
 export type DeletableResource = Resource & {
@@ -144,6 +150,7 @@ export type ResourceFields = {
 	application_memberships: models.ApplicationMembership,
 	identity_providers: models.IdentityProvider,
 	memberships: models.Membership,
+	membership_profiles: models.MembershipProfile,
 	organizations: models.Organization,
 	permissions: models.Permission,
 	roles: models.Role,
@@ -159,6 +166,7 @@ export type ResourceSortFields = {
 	application_memberships: models.ApplicationMembershipSort,
 	identity_providers: models.IdentityProviderSort,
 	memberships: models.MembershipSort,
+	membership_profiles: models.MembershipProfileSort,
 	organizations: models.OrganizationSort,
 	permissions: models.PermissionSort,
 	roles: models.RoleSort,

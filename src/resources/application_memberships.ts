@@ -5,6 +5,7 @@ import type { QueryParamsRetrieve } from '../query'
 
 import type { ApiCredential, ApiCredentialType } from './api_credentials'
 import type { Membership, MembershipType } from './memberships'
+import type { MembershipProfile, MembershipProfileType } from './membership_profiles'
 import type { Organization, OrganizationType } from './organizations'
 import type { Role, RoleType } from './roles'
 
@@ -13,6 +14,7 @@ type ApplicationMembershipType = 'application_memberships'
 type ApplicationMembershipRel = ResourceRel & { type: ApplicationMembershipType }
 type ApiCredentialRel = ResourceRel & { type: ApiCredentialType }
 type MembershipRel = ResourceRel & { type: MembershipType }
+type MembershipProfileRel = ResourceRel & { type: MembershipProfileType }
 type OrganizationRel = ResourceRel & { type: OrganizationType }
 type RoleRel = ResourceRel & { type: RoleType }
 
@@ -33,6 +35,7 @@ interface ApplicationMembership extends Resource {
 
 	api_credential?: Nullable<ApiCredential>
 	membership?: Nullable<Membership>
+	membership_profile?: Nullable<MembershipProfile>
 	organization?: Nullable<Organization>
 	role?: Nullable<Role>
 
@@ -48,7 +51,8 @@ interface ApplicationMembershipCreate extends ResourceCreate {
 	filters?: Nullable<Record<string, any>>
 
 	api_credential: ApiCredentialRel
-	membership: MembershipRel
+	membership?: Nullable<MembershipRel>
+	membership_profile?: Nullable<MembershipProfileRel>
 	organization: OrganizationRel
 	role: RoleRel
 
@@ -63,6 +67,7 @@ interface ApplicationMembershipUpdate extends ResourceUpdate {
 	 */
 	filters?: Nullable<Record<string, any>>
 
+	membership_profile?: Nullable<MembershipProfileRel>
 	role?: Nullable<RoleRel>
 
 }
@@ -92,6 +97,11 @@ class ApplicationMemberships extends ApiResource<ApplicationMembership> {
 	async membership(applicationMembershipId: string | ApplicationMembership, params?: QueryParamsRetrieve<Membership>, options?: ResourcesConfig): Promise<Membership> {
 		const _applicationMembershipId = (applicationMembershipId as ApplicationMembership).id || applicationMembershipId as string
 		return this.resources.fetch<Membership>({ type: 'memberships' }, `application_memberships/${_applicationMembershipId}/membership`, params, options) as unknown as Membership
+	}
+
+	async membership_profile(applicationMembershipId: string | ApplicationMembership, params?: QueryParamsRetrieve<MembershipProfile>, options?: ResourcesConfig): Promise<MembershipProfile> {
+		const _applicationMembershipId = (applicationMembershipId as ApplicationMembership).id || applicationMembershipId as string
+		return this.resources.fetch<MembershipProfile>({ type: 'membership_profiles' }, `application_memberships/${_applicationMembershipId}/membership_profile`, params, options) as unknown as MembershipProfile
 	}
 
 	async organization(applicationMembershipId: string | ApplicationMembership, params?: QueryParamsRetrieve<Organization>, options?: ResourcesConfig): Promise<Organization> {

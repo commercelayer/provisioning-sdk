@@ -354,13 +354,24 @@
                 "membership": {
                     "type": "has_one",
                     "desc": "The membership associated to the application membership.",
-                    "required": "required",
+                    "required": "optional",
                     "creatable": true,
                     "updatable": false,
                     "filterable": true,
                     "sortable": false,
                     "parent_resource": "V1::ApplicationMembershipResource",
                     "class_name": "Membership"
+                },
+                "membership_profile": {
+                    "type": "has_one",
+                    "desc": "The membership profile associated to the application membership.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "filterable": true,
+                    "sortable": false,
+                    "parent_resource": "V1::ApplicationMembershipResource",
+                    "class_name": "MembershipProfile"
                 },
                 "organization": {
                     "type": "has_one",
@@ -396,6 +407,7 @@
                 "q",
                 "api_credential_id",
                 "membership_id",
+                "membership_profile_id",
                 "organization_id",
                 "role_id",
                 "ids",
@@ -919,6 +931,17 @@
                     "sortable": false,
                     "example": "true"
                 },
+                "test_enabled": {
+                    "type": "boolean",
+                    "desc": "The test_enabled is used to enable test mode on accessible apps.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": false,
+                    "example": true
+                },
                 "id": {
                     "format": "id",
                     "type": "string",
@@ -1022,6 +1045,17 @@
                     "parent_resource": "V1::MembershipResource",
                     "class_name": "ApplicationMembership"
                 },
+                "membership_profile": {
+                    "type": "has_one",
+                    "desc": "The membership profile associated to the membership.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "filterable": true,
+                    "sortable": false,
+                    "parent_resource": "V1::MembershipResource",
+                    "class_name": "MembershipProfile"
+                },
                 "versions": {
                     "type": "has_many",
                     "desc": "The associated changes.",
@@ -1042,6 +1076,7 @@
                 "user_email",
                 "status",
                 "owner",
+                "test_enabled",
                 "created_at",
                 "updated_at",
                 "reference",
@@ -1050,6 +1085,158 @@
                 "q",
                 "organization_id",
                 "role_id",
+                "application_memberships_id",
+                "membership_profile_id",
+                "ids",
+                "created_at_from",
+                "created_at_to",
+                "updated_at_from",
+                "updated_at_to"
+            ]
+        }
+    },
+    {
+        "id": "membership_profile",
+        "type": "resources",
+        "attributes": {
+            "singleton": false,
+            "deprecated": false,
+            "actions": [
+                "create",
+                "list",
+                "retrieve",
+                "update",
+                "delete"
+            ],
+            "examples": {},
+            "filter_scopes": [],
+            "fields": {
+                "name": {
+                    "type": "string",
+                    "desc": "The membership_profile name.",
+                    "required": "required",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "Marketing group"
+                },
+                "test_enabled": {
+                    "type": "boolean",
+                    "desc": "The test_enabled is used to enable test mode on accessible apps.",
+                    "required": "required",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": false,
+                    "example": true
+                },
+                "id": {
+                    "format": "id",
+                    "type": "string",
+                    "desc": "Unique identifier for the resource (hash).",
+                    "required": "required",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "XAyRWNUzyN"
+                },
+                "created_at": {
+                    "type": "datetime",
+                    "desc": "Time at which the resource was created.",
+                    "required": "required",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "2018-01-01T12:00:00.000Z"
+                },
+                "updated_at": {
+                    "type": "datetime",
+                    "desc": "Time at which the resource was last updated.",
+                    "required": "required",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "2018-01-01T12:00:00.000Z"
+                },
+                "reference": {
+                    "type": "string",
+                    "desc": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "ANY-EXTERNAL-REFEFERNCE"
+                },
+                "reference_origin": {
+                    "type": "string",
+                    "desc": "Any identifier of the third party system that defines the reference code.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": true,
+                    "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
+                },
+                "metadata": {
+                    "type": "object",
+                    "desc": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
+                    "required": "optional",
+                    "creatable": true,
+                    "updatable": true,
+                    "fetchable": true,
+                    "filterable": true,
+                    "sortable": false,
+                    "example": {
+                        "foo": "bar"
+                    }
+                }
+            },
+            "relationships": {
+                "organization": {
+                    "type": "has_one",
+                    "desc": "The organization associated to the membership.",
+                    "required": "required",
+                    "creatable": true,
+                    "updatable": false,
+                    "filterable": true,
+                    "sortable": false,
+                    "parent_resource": "V1::MembershipProfileResource",
+                    "class_name": "Organization"
+                },
+                "application_memberships": {
+                    "type": "has_many",
+                    "desc": "The application memberships associated to the membership_profile.",
+                    "creatable": true,
+                    "updatable": true,
+                    "filterable": true,
+                    "sortable": false,
+                    "parent_resource": "V1::MembershipProfileResource",
+                    "class_name": "ApplicationMembership"
+                }
+            },
+            "filters": [
+                "id",
+                "name",
+                "test_enabled",
+                "created_at",
+                "updated_at",
+                "reference",
+                "reference_origin",
+                "metadata",
+                "q",
+                "organization_id",
                 "application_memberships_id",
                 "ids",
                 "created_at_from",
@@ -1432,6 +1619,17 @@
                     "filterable": false,
                     "sortable": false,
                     "example": "true"
+                },
+                "orders_min_refresh_lapse": {
+                    "type": "float",
+                    "default": 0,
+                    "desc": "The minimum lapse in fraction of seconds to be observed between two consecutive order refreshes. If refresh is triggered within the minimum lapse, the update is performed, but no order refresh is done, until the lapse is observed.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "0.0"
                 },
                 "orders_autorefresh_cutoff_test": {
                     "type": "integer",

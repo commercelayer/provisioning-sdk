@@ -2,7 +2,7 @@
     "openapi": "3.0.1",
     "info": {
         "title": "Commerce Layer Provisioning API",
-        "version": "1.0.11",
+        "version": "1.0.12",
         "contact": {
             "name": "API Support",
             "url": "https://commercelayer.io",
@@ -86,7 +86,7 @@
                             "type": "string"
                         },
                         "required": true,
-                        "description": "The resource's id"
+                        "description": "The ID of the resource."
                     }
                 ],
                 "tags": [
@@ -120,7 +120,7 @@
                             "type": "string"
                         },
                         "required": true,
-                        "description": "The resource's id"
+                        "description": "The ID of the resource."
                     }
                 ],
                 "requestBody": {
@@ -161,7 +161,7 @@
                             "type": "string"
                         },
                         "required": true,
-                        "description": "The resource's id"
+                        "description": "The ID of the resource."
                     }
                 ],
                 "responses": {
@@ -188,7 +188,7 @@
                             "type": "string"
                         },
                         "required": true,
-                        "description": "The resource's id"
+                        "description": "The ID of the resource."
                     }
                 ],
                 "responses": {
@@ -215,7 +215,7 @@
                             "type": "string"
                         },
                         "required": true,
-                        "description": "The resource's id"
+                        "description": "The ID of the resource."
                     }
                 ],
                 "responses": {
@@ -290,7 +290,7 @@
                             "type": "string"
                         },
                         "required": true,
-                        "description": "The resource's id"
+                        "description": "The ID of the resource."
                     }
                 ],
                 "tags": [
@@ -324,7 +324,7 @@
                             "type": "string"
                         },
                         "required": true,
-                        "description": "The resource's id"
+                        "description": "The ID of the resource."
                     }
                 ],
                 "requestBody": {
@@ -365,7 +365,7 @@
                             "type": "string"
                         },
                         "required": true,
-                        "description": "The resource's id"
+                        "description": "The ID of the resource."
                     }
                 ],
                 "responses": {
@@ -392,7 +392,7 @@
                             "type": "string"
                         },
                         "required": true,
-                        "description": "The resource's id"
+                        "description": "The ID of the resource."
                     }
                 ],
                 "responses": {
@@ -419,12 +419,39 @@
                             "type": "string"
                         },
                         "required": true,
-                        "description": "The resource's id"
+                        "description": "The ID of the resource."
                     }
                 ],
                 "responses": {
                     "200": {
                         "description": "The membership associated to the application membership"
+                    }
+                }
+            }
+        },
+        "/application_memberships/{applicationMembershipId}/membership_profile": {
+            "get": {
+                "operationId": "GET/applicationMembershipId/membership_profile",
+                "summary": "Related application membership",
+                "description": "Related application membership",
+                "tags": [
+                    "membership_profiles",
+                    "has_one"
+                ],
+                "parameters": [
+                    {
+                        "name": "applicationMembershipId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The ID of the resource."
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The membership_profile associated to the application membership"
                     }
                 }
             }
@@ -446,7 +473,7 @@
                             "type": "string"
                         },
                         "required": true,
-                        "description": "The resource's id"
+                        "description": "The ID of the resource."
                     }
                 ],
                 "responses": {
@@ -473,7 +500,7 @@
                             "type": "string"
                         },
                         "required": true,
-                        "description": "The resource's id"
+                        "description": "The ID of the resource."
                     }
                 ],
                 "responses": {
@@ -548,7 +575,7 @@
                             "type": "string"
                         },
                         "required": true,
-                        "description": "The resource's id"
+                        "description": "The ID of the resource."
                     }
                 ],
                 "tags": [
@@ -582,7 +609,7 @@
                             "type": "string"
                         },
                         "required": true,
-                        "description": "The resource's id"
+                        "description": "The ID of the resource."
                     }
                 ],
                 "requestBody": {
@@ -623,7 +650,7 @@
                             "type": "string"
                         },
                         "required": true,
-                        "description": "The resource's id"
+                        "description": "The ID of the resource."
                     }
                 ],
                 "responses": {
@@ -650,7 +677,7 @@
                             "type": "string"
                         },
                         "required": true,
-                        "description": "The resource's id"
+                        "description": "The ID of the resource."
                     }
                 ],
                 "responses": {
@@ -725,7 +752,7 @@
                             "type": "string"
                         },
                         "required": true,
-                        "description": "The resource's id"
+                        "description": "The ID of the resource."
                     }
                 ],
                 "tags": [
@@ -759,7 +786,7 @@
                             "type": "string"
                         },
                         "required": true,
-                        "description": "The resource's id"
+                        "description": "The ID of the resource."
                     }
                 ],
                 "requestBody": {
@@ -800,7 +827,7 @@
                             "type": "string"
                         },
                         "required": true,
-                        "description": "The resource's id"
+                        "description": "The ID of the resource."
                     }
                 ],
                 "responses": {
@@ -826,7 +853,7 @@
                             "type": "string"
                         },
                         "required": true,
-                        "description": "The resource's id"
+                        "description": "The ID of the resource."
                     }
                 ],
                 "requestBody": {
@@ -860,7 +887,7 @@
                             "type": "string"
                         },
                         "required": true,
-                        "description": "The resource's id"
+                        "description": "The ID of the resource."
                     }
                 ],
                 "responses": {
@@ -887,7 +914,7 @@
                             "type": "string"
                         },
                         "required": true,
-                        "description": "The resource's id"
+                        "description": "The ID of the resource."
                     }
                 ],
                 "responses": {
@@ -914,12 +941,39 @@
                             "type": "string"
                         },
                         "required": true,
-                        "description": "The resource's id"
+                        "description": "The ID of the resource."
                     }
                 ],
                 "responses": {
                     "200": {
                         "description": "The application_memberships associated to the membership"
+                    }
+                }
+            }
+        },
+        "/memberships/{membershipId}/membership_profile": {
+            "get": {
+                "operationId": "GET/membershipId/membership_profile",
+                "summary": "Related membership",
+                "description": "Related membership",
+                "tags": [
+                    "membership_profiles",
+                    "has_one"
+                ],
+                "parameters": [
+                    {
+                        "name": "membershipId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The ID of the resource."
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The membership_profile associated to the membership"
                     }
                 }
             }
@@ -941,12 +995,216 @@
                             "type": "string"
                         },
                         "required": true,
-                        "description": "The resource's id"
+                        "description": "The ID of the resource."
                     }
                 ],
                 "responses": {
                     "200": {
                         "description": "The versions associated to the membership"
+                    }
+                }
+            }
+        },
+        "/membership_profiles": {
+            "post": {
+                "operationId": "POST/membership_profiles",
+                "summary": "Creates an membership profile",
+                "description": "Creates an membership profile",
+                "tags": [
+                    "membership_profiles"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/vnd.api+json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/membershipProfileCreate"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "The created membership profile object",
+                        "content": {
+                            "application/vnd.api+json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/membershipProfileResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "operationId": "GET/membership_profiles",
+                "summary": "List all membership profiles",
+                "description": "List all membership profiles",
+                "tags": [
+                    "membership_profiles"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A list of membership profile objects",
+                        "content": {
+                            "application/vnd.api+json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/membershipProfileResponseList"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/membership_profiles/{membershipProfileId}": {
+            "get": {
+                "operationId": "GET/membership_profiles/membershipProfileId",
+                "summary": "Retrieve an membership profile",
+                "description": "Retrieve an membership profile",
+                "parameters": [
+                    {
+                        "name": "membershipProfileId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The ID of the resource."
+                    }
+                ],
+                "tags": [
+                    "membership_profiles"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The membership profile object",
+                        "content": {
+                            "application/vnd.api+json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/membershipProfileResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "operationId": "PATCH/membership_profiles/membershipProfileId",
+                "summary": "Updates an membership profile",
+                "description": "Updates an membership profile",
+                "tags": [
+                    "membership_profiles"
+                ],
+                "parameters": [
+                    {
+                        "name": "membershipProfileId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The ID of the resource."
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/vnd.api+json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/membershipProfileUpdate"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "The updated membership profile object",
+                        "content": {
+                            "application/vnd.api+json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/membershipProfileResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "DELETE/membership_profiles/membershipProfileId",
+                "summary": "Delete an membership profile",
+                "description": "Delete an membership profile",
+                "tags": [
+                    "membership_profiles"
+                ],
+                "parameters": [
+                    {
+                        "name": "membershipProfileId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The ID of the resource."
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No content"
+                    }
+                }
+            }
+        },
+        "/membership_profiles/{membershipProfileId}/organization": {
+            "get": {
+                "operationId": "GET/membershipProfileId/organization",
+                "summary": "Related membership profile",
+                "description": "Related membership profile",
+                "tags": [
+                    "organizations",
+                    "has_one"
+                ],
+                "parameters": [
+                    {
+                        "name": "membershipProfileId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The ID of the resource."
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The organization associated to the membership profile"
+                    }
+                }
+            }
+        },
+        "/membership_profiles/{membershipProfileId}/application_memberships": {
+            "get": {
+                "operationId": "GET/membershipProfileId/application_memberships",
+                "summary": "Related membership profile",
+                "description": "Related membership profile",
+                "tags": [
+                    "application_memberships",
+                    "has_many"
+                ],
+                "parameters": [
+                    {
+                        "name": "membershipProfileId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The ID of the resource."
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The application_memberships associated to the membership profile"
                     }
                 }
             }
@@ -1016,7 +1274,7 @@
                             "type": "string"
                         },
                         "required": true,
-                        "description": "The resource's id"
+                        "description": "The ID of the resource."
                     }
                 ],
                 "tags": [
@@ -1050,7 +1308,7 @@
                             "type": "string"
                         },
                         "required": true,
-                        "description": "The resource's id"
+                        "description": "The ID of the resource."
                     }
                 ],
                 "requestBody": {
@@ -1093,7 +1351,7 @@
                             "type": "string"
                         },
                         "required": true,
-                        "description": "The resource's id"
+                        "description": "The ID of the resource."
                     }
                 ],
                 "requestBody": {
@@ -1116,14 +1374,14 @@
                                         "properties": {
                                             "type": {
                                                 "type": "string",
-                                                "description": "The resource's type",
+                                                "description": "The resource's type.",
                                                 "enum": [
                                                     "organizations"
                                                 ]
                                             },
                                             "id": {
                                                 "type": "string",
-                                                "description": "The resource's id",
+                                                "description": "The ID of the resource.",
                                                 "example": "XGZwpOSrWL"
                                             },
                                             "attributes": {
@@ -1169,7 +1427,7 @@
                             "type": "string"
                         },
                         "required": true,
-                        "description": "The resource's id"
+                        "description": "The ID of the resource."
                     }
                 ],
                 "responses": {
@@ -1196,7 +1454,7 @@
                             "type": "string"
                         },
                         "required": true,
-                        "description": "The resource's id"
+                        "description": "The ID of the resource."
                     }
                 ],
                 "responses": {
@@ -1223,7 +1481,7 @@
                             "type": "string"
                         },
                         "required": true,
-                        "description": "The resource's id"
+                        "description": "The ID of the resource."
                     }
                 ],
                 "responses": {
@@ -1250,7 +1508,7 @@
                             "type": "string"
                         },
                         "required": true,
-                        "description": "The resource's id"
+                        "description": "The ID of the resource."
                     }
                 ],
                 "responses": {
@@ -1325,7 +1583,7 @@
                             "type": "string"
                         },
                         "required": true,
-                        "description": "The resource's id"
+                        "description": "The ID of the resource."
                     }
                 ],
                 "tags": [
@@ -1359,7 +1617,7 @@
                             "type": "string"
                         },
                         "required": true,
-                        "description": "The resource's id"
+                        "description": "The ID of the resource."
                     }
                 ],
                 "requestBody": {
@@ -1403,7 +1661,7 @@
                             "type": "string"
                         },
                         "required": true,
-                        "description": "The resource's id"
+                        "description": "The ID of the resource."
                     }
                 ],
                 "responses": {
@@ -1430,7 +1688,7 @@
                             "type": "string"
                         },
                         "required": true,
-                        "description": "The resource's id"
+                        "description": "The ID of the resource."
                     }
                 ],
                 "responses": {
@@ -1457,7 +1715,7 @@
                             "type": "string"
                         },
                         "required": true,
-                        "description": "The resource's id"
+                        "description": "The ID of the resource."
                     }
                 ],
                 "responses": {
@@ -1532,7 +1790,7 @@
                             "type": "string"
                         },
                         "required": true,
-                        "description": "The resource's id"
+                        "description": "The ID of the resource."
                     }
                 ],
                 "tags": [
@@ -1566,7 +1824,7 @@
                             "type": "string"
                         },
                         "required": true,
-                        "description": "The resource's id"
+                        "description": "The ID of the resource."
                     }
                 ],
                 "requestBody": {
@@ -1610,7 +1868,7 @@
                             "type": "string"
                         },
                         "required": true,
-                        "description": "The resource's id"
+                        "description": "The ID of the resource."
                     }
                 ],
                 "responses": {
@@ -1637,7 +1895,7 @@
                             "type": "string"
                         },
                         "required": true,
-                        "description": "The resource's id"
+                        "description": "The ID of the resource."
                     }
                 ],
                 "responses": {
@@ -1664,7 +1922,7 @@
                             "type": "string"
                         },
                         "required": true,
-                        "description": "The resource's id"
+                        "description": "The ID of the resource."
                     }
                 ],
                 "responses": {
@@ -1691,7 +1949,7 @@
                             "type": "string"
                         },
                         "required": true,
-                        "description": "The resource's id"
+                        "description": "The ID of the resource."
                     }
                 ],
                 "responses": {
@@ -1718,7 +1976,7 @@
                             "type": "string"
                         },
                         "required": true,
-                        "description": "The resource's id"
+                        "description": "The ID of the resource."
                     }
                 ],
                 "responses": {
@@ -1819,7 +2077,7 @@
                             "type": "string"
                         },
                         "required": true,
-                        "description": "The resource's id"
+                        "description": "The ID of the resource."
                     }
                 ],
                 "tags": [
@@ -1854,7 +2112,7 @@
                         "properties": {
                             "type": {
                                 "type": "string",
-                                "description": "The resource's type",
+                                "description": "The resource's type.",
                                 "enum": [
                                     "api_credentials"
                                 ]
@@ -1967,14 +2225,14 @@
                                                 "properties": {
                                                     "type": {
                                                         "type": "string",
-                                                        "description": "The resource's type",
+                                                        "description": "The resource's type.",
                                                         "enum": [
                                                             "organizations"
                                                         ]
                                                     },
                                                     "id": {
                                                         "type": "string",
-                                                        "description": "The resource's id",
+                                                        "description": "The ID of the resource.",
                                                         "example": "XGZwpOSrWL"
                                                     }
                                                 }
@@ -1989,14 +2247,14 @@
                                                 "properties": {
                                                     "type": {
                                                         "type": "string",
-                                                        "description": "The resource's type",
+                                                        "description": "The resource's type.",
                                                         "enum": [
                                                             "roles"
                                                         ]
                                                     },
                                                     "id": {
                                                         "type": "string",
-                                                        "description": "The resource's id",
+                                                        "description": "The ID of the resource.",
                                                         "example": "XGZwpOSrWL"
                                                     }
                                                 }
@@ -2024,7 +2282,7 @@
                         "properties": {
                             "type": {
                                 "type": "string",
-                                "description": "The resource's type",
+                                "description": "The resource's type.",
                                 "enum": [
                                     "api_credentials"
                                 ]
@@ -2099,14 +2357,14 @@
                                                 "properties": {
                                                     "type": {
                                                         "type": "string",
-                                                        "description": "The resource's type",
+                                                        "description": "The resource's type.",
                                                         "enum": [
                                                             "organizations"
                                                         ]
                                                     },
                                                     "id": {
                                                         "type": "string",
-                                                        "description": "The resource's id",
+                                                        "description": "The ID of the resource.",
                                                         "example": "XGZwpOSrWL"
                                                     }
                                                 }
@@ -2124,14 +2382,14 @@
                                                 "properties": {
                                                     "type": {
                                                         "type": "string",
-                                                        "description": "The resource's type",
+                                                        "description": "The resource's type.",
                                                         "enum": [
                                                             "roles"
                                                         ]
                                                     },
                                                     "id": {
                                                         "type": "string",
-                                                        "description": "The resource's id",
+                                                        "description": "The ID of the resource.",
                                                         "example": "XGZwpOSrWL"
                                                     }
                                                 }
@@ -2163,14 +2421,14 @@
                         "properties": {
                             "type": {
                                 "type": "string",
-                                "description": "The resource's type",
+                                "description": "The resource's type.",
                                 "enum": [
                                     "api_credentials"
                                 ]
                             },
                             "id": {
                                 "type": "string",
-                                "description": "The resource's id",
+                                "description": "The ID of the resource.",
                                 "example": "XGZwpOSrWL"
                             },
                             "attributes": {
@@ -2230,14 +2488,14 @@
                                                 "properties": {
                                                     "type": {
                                                         "type": "string",
-                                                        "description": "The resource's type",
+                                                        "description": "The resource's type.",
                                                         "enum": [
                                                             "roles"
                                                         ]
                                                     },
                                                     "id": {
                                                         "type": "string",
-                                                        "description": "The resource's id",
+                                                        "description": "The ID of the resource.",
                                                         "example": "XGZwpOSrWL"
                                                     }
                                                 }
@@ -2258,12 +2516,12 @@
                         "properties": {
                             "id": {
                                 "type": "string",
-                                "description": "The resource's id",
+                                "description": "The ID of the resource.",
                                 "example": "XGZwpOSrWL"
                             },
                             "type": {
                                 "type": "string",
-                                "description": "The resource's type",
+                                "description": "The resource's type.",
                                 "enum": [
                                     "api_credentials"
                                 ]
@@ -2304,14 +2562,14 @@
                                                 "properties": {
                                                     "type": {
                                                         "type": "string",
-                                                        "description": "The resource's type",
+                                                        "description": "The resource's type.",
                                                         "enum": [
                                                             "organization"
                                                         ]
                                                     },
                                                     "id": {
                                                         "type": "string",
-                                                        "description": "The resource ID"
+                                                        "description": "The ID of the resource."
                                                     }
                                                 }
                                             }
@@ -2338,14 +2596,14 @@
                                                 "properties": {
                                                     "type": {
                                                         "type": "string",
-                                                        "description": "The resource's type",
+                                                        "description": "The resource's type.",
                                                         "enum": [
                                                             "role"
                                                         ]
                                                     },
                                                     "id": {
                                                         "type": "string",
-                                                        "description": "The resource ID"
+                                                        "description": "The ID of the resource."
                                                     }
                                                 }
                                             }
@@ -2380,7 +2638,7 @@
                         "properties": {
                             "type": {
                                 "type": "string",
-                                "description": "The resource's type",
+                                "description": "The resource's type.",
                                 "enum": [
                                     "application_memberships"
                                 ]
@@ -2444,14 +2702,14 @@
                                                 "properties": {
                                                     "type": {
                                                         "type": "string",
-                                                        "description": "The resource's type",
+                                                        "description": "The resource's type.",
                                                         "enum": [
                                                             "api_credentials"
                                                         ]
                                                     },
                                                     "id": {
                                                         "type": "string",
-                                                        "description": "The resource's id",
+                                                        "description": "The ID of the resource.",
                                                         "example": "XGZwpOSrWL"
                                                     }
                                                 }
@@ -2466,14 +2724,36 @@
                                                 "properties": {
                                                     "type": {
                                                         "type": "string",
-                                                        "description": "The resource's type",
+                                                        "description": "The resource's type.",
                                                         "enum": [
                                                             "memberships"
                                                         ]
                                                     },
                                                     "id": {
                                                         "type": "string",
-                                                        "description": "The resource's id",
+                                                        "description": "The ID of the resource.",
+                                                        "example": "XGZwpOSrWL"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "membership_profile": {
+                                        "type": "object",
+                                        "properties": {
+                                            "data": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "type": {
+                                                        "type": "string",
+                                                        "description": "The resource's type.",
+                                                        "enum": [
+                                                            "membership_profiles"
+                                                        ]
+                                                    },
+                                                    "id": {
+                                                        "type": "string",
+                                                        "description": "The ID of the resource.",
                                                         "example": "XGZwpOSrWL"
                                                     }
                                                 }
@@ -2488,14 +2768,14 @@
                                                 "properties": {
                                                     "type": {
                                                         "type": "string",
-                                                        "description": "The resource's type",
+                                                        "description": "The resource's type.",
                                                         "enum": [
                                                             "organizations"
                                                         ]
                                                     },
                                                     "id": {
                                                         "type": "string",
-                                                        "description": "The resource's id",
+                                                        "description": "The ID of the resource.",
                                                         "example": "XGZwpOSrWL"
                                                     }
                                                 }
@@ -2510,14 +2790,14 @@
                                                 "properties": {
                                                     "type": {
                                                         "type": "string",
-                                                        "description": "The resource's type",
+                                                        "description": "The resource's type.",
                                                         "enum": [
                                                             "roles"
                                                         ]
                                                     },
                                                     "id": {
                                                         "type": "string",
-                                                        "description": "The resource's id",
+                                                        "description": "The ID of the resource.",
                                                         "example": "XGZwpOSrWL"
                                                     }
                                                 }
@@ -2545,7 +2825,7 @@
                         "properties": {
                             "type": {
                                 "type": "string",
-                                "description": "The resource's type",
+                                "description": "The resource's type.",
                                 "enum": [
                                     "application_memberships"
                                 ]
@@ -2596,14 +2876,14 @@
                                                 "properties": {
                                                     "type": {
                                                         "type": "string",
-                                                        "description": "The resource's type",
+                                                        "description": "The resource's type.",
                                                         "enum": [
                                                             "api_credentials"
                                                         ]
                                                     },
                                                     "id": {
                                                         "type": "string",
-                                                        "description": "The resource's id",
+                                                        "description": "The ID of the resource.",
                                                         "example": "XGZwpOSrWL"
                                                     }
                                                 }
@@ -2621,14 +2901,39 @@
                                                 "properties": {
                                                     "type": {
                                                         "type": "string",
-                                                        "description": "The resource's type",
+                                                        "description": "The resource's type.",
                                                         "enum": [
                                                             "memberships"
                                                         ]
                                                     },
                                                     "id": {
                                                         "type": "string",
-                                                        "description": "The resource's id",
+                                                        "description": "The ID of the resource.",
+                                                        "example": "XGZwpOSrWL"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "membership_profile": {
+                                        "required": [
+                                            "data"
+                                        ],
+                                        "type": "object",
+                                        "properties": {
+                                            "data": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "type": {
+                                                        "type": "string",
+                                                        "description": "The resource's type.",
+                                                        "enum": [
+                                                            "membership_profiles"
+                                                        ]
+                                                    },
+                                                    "id": {
+                                                        "type": "string",
+                                                        "description": "The ID of the resource.",
                                                         "example": "XGZwpOSrWL"
                                                     }
                                                 }
@@ -2646,14 +2951,14 @@
                                                 "properties": {
                                                     "type": {
                                                         "type": "string",
-                                                        "description": "The resource's type",
+                                                        "description": "The resource's type.",
                                                         "enum": [
                                                             "organizations"
                                                         ]
                                                     },
                                                     "id": {
                                                         "type": "string",
-                                                        "description": "The resource's id",
+                                                        "description": "The ID of the resource.",
                                                         "example": "XGZwpOSrWL"
                                                     }
                                                 }
@@ -2671,14 +2976,14 @@
                                                 "properties": {
                                                     "type": {
                                                         "type": "string",
-                                                        "description": "The resource's type",
+                                                        "description": "The resource's type.",
                                                         "enum": [
                                                             "roles"
                                                         ]
                                                     },
                                                     "id": {
                                                         "type": "string",
-                                                        "description": "The resource's id",
+                                                        "description": "The ID of the resource.",
                                                         "example": "XGZwpOSrWL"
                                                     }
                                                 }
@@ -2688,7 +2993,6 @@
                                 },
                                 "required": [
                                     "api_credential",
-                                    "membership",
                                     "organization",
                                     "role"
                                 ]
@@ -2713,14 +3017,14 @@
                         "properties": {
                             "type": {
                                 "type": "string",
-                                "description": "The resource's type",
+                                "description": "The resource's type.",
                                 "enum": [
                                     "application_memberships"
                                 ]
                             },
                             "id": {
                                 "type": "string",
-                                "description": "The resource's id",
+                                "description": "The ID of the resource.",
                                 "example": "XGZwpOSrWL"
                             },
                             "attributes": {
@@ -2762,6 +3066,31 @@
                             "relationships": {
                                 "type": "object",
                                 "properties": {
+                                    "membership_profile": {
+                                        "required": [
+                                            "data"
+                                        ],
+                                        "type": "object",
+                                        "properties": {
+                                            "data": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "type": {
+                                                        "type": "string",
+                                                        "description": "The resource's type.",
+                                                        "enum": [
+                                                            "membership_profiles"
+                                                        ]
+                                                    },
+                                                    "id": {
+                                                        "type": "string",
+                                                        "description": "The ID of the resource.",
+                                                        "example": "XGZwpOSrWL"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    },
                                     "role": {
                                         "required": [
                                             "data"
@@ -2773,14 +3102,14 @@
                                                 "properties": {
                                                     "type": {
                                                         "type": "string",
-                                                        "description": "The resource's type",
+                                                        "description": "The resource's type.",
                                                         "enum": [
                                                             "roles"
                                                         ]
                                                     },
                                                     "id": {
                                                         "type": "string",
-                                                        "description": "The resource's id",
+                                                        "description": "The ID of the resource.",
                                                         "example": "XGZwpOSrWL"
                                                     }
                                                 }
@@ -2801,12 +3130,12 @@
                         "properties": {
                             "id": {
                                 "type": "string",
-                                "description": "The resource's id",
+                                "description": "The ID of the resource.",
                                 "example": "XGZwpOSrWL"
                             },
                             "type": {
                                 "type": "string",
-                                "description": "The resource's type",
+                                "description": "The resource's type.",
                                 "enum": [
                                     "application_memberships"
                                 ]
@@ -2847,14 +3176,14 @@
                                                 "properties": {
                                                     "type": {
                                                         "type": "string",
-                                                        "description": "The resource's type",
+                                                        "description": "The resource's type.",
                                                         "enum": [
                                                             "api_credential"
                                                         ]
                                                     },
                                                     "id": {
                                                         "type": "string",
-                                                        "description": "The resource ID"
+                                                        "description": "The ID of the resource."
                                                     }
                                                 }
                                             }
@@ -2881,14 +3210,48 @@
                                                 "properties": {
                                                     "type": {
                                                         "type": "string",
-                                                        "description": "The resource's type",
+                                                        "description": "The resource's type.",
                                                         "enum": [
                                                             "membership"
                                                         ]
                                                     },
                                                     "id": {
                                                         "type": "string",
-                                                        "description": "The resource ID"
+                                                        "description": "The ID of the resource."
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "membership_profile": {
+                                        "type": "object",
+                                        "properties": {
+                                            "links": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "self": {
+                                                        "type": "string",
+                                                        "description": "URL"
+                                                    },
+                                                    "related": {
+                                                        "type": "string",
+                                                        "description": "URL"
+                                                    }
+                                                }
+                                            },
+                                            "data": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "type": {
+                                                        "type": "string",
+                                                        "description": "The resource's type.",
+                                                        "enum": [
+                                                            "membership_profile"
+                                                        ]
+                                                    },
+                                                    "id": {
+                                                        "type": "string",
+                                                        "description": "The ID of the resource."
                                                     }
                                                 }
                                             }
@@ -2915,14 +3278,14 @@
                                                 "properties": {
                                                     "type": {
                                                         "type": "string",
-                                                        "description": "The resource's type",
+                                                        "description": "The resource's type.",
                                                         "enum": [
                                                             "organization"
                                                         ]
                                                     },
                                                     "id": {
                                                         "type": "string",
-                                                        "description": "The resource ID"
+                                                        "description": "The ID of the resource."
                                                     }
                                                 }
                                             }
@@ -2949,14 +3312,14 @@
                                                 "properties": {
                                                     "type": {
                                                         "type": "string",
-                                                        "description": "The resource's type",
+                                                        "description": "The resource's type.",
                                                         "enum": [
                                                             "role"
                                                         ]
                                                     },
                                                     "id": {
                                                         "type": "string",
-                                                        "description": "The resource ID"
+                                                        "description": "The ID of the resource."
                                                     }
                                                 }
                                             }
@@ -2991,7 +3354,7 @@
                         "properties": {
                             "type": {
                                 "type": "string",
-                                "description": "The resource's type",
+                                "description": "The resource's type.",
                                 "enum": [
                                     "identity_providers"
                                 ]
@@ -3121,14 +3484,14 @@
                                                 "properties": {
                                                     "type": {
                                                         "type": "string",
-                                                        "description": "The resource's type",
+                                                        "description": "The resource's type.",
                                                         "enum": [
                                                             "users"
                                                         ]
                                                     },
                                                     "id": {
                                                         "type": "string",
-                                                        "description": "The resource's id",
+                                                        "description": "The ID of the resource.",
                                                         "example": "XGZwpOSrWL"
                                                     }
                                                 }
@@ -3156,7 +3519,7 @@
                         "properties": {
                             "type": {
                                 "type": "string",
-                                "description": "The resource's type",
+                                "description": "The resource's type.",
                                 "enum": [
                                     "identity_providers"
                                 ]
@@ -3272,14 +3635,14 @@
                         "properties": {
                             "type": {
                                 "type": "string",
-                                "description": "The resource's type",
+                                "description": "The resource's type.",
                                 "enum": [
                                     "identity_providers"
                                 ]
                             },
                             "id": {
                                 "type": "string",
-                                "description": "The resource's id",
+                                "description": "The ID of the resource.",
                                 "example": "XGZwpOSrWL"
                             },
                             "attributes": {
@@ -3389,12 +3752,12 @@
                         "properties": {
                             "id": {
                                 "type": "string",
-                                "description": "The resource's id",
+                                "description": "The ID of the resource.",
                                 "example": "XGZwpOSrWL"
                             },
                             "type": {
                                 "type": "string",
-                                "description": "The resource's type",
+                                "description": "The resource's type.",
                                 "enum": [
                                     "identity_providers"
                                 ]
@@ -3435,14 +3798,14 @@
                                                 "properties": {
                                                     "type": {
                                                         "type": "string",
-                                                        "description": "The resource's type",
+                                                        "description": "The resource's type.",
                                                         "enum": [
                                                             "user"
                                                         ]
                                                     },
                                                     "id": {
                                                         "type": "string",
-                                                        "description": "The resource ID"
+                                                        "description": "The ID of the resource."
                                                     }
                                                 }
                                             }
@@ -3477,7 +3840,7 @@
                         "properties": {
                             "type": {
                                 "type": "string",
-                                "description": "The resource's type",
+                                "description": "The resource's type.",
                                 "enum": [
                                     "memberships"
                                 ]
@@ -3518,6 +3881,12 @@
                                         "description": "Indicates if the user it's the owner of the organization.",
                                         "example": true,
                                         "readOnly": true
+                                    },
+                                    "test_enabled": {
+                                        "type": "boolean",
+                                        "description": "Used to enable test mode on the accessible apps.",
+                                        "example": false,
+                                        "nullable": true
                                     },
                                     "created_at": {
                                         "type": "string",
@@ -3564,14 +3933,14 @@
                                                 "properties": {
                                                     "type": {
                                                         "type": "string",
-                                                        "description": "The resource's type",
+                                                        "description": "The resource's type.",
                                                         "enum": [
                                                             "organizations"
                                                         ]
                                                     },
                                                     "id": {
                                                         "type": "string",
-                                                        "description": "The resource's id",
+                                                        "description": "The ID of the resource.",
                                                         "example": "XGZwpOSrWL"
                                                     }
                                                 }
@@ -3586,14 +3955,14 @@
                                                 "properties": {
                                                     "type": {
                                                         "type": "string",
-                                                        "description": "The resource's type",
+                                                        "description": "The resource's type.",
                                                         "enum": [
                                                             "roles"
                                                         ]
                                                     },
                                                     "id": {
                                                         "type": "string",
-                                                        "description": "The resource's id",
+                                                        "description": "The ID of the resource.",
                                                         "example": "XGZwpOSrWL"
                                                     }
                                                 }
@@ -3608,14 +3977,36 @@
                                                 "properties": {
                                                     "type": {
                                                         "type": "string",
-                                                        "description": "The resource's type",
+                                                        "description": "The resource's type.",
                                                         "enum": [
                                                             "application_memberships"
                                                         ]
                                                     },
                                                     "id": {
                                                         "type": "string",
-                                                        "description": "The resource's id",
+                                                        "description": "The ID of the resource.",
+                                                        "example": "XGZwpOSrWL"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "membership_profile": {
+                                        "type": "object",
+                                        "properties": {
+                                            "data": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "type": {
+                                                        "type": "string",
+                                                        "description": "The resource's type.",
+                                                        "enum": [
+                                                            "membership_profiles"
+                                                        ]
+                                                    },
+                                                    "id": {
+                                                        "type": "string",
+                                                        "description": "The ID of the resource.",
                                                         "example": "XGZwpOSrWL"
                                                     }
                                                 }
@@ -3630,14 +4021,14 @@
                                                 "properties": {
                                                     "type": {
                                                         "type": "string",
-                                                        "description": "The resource's type",
+                                                        "description": "The resource's type.",
                                                         "enum": [
                                                             "versions"
                                                         ]
                                                     },
                                                     "id": {
                                                         "type": "string",
-                                                        "description": "The resource's id",
+                                                        "description": "The ID of the resource.",
                                                         "example": "XGZwpOSrWL"
                                                     }
                                                 }
@@ -3665,7 +4056,7 @@
                         "properties": {
                             "type": {
                                 "type": "string",
-                                "description": "The resource's type",
+                                "description": "The resource's type.",
                                 "enum": [
                                     "memberships"
                                 ]
@@ -3677,6 +4068,11 @@
                                         "type": "string",
                                         "description": "The user email.",
                                         "example": "commercelayer@commercelayer.io"
+                                    },
+                                    "test_enabled": {
+                                        "type": "boolean",
+                                        "description": "Used to enable test mode on the accessible apps.",
+                                        "example": false
                                     },
                                     "reference": {
                                         "type": "string",
@@ -3714,14 +4110,14 @@
                                                 "properties": {
                                                     "type": {
                                                         "type": "string",
-                                                        "description": "The resource's type",
+                                                        "description": "The resource's type.",
                                                         "enum": [
                                                             "organizations"
                                                         ]
                                                     },
                                                     "id": {
                                                         "type": "string",
-                                                        "description": "The resource's id",
+                                                        "description": "The ID of the resource.",
                                                         "example": "XGZwpOSrWL"
                                                     }
                                                 }
@@ -3739,14 +4135,14 @@
                                                 "properties": {
                                                     "type": {
                                                         "type": "string",
-                                                        "description": "The resource's type",
+                                                        "description": "The resource's type.",
                                                         "enum": [
                                                             "roles"
                                                         ]
                                                     },
                                                     "id": {
                                                         "type": "string",
-                                                        "description": "The resource's id",
+                                                        "description": "The ID of the resource.",
                                                         "example": "XGZwpOSrWL"
                                                     }
                                                 }
@@ -3764,14 +4160,39 @@
                                                 "properties": {
                                                     "type": {
                                                         "type": "string",
-                                                        "description": "The resource's type",
+                                                        "description": "The resource's type.",
                                                         "enum": [
                                                             "application_memberships"
                                                         ]
                                                     },
                                                     "id": {
                                                         "type": "string",
-                                                        "description": "The resource's id",
+                                                        "description": "The ID of the resource.",
+                                                        "example": "XGZwpOSrWL"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "membership_profile": {
+                                        "required": [
+                                            "data"
+                                        ],
+                                        "type": "object",
+                                        "properties": {
+                                            "data": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "type": {
+                                                        "type": "string",
+                                                        "description": "The resource's type.",
+                                                        "enum": [
+                                                            "membership_profiles"
+                                                        ]
+                                                    },
+                                                    "id": {
+                                                        "type": "string",
+                                                        "description": "The ID of the resource.",
                                                         "example": "XGZwpOSrWL"
                                                     }
                                                 }
@@ -3804,19 +4225,25 @@
                         "properties": {
                             "type": {
                                 "type": "string",
-                                "description": "The resource's type",
+                                "description": "The resource's type.",
                                 "enum": [
                                     "memberships"
                                 ]
                             },
                             "id": {
                                 "type": "string",
-                                "description": "The resource's id",
+                                "description": "The ID of the resource.",
                                 "example": "XGZwpOSrWL"
                             },
                             "attributes": {
                                 "type": "object",
                                 "properties": {
+                                    "test_enabled": {
+                                        "type": "boolean",
+                                        "description": "Used to enable test mode on the accessible apps.",
+                                        "example": false,
+                                        "nullable": false
+                                    },
                                     "reference": {
                                         "type": "string",
                                         "description": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
@@ -3853,14 +4280,14 @@
                                                 "properties": {
                                                     "type": {
                                                         "type": "string",
-                                                        "description": "The resource's type",
+                                                        "description": "The resource's type.",
                                                         "enum": [
                                                             "roles"
                                                         ]
                                                     },
                                                     "id": {
                                                         "type": "string",
-                                                        "description": "The resource's id",
+                                                        "description": "The ID of the resource.",
                                                         "example": "XGZwpOSrWL"
                                                     }
                                                 }
@@ -3878,14 +4305,39 @@
                                                 "properties": {
                                                     "type": {
                                                         "type": "string",
-                                                        "description": "The resource's type",
+                                                        "description": "The resource's type.",
                                                         "enum": [
                                                             "application_memberships"
                                                         ]
                                                     },
                                                     "id": {
                                                         "type": "string",
-                                                        "description": "The resource's id",
+                                                        "description": "The ID of the resource.",
+                                                        "example": "XGZwpOSrWL"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "membership_profile": {
+                                        "required": [
+                                            "data"
+                                        ],
+                                        "type": "object",
+                                        "properties": {
+                                            "data": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "type": {
+                                                        "type": "string",
+                                                        "description": "The resource's type.",
+                                                        "enum": [
+                                                            "membership_profiles"
+                                                        ]
+                                                    },
+                                                    "id": {
+                                                        "type": "string",
+                                                        "description": "The ID of the resource.",
                                                         "example": "XGZwpOSrWL"
                                                     }
                                                 }
@@ -3906,12 +4358,12 @@
                         "properties": {
                             "id": {
                                 "type": "string",
-                                "description": "The resource's id",
+                                "description": "The ID of the resource.",
                                 "example": "XGZwpOSrWL"
                             },
                             "type": {
                                 "type": "string",
-                                "description": "The resource's type",
+                                "description": "The resource's type.",
                                 "enum": [
                                     "memberships"
                                 ]
@@ -3952,14 +4404,14 @@
                                                 "properties": {
                                                     "type": {
                                                         "type": "string",
-                                                        "description": "The resource's type",
+                                                        "description": "The resource's type.",
                                                         "enum": [
                                                             "organization"
                                                         ]
                                                     },
                                                     "id": {
                                                         "type": "string",
-                                                        "description": "The resource ID"
+                                                        "description": "The ID of the resource."
                                                     }
                                                 }
                                             }
@@ -3986,14 +4438,14 @@
                                                 "properties": {
                                                     "type": {
                                                         "type": "string",
-                                                        "description": "The resource's type",
+                                                        "description": "The resource's type.",
                                                         "enum": [
                                                             "role"
                                                         ]
                                                     },
                                                     "id": {
                                                         "type": "string",
-                                                        "description": "The resource ID"
+                                                        "description": "The ID of the resource."
                                                     }
                                                 }
                                             }
@@ -4020,14 +4472,48 @@
                                                 "properties": {
                                                     "type": {
                                                         "type": "string",
-                                                        "description": "The resource's type",
+                                                        "description": "The resource's type.",
                                                         "enum": [
                                                             "application_memberships"
                                                         ]
                                                     },
                                                     "id": {
                                                         "type": "string",
-                                                        "description": "The resource ID"
+                                                        "description": "The ID of the resource."
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "membership_profile": {
+                                        "type": "object",
+                                        "properties": {
+                                            "links": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "self": {
+                                                        "type": "string",
+                                                        "description": "URL"
+                                                    },
+                                                    "related": {
+                                                        "type": "string",
+                                                        "description": "URL"
+                                                    }
+                                                }
+                                            },
+                                            "data": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "type": {
+                                                        "type": "string",
+                                                        "description": "The resource's type.",
+                                                        "enum": [
+                                                            "membership_profile"
+                                                        ]
+                                                    },
+                                                    "id": {
+                                                        "type": "string",
+                                                        "description": "The ID of the resource."
                                                     }
                                                 }
                                             }
@@ -4054,14 +4540,14 @@
                                                 "properties": {
                                                     "type": {
                                                         "type": "string",
-                                                        "description": "The resource's type",
+                                                        "description": "The resource's type.",
                                                         "enum": [
                                                             "versions"
                                                         ]
                                                     },
                                                     "id": {
                                                         "type": "string",
-                                                        "description": "The resource ID"
+                                                        "description": "The ID of the resource."
                                                     }
                                                 }
                                             }
@@ -4084,6 +4570,458 @@
                     }
                 }
             },
+            "membershipProfile": {
+                "type": "object",
+                "properties": {
+                    "data": {
+                        "type": "object",
+                        "required": [
+                            "type",
+                            "attributes"
+                        ],
+                        "properties": {
+                            "type": {
+                                "type": "string",
+                                "description": "The resource's type.",
+                                "enum": [
+                                    "membership_profiles"
+                                ]
+                            },
+                            "attributes": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "description": "The membership profile name.",
+                                        "example": "Marketing group",
+                                        "nullable": false
+                                    },
+                                    "test_enabled": {
+                                        "type": "boolean",
+                                        "description": "Used to enable test mode on the accessible apps.",
+                                        "example": false,
+                                        "nullable": false
+                                    },
+                                    "created_at": {
+                                        "type": "string",
+                                        "description": "Time at which the resource was created.",
+                                        "example": "2018-01-01T12:00:00.000Z",
+                                        "readOnly": true
+                                    },
+                                    "updated_at": {
+                                        "type": "string",
+                                        "description": "Time at which the resource was last updated.",
+                                        "example": "2018-01-01T12:00:00.000Z",
+                                        "readOnly": true
+                                    },
+                                    "reference": {
+                                        "type": "string",
+                                        "description": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
+                                        "example": "ANY-EXTERNAL-REFEFERNCE",
+                                        "nullable": true
+                                    },
+                                    "reference_origin": {
+                                        "type": "string",
+                                        "description": "Any identifier of the third party system that defines the reference code.",
+                                        "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN",
+                                        "nullable": true
+                                    },
+                                    "metadata": {
+                                        "type": "object",
+                                        "description": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
+                                        "example": {
+                                            "foo": "bar"
+                                        },
+                                        "nullable": true
+                                    }
+                                }
+                            },
+                            "relationships": {
+                                "type": "object",
+                                "properties": {
+                                    "organization": {
+                                        "type": "object",
+                                        "properties": {
+                                            "data": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "type": {
+                                                        "type": "string",
+                                                        "description": "The resource's type.",
+                                                        "enum": [
+                                                            "organizations"
+                                                        ]
+                                                    },
+                                                    "id": {
+                                                        "type": "string",
+                                                        "description": "The ID of the resource.",
+                                                        "example": "XGZwpOSrWL"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "application_memberships": {
+                                        "type": "object",
+                                        "properties": {
+                                            "data": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "type": {
+                                                        "type": "string",
+                                                        "description": "The resource's type.",
+                                                        "enum": [
+                                                            "application_memberships"
+                                                        ]
+                                                    },
+                                                    "id": {
+                                                        "type": "string",
+                                                        "description": "The ID of the resource.",
+                                                        "example": "XGZwpOSrWL"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "membershipProfileCreate": {
+                "required": [
+                    "data"
+                ],
+                "type": "object",
+                "properties": {
+                    "data": {
+                        "type": "object",
+                        "required": [
+                            "type",
+                            "attributes"
+                        ],
+                        "properties": {
+                            "type": {
+                                "type": "string",
+                                "description": "The resource's type.",
+                                "enum": [
+                                    "membership_profiles"
+                                ]
+                            },
+                            "attributes": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "description": "The membership profile name.",
+                                        "example": "Marketing group"
+                                    },
+                                    "test_enabled": {
+                                        "type": "boolean",
+                                        "description": "Used to enable test mode on the accessible apps.",
+                                        "example": false
+                                    },
+                                    "reference": {
+                                        "type": "string",
+                                        "description": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
+                                        "example": "ANY-EXTERNAL-REFEFERNCE"
+                                    },
+                                    "reference_origin": {
+                                        "type": "string",
+                                        "description": "Any identifier of the third party system that defines the reference code.",
+                                        "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN"
+                                    },
+                                    "metadata": {
+                                        "type": "object",
+                                        "description": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
+                                        "example": {
+                                            "foo": "bar"
+                                        }
+                                    }
+                                },
+                                "required": [
+                                    "name",
+                                    "test_enabled"
+                                ]
+                            },
+                            "relationships": {
+                                "type": "object",
+                                "properties": {
+                                    "organization": {
+                                        "required": [
+                                            "data"
+                                        ],
+                                        "type": "object",
+                                        "properties": {
+                                            "data": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "type": {
+                                                        "type": "string",
+                                                        "description": "The resource's type.",
+                                                        "enum": [
+                                                            "organizations"
+                                                        ]
+                                                    },
+                                                    "id": {
+                                                        "type": "string",
+                                                        "description": "The ID of the resource.",
+                                                        "example": "XGZwpOSrWL"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "application_memberships": {
+                                        "required": [
+                                            "data"
+                                        ],
+                                        "type": "object",
+                                        "properties": {
+                                            "data": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "type": {
+                                                        "type": "string",
+                                                        "description": "The resource's type.",
+                                                        "enum": [
+                                                            "application_memberships"
+                                                        ]
+                                                    },
+                                                    "id": {
+                                                        "type": "string",
+                                                        "description": "The ID of the resource.",
+                                                        "example": "XGZwpOSrWL"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "required": [
+                                    "organization"
+                                ]
+                            }
+                        }
+                    }
+                }
+            },
+            "membershipProfileUpdate": {
+                "required": [
+                    "data"
+                ],
+                "type": "object",
+                "properties": {
+                    "data": {
+                        "type": "object",
+                        "required": [
+                            "type",
+                            "id",
+                            "attributes"
+                        ],
+                        "properties": {
+                            "type": {
+                                "type": "string",
+                                "description": "The resource's type.",
+                                "enum": [
+                                    "membership_profiles"
+                                ]
+                            },
+                            "id": {
+                                "type": "string",
+                                "description": "The ID of the resource.",
+                                "example": "XGZwpOSrWL"
+                            },
+                            "attributes": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "description": "The membership profile name.",
+                                        "example": "Marketing group",
+                                        "nullable": false
+                                    },
+                                    "test_enabled": {
+                                        "type": "boolean",
+                                        "description": "Used to enable test mode on the accessible apps.",
+                                        "example": false,
+                                        "nullable": false
+                                    },
+                                    "reference": {
+                                        "type": "string",
+                                        "description": "A string that you can use to add any external identifier to the resource. This can be useful for integrating the resource to an external system, like an ERP, a marketing tool, a CRM, or whatever.",
+                                        "example": "ANY-EXTERNAL-REFEFERNCE",
+                                        "nullable": true
+                                    },
+                                    "reference_origin": {
+                                        "type": "string",
+                                        "description": "Any identifier of the third party system that defines the reference code.",
+                                        "example": "ANY-EXTERNAL-REFEFERNCE-ORIGIN",
+                                        "nullable": true
+                                    },
+                                    "metadata": {
+                                        "type": "object",
+                                        "description": "Set of key-value pairs that you can attach to the resource. This can be useful for storing additional information about the resource in a structured format.",
+                                        "example": {
+                                            "foo": "bar"
+                                        },
+                                        "nullable": true
+                                    }
+                                }
+                            },
+                            "relationships": {
+                                "type": "object",
+                                "properties": {
+                                    "application_memberships": {
+                                        "required": [
+                                            "data"
+                                        ],
+                                        "type": "object",
+                                        "properties": {
+                                            "data": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "type": {
+                                                        "type": "string",
+                                                        "description": "The resource's type.",
+                                                        "enum": [
+                                                            "application_memberships"
+                                                        ]
+                                                    },
+                                                    "id": {
+                                                        "type": "string",
+                                                        "description": "The ID of the resource.",
+                                                        "example": "XGZwpOSrWL"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "membershipProfileResponse": {
+                "type": "object",
+                "properties": {
+                    "data": {
+                        "type": "object",
+                        "properties": {
+                            "id": {
+                                "type": "string",
+                                "description": "The ID of the resource.",
+                                "example": "XGZwpOSrWL"
+                            },
+                            "type": {
+                                "type": "string",
+                                "description": "The resource's type.",
+                                "enum": [
+                                    "membership_profiles"
+                                ]
+                            },
+                            "links": {
+                                "type": "object",
+                                "properties": {
+                                    "self": {
+                                        "type": "string",
+                                        "description": "URL"
+                                    }
+                                }
+                            },
+                            "attributes": {
+                                "$ref": "#/components/schemas/membershipProfile/properties/data/properties/attributes"
+                            },
+                            "relationships": {
+                                "type": "object",
+                                "properties": {
+                                    "organization": {
+                                        "type": "object",
+                                        "properties": {
+                                            "links": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "self": {
+                                                        "type": "string",
+                                                        "description": "URL"
+                                                    },
+                                                    "related": {
+                                                        "type": "string",
+                                                        "description": "URL"
+                                                    }
+                                                }
+                                            },
+                                            "data": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "type": {
+                                                        "type": "string",
+                                                        "description": "The resource's type.",
+                                                        "enum": [
+                                                            "organization"
+                                                        ]
+                                                    },
+                                                    "id": {
+                                                        "type": "string",
+                                                        "description": "The ID of the resource."
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "application_memberships": {
+                                        "type": "object",
+                                        "properties": {
+                                            "links": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "self": {
+                                                        "type": "string",
+                                                        "description": "URL"
+                                                    },
+                                                    "related": {
+                                                        "type": "string",
+                                                        "description": "URL"
+                                                    }
+                                                }
+                                            },
+                                            "data": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "type": {
+                                                        "type": "string",
+                                                        "description": "The resource's type.",
+                                                        "enum": [
+                                                            "application_memberships"
+                                                        ]
+                                                    },
+                                                    "id": {
+                                                        "type": "string",
+                                                        "description": "The ID of the resource."
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "membershipProfileResponseList": {
+                "type": "object",
+                "properties": {
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/membershipProfileResponse/properties/data"
+                        }
+                    }
+                }
+            },
             "organization": {
                 "type": "object",
                 "properties": {
@@ -4096,7 +5034,7 @@
                         "properties": {
                             "type": {
                                 "type": "string",
-                                "description": "The resource's type",
+                                "description": "The resource's type.",
                                 "enum": [
                                     "organizations"
                                 ]
@@ -4362,6 +5300,12 @@
                                         "example": true,
                                         "readOnly": true
                                     },
+                                    "orders_min_refresh_lapse": {
+                                        "type": "number",
+                                        "description": "The minimum lapse in fraction of seconds to be observed between two consecutive order refreshes. If refresh is triggered within the minimum lapse, the update is performed, but no order refresh is done, until the lapse is observed.",
+                                        "example": 0,
+                                        "readOnly": true
+                                    },
                                     "orders_autorefresh_cutoff_test": {
                                         "type": "integer",
                                         "description": "The maximum number line items allowed for a test order before disabling the autorefresh option.",
@@ -4575,14 +5519,14 @@
                                                 "properties": {
                                                     "type": {
                                                         "type": "string",
-                                                        "description": "The resource's type",
+                                                        "description": "The resource's type.",
                                                         "enum": [
                                                             "memberships"
                                                         ]
                                                     },
                                                     "id": {
                                                         "type": "string",
-                                                        "description": "The resource's id",
+                                                        "description": "The ID of the resource.",
                                                         "example": "XGZwpOSrWL"
                                                     }
                                                 }
@@ -4597,14 +5541,14 @@
                                                 "properties": {
                                                     "type": {
                                                         "type": "string",
-                                                        "description": "The resource's type",
+                                                        "description": "The resource's type.",
                                                         "enum": [
                                                             "roles"
                                                         ]
                                                     },
                                                     "id": {
                                                         "type": "string",
-                                                        "description": "The resource's id",
+                                                        "description": "The ID of the resource.",
                                                         "example": "XGZwpOSrWL"
                                                     }
                                                 }
@@ -4619,14 +5563,14 @@
                                                 "properties": {
                                                     "type": {
                                                         "type": "string",
-                                                        "description": "The resource's type",
+                                                        "description": "The resource's type.",
                                                         "enum": [
                                                             "permissions"
                                                         ]
                                                     },
                                                     "id": {
                                                         "type": "string",
-                                                        "description": "The resource's id",
+                                                        "description": "The ID of the resource.",
                                                         "example": "XGZwpOSrWL"
                                                     }
                                                 }
@@ -4641,14 +5585,14 @@
                                                 "properties": {
                                                     "type": {
                                                         "type": "string",
-                                                        "description": "The resource's type",
+                                                        "description": "The resource's type.",
                                                         "enum": [
                                                             "api_credentials"
                                                         ]
                                                     },
                                                     "id": {
                                                         "type": "string",
-                                                        "description": "The resource's id",
+                                                        "description": "The ID of the resource.",
                                                         "example": "XGZwpOSrWL"
                                                     }
                                                 }
@@ -4676,7 +5620,7 @@
                         "properties": {
                             "type": {
                                 "type": "string",
-                                "description": "The resource's type",
+                                "description": "The resource's type.",
                                 "enum": [
                                     "organizations"
                                 ]
@@ -4891,14 +5835,14 @@
                         "properties": {
                             "type": {
                                 "type": "string",
-                                "description": "The resource's type",
+                                "description": "The resource's type.",
                                 "enum": [
                                     "organizations"
                                 ]
                             },
                             "id": {
                                 "type": "string",
-                                "description": "The resource's id",
+                                "description": "The ID of the resource.",
                                 "example": "XGZwpOSrWL"
                             },
                             "attributes": {
@@ -5108,12 +6052,12 @@
                         "properties": {
                             "id": {
                                 "type": "string",
-                                "description": "The resource's id",
+                                "description": "The ID of the resource.",
                                 "example": "XGZwpOSrWL"
                             },
                             "type": {
                                 "type": "string",
-                                "description": "The resource's type",
+                                "description": "The resource's type.",
                                 "enum": [
                                     "organizations"
                                 ]
@@ -5154,14 +6098,14 @@
                                                 "properties": {
                                                     "type": {
                                                         "type": "string",
-                                                        "description": "The resource's type",
+                                                        "description": "The resource's type.",
                                                         "enum": [
                                                             "memberships"
                                                         ]
                                                     },
                                                     "id": {
                                                         "type": "string",
-                                                        "description": "The resource ID"
+                                                        "description": "The ID of the resource."
                                                     }
                                                 }
                                             }
@@ -5188,14 +6132,14 @@
                                                 "properties": {
                                                     "type": {
                                                         "type": "string",
-                                                        "description": "The resource's type",
+                                                        "description": "The resource's type.",
                                                         "enum": [
                                                             "roles"
                                                         ]
                                                     },
                                                     "id": {
                                                         "type": "string",
-                                                        "description": "The resource ID"
+                                                        "description": "The ID of the resource."
                                                     }
                                                 }
                                             }
@@ -5222,14 +6166,14 @@
                                                 "properties": {
                                                     "type": {
                                                         "type": "string",
-                                                        "description": "The resource's type",
+                                                        "description": "The resource's type.",
                                                         "enum": [
                                                             "permissions"
                                                         ]
                                                     },
                                                     "id": {
                                                         "type": "string",
-                                                        "description": "The resource ID"
+                                                        "description": "The ID of the resource."
                                                     }
                                                 }
                                             }
@@ -5256,14 +6200,14 @@
                                                 "properties": {
                                                     "type": {
                                                         "type": "string",
-                                                        "description": "The resource's type",
+                                                        "description": "The resource's type.",
                                                         "enum": [
                                                             "api_credentials"
                                                         ]
                                                     },
                                                     "id": {
                                                         "type": "string",
-                                                        "description": "The resource ID"
+                                                        "description": "The ID of the resource."
                                                     }
                                                 }
                                             }
@@ -5298,7 +6242,7 @@
                         "properties": {
                             "type": {
                                 "type": "string",
-                                "description": "The resource's type",
+                                "description": "The resource's type.",
                                 "enum": [
                                     "permissions"
                                 ]
@@ -5389,14 +6333,14 @@
                                                 "properties": {
                                                     "type": {
                                                         "type": "string",
-                                                        "description": "The resource's type",
+                                                        "description": "The resource's type.",
                                                         "enum": [
                                                             "organizations"
                                                         ]
                                                     },
                                                     "id": {
                                                         "type": "string",
-                                                        "description": "The resource's id",
+                                                        "description": "The ID of the resource.",
                                                         "example": "XGZwpOSrWL"
                                                     }
                                                 }
@@ -5411,14 +6355,14 @@
                                                 "properties": {
                                                     "type": {
                                                         "type": "string",
-                                                        "description": "The resource's type",
+                                                        "description": "The resource's type.",
                                                         "enum": [
                                                             "roles"
                                                         ]
                                                     },
                                                     "id": {
                                                         "type": "string",
-                                                        "description": "The resource's id",
+                                                        "description": "The ID of the resource.",
                                                         "example": "XGZwpOSrWL"
                                                     }
                                                 }
@@ -5433,14 +6377,14 @@
                                                 "properties": {
                                                     "type": {
                                                         "type": "string",
-                                                        "description": "The resource's type",
+                                                        "description": "The resource's type.",
                                                         "enum": [
                                                             "versions"
                                                         ]
                                                     },
                                                     "id": {
                                                         "type": "string",
-                                                        "description": "The resource's id",
+                                                        "description": "The ID of the resource.",
                                                         "example": "XGZwpOSrWL"
                                                     }
                                                 }
@@ -5468,7 +6412,7 @@
                         "properties": {
                             "type": {
                                 "type": "string",
-                                "description": "The resource's type",
+                                "description": "The resource's type.",
                                 "enum": [
                                     "permissions"
                                 ]
@@ -5541,14 +6485,14 @@
                                                 "properties": {
                                                     "type": {
                                                         "type": "string",
-                                                        "description": "The resource's type",
+                                                        "description": "The resource's type.",
                                                         "enum": [
                                                             "roles"
                                                         ]
                                                     },
                                                     "id": {
                                                         "type": "string",
-                                                        "description": "The resource's id",
+                                                        "description": "The ID of the resource.",
                                                         "example": "XGZwpOSrWL"
                                                     }
                                                 }
@@ -5580,14 +6524,14 @@
                         "properties": {
                             "type": {
                                 "type": "string",
-                                "description": "The resource's type",
+                                "description": "The resource's type.",
                                 "enum": [
                                     "permissions"
                                 ]
                             },
                             "id": {
                                 "type": "string",
-                                "description": "The resource's id",
+                                "description": "The ID of the resource.",
                                 "example": "XGZwpOSrWL"
                             },
                             "attributes": {
@@ -5655,12 +6599,12 @@
                         "properties": {
                             "id": {
                                 "type": "string",
-                                "description": "The resource's id",
+                                "description": "The ID of the resource.",
                                 "example": "XGZwpOSrWL"
                             },
                             "type": {
                                 "type": "string",
-                                "description": "The resource's type",
+                                "description": "The resource's type.",
                                 "enum": [
                                     "permissions"
                                 ]
@@ -5701,14 +6645,14 @@
                                                 "properties": {
                                                     "type": {
                                                         "type": "string",
-                                                        "description": "The resource's type",
+                                                        "description": "The resource's type.",
                                                         "enum": [
                                                             "organization"
                                                         ]
                                                     },
                                                     "id": {
                                                         "type": "string",
-                                                        "description": "The resource ID"
+                                                        "description": "The ID of the resource."
                                                     }
                                                 }
                                             }
@@ -5735,14 +6679,14 @@
                                                 "properties": {
                                                     "type": {
                                                         "type": "string",
-                                                        "description": "The resource's type",
+                                                        "description": "The resource's type.",
                                                         "enum": [
                                                             "role"
                                                         ]
                                                     },
                                                     "id": {
                                                         "type": "string",
-                                                        "description": "The resource ID"
+                                                        "description": "The ID of the resource."
                                                     }
                                                 }
                                             }
@@ -5769,14 +6713,14 @@
                                                 "properties": {
                                                     "type": {
                                                         "type": "string",
-                                                        "description": "The resource's type",
+                                                        "description": "The resource's type.",
                                                         "enum": [
                                                             "versions"
                                                         ]
                                                     },
                                                     "id": {
                                                         "type": "string",
-                                                        "description": "The resource ID"
+                                                        "description": "The ID of the resource."
                                                     }
                                                 }
                                             }
@@ -5811,7 +6755,7 @@
                         "properties": {
                             "type": {
                                 "type": "string",
-                                "description": "The resource's type",
+                                "description": "The resource's type.",
                                 "enum": [
                                     "roles"
                                 ]
@@ -5876,14 +6820,14 @@
                                                 "properties": {
                                                     "type": {
                                                         "type": "string",
-                                                        "description": "The resource's type",
+                                                        "description": "The resource's type.",
                                                         "enum": [
                                                             "organizations"
                                                         ]
                                                     },
                                                     "id": {
                                                         "type": "string",
-                                                        "description": "The resource's id",
+                                                        "description": "The ID of the resource.",
                                                         "example": "XGZwpOSrWL"
                                                     }
                                                 }
@@ -5898,14 +6842,14 @@
                                                 "properties": {
                                                     "type": {
                                                         "type": "string",
-                                                        "description": "The resource's type",
+                                                        "description": "The resource's type.",
                                                         "enum": [
                                                             "permissions"
                                                         ]
                                                     },
                                                     "id": {
                                                         "type": "string",
-                                                        "description": "The resource's id",
+                                                        "description": "The ID of the resource.",
                                                         "example": "XGZwpOSrWL"
                                                     }
                                                 }
@@ -5920,14 +6864,14 @@
                                                 "properties": {
                                                     "type": {
                                                         "type": "string",
-                                                        "description": "The resource's type",
+                                                        "description": "The resource's type.",
                                                         "enum": [
                                                             "memberships"
                                                         ]
                                                     },
                                                     "id": {
                                                         "type": "string",
-                                                        "description": "The resource's id",
+                                                        "description": "The ID of the resource.",
                                                         "example": "XGZwpOSrWL"
                                                     }
                                                 }
@@ -5942,14 +6886,14 @@
                                                 "properties": {
                                                     "type": {
                                                         "type": "string",
-                                                        "description": "The resource's type",
+                                                        "description": "The resource's type.",
                                                         "enum": [
                                                             "api_credentials"
                                                         ]
                                                     },
                                                     "id": {
                                                         "type": "string",
-                                                        "description": "The resource's id",
+                                                        "description": "The ID of the resource.",
                                                         "example": "XGZwpOSrWL"
                                                     }
                                                 }
@@ -5964,14 +6908,14 @@
                                                 "properties": {
                                                     "type": {
                                                         "type": "string",
-                                                        "description": "The resource's type",
+                                                        "description": "The resource's type.",
                                                         "enum": [
                                                             "versions"
                                                         ]
                                                     },
                                                     "id": {
                                                         "type": "string",
-                                                        "description": "The resource's id",
+                                                        "description": "The ID of the resource.",
                                                         "example": "XGZwpOSrWL"
                                                     }
                                                 }
@@ -5999,7 +6943,7 @@
                         "properties": {
                             "type": {
                                 "type": "string",
-                                "description": "The resource's type",
+                                "description": "The resource's type.",
                                 "enum": [
                                     "roles"
                                 ]
@@ -6048,14 +6992,14 @@
                                                 "properties": {
                                                     "type": {
                                                         "type": "string",
-                                                        "description": "The resource's type",
+                                                        "description": "The resource's type.",
                                                         "enum": [
                                                             "organizations"
                                                         ]
                                                     },
                                                     "id": {
                                                         "type": "string",
-                                                        "description": "The resource's id",
+                                                        "description": "The ID of the resource.",
                                                         "example": "XGZwpOSrWL"
                                                     }
                                                 }
@@ -6087,14 +7031,14 @@
                         "properties": {
                             "type": {
                                 "type": "string",
-                                "description": "The resource's type",
+                                "description": "The resource's type.",
                                 "enum": [
                                     "roles"
                                 ]
                             },
                             "id": {
                                 "type": "string",
-                                "description": "The resource's id",
+                                "description": "The ID of the resource.",
                                 "example": "XGZwpOSrWL"
                             },
                             "attributes": {
@@ -6150,12 +7094,12 @@
                         "properties": {
                             "id": {
                                 "type": "string",
-                                "description": "The resource's id",
+                                "description": "The ID of the resource.",
                                 "example": "XGZwpOSrWL"
                             },
                             "type": {
                                 "type": "string",
-                                "description": "The resource's type",
+                                "description": "The resource's type.",
                                 "enum": [
                                     "roles"
                                 ]
@@ -6196,14 +7140,14 @@
                                                 "properties": {
                                                     "type": {
                                                         "type": "string",
-                                                        "description": "The resource's type",
+                                                        "description": "The resource's type.",
                                                         "enum": [
                                                             "organization"
                                                         ]
                                                     },
                                                     "id": {
                                                         "type": "string",
-                                                        "description": "The resource ID"
+                                                        "description": "The ID of the resource."
                                                     }
                                                 }
                                             }
@@ -6230,14 +7174,14 @@
                                                 "properties": {
                                                     "type": {
                                                         "type": "string",
-                                                        "description": "The resource's type",
+                                                        "description": "The resource's type.",
                                                         "enum": [
                                                             "permissions"
                                                         ]
                                                     },
                                                     "id": {
                                                         "type": "string",
-                                                        "description": "The resource ID"
+                                                        "description": "The ID of the resource."
                                                     }
                                                 }
                                             }
@@ -6264,14 +7208,14 @@
                                                 "properties": {
                                                     "type": {
                                                         "type": "string",
-                                                        "description": "The resource's type",
+                                                        "description": "The resource's type.",
                                                         "enum": [
                                                             "memberships"
                                                         ]
                                                     },
                                                     "id": {
                                                         "type": "string",
-                                                        "description": "The resource ID"
+                                                        "description": "The ID of the resource."
                                                     }
                                                 }
                                             }
@@ -6298,14 +7242,14 @@
                                                 "properties": {
                                                     "type": {
                                                         "type": "string",
-                                                        "description": "The resource's type",
+                                                        "description": "The resource's type.",
                                                         "enum": [
                                                             "api_credentials"
                                                         ]
                                                     },
                                                     "id": {
                                                         "type": "string",
-                                                        "description": "The resource ID"
+                                                        "description": "The ID of the resource."
                                                     }
                                                 }
                                             }
@@ -6332,14 +7276,14 @@
                                                 "properties": {
                                                     "type": {
                                                         "type": "string",
-                                                        "description": "The resource's type",
+                                                        "description": "The resource's type.",
                                                         "enum": [
                                                             "versions"
                                                         ]
                                                     },
                                                     "id": {
                                                         "type": "string",
-                                                        "description": "The resource ID"
+                                                        "description": "The ID of the resource."
                                                     }
                                                 }
                                             }
@@ -6374,7 +7318,7 @@
                         "properties": {
                             "type": {
                                 "type": "string",
-                                "description": "The resource's type",
+                                "description": "The resource's type.",
                                 "enum": [
                                     "users"
                                 ]
@@ -6469,7 +7413,7 @@
                         "properties": {
                             "type": {
                                 "type": "string",
-                                "description": "The resource's type",
+                                "description": "The resource's type.",
                                 "enum": [
                                     "users"
                                 ]
@@ -6539,12 +7483,12 @@
                         "properties": {
                             "id": {
                                 "type": "string",
-                                "description": "The resource's id",
+                                "description": "The ID of the resource.",
                                 "example": "XGZwpOSrWL"
                             },
                             "type": {
                                 "type": "string",
-                                "description": "The resource's type",
+                                "description": "The resource's type.",
                                 "enum": [
                                     "users"
                                 ]
@@ -6592,7 +7536,7 @@
                         "properties": {
                             "type": {
                                 "type": "string",
-                                "description": "The resource's type",
+                                "description": "The resource's type.",
                                 "enum": [
                                     "versions"
                                 ]
@@ -6691,12 +7635,12 @@
                         "properties": {
                             "id": {
                                 "type": "string",
-                                "description": "The resource's id",
+                                "description": "The ID of the resource.",
                                 "example": "XGZwpOSrWL"
                             },
                             "type": {
                                 "type": "string",
-                                "description": "The resource's type",
+                                "description": "The resource's type.",
                                 "enum": [
                                     "versions"
                                 ]
@@ -6769,6 +7713,10 @@
         {
             "name": "has_many",
             "description": "relationship kind"
+        },
+        {
+            "name": "membership_profiles",
+            "description": "resource type"
         },
         {
             "name": "organizations",

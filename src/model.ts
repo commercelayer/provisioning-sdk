@@ -8,6 +8,7 @@ export type { ApiCredential, ApiCredentialCreate, ApiCredentialUpdate, ApiCreden
 export type { ApplicationMembership, ApplicationMembershipCreate, ApplicationMembershipUpdate, ApplicationMembershipSort } from './resources/application_memberships'
 export type { IdentityProvider, IdentityProviderCreate, IdentityProviderUpdate, IdentityProviderSort } from './resources/identity_providers'
 export type { Membership, MembershipCreate, MembershipUpdate, MembershipSort } from './resources/memberships'
+export type { MembershipProfile, MembershipProfileCreate, MembershipProfileUpdate, MembershipProfileSort } from './resources/membership_profiles'
 export type { Organization, OrganizationCreate, OrganizationUpdate, OrganizationSort } from './resources/organizations'
 export type { Permission, PermissionCreate, PermissionUpdate, PermissionSort } from './resources/permissions'
 export type { Role, RoleCreate, RoleUpdate, RoleSort } from './resources/roles'

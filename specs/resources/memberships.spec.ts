@@ -30,6 +30,7 @@ describe('Memberships resource', () => {
 			organization: clp.organizations.relationship(TestData.id),
 			role: clp.roles.relationship(TestData.id),
 			application_memberships: [ clp.application_memberships.relationship(TestData.id) ],
+			membership_profile: clp.membership_profiles.relationship(TestData.id),
 		}
 
     const attributes = { ...createAttributes, reference: TestData.reference }
@@ -266,6 +267,27 @@ describe('Memberships resource', () => {
 	
 	})
 	/* relationship.application_memberships stop */
+	
+
+	/* relationship.membership_profile start */
+	it(resourceType + '.membership_profile', async () => {
+	
+		const id = TestData.id
+		const params = { fields: { membership_profiles: CommonData.paramsFields } }
+	
+		const intId = clp.addRequestInterceptor((request) => {
+			expect(request.options.method).toBe('GET')
+			checkCommon(request, resourcePath, id, currentAccessToken, 'membership_profile')
+			checkCommonParams(request, params)
+			return interceptRequest()
+		})
+	
+		await clp[resourcePath].membership_profile(id, params, CommonData.options)
+			.catch(handleError)
+			.finally(() => clp.removeInterceptor('request', intId))
+	
+	})
+	/* relationship.membership_profile stop */
 	
 
 	/* relationship.versions start */
