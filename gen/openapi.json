@@ -2,7 +2,7 @@
     "openapi": "3.0.1",
     "info": {
         "title": "Commerce Layer Provisioning API",
-        "version": "1.0.12",
+        "version": "1.0.13",
         "contact": {
             "name": "API Support",
             "url": "https://commercelayer.io",
@@ -5342,6 +5342,12 @@
                                         "example": true,
                                         "readOnly": true
                                     },
+                                    "orders_invalid_gift_card_errors": {
+                                        "type": "boolean",
+                                        "description": "Enables raising of API errors in case the provided gift card code is invalid, default is true.",
+                                        "example": true,
+                                        "readOnly": true
+                                    },
                                     "bundles_max_items_count": {
                                         "type": "integer",
                                         "description": "The maximum number of SKUs allowed for bundles, default is 10.",
@@ -5358,6 +5364,12 @@
                                         "type": "integer",
                                         "description": "The maximum length for coupon code, default is 40.",
                                         "example": 40,
+                                        "readOnly": true
+                                    },
+                                    "gift_cards_exact_code_matching": {
+                                        "type": "boolean",
+                                        "description": "Enables matching the gift card code by its exact value, instead of by its first charachters, default is false.",
+                                        "example": false,
                                         "readOnly": true
                                     },
                                     "gift_cards_min_code_length": {
@@ -5400,6 +5412,12 @@
                                         "type": "boolean",
                                         "description": "Disables the interruption of the import in case its errors exceeds the 10% threshold, default is false.",
                                         "example": false,
+                                        "readOnly": true
+                                    },
+                                    "inventory_models_max_stock_locations_cutoff": {
+                                        "type": "integer",
+                                        "description": "The maximum number for stock locations cutoff, default is 10.",
+                                        "example": 10,
                                         "readOnly": true
                                     },
                                     "promotions_max_concurrent_count": {

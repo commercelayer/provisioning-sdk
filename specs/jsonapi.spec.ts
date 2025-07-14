@@ -3,7 +3,7 @@ import { CommerceLayerProvisioningClient } from '../src'
 import { getClient, TestData } from '../test/common'
 import { normalize, denormalize } from '../src/jsonapi'
 import { ResourceTypeLock } from '../src/api'
-import isEqual from 'lodash.isequal'
+import { isDeepStrictEqual } from 'node:util'
 
 
 let clp: CommerceLayerProvisioningClient
@@ -50,7 +50,7 @@ describe('SDK:jsonapi suite', () => {
 
 		const normalized = normalize(resource)
 
-		expect(isEqual(normalized, expected)).toBeTruthy()
+		expect(isDeepStrictEqual(normalized, expected)).toBeTruthy()
 
 	})
 
@@ -89,7 +89,7 @@ describe('SDK:jsonapi suite', () => {
 
 		const denormalized = denormalize(jsonApi)
 
-		expect(isEqual(expected, denormalized)).toBeTruthy()
+		expect(isDeepStrictEqual(expected, denormalized)).toBeTruthy()
 
 	})
 

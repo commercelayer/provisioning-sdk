@@ -933,7 +933,7 @@
                 },
                 "test_enabled": {
                     "type": "boolean",
-                    "desc": "The test_enabled is used to enable test mode on accessible apps.",
+                    "desc": "Used to enable test mode on the accessible apps.",
                     "required": "optional",
                     "creatable": true,
                     "updatable": true,
@@ -1113,7 +1113,7 @@
             "fields": {
                 "name": {
                     "type": "string",
-                    "desc": "The membership_profile name.",
+                    "desc": "The membership profile name.",
                     "required": "required",
                     "creatable": true,
                     "updatable": true,
@@ -1124,7 +1124,7 @@
                 },
                 "test_enabled": {
                     "type": "boolean",
-                    "desc": "The test_enabled is used to enable test mode on accessible apps.",
+                    "desc": "Used to enable test mode on the accessible apps.",
                     "required": "required",
                     "creatable": true,
                     "updatable": true,
@@ -1217,7 +1217,7 @@
                 },
                 "application_memberships": {
                     "type": "has_many",
-                    "desc": "The application memberships associated to the membership_profile.",
+                    "desc": "The application memberships associated to the membership profile.",
                     "creatable": true,
                     "updatable": true,
                     "filterable": true,
