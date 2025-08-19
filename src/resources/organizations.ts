@@ -134,7 +134,16 @@ interface Organization extends Resource {
 	 */
 	addresses_phone_required: boolean
 	/** 
-	 * The minimum lapse in fraction of seconds to be observed between two consecutive order refreshes. If refresh is triggered within the minimum lapse, the update is performed, but no order refresh is done, until the lapse is observed.
+	 * Indicates if a sales channel application without customer can read and update just guest orders.
+	 * @example ```"true"```
+	 */
+	orders_sales_channel_guest_only: boolean
+	/** 
+	 * The minimum lapse in fraction of seconds to be observed between two consecutive shipments rebuilt. If shipments rebuilt is triggered within the minimum lapse, the update is performed, but no rebuilt is done.
+	 */
+	orders_min_rebuild_shipments_lapse: number
+	/** 
+	 * The minimum lapse in fraction of seconds to be observed between two consecutive order refreshes. If refresh is triggered within the minimum lapse, the update is performed, but no order refresh is done.
 	 */
 	orders_min_refresh_lapse: number
 	/** 

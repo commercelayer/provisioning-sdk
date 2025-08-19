@@ -2,7 +2,7 @@
     "openapi": "3.0.1",
     "info": {
         "title": "Commerce Layer Provisioning API",
-        "version": "1.0.13",
+        "version": "1.0.14",
         "contact": {
             "name": "API Support",
             "url": "https://commercelayer.io",
@@ -5300,9 +5300,21 @@
                                         "example": true,
                                         "readOnly": true
                                     },
+                                    "orders_sales_channel_guest_only": {
+                                        "type": "boolean",
+                                        "description": "Indicates if a sales channel application without customer can read and update just guest orders.",
+                                        "example": true,
+                                        "readOnly": true
+                                    },
+                                    "orders_min_rebuild_shipments_lapse": {
+                                        "type": "number",
+                                        "description": "The minimum lapse in fraction of seconds to be observed between two consecutive shipments rebuilt. If shipments rebuilt is triggered within the minimum lapse, the update is performed, but no rebuilt is done.",
+                                        "example": 0,
+                                        "readOnly": true
+                                    },
                                     "orders_min_refresh_lapse": {
                                         "type": "number",
-                                        "description": "The minimum lapse in fraction of seconds to be observed between two consecutive order refreshes. If refresh is triggered within the minimum lapse, the update is performed, but no order refresh is done, until the lapse is observed.",
+                                        "description": "The minimum lapse in fraction of seconds to be observed between two consecutive order refreshes. If refresh is triggered within the minimum lapse, the update is performed, but no order refresh is done.",
                                         "example": 0,
                                         "readOnly": true
                                     },
