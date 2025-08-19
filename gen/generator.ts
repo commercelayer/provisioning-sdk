@@ -101,7 +101,6 @@ const generate = async (localSchema?: boolean) => {
 
 	// Remove redundant components and force usage of global resource component
 	const fixedSchema = await Fixer.fixSchema(schema)
-console.log(Object.keys(fixedSchema.resources))
 
 	loadTemplates()
 
