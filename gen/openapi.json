@@ -2,7 +2,7 @@
     "openapi": "3.0.1",
     "info": {
         "title": "Commerce Layer Provisioning API",
-        "version": "1.0.14",
+        "version": "1.0.15",
         "contact": {
             "name": "API Support",
             "url": "https://commercelayer.io",
@@ -3884,9 +3884,20 @@
                                     },
                                     "test_enabled": {
                                         "type": "boolean",
-                                        "description": "Used to enable test mode on the accessible apps.",
+                                        "description": "Reflects the organization's access scope, either test_access or all_access.",
                                         "example": false,
-                                        "nullable": true
+                                        "readOnly": true
+                                    },
+                                    "access_scope": {
+                                        "type": "string",
+                                        "description": "The access scope for applications. One of `live_access` (default), `test_access`, `all_access`.",
+                                        "example": "live_access",
+                                        "nullable": true,
+                                        "enum": [
+                                            "live_access",
+                                            "test_access",
+                                            "all_access"
+                                        ]
                                     },
                                     "created_at": {
                                         "type": "string",
@@ -4069,10 +4080,15 @@
                                         "description": "The user email.",
                                         "example": "commercelayer@commercelayer.io"
                                     },
-                                    "test_enabled": {
-                                        "type": "boolean",
-                                        "description": "Used to enable test mode on the accessible apps.",
-                                        "example": false
+                                    "access_scope": {
+                                        "type": "string",
+                                        "description": "The access scope for applications. One of `live_access` (default), `test_access`, `all_access`.",
+                                        "example": "live_access",
+                                        "enum": [
+                                            "live_access",
+                                            "test_access",
+                                            "all_access"
+                                        ]
                                     },
                                     "reference": {
                                         "type": "string",
@@ -4238,11 +4254,16 @@
                             "attributes": {
                                 "type": "object",
                                 "properties": {
-                                    "test_enabled": {
-                                        "type": "boolean",
-                                        "description": "Used to enable test mode on the accessible apps.",
-                                        "example": false,
-                                        "nullable": false
+                                    "access_scope": {
+                                        "type": "string",
+                                        "description": "The access scope for applications. One of `live_access` (default), `test_access`, `all_access`.",
+                                        "example": "live_access",
+                                        "nullable": true,
+                                        "enum": [
+                                            "live_access",
+                                            "test_access",
+                                            "all_access"
+                                        ]
                                     },
                                     "reference": {
                                         "type": "string",
@@ -4598,9 +4619,20 @@
                                     },
                                     "test_enabled": {
                                         "type": "boolean",
-                                        "description": "Used to enable test mode on the accessible apps.",
+                                        "description": "Reflects the organization's access scope, either test_access or all_access.",
                                         "example": false,
-                                        "nullable": false
+                                        "readOnly": true
+                                    },
+                                    "access_scope": {
+                                        "type": "string",
+                                        "description": "The access scope for applications. One of `live_access` (default), `test_access`, `all_access`.",
+                                        "example": "live_access",
+                                        "nullable": false,
+                                        "enum": [
+                                            "live_access",
+                                            "test_access",
+                                            "all_access"
+                                        ]
                                     },
                                     "created_at": {
                                         "type": "string",
@@ -4717,10 +4749,15 @@
                                         "description": "The membership profile name.",
                                         "example": "Marketing group"
                                     },
-                                    "test_enabled": {
-                                        "type": "boolean",
-                                        "description": "Used to enable test mode on the accessible apps.",
-                                        "example": false
+                                    "access_scope": {
+                                        "type": "string",
+                                        "description": "The access scope for applications. One of `live_access` (default), `test_access`, `all_access`.",
+                                        "example": "live_access",
+                                        "enum": [
+                                            "live_access",
+                                            "test_access",
+                                            "all_access"
+                                        ]
                                     },
                                     "reference": {
                                         "type": "string",
@@ -4742,7 +4779,7 @@
                                 },
                                 "required": [
                                     "name",
-                                    "test_enabled"
+                                    "access_scope"
                                 ]
                             },
                             "relationships": {
@@ -4842,11 +4879,16 @@
                                         "example": "Marketing group",
                                         "nullable": false
                                     },
-                                    "test_enabled": {
-                                        "type": "boolean",
-                                        "description": "Used to enable test mode on the accessible apps.",
-                                        "example": false,
-                                        "nullable": false
+                                    "access_scope": {
+                                        "type": "string",
+                                        "description": "The access scope for applications. One of `live_access` (default), `test_access`, `all_access`.",
+                                        "example": "live_access",
+                                        "nullable": false,
+                                        "enum": [
+                                            "live_access",
+                                            "test_access",
+                                            "all_access"
+                                        ]
                                     },
                                     "reference": {
                                         "type": "string",
@@ -5294,6 +5336,12 @@
                                         "example": 5000,
                                         "readOnly": true
                                     },
+                                    "addresses_avs_check": {
+                                        "type": "boolean",
+                                        "description": "Indicates if AVS checking will be enforced during payment workflow by passing specific attributes, default is true.",
+                                        "example": true,
+                                        "readOnly": true
+                                    },
                                     "addresses_phone_required": {
                                         "type": "boolean",
                                         "description": "Indicates if the phone attribute is required for addresses, default is true.",
@@ -5358,6 +5406,12 @@
                                         "type": "boolean",
                                         "description": "Enables raising of API errors in case the provided gift card code is invalid, default is true.",
                                         "example": true,
+                                        "readOnly": true
+                                    },
+                                    "orders_validate_shipping_stock": {
+                                        "type": "boolean",
+                                        "description": "Enables the validation of the generated stock line items and stock transfers before placing the order, default is false.",
+                                        "example": false,
                                         "readOnly": true
                                     },
                                     "bundles_max_items_count": {
@@ -5502,6 +5556,12 @@
                                         "type": "boolean",
                                         "description": "Enables raising of API errors in case of external promotion failure, default is false.",
                                         "example": false,
+                                        "readOnly": true
+                                    },
+                                    "external_prices_errors": {
+                                        "type": "boolean",
+                                        "description": "Enables raising of API errors in case of external price failure, default is true.",
+                                        "example": true,
                                         "readOnly": true
                                     },
                                     "created_at": {

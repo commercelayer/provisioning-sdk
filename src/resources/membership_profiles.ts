@@ -14,7 +14,7 @@ type ApplicationMembershipRel = ResourceRel & { type: ApplicationMembershipType 
 
 
 export type MembershipProfileSort = Pick<MembershipProfile, 'id' | 'name'> & ResourceSort
-// export type MembershipProfileFilter = Pick<MembershipProfile, 'id' | 'name' | 'test_enabled'> & ResourceFilter
+// export type MembershipProfileFilter = Pick<MembershipProfile, 'id' | 'name' | 'access_scope'> & ResourceFilter
 
 
 interface MembershipProfile extends Resource {
@@ -27,9 +27,14 @@ interface MembershipProfile extends Resource {
 	 */
 	name: string
 	/** 
-	 * Used to enable test mode on the accessible apps.
+	 * Reflects the organization's access scope, either test_access or all_access.
 	 */
 	test_enabled: boolean
+	/** 
+	 * The access scope for applications. One of `live_access` (default), `test_access`, `all_access`.
+	 * @example ```"live_access"```
+	 */
+	access_scope: 'live_access' | 'test_access' | 'all_access'
 
 	organization?: Nullable<Organization>
 	application_memberships?: Nullable<ApplicationMembership[]>
@@ -45,9 +50,10 @@ interface MembershipProfileCreate extends ResourceCreate {
 	 */
 	name: string
 	/** 
-	 * Used to enable test mode on the accessible apps.
+	 * The access scope for applications. One of `live_access` (default), `test_access`, `all_access`.
+	 * @example ```"live_access"```
 	 */
-	test_enabled: boolean
+	access_scope: 'live_access' | 'test_access' | 'all_access'
 
 	organization: OrganizationRel
 	application_memberships?: Nullable<ApplicationMembershipRel[]>
@@ -63,9 +69,10 @@ interface MembershipProfileUpdate extends ResourceUpdate {
 	 */
 	name?: Nullable<string>
 	/** 
-	 * Used to enable test mode on the accessible apps.
+	 * The access scope for applications. One of `live_access` (default), `test_access`, `all_access`.
+	 * @example ```"live_access"```
 	 */
-	test_enabled?: Nullable<boolean>
+	access_scope?: Nullable<'live_access' | 'test_access' | 'all_access'>
 
 	application_memberships?: Nullable<ApplicationMembershipRel[]>
 

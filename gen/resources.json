@@ -933,14 +933,30 @@
                 },
                 "test_enabled": {
                     "type": "boolean",
-                    "desc": "Used to enable test mode on the accessible apps.",
+                    "desc": "Reflects the organization's access_scope attribute, either test_access or all_access.",
+                    "required": "optional",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": true
+                },
+                "access_scope": {
+                    "type": "string",
+                    "desc": "The access scope for applications. One of `live_access` (default), `test_access`, `all_access`.",
                     "required": "optional",
                     "creatable": true,
                     "updatable": true,
                     "fetchable": true,
                     "filterable": true,
                     "sortable": false,
-                    "example": true
+                    "example": "live_access",
+                    "enum": [
+                        "live_access",
+                        "test_access",
+                        "all_access"
+                    ]
                 },
                 "id": {
                     "format": "id",
@@ -1076,7 +1092,7 @@
                 "user_email",
                 "status",
                 "owner",
-                "test_enabled",
+                "access_scope",
                 "created_at",
                 "updated_at",
                 "reference",
@@ -1124,14 +1140,30 @@
                 },
                 "test_enabled": {
                     "type": "boolean",
-                    "desc": "Used to enable test mode on the accessible apps.",
+                    "desc": "Reflects the organization's access_scope attribute, either test_access or all_access.",
+                    "required": "optional",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": true
+                },
+                "access_scope": {
+                    "type": "string",
+                    "desc": "The access scope for applications. One of `live_access` (default), `test_access`, `all_access`.",
                     "required": "required",
                     "creatable": true,
                     "updatable": true,
                     "fetchable": true,
                     "filterable": true,
                     "sortable": false,
-                    "example": true
+                    "example": "live_access",
+                    "enum": [
+                        "live_access",
+                        "test_access",
+                        "all_access"
+                    ]
                 },
                 "id": {
                     "format": "id",
@@ -1229,7 +1261,7 @@
             "filters": [
                 "id",
                 "name",
-                "test_enabled",
+                "access_scope",
                 "created_at",
                 "updated_at",
                 "reference",
@@ -1608,6 +1640,17 @@
                     "filterable": false,
                     "sortable": false,
                     "example": "5000"
+                },
+                "addresses_avs_check": {
+                    "type": "boolean",
+                    "default": true,
+                    "desc": "Indicates if AVS checking will be enforced during payment workflow by passing specific attributes, default is {ADDRESSES_AVS_CHECK}.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
                 },
                 "addresses_phone_required": {
                     "type": "boolean",
@@ -1994,6 +2037,17 @@
                     "filterable": false,
                     "sortable": false,
                     "example": "false"
+                },
+                "external_prices_errors": {
+                    "type": "boolean",
+                    "default": true,
+                    "desc": "Enables raising of API errors in case of external price failure, default is {EXTERNAL_PRICES_ERRORS}.",
+                    "creatable": false,
+                    "updatable": false,
+                    "fetchable": true,
+                    "filterable": false,
+                    "sortable": false,
+                    "example": "true"
                 },
                 "id": {
                     "format": "id",

@@ -19,7 +19,7 @@ type MembershipProfileRel = ResourceRel & { type: MembershipProfileType }
 
 
 export type MembershipSort = Pick<Membership, 'id' | 'status'> & ResourceSort
-// export type MembershipFilter = Pick<Membership, 'id' | 'user_email' | 'status' | 'owner' | 'test_enabled'> & ResourceFilter
+// export type MembershipFilter = Pick<Membership, 'id' | 'user_email' | 'status' | 'owner' | 'access_scope'> & ResourceFilter
 
 
 interface Membership extends Resource {
@@ -52,9 +52,14 @@ interface Membership extends Resource {
 	 */
 	owner: boolean
 	/** 
-	 * Used to enable test mode on the accessible apps.
+	 * Reflects the organization's access scope, either test_access or all_access.
 	 */
-	test_enabled?: Nullable<boolean>
+	test_enabled: boolean
+	/** 
+	 * The access scope for applications. One of `live_access` (default), `test_access`, `all_access`.
+	 * @example ```"live_access"```
+	 */
+	access_scope?: Nullable<'live_access' | 'test_access' | 'all_access'>
 
 	organization?: Nullable<Organization>
 	role?: Nullable<Role>
@@ -73,9 +78,10 @@ interface MembershipCreate extends ResourceCreate {
 	 */
 	user_email: string
 	/** 
-	 * Used to enable test mode on the accessible apps.
+	 * The access scope for applications. One of `live_access` (default), `test_access`, `all_access`.
+	 * @example ```"live_access"```
 	 */
-	test_enabled?: Nullable<boolean>
+	access_scope?: Nullable<'live_access' | 'test_access' | 'all_access'>
 
 	organization: OrganizationRel
 	role: RoleRel
@@ -88,9 +94,10 @@ interface MembershipCreate extends ResourceCreate {
 interface MembershipUpdate extends ResourceUpdate {
 	
 	/** 
-	 * Used to enable test mode on the accessible apps.
+	 * The access scope for applications. One of `live_access` (default), `test_access`, `all_access`.
+	 * @example ```"live_access"```
 	 */
-	test_enabled?: Nullable<boolean>
+	access_scope?: Nullable<'live_access' | 'test_access' | 'all_access'>
 
 	role?: Nullable<RoleRel>
 	application_memberships?: Nullable<ApplicationMembershipRel[]>

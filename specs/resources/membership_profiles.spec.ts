@@ -27,7 +27,7 @@ describe('MembershipProfiles resource', () => {
 
     const createAttributes = {
 			name: randomValue('string', 'name'),
-			test_enabled: randomValue('boolean', 'test_enabled'),
+			access_scope: randomValue('string', 'access_scope'),
 			organization: clp.organizations.relationship(TestData.id),
 			application_memberships: [ clp.application_memberships.relationship(TestData.id) ],
 		}
