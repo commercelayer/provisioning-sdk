@@ -7,7 +7,7 @@ import getAccessToken from '../test/token'
 let clp: CommerceLayerProvisioningClient
 
 
-beforeAll(async () => { clp = await getClient() })
+beforeAll(async () => { clp = await getClient() }, 10000)
 
 
 describe('SDK:commercelayer suite', () => {
