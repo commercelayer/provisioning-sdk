@@ -1,3 +1,11 @@
+## [2.9.1](https://github.com/commercelayer/provisioning-sdk/compare/v2.9.0...v2.9.1) (2025-12-05)
+
+
+### Bug Fixes
+
+* fix npm release and update dependencies ([ba9da87](https://github.com/commercelayer/provisioning-sdk/commit/ba9da87c29240bffa933568af617643bd46112b2))
+* fix specs timeout ([85835f4](https://github.com/commercelayer/provisioning-sdk/commit/85835f486d2b8eb4cd4c91f0ec935d3ac34f2b9a))
+
 # [2.9.0](https://github.com/commercelayer/provisioning-sdk/compare/v2.8.0...v2.9.0) (2025-10-13)
 
 
