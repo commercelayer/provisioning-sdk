@@ -1,3 +1,15 @@
+# [2.10.0](https://github.com/commercelayer/provisioning-sdk/compare/v2.9.1...v2.10.0) (2026-03-20)
+
+
+### Bug Fixes
+
+* fix dependencies ([dbc8222](https://github.com/commercelayer/provisioning-sdk/commit/dbc82221f5439bf2fbca32239e2f34982ff05d26))
+
+
+### Features
+
+* add biome linter and formatter ([39e7cd0](https://github.com/commercelayer/provisioning-sdk/commit/39e7cd051a2ae93955889609c603dd7847ab618e))
+
 ## [2.9.1](https://github.com/commercelayer/provisioning-sdk/compare/v2.9.0...v2.9.1) (2025-12-05)
 
 
