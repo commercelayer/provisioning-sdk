@@ -2,12 +2,13 @@
  * ©2026 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen
  **/
+ /** biome-ignore-all lint/correctness/noUnusedImports: auto-generated file */
 
-import { CommerceLayerProvisioningClient, Role } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
+import { beforeAll, describe, expect, test } from 'vitest'
+import type { CommerceLayerProvisioningClient, Role } from '../../src'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
-import { beforeAll, describe, it, expect } from 'vitest'
+import { CommonData, checkCommon, checkCommonData, checkCommonParams, checkCommonParamsList, currentAccessToken, getClient, handleError, interceptRequest, randomValue, TestData } from '../../test/common'
 
 
 
@@ -24,7 +25,7 @@ describe('Roles resource', () => {
 
 
   /* spec.create.start */
-  it(resourceType + '.create', async () => {
+  test(`${resourceType}.create`, async () => {
 
     const createAttributes = {
 			name: randomValue('string', 'name'),
@@ -54,7 +55,7 @@ describe('Roles resource', () => {
 
 
   /* spec.retrieve.start */
-  it(resourceType + '.retrieve', async () => {
+  test(`${resourceType}.retrieve`, async () => {
 
     const id = TestData.id
     const params = { fields: {[resourceType]: CommonData.paramsFields } }
@@ -76,7 +77,7 @@ describe('Roles resource', () => {
 
 
   /* spec.update.start */
-  it(resourceType + '.update', async () => {
+  test(`${resourceType}.update`, async () => {
 
     const attributes = { reference_origin: TestData.reference_origin, metadata: TestData.metadata }
     const params = { fields: { [resourceType]: CommonData.paramsFields } }
@@ -103,7 +104,7 @@ describe('Roles resource', () => {
 
 
   /* spec.list.start */
-  it(resourceType + '.list', async () => {
+  test(`${resourceType}.list`, async () => {
 
     const params = CommonData.paramsList
 
@@ -123,7 +124,7 @@ describe('Roles resource', () => {
 
 
   /* spec.type.start */
-  it(resourceType + '.type', async () => {
+  test(`${resourceType}.type`, async () => {
 
     const resource = { id: TestData.id, type: resourceType }
     expect(clp[resourcePath].isRole(resource)).toBeTruthy()
@@ -136,7 +137,7 @@ describe('Roles resource', () => {
 
 
   /* spec.relationship.start */
-  it(resourceType + '.relationship', async () => {
+  test(`${resourceType}.relationship`, async () => {
 
     const relId = clp[resourcePath].relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
@@ -149,7 +150,7 @@ describe('Roles resource', () => {
 
 
   /* spec.parse.start */
-  it(resourceType + '.parse', async () => {
+  test(`${resourceType}.parse`, async () => {
 
     const reference = 'myReferenceId'
 
@@ -186,7 +187,7 @@ describe('Roles resource', () => {
   
 
 	/* relationship.organization start */
-	it(resourceType + '.organization', async () => {
+	test(`${resourceType}.organization`, async () => {
 	
 		const id = TestData.id
 		const params = { fields: { organizations: CommonData.paramsFields } }
@@ -207,7 +208,7 @@ describe('Roles resource', () => {
 	
 
 	/* relationship.permissions start */
-	it(resourceType + '.permissions', async () => {
+	test(`${resourceType}.permissions`, async () => {
 	
 		const id = TestData.id
 		const params = { fields: { permissions: CommonData.paramsFields } }
@@ -228,7 +229,7 @@ describe('Roles resource', () => {
 	
 
 	/* relationship.memberships start */
-	it(resourceType + '.memberships', async () => {
+	test(`${resourceType}.memberships`, async () => {
 	
 		const id = TestData.id
 		const params = { fields: { memberships: CommonData.paramsFields } }
@@ -249,7 +250,7 @@ describe('Roles resource', () => {
 	
 
 	/* relationship.api_credentials start */
-	it(resourceType + '.api_credentials', async () => {
+	test(`${resourceType}.api_credentials`, async () => {
 	
 		const id = TestData.id
 		const params = { fields: { api_credentials: CommonData.paramsFields } }
@@ -270,7 +271,7 @@ describe('Roles resource', () => {
 	
 
 	/* relationship.versions start */
-	it(resourceType + '.versions', async () => {
+	test(`${resourceType}.versions`, async () => {
 	
 		const id = TestData.id
 		const params = { fields: { versions: CommonData.paramsFields } }
@@ -292,7 +293,7 @@ describe('Roles resource', () => {
   
 
 	/* trigger._add_missing_base_permissions start */
-	it(resourceType + '._add_missing_base_permissions', async () => {
+	test(`${resourceType}._add_missing_base_permissions`, async () => {
 	
 		let triggerAttr = '_add_missing_base_permissions'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`

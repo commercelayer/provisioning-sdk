@@ -1,7 +1,7 @@
-import { AuthenticateOptions, authenticate } from '@commercelayer/js-auth'
+import { type AuthenticateOptions, authenticate } from '@commercelayer/js-auth'
 import dotenv from 'dotenv'
 
-dotenv.config()
+dotenv.config({ debug: false})
 
 
 type TokenType = 'user'
@@ -34,7 +34,7 @@ const clientSecret = process.env.CL_SDK_CLIENT_SECRET || ''
 
 export default async (type: TokenType): Promise<AccessToken> => {
 	switch (type) {
-		case 'user':
+		// case 'user':
 		default: return getAccessToken({ clientId, clientSecret, domain })
 	}
 }

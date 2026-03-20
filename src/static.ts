@@ -1,8 +1,8 @@
 
-import { resourceList, singletonList, type ResourceTypeLock } from './api'
-import { SdkError, ApiError} from './error'
+import { type ResourceTypeLock, resourceList, singletonList } from './api'
+import type { CommerceLayerInitConfig, CommerceLayerProvisioningClient } from './commercelayer'
 import CommerceLayerProvisioning, { OPEN_API_SCHEMA_VERSION } from './commercelayer'
-import type { CommerceLayerProvisioningClient, CommerceLayerInitConfig } from './commercelayer'
+import { ApiError, SdkError } from './error'
 
 
 /* Static functions */

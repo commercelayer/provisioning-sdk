@@ -1,6 +1,6 @@
+import type * as models from './model'
 import type { Resource, ResourceRel } from './resource'
 import type { VersionType } from './resources/versions'
-import type * as models from './model'
 
 // ##__API_RESOURCES_START__##
 // ##__API_RESOURCES_TEMPLATE:: export { default as ##__RESOURCE_CLASS__## } from './resources/##__RESOURCE_TYPE__##'
@@ -10,8 +10,8 @@ import type * as models from './model'
 export { default as ApiCredentials } from './resources/api_credentials'
 export { default as ApplicationMemberships } from './resources/application_memberships'
 export { default as IdentityProviders } from './resources/identity_providers'
-export { default as Memberships } from './resources/memberships'
 export { default as MembershipProfiles } from './resources/membership_profiles'
+export { default as Memberships } from './resources/memberships'
 export { default as Organizations } from './resources/organizations'
 export { default as Permissions } from './resources/permissions'
 export { default as Roles } from './resources/roles'

@@ -2,12 +2,13 @@
  * ©2026 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen
  **/
+ /** biome-ignore-all lint/correctness/noUnusedImports: auto-generated file */
 
-import { CommerceLayerProvisioningClient, Organization } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
+import { beforeAll, describe, expect, test } from 'vitest'
+import type { CommerceLayerProvisioningClient, Organization } from '../../src'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
-import { beforeAll, describe, it, expect } from 'vitest'
+import { CommonData, checkCommon, checkCommonData, checkCommonParams, checkCommonParamsList, currentAccessToken, getClient, handleError, interceptRequest, randomValue, TestData } from '../../test/common'
 
 
 
@@ -24,7 +25,7 @@ describe('Organizations resource', () => {
 
 
   /* spec.create.start */
-  it(resourceType + '.create', async () => {
+  test(`${resourceType}.create`, async () => {
 
     const createAttributes = {
 			name: randomValue('string', 'name'),
@@ -53,7 +54,7 @@ describe('Organizations resource', () => {
 
 
   /* spec.retrieve.start */
-  it(resourceType + '.retrieve', async () => {
+  test(`${resourceType}.retrieve`, async () => {
 
     const id = TestData.id
     const params = { fields: {[resourceType]: CommonData.paramsFields } }
@@ -75,7 +76,7 @@ describe('Organizations resource', () => {
 
 
   /* spec.update.start */
-  it(resourceType + '.update', async () => {
+  test(`${resourceType}.update`, async () => {
 
     const attributes = { reference_origin: TestData.reference_origin, metadata: TestData.metadata }
     const params = { fields: { [resourceType]: CommonData.paramsFields } }
@@ -102,7 +103,7 @@ describe('Organizations resource', () => {
 
 
   /* spec.list.start */
-  it(resourceType + '.list', async () => {
+  test(`${resourceType}.list`, async () => {
 
     const params = CommonData.paramsList
 
@@ -122,7 +123,7 @@ describe('Organizations resource', () => {
 
 
   /* spec.type.start */
-  it(resourceType + '.type', async () => {
+  test(`${resourceType}.type`, async () => {
 
     const resource = { id: TestData.id, type: resourceType }
     expect(clp[resourcePath].isOrganization(resource)).toBeTruthy()
@@ -135,7 +136,7 @@ describe('Organizations resource', () => {
 
 
   /* spec.relationship.start */
-  it(resourceType + '.relationship', async () => {
+  test(`${resourceType}.relationship`, async () => {
 
     const relId = clp[resourcePath].relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
@@ -148,7 +149,7 @@ describe('Organizations resource', () => {
 
 
   /* spec.parse.start */
-  it(resourceType + '.parse', async () => {
+  test(`${resourceType}.parse`, async () => {
 
     const reference = 'myReferenceId'
 
@@ -185,7 +186,7 @@ describe('Organizations resource', () => {
   
 
 	/* relationship.memberships start */
-	it(resourceType + '.memberships', async () => {
+	test(`${resourceType}.memberships`, async () => {
 	
 		const id = TestData.id
 		const params = { fields: { memberships: CommonData.paramsFields } }
@@ -206,7 +207,7 @@ describe('Organizations resource', () => {
 	
 
 	/* relationship.roles start */
-	it(resourceType + '.roles', async () => {
+	test(`${resourceType}.roles`, async () => {
 	
 		const id = TestData.id
 		const params = { fields: { roles: CommonData.paramsFields } }
@@ -227,7 +228,7 @@ describe('Organizations resource', () => {
 	
 
 	/* relationship.permissions start */
-	it(resourceType + '.permissions', async () => {
+	test(`${resourceType}.permissions`, async () => {
 	
 		const id = TestData.id
 		const params = { fields: { permissions: CommonData.paramsFields } }
@@ -248,7 +249,7 @@ describe('Organizations resource', () => {
 	
 
 	/* relationship.api_credentials start */
-	it(resourceType + '.api_credentials', async () => {
+	test(`${resourceType}.api_credentials`, async () => {
 	
 		const id = TestData.id
 		const params = { fields: { api_credentials: CommonData.paramsFields } }

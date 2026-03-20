@@ -1,13 +1,14 @@
 
-import { CommerceLayerProvisioningClient, Membership, MembershipCreate, Role } from '../src'
-import { sleep, sortObjectFields } from '../src/util'
-import { getClient, TestData } from '../test/common'
+import { beforeAll, describe, expect, test } from 'vitest'
+import type { CommerceLayerProvisioningClient, MembershipCreate, Role } from '../src'
 import { isResourceType } from '../src/common'
 import type { ObjectType } from '../src/types'
-import { beforeAll, describe, it, expect } from 'vitest'
+import { sleep, sortObjectFields } from '../src/util'
+import { getClient, TestData } from '../test/common'
 
 
 
+// biome-ignore lint/correctness/noUnusedVariables: variable used later inside functions
 let clp: CommerceLayerProvisioningClient
 
 
@@ -16,7 +17,7 @@ beforeAll(async () => { clp = await getClient() })
 
 describe('SDK suite', () => {
 
-	it('util.sleep', async () => {
+	test('util.sleep', async () => {
 
 		const ms = 2000
 
@@ -32,7 +33,7 @@ describe('SDK suite', () => {
 	})
 
 
-	it('util.sortObjectFields', async () => {
+	test('util.sortObjectFields', async () => {
 
 		const obj: ObjectType = {
 			beta: 'beta',
@@ -55,7 +56,7 @@ describe('SDK suite', () => {
 	})
 
 
-	it('common.type', async () => {
+	test('common.type', async () => {
 
 		const customer: Role = {
 			id: TestData.id,
@@ -71,7 +72,7 @@ describe('SDK suite', () => {
 	})
 
 
-	it('response.emptyBody', async () => {
+	test('response.emptyBody', async () => {
 
 		const cli = await getClient({})
 
@@ -84,12 +85,12 @@ describe('SDK suite', () => {
 		if (organization && role) {
 
 		const membershipCreate: MembershipCreate = {
-			user_email: String(Date.now()) + '@provisioning.org',
+			user_email: `${String(Date.now())}@provisioning.org`,
 			organization: cli.organizations.relationship(organization),
 			role: cli.roles.relationship(role)
 		}
 
-		let membership = await cli.memberships.create(membershipCreate)
+		const membership = await cli.memberships.create(membershipCreate)
 		expect(membership).toBeDefined()
 
 		await cli.memberships.resend(membership)

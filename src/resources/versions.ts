@@ -1,6 +1,7 @@
 // import type { Nullable } from '../types'
-import { ApiResource } from '../resource'
+
 import type { Resource, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ } from '../resource'
+import { ApiResource } from '../resource'
 
 
 

@@ -1,12 +1,11 @@
-import type { Nullable } from '../types'
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { ListResponse, Resource, ResourceCreate, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, ResourceUpdate, } from '../resource'
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
-import type { QueryParamsRetrieve, QueryParamsList } from '../query'
-
-import type { Membership } from './memberships'
-import type { Role } from './roles'
-import type { Permission } from './permissions'
+import type { Nullable } from '../types'
 import type { ApiCredential } from './api_credentials'
+import type { Membership } from './memberships'
+import type { Permission } from './permissions'
+import type { Role } from './roles'
 
 
 type OrganizationType = 'organizations'
@@ -493,5 +492,5 @@ class Organizations extends ApiResource<Organization> {
 
 export default Organizations
 
-export type { Organization, OrganizationCreate, OrganizationUpdate, OrganizationType }
+export type { Organization, OrganizationCreate, OrganizationType, OrganizationUpdate }
 export type TransferOwnershipDataType = { type: 'organizations', id: string, new_owner_email: string }

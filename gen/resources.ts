@@ -33,8 +33,8 @@ const loadResources = (): any => {
 	try {
 		const schema = readFileSync(schemaPath, { encoding: 'utf-8'})
 		return JSON.parse(schema)
-	} catch (error) {
-		console.log('Error loading local resources schema: ' + schemaPath)
+	} catch (_error) {
+		console.log(`Error loading local resources schema: ${schemaPath}`)
 		return undefined
 	}
 

@@ -1,10 +1,10 @@
 
-import { CommerceLayerProvisioningClient } from '../src'
-import { getClient, TestData } from '../test/common'
-import { normalize, denormalize } from '../src/jsonapi'
-import { ResourceTypeLock } from '../src/api'
 import { isDeepStrictEqual } from 'node:util'
-import { beforeAll, describe, it, expect } from 'vitest'
+import { beforeAll, describe, expect, test} from 'vitest'
+import type { CommerceLayerProvisioningClient } from '../src'
+import type { ResourceTypeLock } from '../src/api'
+import { denormalize, normalize } from '../src/jsonapi'
+import { getClient, TestData } from '../test/common'
 
 
 let clp: CommerceLayerProvisioningClient
@@ -15,7 +15,7 @@ beforeAll(async () => { clp = await getClient() })
 
 describe('SDK:jsonapi suite', () => {
 
-	it('jsonapi.normalize', async () => {
+	test('jsonapi.normalize', async () => {
 
 		const type: ResourceTypeLock = 'memberships'
 
@@ -56,11 +56,11 @@ describe('SDK:jsonapi suite', () => {
 	})
 
 
-	it('jsonapi.denormalize', async () => {
+	test('jsonapi.denormalize', async () => {
 
 		const jsonApi = {
 			data: {
-				id: TestData.id + '00',
+				id: `${TestData.id}00`,
 				type: 'users',
 				attributes: {
 					user_email: 'user@sdk-test.org',
@@ -78,7 +78,7 @@ describe('SDK:jsonapi suite', () => {
 		}
 
 		const expected = {
-			id: TestData.id + '00',
+			id: `${TestData.id}00`,
 			type: 'users',
 			user_email: 'user@sdk-test.org',
 			reference: TestData.reference,

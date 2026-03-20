@@ -1,12 +1,11 @@
-import { ErrorType, SdkError, handleError, isExpiredTokenError } from './error'
-import type { InterceptorManager } from './interceptor'
 import config from './config'
-import type { FetchResponse, FetchRequestOptions, FetchClientOptions, Fetch } from './fetch'
+import Debug from './debug'
+import { ErrorType, handleError, isExpiredTokenError, SdkError } from './error'
+import type { Fetch, FetchClientOptions, FetchRequestOptions, FetchResponse } from './fetch'
 import { fetchURL } from './fetch'
+import type { InterceptorManager } from './interceptor'
 import { isTokenExpired } from './util'
 
-
-import Debug from './debug'
 const debug = Debug('client')
 
 
@@ -81,7 +80,7 @@ class ApiClient {
 			...customHeaders,
 			'Accept': 'application/vnd.api+json',
 			'Content-Type': 'application/vnd.api+json',
-			'Authorization': 'Bearer ' + this.#accessToken
+			'Authorization': `Bearer ${this.#accessToken}`
 		}
 
 		// Set User-Agent
@@ -132,7 +131,7 @@ class ApiClient {
 		if (config.domain) this.#baseUrl = baseURL(config.domain)
 		if (config.accessToken) {
 			this.#accessToken = config.accessToken
-			def.headers.Authorization = 'Bearer ' + this.#accessToken
+			def.headers.Authorization = `Bearer ${this.#accessToken}`
 		}
 		if (config.headers) def.headers = { ...def.headers, ...this.customHeaders(config.headers) }
 
@@ -166,7 +165,7 @@ class ApiClient {
 
 		// Access token
 		const accessToken = options?.accessToken || this.#accessToken
-		if (accessToken) headers.Authorization = 'Bearer ' + accessToken
+		if (accessToken) headers.Authorization = `Bearer ${accessToken}`
 
 		const refreshToken = options?.refreshToken || this.#clientConfig.refreshToken
 		const fetchFunction = options?.fetch || this.#clientConfig.fetch
@@ -240,4 +239,4 @@ class ApiClient {
 
 export default ApiClient
 
-export type { ApiClientInitConfig, ApiClientConfig, RequestConfig }
+export type { ApiClientConfig, ApiClientInitConfig, RequestConfig }

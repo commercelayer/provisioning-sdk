@@ -1,10 +1,9 @@
-import type { Nullable } from '../types'
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { ListResponse, Resource, ResourceCreate, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, ResourceUpdate, } from '../resource'
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
-import type { QueryParamsRetrieve, QueryParamsList } from '../query'
-
-import type { Organization, OrganizationType } from './organizations'
+import type { Nullable } from '../types'
 import type { ApplicationMembership, ApplicationMembershipType } from './application_memberships'
+import type { Organization, OrganizationType } from './organizations'
 
 
 type MembershipProfileType = 'membership_profiles'
@@ -129,4 +128,4 @@ class MembershipProfiles extends ApiResource<MembershipProfile> {
 
 export default MembershipProfiles
 
-export type { MembershipProfile, MembershipProfileCreate, MembershipProfileUpdate, MembershipProfileType }
+export type { MembershipProfile, MembershipProfileCreate, MembershipProfileType, MembershipProfileUpdate }

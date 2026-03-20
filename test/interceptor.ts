@@ -1,5 +1,5 @@
 
-import clProvisioning, { ErrorObj, RequestObj, ResponseObj } from '../src'
+import clProvisioning, { type ErrorObj, type RequestObj, type ResponseObj } from '../src'
 import getToken from './token'
 
 
@@ -24,9 +24,9 @@ const errorInterceptor = (error: ErrorObj): ErrorObj => {
 
 (async () => {
 
-	const organization = process.env.CL_SDK_ORGANIZATION || ''
+	// const organization = process.env.CL_SDK_ORGANIZATION || ''
 	const auth = await getToken('user')
-	const accessToken = process.env.CL_SDK_ACCESS_TOKEN || (auth? auth.accessToken+'x' : '')
+	const accessToken = process.env.CL_SDK_ACCESS_TOKEN || (auth? `${auth.accessToken}x` : '')
 
 	const cl = clProvisioning({
 		accessToken,

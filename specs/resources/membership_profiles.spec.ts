@@ -2,12 +2,13 @@
  * ©2026 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen
  **/
+ /** biome-ignore-all lint/correctness/noUnusedImports: auto-generated file */
 
-import { CommerceLayerProvisioningClient, MembershipProfile } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
+import { beforeAll, describe, expect, test } from 'vitest'
+import type { CommerceLayerProvisioningClient, MembershipProfile } from '../../src'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
-import { beforeAll, describe, it, expect } from 'vitest'
+import { CommonData, checkCommon, checkCommonData, checkCommonParams, checkCommonParamsList, currentAccessToken, getClient, handleError, interceptRequest, randomValue, TestData } from '../../test/common'
 
 
 
@@ -24,7 +25,7 @@ describe('MembershipProfiles resource', () => {
 
 
   /* spec.create.start */
-  it(resourceType + '.create', async () => {
+  test(`${resourceType}.create`, async () => {
 
     const createAttributes = {
 			name: randomValue('string', 'name'),
@@ -56,7 +57,7 @@ describe('MembershipProfiles resource', () => {
 
 
   /* spec.retrieve.start */
-  it(resourceType + '.retrieve', async () => {
+  test(`${resourceType}.retrieve`, async () => {
 
     const id = TestData.id
     const params = { fields: {[resourceType]: CommonData.paramsFields } }
@@ -78,7 +79,7 @@ describe('MembershipProfiles resource', () => {
 
 
   /* spec.update.start */
-  it(resourceType + '.update', async () => {
+  test(`${resourceType}.update`, async () => {
 
     const attributes = { reference_origin: TestData.reference_origin, metadata: TestData.metadata }
     const params = { fields: { [resourceType]: CommonData.paramsFields } }
@@ -105,7 +106,7 @@ describe('MembershipProfiles resource', () => {
 
 
   /* spec.delete.start */
-  it(resourceType + '.delete', async () => {
+  test(`${resourceType}.delete`, async () => {
 
     const id = TestData.id
 
@@ -124,7 +125,7 @@ describe('MembershipProfiles resource', () => {
 
 
   /* spec.list.start */
-  it(resourceType + '.list', async () => {
+  test(`${resourceType}.list`, async () => {
 
     const params = CommonData.paramsList
 
@@ -144,7 +145,7 @@ describe('MembershipProfiles resource', () => {
 
 
   /* spec.type.start */
-  it(resourceType + '.type', async () => {
+  test(`${resourceType}.type`, async () => {
 
     const resource = { id: TestData.id, type: resourceType }
     expect(clp[resourcePath].isMembershipProfile(resource)).toBeTruthy()
@@ -157,7 +158,7 @@ describe('MembershipProfiles resource', () => {
 
 
   /* spec.relationship.start */
-  it(resourceType + '.relationship', async () => {
+  test(`${resourceType}.relationship`, async () => {
 
     const relId = clp[resourcePath].relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
@@ -170,7 +171,7 @@ describe('MembershipProfiles resource', () => {
 
 
   /* spec.parse.start */
-  it(resourceType + '.parse', async () => {
+  test(`${resourceType}.parse`, async () => {
 
     const reference = 'myReferenceId'
 
@@ -207,7 +208,7 @@ describe('MembershipProfiles resource', () => {
   
 
 	/* relationship.organization start */
-	it(resourceType + '.organization', async () => {
+	test(`${resourceType}.organization`, async () => {
 	
 		const id = TestData.id
 		const params = { fields: { organizations: CommonData.paramsFields } }
@@ -228,7 +229,7 @@ describe('MembershipProfiles resource', () => {
 	
 
 	/* relationship.application_memberships start */
-	it(resourceType + '.application_memberships', async () => {
+	test(`${resourceType}.application_memberships`, async () => {
 	
 		const id = TestData.id
 		const params = { fields: { application_memberships: CommonData.paramsFields } }

@@ -1,5 +1,5 @@
-import { expect, test, beforeAll, describe } from 'vitest'
-import { CommerceLayerProvisioning, CommerceLayerProvisioningClient, CommerceLayerProvisioningStatic } from '../src'
+import { beforeAll, describe, expect, test } from 'vitest'
+import { CommerceLayerProvisioning, type CommerceLayerProvisioningClient, CommerceLayerProvisioningStatic } from '../src'
 import { getClient } from '../test/common'
 import getAccessToken from '../test/token'
 
@@ -53,7 +53,7 @@ describe('SDK:commercelayer suite', () => {
 
 		let refreshed = false
 
-		async function refreshToken(old: string): Promise<string> {
+		async function refreshToken(_old: string): Promise<string> {
 			const token = (await getAccessToken('user')).accessToken
 			refreshed = true
 			return token

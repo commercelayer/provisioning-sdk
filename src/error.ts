@@ -120,4 +120,4 @@ const handleError = (error: Error): never => {
 }
 
 
-export { SdkError, ApiError, ErrorType, handleError, isExpiredTokenError }
+export { ApiError, ErrorType, handleError, isExpiredTokenError, SdkError }

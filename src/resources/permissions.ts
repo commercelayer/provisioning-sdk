@@ -1,7 +1,7 @@
-import type { Nullable } from '../types'
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { ListResponse, Resource, ResourceCreate, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, ResourceUpdate, } from '../resource'
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
-import type { QueryParamsRetrieve, QueryParamsList } from '../query'
+import type { Nullable } from '../types'
 
 import type { Organization } from './organizations'
 import type { Role, RoleType } from './roles'
@@ -155,4 +155,4 @@ class Permissions extends ApiResource<Permission> {
 
 export default Permissions
 
-export type { Permission, PermissionCreate, PermissionUpdate, PermissionType }
+export type { Permission, PermissionCreate, PermissionType, PermissionUpdate }

@@ -1,12 +1,12 @@
-import getToken from './token'
-import CommerceLayerProvisioning, { CommerceLayerConfig, CommerceLayerProvisioningClient, QueryParamsList, QueryParamsRetrieve, RequestObj } from '../src'
-import dotenv from 'dotenv'
 import { inspect, isDeepStrictEqual } from 'node:util'
-import { RequestConfig } from '../src/client'
-import { Resource } from '../src/resource'
+import dotenv from 'dotenv'
+import CommerceLayerProvisioning, { type CommerceLayerConfig, type CommerceLayerProvisioningClient, type QueryParamsList, type QueryParamsRetrieve, type RequestObj } from '../src'
+import type { RequestConfig } from '../src/client'
+import type { Resource } from '../src/resource'
+import getToken from './token'
 
 
-dotenv.config()
+dotenv.config({ debug: false })
 
 export const GLOBAL_TIMEOUT = 15000
 
@@ -71,7 +71,7 @@ const initClient = async (config: CommerceLayerConfig): Promise<CommerceLayerPro
 	currentAccessToken = accessToken
 
 	client.config({ timeout: config.timeout || GLOBAL_TIMEOUT })
-	try { vi.setConfig({ testTimeout: config.timeout || GLOBAL_TIMEOUT })  } catch(err: any) {}
+	try { vi.setConfig({ testTimeout: config.timeout || GLOBAL_TIMEOUT })  } catch(_err: any) {}
 
 	return client
 
@@ -95,7 +95,7 @@ const printObject = (obj: unknown): string => {
 }
 
 
-export { initClient, fakeClient, getClient, printObject, currentAccessToken }
+export { currentAccessToken, fakeClient, getClient, initClient, printObject }
 
 
 
@@ -148,10 +148,10 @@ export { handleError, interceptRequest, randomValue }
 
 
 const checkCommon = (request: RequestObj, path: string, id?: string, token?: string, relationship?: string) => {
-	expect(request.url.pathname).toBe('/api/' + path + (id ? `/${id}` : '') + (relationship ? `/${relationship}` : ''))
+	expect(request.url.pathname).toBe(`/api/${path}${id ? `/${id}` : ''}${relationship ? `/${relationship}` : ''}`)
 	const requestOptionsHeaders = request.options.headers as Record<string, string>
 	expect(requestOptionsHeaders).toBeDefined()
-	if (requestOptionsHeaders) expect(requestOptionsHeaders['Authorization']).toContain('Bearer ' + (token || ''))
+	if (requestOptionsHeaders) expect(requestOptionsHeaders.Authorization).toContain(`Bearer ${token || ''}`)
 	expect(request.options.signal).not.toBeNull()
 }
 
@@ -159,7 +159,7 @@ const checkCommonData = (data: any, type: string, attributes: any, id?: string) 
 	if (id) expect(data.data.id).toBe(id)
 	expect(data.data.type).toBe(type)
 	const relationships: { [k: string]: any } = {}
-	Object.entries(data.data.relationships).forEach(([k, v]) => relationships[k] = (v as any)['data'])
+	Object.entries(data.data.relationships).forEach(([k, v]) => { relationships[k] = (v as any).data })
 	const received = {
 		...data.data.attributes,
 		...relationships

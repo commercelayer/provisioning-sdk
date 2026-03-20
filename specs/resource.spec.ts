@@ -1,8 +1,8 @@
 
-import { CommerceLayerProvisioningClient, Membership, Role } from '../src'
-import { ListResponse } from '../src/resource'
+import { beforeAll, describe, expect, test } from 'vitest'
+import type { CommerceLayerProvisioningClient, Membership } from '../src'
+import type { ListResponse } from '../src/resource'
 import { getClient } from '../test/common'
-import { beforeAll, describe, it, expect } from 'vitest'
 
 
 let clp: CommerceLayerProvisioningClient
@@ -20,13 +20,13 @@ beforeAll(async () => {
 
 describe('SDK:resource suite', () => {
 
-	it('resource.first', async () => {
+	test('resource.first', async () => {
 		const first = memberships.first()
 		expect(first?.id).not.toBeUndefined()
 	})
 
 
-	it('resource.last', async () => {
+	test('resource.last', async () => {
 		const first = memberships.first()
 		const last = memberships.last()
 		expect(last?.id).not.toBeUndefined()
@@ -34,20 +34,20 @@ describe('SDK:resource suite', () => {
 	})
 
 
-	it('resource.get', async () => {
+	test('resource.get', async () => {
 		const role = memberships.get(0)
 		expect(role?.id).not.toBeUndefined()
 	})
 
 
-	it('resource.retrieve', async () => {
+	test('resource.retrieve', async () => {
 		const id = memberships.first()?.id as string
 		const user = await clp.memberships.retrieve(id)
 		expect(user.id).toEqual(id)
 	})
 
 
-	it('resource.update', async () => {
+	test('resource.update', async () => {
 		const id = memberships.first()?.id as string
 		const reference = String(Date.now())
 		const role = await clp.memberships.update({ id, reference })
@@ -55,18 +55,18 @@ describe('SDK:resource suite', () => {
 	})
 
 
-	it('resource.singleton', async () => {
+	test('resource.singleton', async () => {
 		// Test singleton operations without an id
 		let user = await clp.user.retrieve()
 		expect(user.id).not.toBeNull()
 		expect(user.id).not.toBeUndefined()
-		const testRef = 'reference_' + Date.now()
+		const testRef = `reference_${Date.now()}`
 		user = await clp.user.update({ reference: testRef, time_zone: 'UTC' })
 		expect(user.reference).toBe(testRef)
 	})
 
 
-	it('resource.create', async () => {
+	test('resource.create', async () => {
 		const user_email = 'spec@provisioning-sdk-test.org'
 		const params = organizationSlug ? { filters: { slug_eq: organizationSlug } } : undefined
 		const org = (await clp.organizations.list(params)).first()
@@ -83,7 +83,7 @@ describe('SDK:resource suite', () => {
 	})
 
 
-	it('resource.delete', async () => {
+	test('resource.delete', async () => {
 		await clp.memberships.delete(tempId)
 		try {
 			await clp.memberships.retrieve(tempId)
@@ -94,7 +94,7 @@ describe('SDK:resource suite', () => {
 	})
 
 
-	it('resource.fetch', async () => {
+	test('resource.fetch', async () => {
 		const org = (await clp.organizations.list({ pageSize: 1 })).first()
 		if (!org) return
 		const mships = await clp.organizations.memberships(org.id)

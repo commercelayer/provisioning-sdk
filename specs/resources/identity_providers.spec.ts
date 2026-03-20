@@ -2,12 +2,13 @@
  * ©2026 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen
  **/
+ /** biome-ignore-all lint/correctness/noUnusedImports: auto-generated file */
 
-import { CommerceLayerProvisioningClient, IdentityProvider } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
+import { beforeAll, describe, expect, test } from 'vitest'
+import type { CommerceLayerProvisioningClient, IdentityProvider } from '../../src'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
-import { beforeAll, describe, it, expect } from 'vitest'
+import { CommonData, checkCommon, checkCommonData, checkCommonParams, checkCommonParamsList, currentAccessToken, getClient, handleError, interceptRequest, randomValue, TestData } from '../../test/common'
 
 
 
@@ -24,7 +25,7 @@ describe('IdentityProviders resource', () => {
 
 
   /* spec.create.start */
-  it(resourceType + '.create', async () => {
+  test(`${resourceType}.create`, async () => {
 
     const createAttributes = {
 			name: randomValue('string', 'name'),
@@ -60,7 +61,7 @@ describe('IdentityProviders resource', () => {
 
 
   /* spec.retrieve.start */
-  it(resourceType + '.retrieve', async () => {
+  test(`${resourceType}.retrieve`, async () => {
 
     const id = TestData.id
     const params = { fields: {[resourceType]: CommonData.paramsFields } }
@@ -82,7 +83,7 @@ describe('IdentityProviders resource', () => {
 
 
   /* spec.update.start */
-  it(resourceType + '.update', async () => {
+  test(`${resourceType}.update`, async () => {
 
     const attributes = { reference_origin: TestData.reference_origin, metadata: TestData.metadata }
     const params = { fields: { [resourceType]: CommonData.paramsFields } }
@@ -109,7 +110,7 @@ describe('IdentityProviders resource', () => {
 
 
   /* spec.delete.start */
-  it(resourceType + '.delete', async () => {
+  test(`${resourceType}.delete`, async () => {
 
     const id = TestData.id
 
@@ -128,7 +129,7 @@ describe('IdentityProviders resource', () => {
 
 
   /* spec.list.start */
-  it(resourceType + '.list', async () => {
+  test(`${resourceType}.list`, async () => {
 
     const params = CommonData.paramsList
 
@@ -148,7 +149,7 @@ describe('IdentityProviders resource', () => {
 
 
   /* spec.type.start */
-  it(resourceType + '.type', async () => {
+  test(`${resourceType}.type`, async () => {
 
     const resource = { id: TestData.id, type: resourceType }
     expect(clp[resourcePath].isIdentityProvider(resource)).toBeTruthy()
@@ -161,7 +162,7 @@ describe('IdentityProviders resource', () => {
 
 
   /* spec.relationship.start */
-  it(resourceType + '.relationship', async () => {
+  test(`${resourceType}.relationship`, async () => {
 
     const relId = clp[resourcePath].relationship(TestData.id)
     expect(isDeepStrictEqual(relId, { id: TestData.id, type: resourceType}))
@@ -174,7 +175,7 @@ describe('IdentityProviders resource', () => {
 
 
   /* spec.parse.start */
-  it(resourceType + '.parse', async () => {
+  test(`${resourceType}.parse`, async () => {
 
     const reference = 'myReferenceId'
 
@@ -211,7 +212,7 @@ describe('IdentityProviders resource', () => {
   
 
 	/* relationship.user start */
-	it(resourceType + '.user', async () => {
+	test(`${resourceType}.user`, async () => {
 	
 		const id = TestData.id
 		const params = { fields: { users: CommonData.paramsFields } }
@@ -233,7 +234,7 @@ describe('IdentityProviders resource', () => {
   
 
 	/* trigger._disable start */
-	it(resourceType + '._disable', async () => {
+	test(`${resourceType}._disable`, async () => {
 	
 		let triggerAttr = '_disable'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`
@@ -259,7 +260,7 @@ describe('IdentityProviders resource', () => {
 	
 
 	/* trigger._enable start */
-	it(resourceType + '._enable', async () => {
+	test(`${resourceType}._enable`, async () => {
 	
 		let triggerAttr = '_enable'
 		if (!triggerAttr.startsWith('_')) triggerAttr = `_${triggerAttr}`

@@ -4,14 +4,14 @@
 /**
  * ©2026 Commerce Layer Inc.
  **/
-export type { ApiCredential, ApiCredentialCreate, ApiCredentialUpdate, ApiCredentialSort } from './resources/api_credentials'
-export type { ApplicationMembership, ApplicationMembershipCreate, ApplicationMembershipUpdate, ApplicationMembershipSort } from './resources/application_memberships'
-export type { IdentityProvider, IdentityProviderCreate, IdentityProviderUpdate, IdentityProviderSort } from './resources/identity_providers'
-export type { Membership, MembershipCreate, MembershipUpdate, MembershipSort } from './resources/memberships'
-export type { MembershipProfile, MembershipProfileCreate, MembershipProfileUpdate, MembershipProfileSort } from './resources/membership_profiles'
-export type { Organization, OrganizationCreate, OrganizationUpdate, OrganizationSort } from './resources/organizations'
-export type { Permission, PermissionCreate, PermissionUpdate, PermissionSort } from './resources/permissions'
-export type { Role, RoleCreate, RoleUpdate, RoleSort } from './resources/roles'
-export type { User, UserUpdate, UserSort } from './resources/users'
+export type { ApiCredential, ApiCredentialCreate, ApiCredentialSort, ApiCredentialUpdate } from './resources/api_credentials'
+export type { ApplicationMembership, ApplicationMembershipCreate, ApplicationMembershipSort, ApplicationMembershipUpdate } from './resources/application_memberships'
+export type { IdentityProvider, IdentityProviderCreate, IdentityProviderSort, IdentityProviderUpdate } from './resources/identity_providers'
+export type { MembershipProfile, MembershipProfileCreate, MembershipProfileSort, MembershipProfileUpdate } from './resources/membership_profiles'
+export type { Membership, MembershipCreate, MembershipSort, MembershipUpdate } from './resources/memberships'
+export type { Organization, OrganizationCreate, OrganizationSort, OrganizationUpdate } from './resources/organizations'
+export type { Permission, PermissionCreate, PermissionSort, PermissionUpdate } from './resources/permissions'
+export type { Role, RoleCreate, RoleSort, RoleUpdate } from './resources/roles'
+export type { User, UserSort, UserUpdate } from './resources/users'
 export type { Version, VersionSort } from './resources/versions'
 // ##__MODEL_TYPES_STOP__##

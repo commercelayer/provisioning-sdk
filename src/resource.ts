@@ -1,17 +1,16 @@
 
-import ApiClient, { type Method, type ApiClientInitConfig } from './client'
-import { denormalize, normalize, type DocWithData } from './jsonapi'
-import type { QueryParamsRetrieve, QueryParamsList, QueryFilter, QueryParams } from './query'
-import { generateQueryStringParams, isParamsList } from './query'
 import type { ResourceTypeLock } from './api'
-import config from './config'
-import type { Nullable } from './types'
-import { CommerceLayerProvisioningStatic } from './static'
+import ApiClient, { type ApiClientInitConfig, type Method } from './client'
 import { isResourceId } from './common'
-import { ErrorType, SdkError } from './error'
-
-
+import config from './config'
 import Debug from './debug'
+import { ErrorType, SdkError } from './error'
+import { type DocWithData, denormalize, normalize } from './jsonapi'
+import type { QueryFilter, QueryParams, QueryParamsList, QueryParamsRetrieve } from './query'
+import { generateQueryStringParams, isParamsList } from './query'
+import { CommerceLayerProvisioningStatic } from './static'
+import type { Nullable } from './types'
+
 const debug = Debug('resource')
 
 
@@ -93,7 +92,7 @@ class ListResponse<R extends Resource = Resource> extends Array<R> {
 }
 
 
-export type { Metadata, ResourceType, ResourceId, Resource, ResourceCreate, ResourceUpdate, ListResponse, ListMeta, ResourceRel, SingletonUpdate }
+export type { ListMeta, ListResponse, Metadata, Resource, ResourceCreate, ResourceId, ResourceRel, ResourceType, ResourceUpdate, SingletonUpdate }
 
 export type ResourceSort = Pick<Resource, 'id' | 'reference' | 'reference_origin' | 'created_at' | 'updated_at'>
 export type ResourceFilter = Pick<Resource, 'id' | 'reference' | 'reference_origin' | 'metadata' | 'created_at' | 'updated_at'>
@@ -101,6 +100,7 @@ export type ResourceFilter = Pick<Resource, 'id' | 'reference' | 'reference_orig
 
 
 // Resource adapters local configuration
+// biome-ignore lint/complexity/noBannedTypes: type is currently empty, but it can be extended in the future
 type ResourceAdapterConfig = {
 	// xyz?: boolean
 }
@@ -127,7 +127,7 @@ class ResourceAdapter {
 	}
 
 
-	private localConfig(config: ResourceAdapterConfig): void {
+	private localConfig(_config: ResourceAdapterConfig): void {
 		// if (typeof config.xyz !== 'undefined') this.#config.xyz = config.xyz
 	}
 
@@ -356,5 +356,5 @@ abstract class ApiSingleton<R extends Resource> extends ApiResourceBase<R> {
 
 export default ResourceAdapter
 
-export { ApiResource, ApiSingleton }
 export type { ResourcesConfig, ResourcesInitConfig }
+export { ApiResource, ApiSingleton }

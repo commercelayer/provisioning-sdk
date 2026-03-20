@@ -1,7 +1,7 @@
 
-import { CommerceLayerProvisioningClient } from '../src'
-import { getClient, CommonData, handleError, interceptRequest } from '../test/common'
-import { beforeAll, describe, it, expect } from 'vitest'
+import { beforeAll, describe, expect, test } from 'vitest'
+import type { CommerceLayerProvisioningClient } from '../src'
+import { CommonData, getClient, handleError, interceptRequest } from '../test/common'
 
 
 
@@ -13,7 +13,7 @@ beforeAll(async () => { clp = await getClient({}) })
 
 describe('Test headers', () => {
 
-	it('Request headers', async () => {
+	test('Request headers', async () => {
 
 		const testHeaderValue = 'test-value'
 		const params = { fields: { } }
@@ -42,7 +42,7 @@ describe('Test headers', () => {
 	})
 
 
-	it('Response headers', async () => {
+	test('Response headers', async () => {
 
 		const params = { fields: { } }
 

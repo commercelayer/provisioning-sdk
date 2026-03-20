@@ -1,11 +1,11 @@
-import type { Nullable } from '../types'
-import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve } from '../query'
+import type { Resource, ResourceCreate, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, ResourceUpdate, } from '../resource'
+import { ApiResource } from '../resource'
+import type { Nullable } from '../types'
 
 import type { ApiCredential, ApiCredentialType } from './api_credentials'
-import type { Membership, MembershipType } from './memberships'
 import type { MembershipProfile, MembershipProfileType } from './membership_profiles'
+import type { Membership, MembershipType } from './memberships'
 import type { Organization, OrganizationType } from './organizations'
 import type { Role, RoleType } from './roles'
 
@@ -138,4 +138,4 @@ class ApplicationMemberships extends ApiResource<ApplicationMembership> {
 
 export default ApplicationMemberships
 
-export type { ApplicationMembership, ApplicationMembershipCreate, ApplicationMembershipUpdate, ApplicationMembershipType }
+export type { ApplicationMembership, ApplicationMembershipCreate, ApplicationMembershipType, ApplicationMembershipUpdate }

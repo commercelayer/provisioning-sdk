@@ -1,4 +1,5 @@
 import type { ObjectType } from "../src/types"
+
 // import path from 'node:path'
 
 
@@ -48,10 +49,10 @@ const isTokenExpired = (token: string): boolean => {
 	try {
 		const tokenData = JSON.parse(atob(token.split('.')[1]))
 		return (((tokenData.exp * 1000) - Date.now()) < 0)
-	} catch (err: any) {
+	} catch (_err: any) {
 		return false
 	}
 }
 
 
-export { sleep, sortObjectFields, /* packageInfo */ isTokenExpired }
+export { isTokenExpired, sleep, sortObjectFields, /* packageInfo */ }

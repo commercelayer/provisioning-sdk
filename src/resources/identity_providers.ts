@@ -1,7 +1,7 @@
-import type { Nullable } from '../types'
-import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve } from '../query'
+import type { Resource, ResourceCreate, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, ResourceUpdate, } from '../resource'
+import { ApiResource } from '../resource'
+import type { Nullable } from '../types'
 
 import type { User } from './users'
 
@@ -259,4 +259,4 @@ class IdentityProviders extends ApiResource<IdentityProvider> {
 
 export default IdentityProviders
 
-export type { IdentityProvider, IdentityProviderCreate, IdentityProviderUpdate, IdentityProviderType }
+export type { IdentityProvider, IdentityProviderCreate, IdentityProviderType, IdentityProviderUpdate }

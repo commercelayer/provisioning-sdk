@@ -1,12 +1,12 @@
-import { readFileSync, writeFileSync } from 'fs'
-import { resolve } from 'path'
+import { readFileSync, writeFileSync } from 'node:fs'
+import { resolve } from 'node:path'
 import { sortObjectFields } from '../src/util'
 import Inflector from './inflector'
 
 
 const SCHEMA_LOCAL_PATH = resolve('./gen/openapi.json')
 const SCHEMA_NAME = 'openapi.json'
-const SCHEMA_REMOTE_URL = 'https://data.commercelayer.app/schemas/provisioning/' + SCHEMA_NAME
+const SCHEMA_REMOTE_URL = `https://data.commercelayer.app/schemas/provisioning/${SCHEMA_NAME}`
 
 
 type SchemaInfo = {
@@ -31,7 +31,7 @@ const downloadSchema = async (url?: string): Promise<SchemaInfo> => {
 
 	const version = schema.info.version
 
-	console.log('OpenAPI schema downloaded: ' + version)
+	console.log(`OpenAPI schema downloaded: ${version}`)
 
 	return {
 		remoteUrl: schemaUrl,
@@ -201,7 +201,7 @@ const parsePaths = (schemaPaths: any[]): PathMap => {
 						}
 						op.responseType = Inflector.camelize(Inflector.singularize(op.relationship.type))
 					} else {
-						op.function = operationName(oKey, id),
+						op.function = operationName(oKey, id)
 						op.action = true
 					}
 				} else skip = true
@@ -230,18 +230,18 @@ const isReference = (obj: any): boolean => {
 
 
 const getReference = (obj: any): string | undefined => {
-	if (obj) return obj['$ref']
+	if (obj) return obj.$ref
 	return undefined
 }
 
 
-const resolveReference = (schemaComponents: any[], ref: string): any => {
+const resolveReference = (schemaComponents: any, ref: string): any => {
 
 	const segs = ref.replace('#/components/schemas/', '').split('/')
 	const key = Inflector.camelize(segs.shift() as string, true)
 
 	let reference: any = schemaComponents[key]
-	segs.forEach(s => reference = reference[s])
+	segs.forEach(s => { reference = reference[s] })
 
 	return reference
 
@@ -407,4 +407,4 @@ export default {
 	remoteUrl: SCHEMA_REMOTE_URL,
 }
 
-export { Resource, Operation, Component, ComponentMap, Cardinality, Relationship, ApiSchema, Attribute }
+export { type ApiSchema, type Attribute, Cardinality, type Component, type ComponentMap, type Operation, type Relationship, type Resource }

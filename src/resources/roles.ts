@@ -1,12 +1,11 @@
-import type { Nullable } from '../types'
+import type { QueryParamsList, QueryParamsRetrieve } from '../query'
+import type { ListResponse, Resource, ResourceCreate, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, ResourceUpdate, } from '../resource'
 import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ListResponse, ResourceSort, /* ResourceFilter */ } from '../resource'
-import type { QueryParamsRetrieve, QueryParamsList } from '../query'
-
+import type { Nullable } from '../types'
+import type { ApiCredential } from './api_credentials'
+import type { Membership } from './memberships'
 import type { Organization, OrganizationType } from './organizations'
 import type { Permission } from './permissions'
-import type { Membership } from './memberships'
-import type { ApiCredential } from './api_credentials'
 import type { Version } from './versions'
 
 
@@ -137,4 +136,4 @@ class Roles extends ApiResource<Role> {
 
 export default Roles
 
-export type { Role, RoleCreate, RoleUpdate, RoleType }
+export type { Role, RoleCreate, RoleType, RoleUpdate }

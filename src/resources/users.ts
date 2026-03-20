@@ -1,7 +1,7 @@
-import type { Nullable } from '../types'
-import { ApiSingleton } from '../resource'
-import type { Resource, SingletonUpdate, ResourceId, ResourcesConfig, ResourceRel, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve } from '../query'
+import type { Resource, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, SingletonUpdate, } from '../resource'
+import { ApiSingleton } from '../resource'
+import type { Nullable } from '../types'
 
 
 
@@ -107,4 +107,4 @@ class Users extends ApiSingleton<User> {
 
 export default Users
 
-export type { User, UserUpdate, UserType }
+export type { User, UserType, UserUpdate }

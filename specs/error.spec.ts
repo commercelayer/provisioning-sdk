@@ -1,9 +1,9 @@
 
-import { CommerceLayerProvisioningClient } from '../src'
+import { beforeAll, describe, expect, test } from 'vitest'
+import type { CommerceLayerProvisioningClient } from '../src'
 import { Organizations } from '../src/api'
 import { ErrorType } from '../src/error'
 import { getClient } from '../test/common'
-import { beforeAll, describe, it, expect } from 'vitest'
 
 
 let clp: CommerceLayerProvisioningClient
@@ -14,7 +14,7 @@ beforeAll(async () => { clp = await getClient({}) })
 
 describe('SDK:error suite', () => {
 
-	it('ApiError', async () => {
+	test('ApiError', async () => {
 		try {
 			await clp.roles.retrieve('fake-id')
 		} catch (error: any) {
@@ -24,7 +24,7 @@ describe('SDK:error suite', () => {
 	})
 
 
-	it('ApiError.first', async () => {
+	test('ApiError.first', async () => {
 		try {
 			await clp.roles.create({ name: '', organization: { id: '', type: Organizations.TYPE} })
 		} catch (error: any) {
@@ -33,7 +33,7 @@ describe('SDK:error suite', () => {
 	})
 
 
-	it('ApiError.type', async () => {
+	test('ApiError.type', async () => {
 		try {
 			clp.config({ domain: 'fake.domain.xx', accessToken: 'fake-access-token' })
 			await clp.roles.list({ pageSize: 1})

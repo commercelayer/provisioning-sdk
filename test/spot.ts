@@ -1,12 +1,12 @@
 
-import clProvisioning from '../src'
-import { inspect } from 'util'
-import getToken from './token'
+import { inspect } from 'node:util'
 import { getClient } from './common'
+import getToken from './token'
+
 // import { } from '../lib/index'
 
 
-async function refreshToken(old: string): Promise<string> {
+async function refreshToken(_old: string): Promise<string> {
 	const token = (await getToken('user')).accessToken
 	// if (true) throw new Error('Error refreshing test expired access token')
 	return token

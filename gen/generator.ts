@@ -1,10 +1,10 @@
 
-import apiSchema, { Resource, Operation, Component, Cardinality, Attribute, isObjectType } from './schema'
-import { readFileSync, writeFileSync, existsSync, mkdirSync, readdirSync, rmSync } from 'fs'
+import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { basename } from 'node:path'
 import Fixer from './fixer'
 import Inflector from './inflector'
 import { updateLicense } from './license'
+import apiSchema, { type Attribute, Cardinality, type Component, isObjectType, type Operation, type Resource } from './schema'
 
 
 /**** SDK source code generator settings ****/
@@ -27,7 +27,7 @@ type OperationType = 'retrieve' | 'list' | 'create' | 'update' | 'delete'
 type ApiRes = {
 	type: string
 	apiClass: string
-	models: Array<String>
+	models: Array<string>
 	singleton: boolean
 	operations: Array<OperationType>
 	taggable: boolean
@@ -57,7 +57,7 @@ const loadTemplates = (): void => {
 
 const generate = async (localSchema?: boolean) => {
 
-	console.log('>> Local schema: ' + (localSchema || false) + '\n')
+	console.log(`>> Local schema: ${localSchema || false}\n`)
 	CONFIG.LOCAL = localSchema || false
 
 	if (!localSchema) {
@@ -67,7 +67,7 @@ const generate = async (localSchema?: boolean) => {
 		try {
 			const currentSchema = apiSchema.current()
 			currentVersion = currentSchema.info.version
-		} catch (err) {
+		} catch (_err) {
 			console.log('No current local schema available')
 		}
 
@@ -79,7 +79,7 @@ const generate = async (localSchema?: boolean) => {
 		}
 		else
 			if (schemaInfo.version === currentVersion) {
-				console.log('No new OpenAPI schema version: ' + currentVersion)
+				console.log(`No new OpenAPI schema version: ${currentVersion}`)
 				return
 			}
 			else console.log(`New OpenAPI schema version: ${currentVersion} --> ${schemaInfo.version}`)
@@ -88,12 +88,12 @@ const generate = async (localSchema?: boolean) => {
 
 	const schemaPath = apiSchema.localPath
 	if (!existsSync(schemaPath)) {
-		console.log('Cannot find schema file: ' + schemaPath)
+		console.log(`Cannot find schema file: ${schemaPath}`)
 		return
 	}
 
 
-	console.log('Generating SDK resources from schema ' + schemaPath)
+	console.log(`Generating SDK resources from schema ${schemaPath}`)
 
 	const schema = apiSchema.parse(schemaPath)
 	global.version = schema.version
@@ -130,11 +130,11 @@ const generate = async (localSchema?: boolean) => {
 
 		const tplRes = generateResource(type, name, res)
 		writeFileSync(`${resDir}/${type}.ts`, tplRes)
-		console.log('Generated resource ' + name)
+		console.log(`Generated resource ${name}`)
 
 		const tplSpec = generateSpec(type, name, res)
 		writeFileSync(`${testDir}/${type}.spec.ts`, tplSpec)
-		console.log('Generated spec ' + name)
+		console.log(`Generated spec ${name}`)
 
 
 		const models = Object.keys(res.components)
@@ -179,13 +179,11 @@ const findLine = (str: string, lines: string[]): { text: string, index: number, 
 }
 
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const tabsCount = (template: string): number => {
+const _tabsCount = (template: string): number => {
 	return template.match(/##__TAB__##/g)?.length || 0
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const tabsString = (num: number): string => {
+const _tabsString = (num: number): string => {
 	let str = ''
 	for (let i = 0; i < num; i++) str += '\t'
 	return str
@@ -430,7 +428,7 @@ const updateApiResources = (resources: { [key: string]: ApiRes }): void => {
 
 
 
-const updateApiMicroClients = (resources: { [key: string]: ApiRes }): void => {
+const _updateApiMicroClients = (resources: { [key: string]: ApiRes }): void => {
 
 	const filePath = 'src/micro.ts'
 
@@ -443,7 +441,7 @@ const updateApiMicroClients = (resources: { [key: string]: ApiRes }): void => {
 	const clients: string[] = [copyrightHeader(templates.header)]
 
 	if (CONFIG.MICRO_CLIENTS) {
-		Object.entries(resources).forEach(([type, res]) => {
+		Object.entries(resources).forEach(([_type, res]) => {
 			let clt = cltTpl
 			clt = clt.replace(/##__RESOURCE_CLASS__##/g, res.apiClass)
 			clt = clt.replace(/##__RESOURCE_CLASS_INIT__##/g, Inflector.camelize(res.apiClass, true))
@@ -503,7 +501,7 @@ const generateSpec = (type: string, name: string, resource: Resource): string =>
 
 				specRel = specRel.replace(/##__OPERATION_NAME__##/g, op.name)
 				specRel = specRel.replace(/##__RELATIONSHIP_TYPE__##/g, op.relationship.type)
-				spec = spec.replace(/##__RELATIONSHIP_SPECS__##/g, '\n\n\t' + specRel + '\n\t##__RELATIONSHIP_SPECS__##')
+				spec = spec.replace(/##__RELATIONSHIP_SPECS__##/g, `\n\n\t${specRel}\n\t##__RELATIONSHIP_SPECS__##`)
 
 			}
 		})
@@ -525,7 +523,7 @@ const generateSpec = (type: string, name: string, resource: Resource): string =>
 					specTrg = specTrg.replace(/##__OPERATION_NAME__##/g, trigger.name)
 					specTrg = specTrg.replace(/##__TRIGGER_VALUE__##/g, triggerValue)
 					specTrg = specTrg.replace(/##__TRIGGER_PARAMS__##/g, triggerParams)
-					spec = spec.replace(/##__TRIGGER_SPECS__##/g, '\n\n\t' + specTrg + '\n\t##__TRIGGER_SPECS__##')
+					spec = spec.replace(/##__TRIGGER_SPECS__##/g, `\n\n\t${specTrg}\n\t##__TRIGGER_SPECS__##`)
 				}
 			}
 		}
@@ -551,7 +549,7 @@ const generateSpec = (type: string, name: string, resource: Resource): string =>
 		const attributes = reqType ? resource.components[reqType].attributes : {}
 		const required = Object.values(attributes).filter(attr => attr.required)
 		// required.forEach(r => obj += `\t\t\t${r.name}: ${inspect(randomValue(r.type, r.name))},\n`)
-		required.forEach(r => obj += `\t\t\t${r.name}: randomValue('${r.type}', '${r.name}'),\n`)
+		required.forEach(r => { obj += `\t\t\t${r.name}: randomValue('${r.type}', '${r.name}'),\n` })
 
 		// Relationships
 		const relationships = reqType ? resource.components[reqType].relationships : {}
@@ -656,7 +654,7 @@ const generateResource = (type: string, name: string, resource: Resource): strin
 	const resMod = new Set<string>()	// Resource generic models (Es. ResponseList)
 	// const relMod = new Set<string>()	// Relationships models
 	Object.entries(resource.operations).forEach(([opName, op]) => {
-		const tpl = op.singleton ? ((opName === 'update') ? templates['singleton_update'] : templates['singleton']) : templates[opName]
+		const tpl = op.singleton ? ((opName === 'update') ? templates.singleton_update : templates.singleton) : templates[opName]
 		if (op.singleton) resModelType = 'ApiSingleton'
 		if (tpl) {
 			if (['create', 'update'].includes(opName)) qryMod.add('QueryParamsRetrieve')
@@ -669,7 +667,7 @@ const generateResource = (type: string, name: string, resource: Resource): strin
 			else {
 				const tplOp = templatedOperation(resName, opName, op, tpl)
 				operations.push(tplOp.operation)
-				tplOp.types.forEach(t => declaredTypes.add(t))
+				tplOp.types.forEach(t => { declaredTypes.add(t) })
 			}
 		}
 		else {
@@ -690,12 +688,12 @@ const generateResource = (type: string, name: string, resource: Resource): strin
 			}
 			else
 				if (op.action && CONFIG.ACTION_FUNCTIONS) {
-					const tpla = templates['action']
+					const tpla = templates.action
 					const tplaOp = templatedOperation(resName, opName, op, tpla)
 					operations.push(tplaOp.operation)
 					tplaOp.typesDef.forEach(t => { declaredTypesDef.push(t) })
 				}
-				else console.log('Unknown operation: ' + opName)
+				else console.log(`Unknown operation: ${opName}`)
 		}
 	})
 
@@ -750,7 +748,7 @@ const generateResource = (type: string, name: string, resource: Resource): strin
 			if (m !== 'Resource') declaredImportsModels.add(m)	// Fix resource_errors issue
 		})
 		modelInterfaces.push(tplCmp.component)
-		if (cudSuffix) tplCmp.models.forEach(t => relationshipTypes.add(t))
+		if (cudSuffix) tplCmp.models.forEach(t => { relationshipTypes.add(t) })
 		else {
 			sortableFields.push('id', ...Object.values(component.attributes).filter(f => (f.sortable && !RESOURCE_COMMON_FIELDS.includes(f.name))).map(f => f.name))
 			filterableFields.push('id', ...Object.values(component.attributes).filter(f => (f.filterable && !RESOURCE_COMMON_FIELDS.includes(f.name))).map(f => f.name))
@@ -766,7 +764,7 @@ const generateResource = (type: string, name: string, resource: Resource): strin
 
 	// Relationships definition
 	const relTypesArray = Array.from(relationshipTypes).map(i => `type ${i}Rel = ResourceRel & { type: ${i}Type }`)
-	res = res.replace(/##__RELATIONSHIP_TYPES__##/g, relTypesArray.length ? (relTypesArray.join('\n') + '\n') : '')
+	res = res.replace(/##__RELATIONSHIP_TYPES__##/g, relTypesArray.length ? (`${relTypesArray.join('\n')}\n`) : '')
 
 	// Resources import
 	const impResMod: string[] = Array.from(declaredImportsModels)
@@ -793,9 +791,9 @@ const generateResource = (type: string, name: string, resource: Resource): strin
 
 
 const payloadDataType = (properties: any): any => {
-	const fields = Object.entries(properties).filter(([p, v]) => (p !== 'attributes')).map(([p, v]: [string, any]) => {
+	const fields = Object.entries(properties).filter(([p, _v]) => (p !== 'attributes')).map(([p, v]: [string, any]) => {
 		let type = v.type
-		if ((type === 'string') && v.enum && (v.enum.length > 0)) type = v.enum.map(t => { return `'${t}'` }).join(' | ')
+		if ((type === 'string') && v.enum && (v.enum.length > 0)) type = v.enum.map((t: any) => { return `'${t}'` }).join(' | ')
 		return `${p}: ${type}`
 	}).join(', ')
 	const attributes = Object.entries(properties.attributes.properties).map(([k, v]: [string, any]) => `${k}${v.nullable ? '?' : ''}: ${v.type}`).join(', ')
@@ -832,7 +830,7 @@ const templatedOperation = (res: string, name: string, op: Operation, tpl: strin
 	const opIdVar = op.id ? Inflector.camelize(op.id, true) : ''
 	if (op.relationship) {	// Relationship
 		operation = operation.replace(/##__RELATIONSHIP_TYPE__##/g, op.relationship.type)
-		operation = operation.replace(/##__RELATIONSHIP_PATH__##/g, op.path.substring(1).replace('{' + op.id, '${_' + opIdVar))
+		operation = operation.replace(/##__RELATIONSHIP_PATH__##/g, op.path.substring(1).replace(`{${op.id}`, `\${_${opIdVar}`))
 		operation = operation.replace(/##__RESOURCE_ID__##/g, opIdVar)
 		operation = operation.replace(/##__MODEL_RESOURCE_INTERFACE__##/g, Inflector.singularize(res))
 	}
@@ -845,7 +843,7 @@ const templatedOperation = (res: string, name: string, op: Operation, tpl: strin
 		}
 		else
 			if (op.action) {	// Action
-				operation = operation.replace(/##__ACTION_PATH__##/g, op.path.substring(1).replace('{' + op.id, '${_' + opIdVar))
+				operation = operation.replace(/##__ACTION_PATH__##/g, op.path.substring(1).replace(`{${op.id}`, `\${_${opIdVar}`))
 				operation = operation.replace(/##__RESOURCE_ID__##/g, opIdVar)
 				operation = operation.replace(/##__MODEL_RESOURCE_INTERFACE__##/g, Inflector.singularize(res))
 				operation = operation.replace(/##__ACTION_PAYLOAD_PARAM__##/g, isObjectType(op.requestType) ? ` payload: ${Inflector.camelize(op.name)}DataType,` : '')
@@ -854,7 +852,7 @@ const templatedOperation = (res: string, name: string, op: Operation, tpl: strin
 			}
 
 	if (placeholders) Object.entries(placeholders).forEach(([key, val]) => {
-		const plh = (key.startsWith('##__') && key.endsWith('__##')) ? key : `##__${key.toUpperCase()}__##`
+		const _plh = (key.startsWith('##__') && key.endsWith('__##')) ? key : `##__${key.toUpperCase()}__##`
 		operation = operation.replace(key, val)
 	})
 
@@ -905,7 +903,7 @@ const nullable = (type: string): string => {
 
 type ComponentEnums = { [key: string]: string }
 
-const templatedComponent = (res: string, name: string, cmp: Component, singleton?: boolean): { component: string, models: string[], enums: ComponentEnums, nullables: boolean } => {
+const templatedComponent = (_res: string, name: string, cmp: Component, singleton?: boolean): { component: string, models: string[], enums: ComponentEnums, nullables: boolean } => {
 
 	const cudModel = isCUDModel(name)
 
@@ -919,7 +917,7 @@ const templatedComponent = (res: string, name: string, cmp: Component, singleton
 	attributes.forEach(a => {
 		if (!RESOURCE_COMMON_FIELDS.includes(a.name)) {
 			if (cudModel || a.fetchable) {
-				let attrType = fixAttributeType(a)
+				const attrType = fixAttributeType(a)
 				if (a.enum) enums[a.name] = attrType
 				if (a.description || a.example) {
 					const desc = (a.description && !a.description.endsWith('.')) ? `${a.description}.` : a.description

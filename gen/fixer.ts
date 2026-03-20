@@ -1,9 +1,10 @@
 /* eslint-disable no-console */
-import { ApiSchema } from './schema'
-import resSchema from './resources.js'
+
 import { sortObjectFields } from '../src/util'
-import Inflector from './inflector.js'
 import { CONFIG } from './generator.js'
+import Inflector from './inflector.js'
+import resSchema from './resources.js'
+import type { ApiSchema } from './schema'
 
 
 
@@ -84,7 +85,7 @@ const enrichSchema = async (schema: ApiSchema): Promise<ApiSchema> => {
 
 const fixHeadingEmptyLines = (lines: string[]): string[] => {
 
-	let l = 0
+	const l = 0
 	let line = ''
 
 	while ((line = lines[l]).trim() === '') lines.shift()

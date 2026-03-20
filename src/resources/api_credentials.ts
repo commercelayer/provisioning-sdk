@@ -1,7 +1,7 @@
-import type { Nullable } from '../types'
-import { ApiResource } from '../resource'
-import type { Resource, ResourceCreate, ResourceUpdate, ResourceId, ResourcesConfig, ResourceRel, ResourceSort, /* ResourceFilter */ } from '../resource'
 import type { QueryParamsRetrieve } from '../query'
+import type { Resource, ResourceCreate, ResourceId, ResourceRel, ResourceSort, /* ResourceFilter */ ResourcesConfig, ResourceUpdate, } from '../resource'
+import { ApiResource } from '../resource'
+import type { Nullable } from '../types'
 
 import type { Organization, OrganizationType } from './organizations'
 import type { Role, RoleType } from './roles'
@@ -188,4 +188,4 @@ class ApiCredentials extends ApiResource<ApiCredential> {
 
 export default ApiCredentials
 
-export type { ApiCredential, ApiCredentialCreate, ApiCredentialUpdate, ApiCredentialType }
+export type { ApiCredential, ApiCredentialCreate, ApiCredentialType, ApiCredentialUpdate }

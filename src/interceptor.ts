@@ -38,8 +38,7 @@ type ErrorInterceptor = (error: ErrorObj) => ErrorObj | Promise<ErrorObj>
 type InterceptorType = 'request' | 'response'
 
 
-export type { InterceptorManager, RequestInterceptor, ResponseInterceptor, ErrorInterceptor, InterceptorType }
-export type { RequestObj, ResponseObj, ErrorObj, HeadersObj }
+export type { ErrorInterceptor, ErrorObj, HeadersObj, InterceptorManager, InterceptorType, RequestInterceptor, RequestObj, ResponseInterceptor, ResponseObj }
 
 
 
