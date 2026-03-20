@@ -1,4 +1,5 @@
 
+import { execSync } from 'node:child_process'
 import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { basename } from 'node:path'
 import Fixer from './fixer'
@@ -52,6 +53,16 @@ const loadTemplates = (): void => {
 		const tpl = readFileSync(`${tplDir}/${tplName}.tpl`, { encoding: 'utf-8' })
 		templates[tplName] = tpl
 	})
+}
+
+
+export function formatCode(sourcePath: string): void {
+  try {
+    console.log(`- Formatting folder: ${sourcePath}`)
+    execSync(`pnpm biome check --write ${sourcePath}`, { encoding: "utf-8" })
+  } catch (error) {
+    console.error("Formatter error:", error)
+  }
 }
 
 
@@ -162,6 +173,11 @@ const generate = async (localSchema?: boolean) => {
 	// updateApiMicroClients(resources)
 
 	updateLicense()
+
+	formatCode(resDir)
+	formatCode(testDir)
+	formatCode('src/api.ts')
+	formatCode('src/model.ts')
 
 	console.log(`SDK generation completed [${global.version}].\n`)
 
