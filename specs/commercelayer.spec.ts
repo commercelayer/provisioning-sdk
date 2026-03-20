@@ -1,4 +1,4 @@
-
+import { expect, test, beforeAll, describe } from 'vitest'
 import { CommerceLayerProvisioning, CommerceLayerProvisioningClient, CommerceLayerProvisioningStatic } from '../src'
 import { getClient } from '../test/common'
 import getAccessToken from '../test/token'
@@ -12,7 +12,7 @@ beforeAll(async () => { clp = await getClient() }, 10000)
 
 describe('SDK:commercelayer suite', () => {
 
-	it('commercelayer.resources', async () => {
+	test('commercelayer.resources', async () => {
 
 		const resources = CommerceLayerProvisioningStatic.resources()
 
@@ -27,12 +27,11 @@ describe('SDK:commercelayer suite', () => {
 
 
 
-	it('commercelayer.rawResponse', async () => {
+	test('commercelayer.rawResponse', async () => {
 
-		jest.setTimeout(10000)
 		const headers = true
 
-		const cli = await getClient({})
+		const cli = await getClient({ timeout: 15000 })
 
 		const reader = cli.addRawResponseReader({ headers })
 		expect(reader).not.toBeUndefined()
@@ -50,7 +49,7 @@ describe('SDK:commercelayer suite', () => {
 	})
 
 
-	it('commercelayer.refreshToken', async () => {
+	test('commercelayer.refreshToken', async () => {
 
 		let refreshed = false
 
@@ -68,11 +67,9 @@ describe('SDK:commercelayer suite', () => {
 			accessToken: expiredToken,
 			refreshToken
 		})
-
+		
 		expect(cli.currentAccessToken).toBe(expiredToken)
-
 		await cli.memberships.list({ pageSize: 1 })
-
 		expect(refreshed).toBeTruthy()
 		expect(cli.currentAccessToken).toBeDefined()
 		expect(cli.currentAccessToken).not.toBe(expiredToken)

@@ -4,6 +4,7 @@ import { getClient, TestData } from '../test/common'
 import { normalize, denormalize } from '../src/jsonapi'
 import { ResourceTypeLock } from '../src/api'
 import { isDeepStrictEqual } from 'node:util'
+import { beforeAll, describe, it, expect } from 'vitest'
 
 
 let clp: CommerceLayerProvisioningClient

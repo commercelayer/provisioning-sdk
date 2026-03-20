@@ -7,6 +7,7 @@ import { CommerceLayerProvisioningClient, ##__RESOURCE_MODEL__## } from '../../s
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
+import { beforeAll, describe, it, expect } from 'vitest'
 
 
 

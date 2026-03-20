@@ -1,6 +1,7 @@
 
 import { CommerceLayerProvisioningClient } from '../src'
 import { getClient, CommonData, handleError, interceptRequest } from '../test/common'
+import { beforeAll, describe, it, expect } from 'vitest'
 
 
 
@@ -25,10 +26,11 @@ describe('Test headers', () => {
 		}
 
 		const intId = clp.addRequestInterceptor((request) => {
-			expect(request.options.headers).toBeDefined()
-			if (request.options.headers) {
-				expect(request.options.headers['test-header']).toBe(testHeaderValue)
-				expect(request.options.headers['Content-Type']).toBe('application/vnd.api+json')
+			const requestOptionsHeaders = request.options.headers as Record<string, string>
+			expect(requestOptionsHeaders).toBeDefined()
+			if (requestOptionsHeaders) {
+				expect(requestOptionsHeaders['test-header']).toBe(testHeaderValue)
+				expect(requestOptionsHeaders['Content-Type']).toBe('application/vnd.api+json')
 			}
 			return interceptRequest()
 		})

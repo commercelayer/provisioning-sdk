@@ -4,6 +4,8 @@ import { sleep, sortObjectFields } from '../src/util'
 import { getClient, TestData } from '../test/common'
 import { isResourceType } from '../src/common'
 import type { ObjectType } from '../src/types'
+import { beforeAll, describe, it, expect } from 'vitest'
+
 
 
 let clp: CommerceLayerProvisioningClient
@@ -70,8 +72,6 @@ describe('SDK suite', () => {
 
 
 	it('response.emptyBody', async () => {
-
-		jest.setTimeout(15_000)
 
 		const cli = await getClient({})
 

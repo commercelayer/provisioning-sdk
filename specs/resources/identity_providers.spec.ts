@@ -1,5 +1,5 @@
 /**
- * ©2025 Commerce Layer Inc.
+ * ©2026 Commerce Layer Inc.
  * Source code generated automatically by SDK codegen
  **/
 
@@ -7,6 +7,7 @@ import { CommerceLayerProvisioningClient, IdentityProvider } from '../../src'
 import { isDeepStrictEqual } from 'node:util'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getClient, TestData, CommonData, handleError, interceptRequest, checkCommon, checkCommonData, checkCommonParamsList, checkCommonParams, currentAccessToken, randomValue } from '../../test/common'
+import { beforeAll, describe, it, expect } from 'vitest'
 
 
 

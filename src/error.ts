@@ -2,7 +2,6 @@ import { FetchError } from './fetch'
 
 
 enum ErrorType {
-
 	CLIENT = 'client',		  				// Generic Client error
 	REQUEST = 'request',						// Error preparing API request
 	RESPONSE = 'response',					// Error response from API
@@ -33,6 +32,7 @@ class SdkError extends Error {
 
 }
 
+
 class ApiError extends SdkError {
 
 	static NAME = 'ApiError'
@@ -45,7 +45,7 @@ class ApiError extends SdkError {
 	status?: number
 	statusText?: string
 
-	constructor(error: SdkError)
+	// constructor(error: SdkError)
 	constructor(error: { message: string }) {
 		super({ ...error, type: ErrorType.RESPONSE })
 		this.name = ApiError.NAME
@@ -59,7 +59,7 @@ class ApiError extends SdkError {
 
 
 const isRequestError = (error: any): error is TypeError => {
-	return error instanceof TypeError
+	return (error instanceof TypeError) && (error.message !== 'fetch failed')
 }
 
 const isCancelError = (error: any): boolean => {
@@ -71,9 +71,11 @@ const isTimeoutError = (error: any): boolean => {
 }
 
 const isExpiredTokenError = (error: any): boolean => {
+	// Error code in provisioning api differs from core api
+	const invalidTokenCodes = ['INVALID_TOKEN', 'UNAUTHORIZED']
 	return (ApiError.isApiError(error) && (error.status === 401) && (
-		['INVALID_TOKEN', 'UNAUTHORIZED'].includes(error.code || '') ||
-		(error.errors && (error.errors.length > 0) && ['INVALID_TOKEN', 'UNAUTHORIZED'].includes(error.errors[0].code as string))
+		invalidTokenCodes.includes(error.code || '') ||
+		(error.errors && (error.errors.length > 0) && invalidTokenCodes.includes(error.errors[0].code as string))
 	))
 }
 

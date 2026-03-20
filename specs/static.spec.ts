@@ -2,6 +2,7 @@
 import { CommerceLayerProvisioningClient, CommerceLayerProvisioningStatic } from '../src'
 import { OPEN_API_SCHEMA_VERSION } from '../src/commercelayer'
 import { getClient } from '../test/common'
+import { beforeAll, describe, it, expect } from 'vitest'
 
 
 let clp: CommerceLayerProvisioningClient

@@ -2,6 +2,7 @@
 import { CommerceLayerProvisioningClient, Membership, Role } from '../src'
 import { ListResponse } from '../src/resource'
 import { getClient } from '../test/common'
+import { beforeAll, describe, it, expect } from 'vitest'
 
 
 let clp: CommerceLayerProvisioningClient
@@ -86,7 +87,7 @@ describe('SDK:resource suite', () => {
 		await clp.memberships.delete(tempId)
 		try {
 			await clp.memberships.retrieve(tempId)
-		} catch (error) {
+		} catch (error: any) {
 			expect(error.code).toEqual("404")
 			expect(error.status).toEqual(404)
 		}

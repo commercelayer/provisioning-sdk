@@ -8,7 +8,7 @@ import { Resource } from '../src/resource'
 
 dotenv.config()
 
-const GLOBAL_TIMEOUT = 15000
+export const GLOBAL_TIMEOUT = 15000
 
 const domain = process.env.CL_SDK_DOMAIN as string
 
@@ -71,7 +71,7 @@ const initClient = async (config: CommerceLayerConfig): Promise<CommerceLayerPro
 	currentAccessToken = accessToken
 
 	client.config({ timeout: config.timeout || GLOBAL_TIMEOUT })
-	try { jest.setTimeout(config.timeout || GLOBAL_TIMEOUT) } catch (err: any) { }
+	try { vi.setConfig({ testTimeout: config.timeout || GLOBAL_TIMEOUT })  } catch(err: any) {}
 
 	return client
 
@@ -149,8 +149,9 @@ export { handleError, interceptRequest, randomValue }
 
 const checkCommon = (request: RequestObj, path: string, id?: string, token?: string, relationship?: string) => {
 	expect(request.url.pathname).toBe('/api/' + path + (id ? `/${id}` : '') + (relationship ? `/${relationship}` : ''))
-	expect(request.options.headers).toBeDefined()
-	if (request.options.headers) expect(request.options.headers['Authorization']).toContain('Bearer ' + (token || ''))
+	const requestOptionsHeaders = request.options.headers as Record<string, string>
+	expect(requestOptionsHeaders).toBeDefined()
+	if (requestOptionsHeaders) expect(requestOptionsHeaders['Authorization']).toContain('Bearer ' + (token || ''))
 	expect(request.options.signal).not.toBeNull()
 }
 
