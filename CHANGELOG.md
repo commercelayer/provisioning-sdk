@@ -1,3 +1,10 @@
+## [2.10.1](https://github.com/commercelayer/provisioning-sdk/compare/v2.10.0...v2.10.1) (2026-03-20)
+
+
+### Bug Fixes
+
+* fix source code generator (formatter) ([2035f5b](https://github.com/commercelayer/provisioning-sdk/commit/2035f5b64bff7b2b3ed3e38fc508a6c61394ff9f))
+
 # [2.10.0](https://github.com/commercelayer/provisioning-sdk/compare/v2.9.1...v2.10.0) (2026-03-20)
 
 
