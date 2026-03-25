@@ -56,7 +56,7 @@ const loadTemplates = (): void => {
 }
 
 
-export function formatCode(sourcePath: string): void {
+function formatCode(sourcePath: string): void {
   try {
     console.log(`- Formatting folder: ${sourcePath}`)
     execSync(`pnpm biome check --write ${sourcePath}`, { encoding: "utf-8" })
