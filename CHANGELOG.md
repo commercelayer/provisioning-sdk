@@ -1,3 +1,11 @@
+## [2.10.2](https://github.com/commercelayer/provisioning-sdk/compare/v2.10.1...v2.10.2) (2026-04-02)
+
+
+### Bug Fixes
+
+* fix biome schema version ([8db75b1](https://github.com/commercelayer/provisioning-sdk/commit/8db75b11900878906f77101ff911a716d39d7e81))
+* update dependencies ([1f6bcee](https://github.com/commercelayer/provisioning-sdk/commit/1f6bceedafc8bc94fcdbb74105b9c893b813104f))
+
 ## [2.10.1](https://github.com/commercelayer/provisioning-sdk/compare/v2.10.0...v2.10.1) (2026-03-20)
 
 
